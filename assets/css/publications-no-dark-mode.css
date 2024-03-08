@@ -1,3 +1,42 @@
+.nav-tabs {
+    border-bottom: 2px solid #dee2e6;
+    padding-left: 0;
+    margin-bottom: 1rem;
+    list-style: none;
+  }
+  
+  .nav-tabs .nav-item {
+    margin-bottom: -1px;
+  }
+  
+  .nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-radius: 0.25rem 0.25rem 0 0;
+    background: rgba(135, 206, 235, 0.9);
+    color: #fff;
+    margin-right: 2px;
+    padding: 0.3rem 1rem;
+  }
+  
+  .nav-tabs .nav-link:hover {
+    border-color: #e9ecef #e9ecef #dee2e6;
+  }
+  
+  .nav-tabs .nav-link.active {
+    color: #495057;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+  }
+
+  .tab-content > .tab-pane {
+    display: none; /* 默认隐藏所有的.tab-pane */
+  }
+  
+  .tab-content > .active.show {
+    display: block; /* 仅显示.active.show的.tab-pane */
+  }
+  
+
 .badge {
     display: inline-block;
     padding: 0.25em 0.4em;
@@ -18,7 +57,15 @@
     box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
 }
 
-:root { --global-bg-color: #ffffff; --global-code-bg-color: rgba(181, 9, 172, 0.05); --global-text-color: #000000; --global-text-color-light: #828282; --global-theme-color: #002D72; --global-hover-color: #ffb81c; --global-footer-bg-color: #1c1c1c; --global-footer-text-color: #e8e8e8; --global-footer-link-color: #ffffff; --global-distill-app-color: #828282; }
+:root { --global-bg-color: #ffffff; --global-code-bg-color: rgba(181, 9, 172, 0.05); --global-text-color: #000000; --global-text-color-light: #828282; --global-theme-color: #002D72; --global-hover-color: #ffb81c; --global-footer-bg-color: #1c1c1c; --global-footer-text-color: #e8e8e8; --global-footer-link-color: #ffffff; --global-distill-app-color: #828282; 
+
+  --tab-active-bg-color: #fff;
+  --tab-bg-color: var(--global-theme-color);
+  --tab-text-color: #fff;
+  --tab-active-text-color: #495057;
+  --tab-border-color: #dee2e6;
+
+}
 
 blockquote { background: var(--global-bg-color); border-left: 2px solid var(--global-theme-color); margin: 1.5em 10px; padding: 0.5em 10px; font-size: 1.2rem; }
 
@@ -40,7 +87,7 @@ blockquote { background: var(--global-bg-color); border-left: 2px solid var(--gl
 
 .publications ol.bibliography li .abbr { height: 8rem; margin-bottom: 0.5rem; }
 
-.publications ol.bibliography li .abbr abbr { display: inline-block; background-color: var(--global-theme-color); padding-left: 1rem; padding-right: 1rem; position: absolute; top: 8px; left: 16px; }
+.publications ol.bibliography li .abbr abbr { display: inline-block; background-color: rgba(135, 206, 235, 0.9); padding-left: 1rem; padding-right: 1rem; position: absolute; top: 8px; left: 16px; }
 
 .publications ol.bibliography li .abbr abbr a { color: white; }
 

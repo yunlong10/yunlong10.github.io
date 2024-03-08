@@ -24,7 +24,7 @@
         {% if link.mentors.size > 1 %}
             Mentors:
         {% else %}
-            Mentors:
+            Mentor:
         {% endif %}
         {% for mentor in link.mentors %}
             {% if mentor.page %}

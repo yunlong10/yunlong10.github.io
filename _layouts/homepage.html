@@ -371,6 +371,41 @@
       });
 
 
+      document.addEventListener('DOMContentLoaded', function() {
+  // 获取所有的标签链接和内容面板
+  var tabs = document.querySelectorAll('#researchTabs .nav-link');
+  var panes = document.querySelectorAll('#researchTabsContent .tab-pane');
+
+  // 遍历所有标签
+  tabs.forEach(function(tab) {
+    tab.addEventListener('click', function(event) {
+      // 阻止默认行为
+      event.preventDefault();
+
+      // 移除其他所有标签的active状态
+      tabs.forEach(function(otherTab) {
+        otherTab.classList.remove('active');
+      });
+      // 为当前标签添加active状态
+      tab.classList.add('active');
+
+      // 获取当前标签对应的内容面板ID
+      var activePaneID = tab.getAttribute('href').substring(1);
+
+      // 遍历所有内容面板
+      panes.forEach(function(pane) {
+        // 如果内容面板的ID与当前标签对应，则显示，否则隐藏
+        if (pane.getAttribute('id') === activePaneID) {
+          pane.classList.add('active');
+          pane.classList.add('show');
+        } else {
+          pane.classList.remove('active');
+          pane.classList.remove('show');
+        }
+      });
+    });
+  });
+});
     </script>
     
   </body>

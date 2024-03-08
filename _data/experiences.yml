@@ -1,5 +1,17 @@
 main:
 
+  # - affiliation: "ByteDance"
+  #   base: San Jose, CA, US
+  #   # affiliation_short: SUSTech
+  #   website: https://www.bytedance.com/en/
+  #   time: May. 2024 - Aug. 2024 (Expected)
+  #   position: Research & Development Intern
+  #   mentors:
+  #     - name: Yiting Liao
+  #       page: https://scholar.google.com/citations?user=YdkNEBkAAAAJ
+  #   # notes: Excellent Graduate for Exceptional Performance
+  #   image: ./assets/img/bytedance_logo.png
+
   - affiliation: "SUSTech VIP Lab"
     base: Shenzhen, China
     # affiliation_short: SUSTech

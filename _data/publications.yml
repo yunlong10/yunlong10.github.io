@@ -1,42 +1,47 @@
 main:
   - title: "Video Understanding with Large Language Models: A Survey"
     authors: <strong><b>Yunlong Tang*</b></strong>, Jing Bi*, Siting Xu*, Luchuan Song, Susan Liang, Teng Wang, Daoan Zhang, Jie An, Jingyang Lin, Rongyi Zhu, Ali Vosoughi, Chao Huang, Zeliang Zhang, Feng Zheng, Jianguo Zhang, Ping Luo, Jiebo Luo, Chenliang Xu
-    # conference_short: Pinned
+    conference_short: Pinned
     conference: Preprint arXiv 2023.
     abs: https://arxiv.org/abs/2312.17432v2
     pdf: https://arxiv.org/pdf/2312.17432v2.pdf
     page: https://github.com/yunlong10/Awesome-LLMs-for-Video-Understanding
     bibtex: ./assets/bibtex/vidllmsurvey.txt
     image: ./assets/img/vidllm_survey.png
+    category: [understanding, agent]
     # notes:  Updating
 
-  # - title: "Emo-Avatar: Efficient Monocular Video Style Avatar through Texture Rendering"
-  #   authors: Pinxin Liu*, Luchuan Song*, Daoan Zhang, Hang Hua, <strong><b>Yunlong Tang</b></strong>, Huaijin Tu, Jiebo Luo, Chenliang Xu
-  #   # conference_short: Under Review
-  #   conference: Under Review.
-  #   abs: https://arxiv.org/abs/2402.00827v1
-  #   pdf: https://arxiv.org/pdf/2402.00827v1.pdf
-  #   page: https://andypinxinliu.github.io/project/Emo-Avatar/emo-avatar.html
-  #   # bibtex: ./assets/bibtex/vidllmsurvey.txt
-  #   image: ./assets/img/E-avata-pipeline.png
-  #   # notes: Under Review
+  - title: "Emo-Avatar: Efficient Monocular Video Style Avatar through Texture Rendering"
+    authors: Pinxin Liu*, Luchuan Song*, Daoan Zhang, Hang Hua, <strong><b>Yunlong Tang</b></strong>, Huaijin Tu, Jiebo Luo, Chenliang Xu
+    # conference_short: Under Review
+    conference: Under Review 2024.
+    abs: https://arxiv.org/abs/2402.00827v1
+    pdf: https://arxiv.org/pdf/2402.00827v1.pdf
+    page: https://andypinxinliu.github.io/project/Emo-Avatar/emo-avatar.html
+    # bibtex: ./assets/bibtex/vidllmsurvey.txt
+    image: ./assets/img/E-avata-pipeline.png
+    category: [generation]
+
+    # notes: Under Review
 
 
   - title: "LLMVA-GEBC: Large Language Model with Video Adapter for Generic Event Boundary Captioning"
     authors: <strong><b>Yunlong Tang</b></strong>, Jinrui Zhang, Xiangchen Wang, Teng Wang, Feng Zheng
     conference_short: CVPRW
-    conference: CVPR Workshop on Long-form Video Understanding <strong>(CVPRW)</strong>, 2023.
+    conference: CVPR Workshop 2023.
     abs: https://arxiv.org/abs/2306.10354
     pdf: https://arxiv.org/pdf/2306.10354.pdf
     code: https://github.com/zjr2000/LLMVA-GEBC
     workshop: https://sites.google.com/view/loveucvpr23/track2
+    certificate: ./assets/img/cvprw23FirstPlace.png
     bibtex: https://dblp.org/rec/journals/corr/abs-2306-10354.html?view=bibtexs
-    # notes: Oral Presentation
+    notes: Oral Presentation
     image: ./assets/img/llmva-gebc.png
+    category: [understanding]
+
 
   - title: "Caption Anything: Interactive Image Description with Diverse Multimodal Controls"
     authors: Teng Wang*, Jinrui Zhang*, Junjie Fei*, Hao Zheng, <strong><b>Yunlong Tang</b></strong>, Zhe Li, Mingqi Gao, Shanshan Zhao
-    # conference_short: Preprint
     conference: Preprint arXiv 2023.
     abs: https://arxiv.org/abs/2305.02677
     pdf: https://arxiv.org/pdf/2305.02677.pdf
@@ -44,8 +49,10 @@ main:
     # page: https://class-il.mpi-inf.mpg.de/mnemonics/
     bibtex: https://dblp.org/rec/journals/corr/abs-2305-02677.html?view=bibtex
     news: https://mp.weixin.qq.com/s/9yf8bRwyUfdryfSL2ntmJg
-    # notes: Oral Presentation
+    notes: GitHub Stars 1.6k+
     image: ./assets/gif/qingming.gif
+    category: [understanding, agent]
+
 
   - title: "LaunchpadGPT: Language Model as Music Visualization Designer on Launchpad"
     authors: Siting Xu*, <strong><b>Yunlong Tang*</b></strong>, Feng Zheng
@@ -56,7 +63,9 @@ main:
     code: https://github.com/yunlong10/LaunchpadGPT
     bibtex: https://dblp.org/rec/journals/corr/abs-2307-04827.html?view=bibtex
     image: ./assets/img/launchpadgpt.png
-    # notes: Early Accept
+    notes: Oral Presentation
+    category: [generation]
+
 
   - title: "Multi-modal Segment Assemblage Network for Ad Video Editing with Importance-Coherence Reward"
     authors: <strong><b>Yunlong Tang</b></strong>, Siting Xu, Teng Wang, Qin Lin, Qinglin Lu, Feng Zheng
@@ -71,3 +80,4 @@ main:
     bibtex: https://dblp.org/rec/conf/accv/TangXWLLZ22.html?view=bibtex
     # notes: Oral Presentation
     image: ./assets/img/m_san.png
+    category: [understanding]
