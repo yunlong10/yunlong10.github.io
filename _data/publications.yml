@@ -80,4 +80,4 @@ main:
     bibtex: https://dblp.org/rec/conf/accv/TangXWLLZ22.html?view=bibtex
     # notes: Oral Presentation
     image: ./assets/img/m_san.png
-    category: [understanding]
+    category: [understanding, generation]
