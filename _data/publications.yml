@@ -11,7 +11,14 @@ main:
     category: [understanding]
     # notes:  Updating
 
-  - title: "Emo-Avatar: Efficient Monocular Video Style Avatar through Texture Rendering"
+  - title: "AVicuna: Audio-Visual LLM with Interleaver and Context-Boundary Alignment for Temporal Referential Dialogue"
+    authors: <strong><b>Yunlong Tang</b></strong>, Daiki Shimada, Jing Bi, Chenliang Xu
+    # conference_short: Pinned
+    conference: Under Review 2024.
+    image: ./assets/img/teaser-avicuna.png
+    category: [understanding]
+
+  - title: "Emo-Avatar: Efficient Monocular Video Style Avatar Editing"
     authors: Pinxin Liu*, Luchuan Song*, Daoan Zhang, Hang Hua, <strong><b>Yunlong Tang</b></strong>, Huaijin Tu, Jiebo Luo, Chenliang Xu
     # conference_short: Under Review
     conference: Under Review 2024.
@@ -19,7 +26,7 @@ main:
     pdf: https://arxiv.org/pdf/2402.00827v1.pdf
     page: https://andypinxinliu.github.io/project/Emo-Avatar/emo-avatar.html
     # bibtex: ./assets/bibtex/vidllmsurvey.txt
-    image: ./assets/img/E-avata-pipeline.png
+    image: ./assets/img/emo-avatar-pipeline.png
     category: [generation]
 
     # notes: Under Review

@@ -3,12 +3,12 @@
 <div id="newsList">
     <!-- Visible News -->
     <ul class="visible-news">
-        {% for news_item in site.data.news.main limit:3 %}
+        {% for news_item in site.data.news.main limit:4 %}
             <li>{{ news_item.news | markdownify }}</li>
         {% endfor %}
     <!-- Hidden News -->
         <div class="hidden-news" style="display: none;">
-            {% for news_item in site.data.news.main offset:3 %}
+            {% for news_item in site.data.news.main offset:4 %}
                 <li>{{ news_item.news | markdownify }}</li>
             {% endfor %}
         </div>
