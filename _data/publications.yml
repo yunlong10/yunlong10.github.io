@@ -14,6 +14,8 @@ main:
   - title: "AVicuna: Audio-Visual LLM with Interleaver and Context-Boundary Alignment for Temporal Referential Dialogue"
     authors: <strong><b>Yunlong Tang</b></strong>, Daiki Shimada, Jing Bi, Chenliang Xu
     # conference_short: Pinned
+    abs: https://arxiv.org/abs/2403.16276
+    pdf: https://arxiv.org/pdf/2403.16276.pdf
     conference: Under Review 2024.
     image: ./assets/img/teaser-avicuna.png
     category: [understanding]
