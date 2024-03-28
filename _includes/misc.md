@@ -6,6 +6,7 @@
 - I'm a Tech-otaku, ACGN enthusiast, J-Pop fan, and <a href="https://www.eaccwiki.com/wiki/Philosophy_of_e/acc" target="_blank">e/acc</a> proponent.
 - I have a certain artistic foundation (10+ years of experience in painting).
 
+
 <h4 style="margin:0 10px 0;">Visitors Map</h4>
 <br>
 <script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=a&t=n&d=mErswMtIf2K7G41Iql-K1paY9dnbAA1mf0bzUzgiHAs&co=87CEEB&cmo=FF69B4&cmn=FF1493&w=300'></script>
