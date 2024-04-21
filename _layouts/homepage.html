@@ -154,6 +154,7 @@
       <a class="icon" href="javascript:void(0);" id="myMenu" onclick="memu_func()"><i class="fa fa-bars"></i></a>
       <div id="myLinks" onclick="link_func()">
         <a class="normal" href="#" data-target="misc">Misc</a>
+        <a class="normal" href="https://confirmed-jumper-f27.notion.site/Yolo-s-Blog-4965882a8e4149c1a43dfd1742606fd7" target="_blank">Blog</a>
         <a class="normal" href="#" data-target="services">Services</a> 
         <a class="normal" href="#" data-target="awards">Awards</a>
         <a class="normal" href="#" data-target="experiences">Experiences</a> 
@@ -354,17 +355,27 @@
 
         links.forEach(function(link) {
             link.addEventListener('click', function(e) {
-                e.preventDefault(); // 阻止默认行为
-                
-                var targetId = e.currentTarget.getAttribute('data-target'); // 获取data-target属性的值
-                var targetElement = document.getElementById(targetId); // 获取目标元素
-                
-                if (targetElement) {
-                    var targetPosition = targetElement.getBoundingClientRect().top + window.scrollY; // 获取目标元素的Y位置
-                    window.scrollTo({
-                        top: targetPosition - 50, 
-                        behavior: 'smooth' // 平滑滚动
-                    });
+                // 获取href属性的值
+                var href = link.getAttribute('href');
+
+                // 判断是否是外部链接
+                if (href && (href.startsWith('http://') || href.startsWith('https://'))) {
+                    // 是外部链接，保持默认行为，不阻止
+                } else {
+                    // 不是外部链接，执行自定义行为
+                    e.preventDefault(); // 阻止默认行为
+
+                    var targetId = e.currentTarget.getAttribute('data-target'); // 获取data-target属性的值
+                    if (targetId) {
+                        var targetElement = document.getElementById(targetId); // 获取目标元素
+                        if (targetElement) {
+                            var targetPosition = targetElement.getBoundingClientRect().top + window.scrollY; // 获取目标元素的Y位置
+                            window.scrollTo({
+                                top: targetPosition - 50, 
+                                behavior: 'smooth' // 平滑滚动
+                            });
+                        }
+                    }
                 }
             });
         });

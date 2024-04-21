@@ -20,6 +20,15 @@ main:
     image: ./assets/img/teaser-avicuna.png
     category: [understanding]
 
+  - title: "V2Xum-LLM: Cross-Modal Video Summarization with Temporal Prompt Instruction Tuning"
+    authors: Hang Hua*, <strong><b>Yunlong Tang*</b></strong>, Chenliang Xu, Jiebo Luo
+    # conference_short: Pinned
+    abs: https://arxiv.org/abs/2404.12353
+    pdf: https://arxiv.org/pdf/2404.12353.pdf
+    conference: Under Review 2024.
+    image: ./assets/img/v2xum-llama.png
+    category: [understanding]
+
   - title: "Emo-Avatar: Efficient Monocular Video Style Avatar Editing"
     authors: Pinxin Liu*, Luchuan Song*, Daoan Zhang, Hang Hua, <strong><b>Yunlong Tang</b></strong>, Huaijin Tu, Jiebo Luo, Chenliang Xu
     # conference_short: Under Review
@@ -37,7 +46,7 @@ main:
   - title: "LLMVA-GEBC: Large Language Model with Video Adapter for Generic Event Boundary Captioning"
     authors: <strong><b>Yunlong Tang</b></strong>, Jinrui Zhang, Xiangchen Wang, Teng Wang, Feng Zheng
     conference_short: CVPRW
-    conference: CVPR Workshop 2023.
+    conference: CVPR Long-form Video Understanding Workshop 2023.
     abs: https://arxiv.org/abs/2306.10354
     pdf: https://arxiv.org/pdf/2306.10354.pdf
     code: https://github.com/zjr2000/LLMVA-GEBC
