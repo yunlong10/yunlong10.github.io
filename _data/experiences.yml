@@ -5,12 +5,12 @@ main:
     # affiliation_short: SUSTech
     website: https://www.bytedance.com/en/
     time: May. 2024 - Aug. 2024 (Expected)
-    position: Research & Development Intern
+    position: Research Intern
     mentors:
       - name: Yiting Liao
         page: https://scholar.google.com/citations?user=YdkNEBkAAAAJ
       - name: Gen Zhan
-    notes: Upcoming
+    # notes: Upcoming
     image: ./assets/img/bytedance_logo.png
 
   - affiliation: "SUSTech VIP Lab"

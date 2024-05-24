@@ -1,7 +1,8 @@
 main:
+  - news: "**[May. 2024]** Started my internship at ByteDance, supervised by [Yiting Liao](https://scholar.google.com/citations?user=YdkNEBkAAAAJ) & Gen Zhan."
   - news: "**[Feb. 2024]** Excited to announce I'll start a summer internship at [ByteDance](https://www.bytedance.com/en/) in San Jose, CA."
   - news: "**[Dec. 2023]** 🔥🔥🔥 Released a survey for Video Understanding with LLMs ([*arXiv*](https://arxiv.org/abs/2312.17432v2), [*GitHub*](https://github.com/yunlong10/Awesome-LLMs-for-Video-Understanding))."
-  - news: "**[Aug. 2023]** Officially joined in the [Chenliang Xu's Group](https://www.cs.rochester.edu/~cxu22/g/index.html) at UR as a Ph.D. student."
+  - news: "**[Aug. 2023]** Officially joined in the [Chenliang Xu's Group](https://www.cs.rochester.edu/~cxu22/g/index.html) at UR CS as a Ph.D. student."
   - news: "**[Jul. 2023]** One paper accepted to International Computer Music Conference (ICMC) 2023."
   - news: "**[Jun. 2023]** Graduated from SUSTech, obtained my bachelor's degree and the honor of Excellent Graduate for Exceptional Performance."
   - news: "**[Jun. 2023]** Our team won the **first place** in [LOVEU (**Lo**ng-form **V**id**e**o **U**nderstanding) Challenge](https://sites.google.com/view/loveucvpr23/home) at CVPR'23 Workshop."
