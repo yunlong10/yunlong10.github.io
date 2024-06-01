@@ -82,7 +82,7 @@ main:
     bibtex: https://dblp.org/rec/journals/corr/abs-2307-04827.html?view=bibtex
     image: ./assets/img/launchpadgpt.png
     notes: Oral Presentation
-    category: [generation]
+    category: [generation, arts]
 
 
   - title: "Multi-modal Segment Assemblage Network for Ad Video Editing with Importance-Coherence Reward"

@@ -9,7 +9,7 @@ I'm Yunlong Tang (<a id="about-me" href='https://translate.google.com/?sl=auto&t
 <!-- I am currently interning at [ByteDance](https://www.bytedance.com/en/), working with [Dr. Yiting Liao](https://scholar.google.com/citations?user=YdkNEBkAAAAJ). -->
 I was a research intern at [Tencent](https://www.tencent.com/) Data Platform, mentored by Ms. Qin Lin and [Dr. Wenhao Jiang](https://scholar.google.com/citations?user=rAlT64IAAAAJ).
 
-My research focuses on *Multimodal Learning*, especially *Video Understanding & Generation*. I also have a keen interest in *AI-Agents*. <span style="color:deeppink;">I am actively looking for any collaboration. Please feel free to contact me if you are interested!</span>
+My research focuses on *Multimodal Learning*, especially *Video Understanding & Generation*. I also have a keen interest in *AI-Agents* and *Computational Arts*. <span style="color:deeppink;">I am actively looking for any collaboration. Please feel free to contact me if you are interested!</span>
 
 
 {% include_relative _includes/news.md %}
