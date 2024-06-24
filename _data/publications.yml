@@ -9,7 +9,7 @@ main:
     bibtex: ./assets/bibtex/vidllmsurvey.txt
     image: ./assets/img/vidllm_survey.png
     category: [understanding]
-    notes: GitHub Stars 700+
+    notes: GitHub Stars 800+
 
   - title: "AVicuna: Audio-Visual LLM with Interleaver and Context-Boundary Alignment for Temporal Referential Dialogue"
     authors: <strong><b>Yunlong Tang</b></strong>, Daiki Shimada, Jing Bi, Chenliang Xu
