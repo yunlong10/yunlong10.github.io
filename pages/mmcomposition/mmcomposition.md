@@ -210,12 +210,12 @@ Our key contributions are:
                 <th rowspan="2" style="vertical-align: middle; width: 50px;" ><strong>#</strong></th>
                 <th rowspan="2" style="vertical-align: middle; width: 180px;"><strong>Model</strong></th>
                 <th rowspan="2" style="vertical-align: middle; width: 50px;"><strong>LLM <br>Params</strong></th>
-                <th rowspan="2" style="vertical-align: middle; width: 100px;"><strong>Frames</strong></th>
+                <!-- <th rowspan="2" style="vertical-align: middle; width: 100px;"><strong>Frames</strong></th> -->
                 <th rowspan="2" style="vertical-align: middle; width: 110px;" ><strong>Date</strong></th>
                 <th colspan="2" style="vertical-align: middle; width: 300px;" data-js-sort-colNum="5"><strong>Overall (%)</strong></th>
-                <th colspan="2" style="vertical-align: middle; width: 300px;" data-js-sort-colNum="7"><strong>Short Video (%)</strong></th>
-                <th colspan="2" style="vertical-align: middle; width: 300px;" data-js-sort-colNum="9"><strong>Medium Video (%)</strong></th> 
-                <th colspan="2" style="vertical-align: middle; width: 300px;" data-js-sort-colNum="11"><strong>Long Video (%)</strong></th> 
+                <th colspan="2" style="vertical-align: middle; width: 300px;" data-js-sort-colNum="7"><strong>Perception (%)</strong></th>
+                <th colspan="2" style="vertical-align: middle; width: 300px;" data-js-sort-colNum="9"><strong>Reasoning (%)</strong></th> 
+                <!-- <th colspan="2" style="vertical-align: middle; width: 300px;" data-js-sort-colNum="11"><strong>Long Video (%)</strong></th>  -->
               </tr>
               <tr>
                 <th data-js-sort-colNum="4"><strong>w/o subs</strong></th>
@@ -224,8 +224,8 @@ Our key contributions are:
                 <th data-js-sort-colNum="7"><strong>w subs</strong></th>
                 <th data-js-sort-colNum="8"><strong>w/o subs</strong></th>
                 <th data-js-sort-colNum="9"><strong>w subs</strong></th>
-                <th data-js-sort-colNum="10"><strong>w/o subs</strong></th>
-                <th data-js-sort-colNum="11"><strong>w subs</strong></th>
+                <!-- <th data-js-sort-colNum="10"><strong>w/o subs</strong></th>
+                <th data-js-sort-colNum="11"><strong>w subs</strong></th> -->
               </tr>
             </thead>
             <tbody>
@@ -238,7 +238,7 @@ Our key contributions are:
                   </b>
                 </td>
                 <td style="vertical-align: middle;">- </td>
-                <td style="vertical-align: middle;">1/2 fps<sup>1*</sup> </td>
+                <!-- <td style="vertical-align: middle;">1/2 fps<sup>1*</sup> </td> -->
                 <td style="vertical-align: middle;">2024-06-15</td>
                 <td style="vertical-align: middle;"><b class="">75.0</b></td>
                 <td style="vertical-align: middle;"><b class="">81.3</b></td>
@@ -246,8 +246,8 @@ Our key contributions are:
                 <td style="vertical-align: middle;">84.5</td>
                 <td style="vertical-align: middle;">74.3</td>
                 <td style="vertical-align: middle;">81.0</td>
-                <td style="vertical-align: middle;">67.4</td>
-                <td style="vertical-align: middle;">77.4</td>                                 
+                <!-- <td style="vertical-align: middle;">67.4</td>
+                <td style="vertical-align: middle;">77.4</td>                                  -->
               </tr>
               <tr>
                 <td style="vertical-align: middle;">2</td>
@@ -255,7 +255,7 @@ Our key contributions are:
                   <p style="font-size: 12px; margin-left: 5px; color: #858383;">OpenAI</p>
                 </a></b></td>
                 <td style="vertical-align: middle;">- </td>
-                <td style="vertical-align: middle;">384<sup>2*</sup> </td>
+                <!-- <td style="vertical-align: middle;">384<sup>2*</sup> </td> -->
                 <td style="vertical-align: middle;">2024-06-15</td>
                 <td style="vertical-align: middle;"><b class="">71.9</b></td>
                 <td style="vertical-align: middle;"><b class="">77.2</b></td>
@@ -263,8 +263,8 @@ Our key contributions are:
                 <td style="vertical-align: middle;">82.8</td>
                 <td style="vertical-align: middle;">70.3</td>
                 <td style="vertical-align: middle;">76.6</td>
-                <td style="vertical-align: middle;">65.3</td> 
-                <td style="vertical-align: middle;">72.1</td>                           
+                <!-- <td style="vertical-align: middle;">65.3</td> 
+                <td style="vertical-align: middle;">72.1</td>                            -->
               </tr>
               <tr>
                 <td style="vertical-align: middle;">3</td>
@@ -275,7 +275,7 @@ Our key contributions are:
                   </b>
                 </td>
                 <td style="vertical-align: middle;">- </td>
-                <td style="vertical-align: middle;">1/2 fps<sup>1*</sup> </td>
+                <!-- <td style="vertical-align: middle;">1/2 fps<sup>1*</sup> </td> -->
                 <td style="vertical-align: middle;">2024-06-15</td>
                 <td style="vertical-align: middle;"><b class="">70.3</b></td>
                 <td style="vertical-align: middle;"><b class="">75.0</b></td>
@@ -283,8 +283,8 @@ Our key contributions are:
                 <td style="vertical-align: middle;">79.8</td>
                 <td style="vertical-align: middle;">68.8</td>
                 <td style="vertical-align: middle;">74.7</td>
-                <td style="vertical-align: middle;">61.1</td>
-                <td style="vertical-align: middle;">68.8</td>                                 
+                <!-- <td style="vertical-align: middle;">61.1</td>
+                <td style="vertical-align: middle;">68.8</td>                                  -->
               </tr>
               <tr>
                 <td style="vertical-align: middle;">4</td>
@@ -292,7 +292,7 @@ Our key contributions are:
                   <p style="font-size: 12px; margin-left: 5px; color: #858383;">OpenAI</p>
                 </a> </b></td>
                 <td style="vertical-align: middle;">- </td>
-                <td style="vertical-align: middle;">10 </td>
+                <!-- <td style="vertical-align: middle;">10 </td> -->
                 <td style="vertical-align: middle;">2024-06-15</td>
                 <td style="vertical-align: middle;"><b class="">59.9</b></td>
                 <td style="vertical-align: middle;"><b class="">63.3</b></td>
@@ -300,8 +300,8 @@ Our key contributions are:
                 <td style="vertical-align: middle;">73.2 </td>
                 <td style="vertical-align: middle;">55.8 </td>
                 <td style="vertical-align: middle;">59.7 </td>
-                <td style="vertical-align: middle;">53.5 </td>   
-                <td style="vertical-align: middle;">56.9 </td>                       
+                <!-- <td style="vertical-align: middle;">53.5 </td>   
+                <td style="vertical-align: middle;">56.9 </td>                        -->
               </tr>
               <tr>
                 <td style="vertical-align: middle;">5</td>
@@ -309,7 +309,7 @@ Our key contributions are:
                   <p style="font-size: 12px; margin-left: 5px; color: #858383;">NVIDIA & MIT</p>
                 </a> </b></td>
                 <td style="vertical-align: middle;">34B </td>
-                <td style="vertical-align: middle;">8 </td>
+                <!-- <td style="vertical-align: middle;">8 </td> -->
                 <td style="vertical-align: middle;">2024-06-15</td>
                 <td style="vertical-align: middle;"><b class="">59.0</b></td>
                 <td style="vertical-align: middle;"><b class="">59.4</b></td>
@@ -317,8 +317,8 @@ Our key contributions are:
                 <td style="vertical-align: middle;">68.9 </td>
                 <td style="vertical-align: middle;">58.1 </td>
                 <td style="vertical-align: middle;">57.4 </td>
-                <td style="vertical-align: middle;">50.8 </td>   
-                <td style="vertical-align: middle;">52.0 </td>                       
+                <!-- <td style="vertical-align: middle;">50.8 </td>   
+                <td style="vertical-align: middle;">52.0 </td>                        -->
               </tr>
               <tr>
                 <td style="vertical-align: middle;">6</td>
@@ -326,7 +326,7 @@ Our key contributions are:
                   <p style="font-size: 12px; margin-left: 5px; color: #858383;">NTU & UW Madison & ByteDance</p>
                 </a></b></td>
                 <td style="vertical-align: middle;">34B</td>
-                <td style="vertical-align: middle;">32 </td>
+                <!-- <td style="vertical-align: middle;">32 </td> -->
                 <td style="vertical-align: middle;">2024-06-15</td>
                 <td style="vertical-align: middle;"><strong>52.0</strong></td>
                 <td style="vertical-align: middle;"><strong>54.9</strong></td>
@@ -334,8 +334,8 @@ Our key contributions are:
                 <td style="vertical-align: middle;">65.1</td>
                 <td style="vertical-align: middle;">50.1</td>
                 <td style="vertical-align: middle;">52.2</td>
-                <td style="vertical-align: middle;">44.3</td>
-                <td style="vertical-align: middle;">47.2</td>                                 
+                <!-- <td style="vertical-align: middle;">44.3</td>
+                <td style="vertical-align: middle;">47.2</td>                                  -->
               </tr>
               <tr>
                 <td style="vertical-align: middle;">7</td>
@@ -343,7 +343,7 @@ Our key contributions are:
                   <p style="font-size: 12px; margin-left: 5px; color: #858383;">Shanghai AI Lab</p>
                 </a></b></td>
                 <td style="vertical-align: middle;">20B</td>
-                <td style="vertical-align: middle;">10 </td>
+                <!-- <td style="vertical-align: middle;">10 </td> -->
                 <td style="vertical-align: middle;">2024-06-15</td>
                 <td style="vertical-align: middle;"><strong>50.7</strong></td>
                 <td style="vertical-align: middle;"><strong>52.4</strong></td>
@@ -351,8 +351,8 @@ Our key contributions are:
                 <td style="vertical-align: middle;">61.7</td>
                 <td style="vertical-align: middle;">46.4</td>
                 <td style="vertical-align: middle;">49.1</td>
-                <td style="vertical-align: middle;">45.6</td>
-                <td style="vertical-align: middle;">46.6</td>                                 
+                <!-- <td style="vertical-align: middle;">45.6</td>
+                <td style="vertical-align: middle;">46.6</td>                                  -->
               </tr>
               <tr>
                 <td style="vertical-align: middle;">8</td>
@@ -360,7 +360,7 @@ Our key contributions are:
                   <p style="font-size: 12px; margin-left: 5px; color: #858383;">Tencent PCG</p>
                 </a></b></td>
                 <td style="vertical-align: middle;">3.8B</td>
-                <td style="vertical-align: middle;">32 </td>
+                <!-- <td style="vertical-align: middle;">32 </td> -->
                 <td style="vertical-align: middle;"><strong style="color: #22a56e;" >2024-06-23</strong></td>
                 <td style="vertical-align: middle;"><strong>48.2</strong></td>
                 <td style="vertical-align: middle;"><strong>51.7</strong></td>
@@ -368,8 +368,8 @@ Our key contributions are:
                 <td style="vertical-align: middle;">61.7</td>
                 <td style="vertical-align: middle;">45.9</td>
                 <td style="vertical-align: middle;">49.2</td>
-                <td style="vertical-align: middle;">40.3</td>
-                <td style="vertical-align: middle;">44.1</td>                                 
+                <!-- <td style="vertical-align: middle;">40.3</td>
+                <td style="vertical-align: middle;">44.1</td>                                  -->
               </tr>
               <tr>
                 <td style="vertical-align: middle;">9</td>
@@ -377,7 +377,7 @@ Our key contributions are:
                   <p style="font-size: 12px; margin-left: 5px; color: #858383;">Alibaba</p>
                 </a></b></td>
                 <td style="vertical-align: middle;">-</td>
-                <td style="vertical-align: middle;">4 </td>
+                <!-- <td style="vertical-align: middle;">4 </td> -->
                 <td style="vertical-align: middle;">2024-06-15</td>
                 <td style="vertical-align: middle;"><strong>51.3</strong></td>
                 <td style="vertical-align: middle;"><strong>51.2</strong></td>
@@ -385,8 +385,8 @@ Our key contributions are:
                 <td style="vertical-align: middle;">57.6</td>
                 <td style="vertical-align: middle;">49.2</td>
                 <td style="vertical-align: middle;">48.9</td>
-                <td style="vertical-align: middle;">48.9</td>
-                <td style="vertical-align: middle;">47.0</td>                                 
+                <!-- <td style="vertical-align: middle;">48.9</td>
+                <td style="vertical-align: middle;">47.0</td>                                  -->
               </tr>
               <tr>
                 <td style="vertical-align: middle;">10</td>
@@ -394,7 +394,7 @@ Our key contributions are:
                   <p style="font-size: 12px; margin-left: 5px; color: #858383;">Alibaba</p>
                 </a></b></td>
                 <td style="vertical-align: middle;">7B</td>
-                <td style="vertical-align: middle;">16 </td>
+                <!-- <td style="vertical-align: middle;">16 </td> -->
                 <td style="vertical-align: middle;"><strong style="color: #22a56e;" >2024-06-18</strong></td>
                 <td style="vertical-align: middle;"><strong>47.9</strong></td>
                 <td style="vertical-align: middle;"><strong>50.3</strong></td>
@@ -402,8 +402,8 @@ Our key contributions are:
                 <td style="vertical-align: middle;">59.4</td>
                 <td style="vertical-align: middle;">45.4</td>
                 <td style="vertical-align: middle;">47.6</td>
-                <td style="vertical-align: middle;">42.1</td>
-                <td style="vertical-align: middle;">43.8</td>                                 
+                <!-- <td style="vertical-align: middle;">42.1</td>
+                <td style="vertical-align: middle;">43.8</td>                                  -->
               </tr>
               <tr>
                 <td style="vertical-align: middle;">11</td>
@@ -411,7 +411,7 @@ Our key contributions are:
                   <p style="font-size: 12px; margin-left: 5px; color: #858383;"></p>
                 </a></b></td>
                 <td style="vertical-align: middle;">7B</td>
-                <td style="vertical-align: middle;">64 </td>
+                <!-- <td style="vertical-align: middle;">64 </td> -->
                 <td style="vertical-align: middle;"><strong style="color: #22a56e;" >2024-06-20</strong></td>
                 <td style="vertical-align: middle;"><strong>43.2</strong></td>
                 <td style="vertical-align: middle;"><strong>47.9</strong></td>
@@ -419,8 +419,8 @@ Our key contributions are:
                 <td style="vertical-align: middle;">52.8</td>
                 <td style="vertical-align: middle;">41.3</td>
                 <td style="vertical-align: middle;">47.3</td>
-                <td style="vertical-align: middle;">39.1</td>
-                <td style="vertical-align: middle;">43.4</td>                                 
+                <!-- <td style="vertical-align: middle;">39.1</td>
+                <td style="vertical-align: middle;">43.4</td>                                  -->
               </tr>
               <tr>
                 <td style="vertical-align: middle;">12</td>
@@ -428,7 +428,7 @@ Our key contributions are:
                   <p style="font-size: 12px; margin-left: 5px; color: #858383;">PKU</p>
                 </a></b></td>
                 <td style="vertical-align: middle;">7B</td>
-                <td style="vertical-align: middle;">64 </td>
+                <!-- <td style="vertical-align: middle;">64 </td> -->
                 <td style="vertical-align: middle;">2024-06-15</td>
                 <td style="vertical-align: middle;"><strong>40.6</strong></td>
                 <td style="vertical-align: middle;"><strong>45.9</strong></td>
@@ -436,8 +436,8 @@ Our key contributions are:
                 <td style="vertical-align: middle;">51.2</td>
                 <td style="vertical-align: middle;">40.3</td>
                 <td style="vertical-align: middle;">44.6</td>
-                <td style="vertical-align: middle;">35.8</td>
-                <td style="vertical-align: middle;">41.8</td>                                 
+                <!-- <td style="vertical-align: middle;">35.8</td>
+                <td style="vertical-align: middle;">41.8</td>                                  -->
               </tr>
               <tr>
                 <td style="vertical-align: middle;">13</td>
@@ -445,7 +445,7 @@ Our key contributions are:
                   <p style="font-size: 12px; margin-left: 5px; color: #858383;">Shanghai AI Lab</p>
                 </a></b></td>
                 <td style="vertical-align: middle;">7B</td>
-                <td style="vertical-align: middle;">16 </td>
+                <!-- <td style="vertical-align: middle;">16 </td> -->
                 <td style="vertical-align: middle;">2024-06-15</td>
                 <td style="vertical-align: middle;"><strong>39.5</strong></td>
                 <td style="vertical-align: middle;"><strong>43.8</strong></td>
@@ -453,8 +453,8 @@ Our key contributions are:
                 <td style="vertical-align: middle;">52.8</td>
                 <td style="vertical-align: middle;">37.0</td>
                 <td style="vertical-align: middle;">39.4</td>
-                <td style="vertical-align: middle;">33.2</td>
-                <td style="vertical-align: middle;">39.2</td>                               
+                <!-- <td style="vertical-align: middle;">33.2</td>
+                <td style="vertical-align: middle;">39.2</td>                                -->
               </tr>
               <tr>
                 <td style="vertical-align: middle;">14</td>
@@ -462,7 +462,7 @@ Our key contributions are:
                   <p style="font-size: 12px; margin-left: 5px; color: #858383;">Shanghai AI Lab</p>
                 </a></b></td>
                 <td style="vertical-align: middle;">8B</td>
-                <td style="vertical-align: middle;">16 </td>
+                <!-- <td style="vertical-align: middle;">16 </td> -->
                 <td style="vertical-align: middle;"><strong style="color: #22a56e;" >2024-06-17</strong></td>
                 <td style="vertical-align: middle;"><strong>39.9</strong></td>
                 <td style="vertical-align: middle;"><strong>43.6</strong></td>
@@ -470,8 +470,8 @@ Our key contributions are:
                 <td style="vertical-align: middle;">53.6</td>
                 <td style="vertical-align: middle;">36.3</td>
                 <td style="vertical-align: middle;">39.3</td>
-                <td style="vertical-align: middle;">35.0</td>
-                <td style="vertical-align: middle;">37.9</td>                               
+                <!-- <td style="vertical-align: middle;">35.0</td>
+                <td style="vertical-align: middle;">37.9</td>                                -->
               </tr>
               <tr>
                 <td style="vertical-align: middle;">15</td>
@@ -479,7 +479,7 @@ Our key contributions are:
                   <p style="font-size: 12px; margin-left: 5px; color: #858383;">PKU</p>
                 </a></b></td>
                 <td style="vertical-align: middle;">7B</td>
-                <td style="vertical-align: middle;">64 </td>
+                <!-- <td style="vertical-align: middle;">64 </td> -->
                 <td style="vertical-align: middle;">2024-06-15</td>
                 <td style="vertical-align: middle;"><strong>37.9</strong></td>
                 <td style="vertical-align: middle;"><strong>42.3</strong></td>
@@ -487,8 +487,8 @@ Our key contributions are:
                 <td style="vertical-align: middle;">48.4</td>
                 <td style="vertical-align: middle;">36.8</td>
                 <td style="vertical-align: middle;">41.4</td>
-                <td style="vertical-align: middle;">31.3</td>
-                <td style="vertical-align: middle;">36.9</td>                              
+                <!-- <td style="vertical-align: middle;">31.3</td>
+                <td style="vertical-align: middle;">36.9</td>                               -->
               </tr>
               <tr>
                 <td style="vertical-align: middle;">16</td>
@@ -496,7 +496,7 @@ Our key contributions are:
                   <p style="font-size: 12px; margin-left: 5px; color: #858383;">Alibaba</p>
                 </a></b></td>
                 <td style="vertical-align: middle;">7B</td>
-                <td style="vertical-align: middle;">4 </td>
+                <!-- <td style="vertical-align: middle;">4 </td> -->
                 <td style="vertical-align: middle;">2024-06-15</td>
                 <td style="vertical-align: middle;"><strong>41.1</strong></td>
                 <td style="vertical-align: middle;"><strong>41.9</strong></td>
@@ -504,8 +504,8 @@ Our key contributions are:
                 <td style="vertical-align: middle;">47.3</td>
                 <td style="vertical-align: middle;">38.7</td>
                 <td style="vertical-align: middle;">40.4</td>
-                <td style="vertical-align: middle;">37.8</td>
-                <td style="vertical-align: middle;">37.9</td>                              
+                <!-- <td style="vertical-align: middle;">37.8</td>
+                <td style="vertical-align: middle;">37.9</td>                               -->
               </tr>
               <tr>
                 <td style="vertical-align: middle;">17</td>
@@ -513,7 +513,7 @@ Our key contributions are:
                   <p style="font-size: 12px; margin-left: 5px; color: #858383;">PKU</p>
                 </a></b></td>
                 <td style="vertical-align: middle;">7B</td>
-                <td style="vertical-align: middle;">8 </td>
+                <!-- <td style="vertical-align: middle;">8 </td> -->
                 <td style="vertical-align: middle;">2024-06-15</td>
                 <td style="vertical-align: middle;"><strong>39.9</strong></td>
                 <td style="vertical-align: middle;"><strong>41.6</strong></td>
@@ -521,8 +521,8 @@ Our key contributions are:
                 <td style="vertical-align: middle;">46.1</td>
                 <td style="vertical-align: middle;">38.0</td>
                 <td style="vertical-align: middle;">40.7</td>
-                <td style="vertical-align: middle;">36.2</td>
-                <td style="vertical-align: middle;">38.1</td>                                
+                <!-- <td style="vertical-align: middle;">36.2</td>
+                <td style="vertical-align: middle;">38.1</td>                                 -->
               </tr>
               </tbody>                                                   
         </table> 
@@ -582,6 +582,9 @@ Our key contributions are:
         </div>
       </div>
     </div>
+    <br>
+    <br>
+    <br>
     <div class="columns is-centered">
       <div class="column">
         <div class="content has-text-centered">
@@ -684,8 +687,8 @@ Our key contributions are:
 
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
-    <pre><code>@article{xxx2024mmcomposition,
-      title={Benchmarking the Compositionality for Pre-trained Vision-Language Models},
+    <pre><code>@article{hua2024mmcomposition,
+      title={MMComposition: Benchmarking the Compositionality for Pre-trained Vision-Language Models},
       author={},
       journal={arXiv preprint arXiv:},
       year={2024}
