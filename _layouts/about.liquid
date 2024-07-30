@@ -43,9 +43,12 @@ layout: default
     <!-- News -->
     {% if page.news and site.announcements.enabled %}
       <h2>
-        <a href="{{ '/news/' | relative_url }}" style="color: inherit">news</a>
+        <a href="{{ '/news/' | relative_url }}" style="color: inherit">News</a>
       </h2>
       {% include news.liquid limit=true %}
+      <a href="news">👉 More news</a>
+      <br>
+      <br>
     {% endif %}
 
     <!-- Latest posts -->
@@ -59,12 +62,32 @@ layout: default
     <!-- Selected papers -->
     {% if page.selected_papers %}
       <h2>
-        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">selected publications</a>
+        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">Selected Research</a>
       </h2>
       {% include selected_papers.liquid %}
     {% endif %}
 
     <!-- Social -->
+    <h2>Misc.</h2>
+    <br>
+    <h5>Fun Facts</h5>
+    <ul>
+      <li>My nickname, <em>YOLO</em>, is a soramimi/mondegreen for <em>Yunlong</em>.</li>
+      <li>I'm a Tech-otaku, ACGN enthusiast, J-Pop fan, and <a href="https://www.eaccwiki.com/wiki/Philosophy_of_e/acc" target="_blank">e/acc</a> proponent.</li>
+      <li>I have a certain artistic foundation (10+ years of experience in drawing/painting).</li>
+    </ul>
+
+    <h5>Visitor Map<h5>
+    <script type='text/javascript' id='clustrmaps' src='//clustrmaps.com/map_v2.js?cl=ffffff&d=mErswMtIf2K7G41Iql-K1paY9dnbAA1mf0bzUzgiHAs&co=87CEEB&cmo=FF69B4&cmn=FF1493&w=350'></script>
+    <div style="text-align: center;">
+        <small><i>"What I cannot create, I do not understand."</i></small>
+        <div style="text-align: center;">
+            <small><i>—— Richard Feynman</i></small>
+        </div>
+    </div>
+
+    <h5>Social Links</h5>
+
     {% if page.social %}
       <div class="social">
         <div class="contact-icons">{% include social.liquid %}</div>
