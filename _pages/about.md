@@ -19,6 +19,6 @@ social: true # includes social icons at the bottom of the page
 
 My name is Yunlong Tang (<a id="about-me" href='https://translate.google.com/?sl=auto&tl=en&text=%E5%94%90%E4%BA%91%E9%BE%99'><i class="fa fa-volume-up" aria-hidden="true" style="color:deeppink; font-size:12px;"></i></a>). I'm a first-year Ph.D. student in Computer Science at [University of Rochester](https://www.rochester.edu/) (UR), advised by [Prof. Chenliang Xu](https://www.cs.rochester.edu/~cxu22/index.html). Before that, I obtained B.Eng. (2019-2023) in Intelligence Science & Technology from [Southern University of Science and Technology](https://www.sustech.edu.cn/en/) (SUSTech), with supervision from [Prof. Feng Zheng](https://scholar.google.com/citations?user=PcmyXHMAAAAJ). I've interned at [ByteDance](https://www.bytedance.com/en/) and [Tencent](https://www.tencent.com/).
 
-My research focuses on *Multimodal Learning*, especially *Video Understanding & Generation*. I also have a keen interest in *AI-Agents* and *Computational Arts*.
+My research focuses on _Multimodal Learning_, especially _Video Understanding & Generation_. I also have a keen interest in _AI-Agents_ and _Computational Arts_.
 
 <span style="color:deeppink;">I am actively looking for any collaboration. Please feel free to contact me if you are interested!</span>
