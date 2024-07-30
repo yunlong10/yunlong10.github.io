@@ -3,6 +3,7 @@ title: MMComposition
 permalink: projects/mmcomposition/
 category: work
 ---
+
 <html>
 <head>
   <meta charset="UTF-8">
@@ -33,15 +34,13 @@ category: work
   <script src="./static/js/explorer-index.js"></script>
   <script src="./static/js/question_card.js"></script>
 
-  <script src="./static/js/leaderboard_testmini.js"></script>  
+  <script src="./static/js/leaderboard_testmini.js"></script>
   <!-- <script src="./data/results/output_folders.js" defer></script>
   <script src="./data/results/model_scores.js" defer></script>
 
   <script src="./visualizer/data/data_public.js" defer></script> -->
 </head>
 <body>
-
-  
 
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
@@ -72,7 +71,6 @@ category: work
 
   </div>
 </nav>
-
 
 <section class="hero">
   <div class="hero-body">
@@ -153,10 +151,9 @@ category: work
         </div>
       </div>
     </div>
+
   </div>
 </section>
-
-
 
 <section class="section">
   <div class="container" style="margin-bottom: 2vh;">
@@ -180,10 +177,11 @@ Our key contributions are:
 </ol>
 
 <strong>MMComposition</strong> aims to inspire advancements in VLM design and training, ultimately improving their performance in understanding and reasoning with complex multimodal information.
-        </div>
-      </div>
-    </div>
-    <!--/ Abstract. -->
+</div>
+</div>
+</div>
+<!--/ Abstract. -->
+
 </div>
 </section>
 
@@ -678,7 +676,6 @@ Our key contributions are:
   </div>
 </section>
 
-
 <!-- </section> -->
 <section class="hero is-light is-small">
   <div class="hero-body has-text-centered">
@@ -698,7 +695,6 @@ Our key contributions are:
   </div>
 </section>
 
-
 <section class="section">
   <div class="container" style="width: 60%;">
   <style>
@@ -715,10 +711,8 @@ Our key contributions are:
     }
   </style>
 
-
   </div>
 </section>
-
 
 <footer class="footer">
   <!-- <div class="container"> -->
