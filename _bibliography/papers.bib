@@ -96,6 +96,15 @@
   html={https://arxiv.org/abs/2406.12663},
   pdf={https://arxiv.org/pdf/2406.12663},
   bibtex_show={true},
+  abstract={
+    Large Vision-Language Models (LVLMs) excel in integrating visual and linguistic contexts to produce detailed content, facilitating applications such as image captioning.
+    However, using LVLMs to generate descriptions often faces the challenge of object hallucination (OH), where the output text misrepresents actual objects in the input image.
+    While previous studies attribute the occurrence of OH to the inclusion of more details, our study finds technical flaws in existing metrics, leading to unreliable evaluations of models and conclusions about OH.
+    This has sparked a debate on the question: Do more details always introduce more hallucinations in LVLM-based image captioning?
+    In this paper, we address this debate by proposing a novel decoding strategy, Differentiated Beam Decoding (DBD), along with a reliable new set of evaluation metrics: CLIP-Precision, CLIP-Recall, and CLIP-F1. DBD decodes the wealth of information hidden in visual input into distinct language representations called unit facts in parallel.
+    This decoding is achieved via a well-designed differential score that guides the parallel search and candidate screening.
+    The selected unit facts are then aggregated to generate the final caption. Our proposed metrics evaluate the comprehensiveness and accuracy of image captions by comparing the embedding groups of ground-truth image regions and generated text partitions.
+    Extensive experiments on the Visual Genome dataset validate the effectiveness of our approach, demonstrating that it produces detailed descriptions while maintaining low hallucination levels.}
 }
 @article{tang2023llmva,
   title={LLMVA-GEBC: Large Language Model with Video Adapter for Generic Event Boundary Captioning},
