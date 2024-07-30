@@ -177,6 +177,7 @@ Our key contributions are:
 </ol>
 
 <strong>MMComposition</strong> aims to inspire advancements in VLM design and training, ultimately improving their performance in understanding and reasoning with complex multimodal information.
+
 </div>
 </div>
 </div>
