@@ -227,7 +227,7 @@ Our key contributions are:
               By default, this leaderboard is sorted by overall results. To view other sorted results, please click on the corresponding cell. <span style="background-color: #ebf1b7;">Colored rows</span> indicate closed-source models/APIs.
             </p>
           <!-- </div> -->
-      <table class="js-sort-table js-sort-6 js-sort-asc" id="results" style="margin-left: auto; margin-right: auto;">
+      <table class="js-sort-table js-sort-asc" id="results" style="margin-left: auto; margin-right: auto;">
           <thead>
               <tr>
                   <th rowspan="1" style="vertical-align: middle; width: 50px;" data-js-sort-colNum="4"><strong>#</strong></th>
