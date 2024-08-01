@@ -16,51 +16,51 @@ var data = [
     children: [
       {
         name: "Object\nPerception",
-        value: 1,
+        value: 529,
         itemStyle: {
           color: "#e9eee0",
         },
       },
       {
         name: "Attribute\nPerception",
-        value: 1,
+        value: 519,
         itemStyle: {
           color: "#ebf1b7",
         },
       },
       {
         name: "Relation\nPerception",
-        value: 1,
+        value: 615,
         itemStyle: {
           color: "#e2ebcf",
         },
       },
       {
-        name: "Counting\nPerception",
-        value: 1,
-        itemStyle: {
-          color: "#d6e4bb",
-        },
-      },
-      {
-        name: "Difference\nSpotting",
-        value: 1,
-        itemStyle: {
-          color: "#eef5d9",
-        },
-      },
-      {
         name: "Text\nRendering",
-        value: 1,
+        value: 14,
         itemStyle: {
           color: "#d5ead5",
         },
       },
       {
+        name: "Counting\nPerception",
+        value: 261,
+        itemStyle: {
+          color: "#d6e4bb",
+        },
+      },
+      {
         name: "Visual\nSimilarity",
-        value: 1,
+        value: 74,
         itemStyle: {
           color: "#c8d6cf",
+        },
+      },
+      {
+        name: "Difference\nSpotting",
+        value: 241,
+        itemStyle: {
+          color: "#eef5d9",
         },
       },
     ],
@@ -73,44 +73,52 @@ var data = [
     children: [
       {
         name: "Object\nReasoning",
-        value: 1,
+        value: 109,
         itemStyle: {
           color: "#ffcea2",
         },
       },
       {
         name: "Attribute\nReasoning",
-        value: 1,
+        value: 222,
         itemStyle: {
           color: "#faeed3",
         },
       },
       {
         name: "Counting\nReasoning",
-        value: 1,
+        value: 226,
         itemStyle: {
           color: "#fedec0",
         },
       },
       {
         name: "Object\nInteraction",
-        value: 1,
+        value: 164,
         itemStyle: {
           color: "#fbe7d2",
         },
       },
       {
-        name: "Spatial\nRelation\nReasoning",
-        value: 1,
+        name: "Relation\nReasoning",
+        value: 867,
         itemStyle: {
           color: "#f8f3da",
         },
       },
+    ],
+  },
+  {
+    name: "Probing",
+    itemStyle: {
+      color: "#84e9ff",
+    },
+    children: [
       {
         name: "VL\nComposition\nProbing",
-        value: 1,
+        value: 459,
         itemStyle: {
-          color: "#fcecd0",
+          color: "#84e9ff",
         },
       },
     ],
