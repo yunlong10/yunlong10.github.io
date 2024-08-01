@@ -42,12 +42,10 @@ category: work
   <script>
     document.addEventListener("DOMContentLoaded", function() {
         const columns = [4, 5, 6, 7];  // 需要处理的列索引 (Overall, Perception, Reasoning, Probing)
-
         columns.forEach(colIndex => {
             let maxVal = -Infinity;
             let maxCell = null;
             let cells = document.querySelectorAll(`#results tbody tr td:nth-child(${colIndex + 1})`);
-
             cells.forEach(cell => {
                 let cellValue = parseFloat(cell.textContent);
                 if (cellValue > maxVal) {
@@ -55,7 +53,6 @@ category: work
                     maxCell = cell;
                 }
             });
-
             if (maxCell) {
                 maxCell.style.fontWeight = "bold";
             }
@@ -230,13 +227,13 @@ Our key contributions are:
               By default, this leaderboard is sorted by overall results. To view other sorted results, please click on the corresponding cell. <span style="background-color: #ebf1b7;">Colored rows</span> indicate closed-source models/APIs.
             </p>
           <!-- </div> -->
-      <table class="js-sort-table" id="results" style="margin-left: auto; margin-right: auto;">
+      <table class="js-sort-table js-sort-6 js-sort-asc" id="results" style="margin-left: auto; margin-right: auto;">
           <thead>
               <tr>
-                  <th rowspan="1" style="vertical-align: middle; width: 50px;"><strong>#</strong></th>
-                  <th rowspan="1" style="vertical-align: middle; width: 180px;"><strong>Model</strong></th>
-                  <th rowspan="1" style="vertical-align: middle; width: 30px;"><strong>LLM <br>Params</strong></th>
-                  <th colspan="1" style="vertical-align: middle; width: 110px;"><strong>Date</strong></th>
+                  <th rowspan="1" style="vertical-align: middle; width: 50px;" data-js-sort-colNum="4"><strong>#</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 180px;" data-js-sort-colNum="NaN"><strong>Model</strong></th>
+                  <th rowspan="1" class="no-sort" style="vertical-align: middle; width: 30px;" data-js-sort-colNum="NaN"><strong>LLM <br>Params</strong></th>
+                  <th colspan="1" style="vertical-align: middle; width: 110px;" data-js-sort-colNum="3"><strong>Date</strong></th>
                   <th colspan="1" style="vertical-align: middle; width: 120px;" data-js-sort-colNum="4"><strong>Overall (%)</strong></th>
                   <th colspan="1" style="vertical-align: middle; width: 120px;" data-js-sort-colNum="5"><strong>Perception (%)</strong></th>
                   <th colspan="1" style="vertical-align: middle; width: 120px;" data-js-sort-colNum="6"><strong>Reasoning (%)</strong></th>
@@ -323,7 +320,7 @@ Our key contributions are:
                   <td style="vertical-align: middle;">61.59</td>
                   <td style="vertical-align: middle;">58.17</td>
               </tr>
-              <tr>
+              <tr style="background-color: #ebf1b7;">
                   <td style="vertical-align: middle;">7</td>
                   <td style="text-align: left; padding: 2px 10px;"><b class=""><a href="https://github.com/QwenLM/Qwen-VL#qwen-vl-plus" class="ext-link" style="font-size: 16px; margin-left: 5px;">Qwen-VL-Max
                       <p style="font-size: 12px; margin-left: 5px; color: #858383;">Alibaba</p>
@@ -388,7 +385,7 @@ Our key contributions are:
                   <td style="text-align: left; padding: 2px 10px;"><b class=""><a href="https://huggingface.co/microsoft/Phi-3-vision-128k-instruct" class="ext-link" style="font-size: 16px; margin-left: 5px;">Phi3-vision
                       <p style="font-size: 12px; margin-left: 5px; color: #858383;">Microsoft</p>
                   </a></b></td>
-                  <td style="vertical-align: middle;">-</td>
+                  <td style="vertical-align: middle;">4.2B</td>
                   <td style="vertical-align: middle;">2024/08/01</td>
                   <td style="vertical-align: middle;">48.23</td>
                   <td style="vertical-align: middle;">60.37</td>
