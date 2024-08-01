@@ -111,34 +111,46 @@ var data = [
   {
     name: "Probing",
     itemStyle: {
-      color: "#84e9ff",
+      color: "#8fbcd4",
     },
     children: [
       {
         name: "VL\nComposition\nProbing",
         value: 459,
         itemStyle: {
-          color: "#84e9ff",
+          color: "#8fbcd4",
         },
       },
     ],
   },
 ];
 
+var total = data.reduce((sum, current) => sum + current.children.reduce((cSum, cCurrent) => cSum + cCurrent.value, 0), 0);
+
 option = {
   series: {
     type: "sunburst",
     data: data,
     radius: [0, "95%"],
-    sort: undefined,
+    sort: null,
     emphasis: {
       focus: "ancestor",
     },
     startAngle: 180, // Adjust start angle to split horizontally
     label: {
       textStyle: {
-        fontSize: 12,
-        fontFamily: "serif",
+        fontSize: 15,
+        fontFamily: "Times New Roman",
+      },
+      formatter: function (params) {
+        var percentage = ((params.value / total) * 100).toFixed(2) + "%";
+        return `${params.name}\n{small|${percentage}}`;
+      },
+      rich: {
+        small: {
+          fontSize: 10,
+          lineHeight: 15,
+        },
       },
     },
     levels: [
@@ -173,7 +185,10 @@ option = {
           padding: 3,
           silent: false,
         },
-        itemStyle: {},
+        itemStyle: {
+          borderColor: "transparent",
+          borderWidth: 0,
+        },
       },
     ],
   },

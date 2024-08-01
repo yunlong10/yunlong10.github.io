@@ -22,44 +22,57 @@
   },
   "education": [
     {
-      "institution": "University of Rochester (UR)",
+      "name": "University of Rochester",
       "location": "Rochester, NY, US",
       "url": "https://www.rochester.edu/",
-      "area": "Computer Science",
-      "studyType": "Ph.D.",
-      "startDate": "08/2023",
-      "endDate": "06/2028"
+      "position": "Ph.D. Student in Computer Science",
+      "startDate": "2023-08",
+      "endDate": "2028-06",
+      "advisor": "Chenliang Xu",
+      "advisor_url": "https://www.cs.rochester.edu/~cxu22/index.html",
+      "img": "assets/img/logo/ur_logo.png"
     },
     {
-      "institution": "Southern University of Science and Technology (SUSTech)",
+      "name": "SUSTech",
       "location": "Shenzhen, China",
       "url": "https://www.sustech.edu.cn/en/",
-      "area": "Intelligence Science and Technology",
-      "studyType": "B.Eng.",
-      "startDate": "08/2019",
-      "endDate": "06/2023"
+      "position": "B.Eng. in Intelligence Science and Technology",
+      "startDate": "2019-08",
+      "endDate": "2023-06",
+      "advisor": "Feng Zheng",
+      "advisor_url": "https://www.sustech.edu.cn/en/faculties/zhengfeng.html",
+      "img": "assets/img/logo/sustech_long.png"
     }
   ],
   "work": [
     {
       "name": "Tencent",
       "position": "Research Intern",
+      "location": "Shenzhen, China",
       "url": "https://www.tencent.com/",
-      "startDate": "09/2021",
-      "endDate": "08/2022"
+      "img": "assets/img/logo/tencent.png",
+      "startDate": "2021-09",
+      "endDate": "2022-08",
+      "mentor": ["Wenhao Jiang", "Qin Lin"]
     },
     {
       "name": "SUSTech VIP Lab",
-      "position": "Undergraduate Researcher",
-      "startDate": "08/2022",
-      "endDate": "07/2023"
+      "position": "Undergrad. Researcher",
+      "location": "Shenzhen, China",
+      "img": "assets/img/logo/sustech_long.png",
+      "startDate": "2022-08",
+      "endDate": "2023-07",
+      "advisor": ["Feng Zheng"]
     },
     {
       "name": "ByteDance",
       "position": "Research Intern",
+      "location": "San Jose, CA, US",
+      "img": "assets/img/logo/bytedance_logo.png",
       "url": "https://www.bytedance.com/en/",
-      "startDate": "05/2024",
-      "endDate": "08/2024"
+      "startDate": "2024-05",
+      "endDate": "2024-08",
+      "mentor": ["Yiting Liao", "Gen Zhan"]
     }
   ]
 }

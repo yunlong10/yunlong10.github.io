@@ -21,4 +21,4 @@ My name is Yunlong Tang (<a id="about-me" href='https://translate.google.com/?sl
 
 My research focuses on _Multimodal Learning_, especially _Video Understanding & Generation_. I also have a keen interest in _AI-Agents_ and _Computational Arts_.
 
-<span style="color:deeppink;">I am actively looking for any collaboration. Please feel free to contact me if you are interested!</span>
+<a href="cv">I am actively looking for any collaboration. Please feel free to contact me if you are interested!</a>
