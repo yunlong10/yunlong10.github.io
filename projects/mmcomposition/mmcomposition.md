@@ -227,7 +227,7 @@ Our key contributions are:
               <strong>Long Video:</strong> 30min ~ 60min
             </p> -->
             <p>
-              By default, this leaderboard is sorted by overall results. To view other sorted results, please click on the corresponding cell.
+              By default, this leaderboard is sorted by overall results. To view other sorted results, please click on the corresponding cell. <span style="background-color: #ebf1b7;">Colored rows</span> indicate closed-source models/APIs.
             </p>
           <!-- </div> -->
       <table class="js-sort-table" id="results" style="margin-left: auto; margin-right: auto;">
@@ -237,10 +237,10 @@ Our key contributions are:
                   <th rowspan="1" style="vertical-align: middle; width: 180px;"><strong>Model</strong></th>
                   <th rowspan="1" style="vertical-align: middle; width: 30px;"><strong>LLM <br>Params</strong></th>
                   <th colspan="1" style="vertical-align: middle; width: 110px;"><strong>Date</strong></th>
-                  <th colspan="1" style="vertical-align: middle; width: 120px;" data-js-sort-colNum="5"><strong>Overall (%)</strong></th>
-                  <th colspan="1" style="vertical-align: middle; width: 120px;" data-js-sort-colNum="6"><strong>Perception (%)</strong></th>
-                  <th colspan="1" style="vertical-align: middle; width: 120px;" data-js-sort-colNum="7"><strong>Reasoning (%)</strong></th>
-                  <th colspan="1" style="vertical-align: middle; width: 120px;" data-js-sort-colNum="8"><strong>Probing (%)</strong></th>
+                  <th colspan="1" style="vertical-align: middle; width: 120px;" data-js-sort-colNum="4"><strong>Overall (%)</strong></th>
+                  <th colspan="1" style="vertical-align: middle; width: 120px;" data-js-sort-colNum="5"><strong>Perception (%)</strong></th>
+                  <th colspan="1" style="vertical-align: middle; width: 120px;" data-js-sort-colNum="6"><strong>Reasoning (%)</strong></th>
+                  <th colspan="1" style="vertical-align: middle; width: 120px;" data-js-sort-colNum="7"><strong>Probing (%)</strong></th>
               </tr>
           </thead>
           <tbody>
@@ -286,10 +286,10 @@ Our key contributions are:
                   <td style="vertical-align: middle;">66.90</td>
                   <td style="vertical-align: middle;">60.49</td>
               </tr>
-              <tr>
+              <tr style="background-color: #ebf1b7;">
                   <td style="vertical-align: middle;">4</td>
                   <!-- https://openai.com/index/gpt-4v-system-card/ -->
-                  <td style="text-align: left; padding: 2px 10px;"><b class=""><a href="https://openai.com/index/hello-gpt-4o/" class="ext-link" style="font-size: 16px; margin-left: 5px;">GPT-4o (API)
+                  <td style="text-align: left; padding: 2px 10px;"><b class=""><a href="https://openai.com/index/hello-gpt-4o/" class="ext-link" style="font-size: 16px; margin-left: 5px;">GPT-4o
                       <p style="font-size: 12px; margin-left: 5px; color: #858383;">OpenAI</p>
                   </a> </b></td>
                   <td style="vertical-align: middle;">- </td>
@@ -407,10 +407,10 @@ Our key contributions are:
                   <td style="vertical-align: middle;">52.94</td>
                   <td style="vertical-align: middle;">53.88</td>
               </tr>
-              <tr>
+              <tr style="background-color: #ebf1b7;">
                   <td style="vertical-align: middle;">14</td>
-                  <td style="text-align: left; padding: 2px 10px;"><b class=""><a href="" class="ext-link" style="font-size: 16px; margin-left: 5px;">Step-1v-32k (API)
-                      <p style="font-size: 12px; margin-left: 5px; color: #858383;">Shanghai AI Lab</p>
+                  <td style="text-align: left; padding: 2px 10px;"><b class=""><a href="https://www.stepfun.com/#step1v" class="ext-link" style="font-size: 16px; margin-left: 5px;">Step-1v-32k
+                      <p style="font-size: 12px; margin-left: 5px; color: #858383;">Stepfun</p>
                   </a></b></td>
                   <td style="vertical-align: middle;">- </td>
                   <td style="vertical-align: middle;">2024/08/01</td>
