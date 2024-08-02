@@ -47,7 +47,9 @@
   <!-- Entry bib key -->
   <div id="{{ entry.key }}" class="{% if site.enable_publication_thumbnails %}col-sm-8{% else %}col-sm-10{% endif %}">
     <!-- Title -->
-    <div class="title"><a href="{{ entry.html }}">{{ entry.title }}</a></div>
+    <div class="title">
+      <a href="{{ entry.html }}">{{ entry.title }}</a>
+    </div>
     <!-- Author -->
     <div class="author">
       {% assign author_array_size = entry.author_array | size %}
@@ -241,7 +243,11 @@
         <a href="{{ entry.website }}" class="btn btn-sm z-depth-0" role="button">Website</a>
       {% endif %}
       {% if entry.stars %}
-          <img src="https://img.shields.io/github/stars/{{ entry.stars }}?style=social" alt="GitHub stars" style="vertical-align: middle; margin-left: 5px;">
+        <img
+          src="https://img.shields.io/github/stars/{{ entry.stars }}?style=social"
+          alt="GitHub stars"
+          style="vertical-align: middle; margin-left: 5px;"
+        >
       {% endif %}
     </div>
     {% if site.enable_publication_badges %}
