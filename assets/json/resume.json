@@ -1,10 +1,10 @@
 {
   "basics": {
     "name": "Yunlong Tang",
-    "label": "Ph.D. Student @ UR CS",
     "image": "",
-    "email": "yunlong.tang@rochester.edu",
-    "url": "https://yunlong10.github.io/",
+    "work email": "yunlong.tang@rochester.edu",
+    "personal email": "yunlong.yolo.tang@gmail.com",
+    "website": "https://yunlong10.github.io/",
     "location": {
       "address": "",
       "postalCode": "NY 14627",
@@ -44,7 +44,7 @@
       "img": "assets/img/logo/sustech_long.png"
     }
   ],
-  "work": [
+  "experiences": [
     {
       "name": "Tencent",
       "position": "Research Intern",
@@ -73,6 +73,56 @@
       "startDate": "2024-05",
       "endDate": "2024-08",
       "mentor": ["Yiting Liao", "Gen Zhan"]
+    }
+  ],
+  "services": [
+    {
+      "position": "Conference Reviewer",
+      "url": "",
+      "summary": "CVPR 2024, ACM MM 2024, ACL 2024, NeurIPS 2024."
+    },
+    {
+      "position": "Journal Reviewer",
+      "url": "",
+      "summary": "IEEE Transactions on Multimedia (TMM)."
+    },
+    {
+      "position": "Teaching Assistant",
+      "url": "",
+      "highlights": ["2023 Spring CS308 Computer Vision, SUSTech.", "2022 Fall CS308 Computer Vision, SUSTech."]
+    }
+  ],
+  "awards": [
+    {
+      "title": "First Place in CVPR 2023 LOVEU Challenge",
+      "date": "2023",
+      "awarder": "CVPR 2023 Workshops",
+      "url": "../assets/img/publication_preview/cvprw23FirstPlace.png",
+      "summary": "Awarded first place in the Generic Event Boundary Captioning Track at the <a href=\"https://sites.google.com/view/loveucvpr23/home\">LOVEU Challenge @ CVPR 2023 Workshops</a>."
+    },
+    {
+      "title": "Excellent Undergraduate Thesis",
+      "date": "2023",
+      "awarder": "Department of Computer Science and Engineering, SUSTech",
+      "summary": "Awarded for the Excellent Undergraduate Thesis by the Department of Computer Science and Engineering at SUSTech in 2023."
+    },
+    {
+      "title": "Excellent Graduate for Exceptional Performance",
+      "date": "2023",
+      "awarder": "SUSTech",
+      "summary": "Recognized as an Excellent Graduate for exceptional performance at SUSTech in 2023."
+    },
+    {
+      "title": "First Class of Merit Student Scholarship for Exceptional Performance",
+      "date": "2022",
+      "awarder": "SUSTech",
+      "summary": "Received the First Class of Merit Student Scholarship for exceptional performance at SUSTech for the academic year 2021-2022."
+    },
+    {
+      "title": "Research Innovation Award",
+      "date": "2021",
+      "awarder": "Shude College, SUSTech",
+      "summary": "Honored with the Research Innovation Award by Shude College at SUSTech for the academic year 2020-2021."
     }
   ]
 }
