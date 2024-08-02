@@ -83,8 +83,8 @@ category: work
           <a class="navbar-item" href="https://github.com/yunlong10/MMComposition">
             <b>MMComposition</b> 
           </a>
-          <a class="navbar-item" href="https://github.com/yunlong10/MMComposition">
-            <b>MMComposition</b> 
+          <a class="navbar-item" href="https://github.com/yunlong10/Awesome-LLMs-for-Video-Understanding">
+            <b>Vid-LLM Survey</b> 
           </a>
         </div>
       </div>
@@ -113,12 +113,12 @@ category: work
             <!-- <span class="author-block"><a href="https://zyang-ur.github.io/">Zhengyuan Yang</a><sup style="color:#2d9ffd;">3</sup>,</span><br> -->
             <span class="author-block"><a href="https://hornhehhf.github.io/">Hangfeng He</a><sup style="color:#6fbf73;">1</sup>,</span>
             <span class="author-block"><a href="https://www.cs.rochester.edu/~cxu22/index.html">Chenliang Xu</a><sup style="color:#6fbf73;">1</sup>,</span>
-            <span class="author-block"><a href="https://www.cs.rochester.edu/u/jluo/">Jiebo Luo</a>&dagger;<sup style="color:#6fbf73;">1</sup>,</span><br>
+            <span class="author-block"><a href="https://www.cs.rochester.edu/u/jluo/">Jiebo Luo</a>&dagger;<sup style="color:#6fbf73;">1</sup></span><br>
             <!-- <span class="author-block" style="font-size:24px"><a href="https://github.com/BradyFU/Video-MME">MMComposition Team</a></span> -->
         </div>
           <div class="is-size-5 publication-authors">
             <span class="author-block"><sup style="color:#6fbf73;">1</sup>University of Rochester,</span>
-            <span class="author-block"><sup style="color:#ed4b82">2</sup>Apple,</span>
+            <span class="author-block"><sup style="color:#ed4b82">2</sup>Apple</span>
             <!-- <span class="author-block"><sup style="color:#2d9ffd">3</sup>Microsoft</span> -->
             <!-- <span class="paper-block"><b style="color:#f41c1c">ICLR 2024 Oral</b> (85 in 7304, 1.2%)</span> -->
           </div>
@@ -576,7 +576,7 @@ Our key contributions are:
     <pre><code>
     @article{hua2024mmcomposition,
       title={MMComposition: Benchmarking the Compositionality for Pre-trained Vision-Language Models},
-      author={Hua, Hang and Tang, Yunlong and Zeng, Ziyun and Cao, Liangliang and Yang, Zhengyuan and He, Hangfeng and Xu, Chenliang and Luo, Jiebo},
+      author={Hua, Hang and Tang, Yunlong and Zeng, Ziyun and Cao, Liangliang and He, Hangfeng and Xu, Chenliang and Luo, Jiebo},
       journal={},
       year={2024}
     }
