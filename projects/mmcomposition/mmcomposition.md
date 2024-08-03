@@ -577,7 +577,8 @@ Our key contributions are:
     @article{hua2024mmcomposition,
       title={MMComposition: Benchmarking the Compositionality for Pre-trained Vision-Language Models},
       author={Hua, Hang and Tang, Yunlong and Zeng, Ziyun and Cao, Liangliang and Yang, Zhengyuan and He, Hangfeng and Xu, Chenliang and Luo, Jiebo},
-      journal={},
+      journal={yunlong10.github.io},
+      url={https://yunlong10.github.io/projects/mmcomposition/},
       year={2024}
     }
 </code></pre>
