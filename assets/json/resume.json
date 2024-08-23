@@ -89,7 +89,11 @@
     {
       "position": "Teaching Assistant",
       "url": "",
-      "highlights": ["2023 Spring CS308 Computer Vision, SUSTech.", "2022 Fall CS308 Computer Vision, SUSTech."]
+      "highlights": [
+        "2024 Fall CSC 245/445 Deep Learning, University of Rochester.",
+        "2023 Spring CS308 Computer Vision, SUSTech.",
+        "2022 Fall CS308 Computer Vision, SUSTech."
+      ]
     }
   ],
   "awards": [
