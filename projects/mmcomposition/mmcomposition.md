@@ -174,6 +174,7 @@ category: work
         </div>
       </div>
     </div>
+    
 
   </div>
 </section>
@@ -202,6 +203,8 @@ Our key contributions are:
 <strong>MMComposition</strong> aims to inspire advancements in VLM design and training, ultimately improving their performance in understanding and reasoning with complex multimodal information.
 
 </div>
+<img src="static/images/example.png" />
+
 </div>
 </div>
 <!--/ Abstract. -->
@@ -548,21 +551,22 @@ Our key contributions are:
 <section class="section">
   <div class="container">
     <div class="content has-text-centered">
-      <h2 class="title is-3" style="margin-top: 30px;">Benchmark Statistics</h2>
+      <h2 class="title is-3" style="margin-top: 30px; margin-bottom: 10px;">Benchmark Statistics</h2>
       <!-- 图表部分 -->
-      <div style="display: flex; justify-content: center;">
-        <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" style="width: 10vw; height: 60vh;"/> -->
-        <div id="container" style="width: 80vw; height: 80vh; max-width: 1000px; margin: 0; padding: 0;"></div>
-        <!-- <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" style="width: 10vw; height: 60vh;"/> -->
+      <div style="display: flex; justify-content: center; align-items: center; gap: 20px; padding: 0; margin: 0;">
+        <img src="static/images/radar_chart.png" style="max-width: 50%; height: auto; object-fit: contain; margin: 0;" />
+        <div id="container" style="width: 40vw; height: 80vh; max-width: 1000px; margin: 0; padding: 0;"></div>
       </div>
       <script type="text/javascript" src="https://registry.npmmirror.com/echarts/5.5.0/files/dist/echarts.min.js"></script>
       <script type="text/javascript" src="static/js/bingtu.js"></script>
-      <p style="text-align: center; margin-left: auto; margin-right: auto; width: 50%;"> 
+      <p style="text-align: center; margin: 10px auto; width: 50%;"> 
         <strong>Question Categorie Hierarchy</strong>: Question Types in MMComposition Benchmark for Evaluating Vision-Language Models.
       </p>
     </div>
   </div>
 </section>
+
+
 
 <!-- </section> -->
 <section class="hero is-light is-small">

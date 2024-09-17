@@ -37,7 +37,7 @@ var data = [
       },
       {
         name: "Text\nRendering",
-        value: 14,
+        value: 56,
         itemStyle: {
           color: "#d5ead5",
         },
@@ -143,7 +143,7 @@ option = {
         fontFamily: "Times New Roman",
       },
       formatter: function (params) {
-        var percentage = ((params.value / total) * 100).toFixed(2) + "%";
+        var percentage = params.value //((params.value / total) * 100).toFixed(2) + "%";
         return `${params.name}\n{small|${percentage}}`;
       },
       rich: {
