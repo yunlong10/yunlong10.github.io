@@ -98,11 +98,18 @@
   ],
   "awards": [
     {
+      "title": "First Place in AIM Challenge on Video Saliency Prediction",
+      "date": "2024",
+      "awarder": "ECCV 2024 Workshops",
+      "url": "https://challenges.videoprocessing.ai/challenges/video-saliency-prediction.html",
+      "summary": "First place in <a href=\"https://challenges.videoprocessing.ai/challenges/video-saliency-prediction-leaderboard.html\">AIM Challenge on Video Saliency Prediction</a> at ECCV 2024 Workshops."
+    },
+    {
       "title": "First Place in CVPR 2023 LOVEU Challenge",
       "date": "2023",
       "awarder": "CVPR 2023 Workshops",
       "url": "../assets/img/publication_preview/cvprw23FirstPlace.png",
-      "summary": "Awarded first place in the Generic Event Boundary Captioning Track at the <a href=\"https://sites.google.com/view/loveucvpr23/home\">LOVEU Challenge @ CVPR 2023 Workshops</a>."
+      "summary": "First place in the Generic Event Boundary Captioning Track at the <a href=\"https://sites.google.com/view/loveucvpr23/home\">LOVEU Challenge @ CVPR 2023 Workshops</a>."
     },
     {
       "title": "Excellent Undergraduate Thesis",
