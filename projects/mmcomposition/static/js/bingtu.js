@@ -148,7 +148,8 @@ option = {
       },
       rich: {
         small: {
-          fontSize: 10,
+          fontSize: 15,
+          fontFamily: "Blod",
           lineHeight: 15,
         },
       },
