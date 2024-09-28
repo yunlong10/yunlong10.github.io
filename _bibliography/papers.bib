@@ -1,5 +1,28 @@
 ---
 ---
+@article{moskalenko2024aim,
+  title={AIM 2024 Challenge on Video Saliency Prediction: Methods and Results},
+  author={Moskalenko, Andrey and Bryncev, Alexey and Vatolin, Dmitry and Timofte, Radu and Zhan, Gen and Yang, Li and Tang, Yunlong and Liao, Yiting and Lin, Jiongzhi and Huang, Baitao and Moradi, Morteza and Moradi, Mohammad and Rundo, Francesco and Spampinato, Concetto and Borji, Ali and Palazzo, Simone and Zhu, Yuxin and Sun, Yinan and Duan, Huiyu and Cao, Yuqin and Jia, Ziheng and Hu, Qiang and Min, Xiongkuo and Zhai, Guangtao and Fang, Hao and Cong, Runmin and Lu, Xiankai and Zhou, Xiaofei and Zhang, Wei and Zhao, Chunyu and Mu, Wentao and Deng, Tao and Tavakoli, Hamed R},
+  journal={ECCV Workshops},
+  abbr={ECCV Workshops},
+  code={https://github.com/msu-video-group/ECCVW24_Saliency_Prediction},
+  stars={msu-video-group/ECCVW24_Saliency_Prediction},
+  year={2024},
+  html={https://arxiv.org/abs/2409.14827},
+  website={https://challenges.videoprocessing.ai/challenges/video-saliency-prediction-leaderboard.html},
+  abstract={
+    Video saliency prediction aims to identify the regions in a video that attract human attention and gaze, driven by bottom-up features from the video and top-down processes like memory and cognition.
+    Among these top-down influences, language plays a crucial role in guiding attention by shaping how visual information is interpreted.
+    Existing methods primarily focus on modeling perceptual information while neglecting the reasoning process facilitated by language, where ranking cues are crucial outcomes of this process and practical guidance for saliency prediction.
+    In this paper, we propose CaRDiff (Caption, Rank, and generate with Diffusion), a framework that imitates the process by integrating multimodal large language model (MLLM), a grounding module, and a diffusion model, to enhance video saliency prediction.
+    Specifically, we introduce a novel prompting method VSOR-CoT (Video Salient Object Ranking Chain of Thought), which utilizes an MLLM with a grounding module to caption video content and infer salient objects along with their rankings and positions.
+    This process derives ranking maps that can be sufficiently leveraged by the diffusion model to decode the saliency maps for the given video accurately.
+    Extensive experiments show the effectiveness of VSOR-CoT in improving the performance of video saliency prediction.
+    The proposed CaRDiff performs better than state-of-the-art models on the MVS dataset and demonstrates cross-dataset capabilities on the DHF1k dataset through zero-shot evaluation.
+  },
+  preview={eccv-aim.jpg},
+  bibtex_show={true},
+}
 @article{tang2024cardiff,
   title={CaRDiff: Video Salient Object Ranking Chain of Thought Reasoning for Saliency Prediction with Diffusion}, 
   author={Tang, Yunlong and Zhan, Gen and Yang, Li and Liao, Yiting and Xu†, Chenliang},
@@ -39,6 +62,7 @@
     With EAGLE, we aim to pave the way for novel research opportunities and practical applications in real-world scenarios.
   },
   selected={true},
+  bibtex_show={true},
 }
 @article{vidllmsurvey,
   title={Video Understanding with Large Language Models: A Survey}, 
