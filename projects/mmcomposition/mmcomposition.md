@@ -93,6 +93,35 @@ category: work
   </div>
 </nav>
 
+<style>
+  /* rainbow text start */
+.rainbow {
+  text-align: center;
+  text-decoration: underline;
+  font-size: 32px;
+  font-family: monospace;
+  letter-spacing: 5px;
+}
+.rainbow_text_animated {
+  background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: rainbow_animation 6s ease-in-out infinite;
+  background-size: 400% 100%;
+}
+
+@keyframes rainbow_animation {
+  0%,100% {
+      background-position: 0 0;
+  }
+
+  50% {
+      background-position: 100% 0;
+  }
+}
+/* rainbow text done */
+</style>
 <section class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop">
@@ -100,10 +129,10 @@ category: work
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title is-bold">
             <img src="static/images/mmcomposition.png" style="width:1.6em;vertical-align: middle" alt="Logo"/>
-            <span class="video-mme" style="vertical-align: middle">MMComposition</span>
+            <span class="rainbow_text_animated" style="vertical-align: middle">MMComposition</span>
             </h1>
           <h2 class="subtitle is-3 publication-subtitle" style="margin-bottom: 20px;">
-            Benchmarking the Compositionality for Pre-trained Vision-Language Models
+            Revisiting the Compositionality of Pre-trained Vision-Language Models
           </h2>
           <div class="is-size-5 publication-authors" style="width: 80%; margin: 20px auto;" >
             <span class="author-block"><a href="https://hanghuacs.owlstown.net/">Hang Hua</a>*<sup style="color:#6fbf73;">1</sup>,</span>
@@ -195,7 +224,8 @@ category: work
       <div class="column is-four-fifths">
         <h2 class="title is-3">Introduction</h2>
         <div class="content has-text-justified">
-To address these challenges, we introduce <strong>MMComposition</strong>, a novel benchmark specifically designed to comprehensively evaluate the compositionality of vision-language models (VLMs). <strong>MMComposition</strong> assesses VLMs across three main dimensions: vision-language (VL) compositional perception, reasoning, and probing. Unlike previous benchmarks that primarily focus on text-to-image retrieval or single-choice questions, <strong>MMComposition</strong> offers a diverse set of 4,342 tasks, including single-image and multi-image scenarios, single-choice and indefinite-choice questions. This ensures a thorough evaluation of models' ability to handle complex compositional tasks across modalities.
+The development of large Vision-Language Models (VLMs) has greatly improved multimodal tasks like image captioning, visual question answering, and cross-modal retrieval by better integrating visual and textual information. However, while VLMs show strong performance, researchers still lack a full understanding of their compositionality — the ability to grasp and generate new combinations of known visual and textual elements. Current benchmarks assess compositionality mainly through objects, relations, and attributes, but overlook deeper aspects like object interactions, counting, and complex compositions.
+To address these limitations, we introduce <strong>MMComposition</strong>, a novel benchmark specifically designed to comprehensively evaluate the compositionality of vision-language models (VLMs). <strong>MMComposition</strong> assesses VLMs across three main dimensions: vision-language (VL) compositional perception, reasoning, and probing. Unlike previous benchmarks that primarily focus on text-to-image retrieval or single-choice questions, <strong>MMComposition</strong> offers a diverse set of 4,342 tasks, including single-image and multi-image scenarios, single-choice and indefinite-choice questions. This ensures a thorough evaluation of models' ability to handle complex compositional tasks across modalities.
 
 Our findings reveal that even state-of-the-art models like GPT-4o struggle with fine-grained compositional reasoning, highlighting the need for further advancements in VLMs' compositional capabilities.
 
