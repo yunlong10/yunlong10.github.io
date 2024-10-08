@@ -997,19 +997,19 @@ Our key contributions are:
       <img src="static/images/gpt4o-qwen2vl.png" style="width:100%">
     </div>
     <div class="mySlides-1 fade">
-      <img src="static/images/benchmark_comp.png" style="width:100%">
+      <img src="static/images/benchmark_comp.jpg" style="width:100%">
     </div>
     <div class="mySlides-1 fade">
-      <img src="static/images/bar_chart.png" style="width:100%">
+      <img src="static/images/bar_chart.jpg" style="width:100%">
     </div>
     <div class="mySlides-1 fade">
-      <img src="static/images/resolution_encoder.png" style="width:100%">
+      <img src="static/images/resolution_encoder.jpg" style="width:100%">
     </div>
      <div class="mySlides-1 fade">
-      <img src="static/images/cloud.png" style="width:100%">
+      <img src="static/images/cloud.jpg" style="width:100%">
     </div>
     <div class="mySlides-1 fade">
-      <img src="static/images/text_decoder.png" style="width:100%">
+      <img src="static/images/text_decoder.jpg" style="width:100%">
     </div>
     <!-- 左右切换按钮 -->
     <a class="prev-1" onclick="plusSlides1(-1)">&#10094;</a>
