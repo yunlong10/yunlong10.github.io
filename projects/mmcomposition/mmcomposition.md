@@ -80,7 +80,7 @@ category: work
           More Research
         </a>
         <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://github.com/yunlong10/MMComposition">
+          <a class="navbar-item" href="https://github.com/hanghuacs/MMComposition_">
             <b>MMComposition</b> 
           </a>
           <a class="navbar-item" href="https://github.com/yunlong10/Awesome-LLMs-for-Video-Understanding">
@@ -167,7 +167,7 @@ category: work
               </span>
               <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/yunlong10/MMComposition"
+                <a href="https://github.com/hanghuacs/MMComposition_"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
@@ -177,7 +177,7 @@ category: work
               </span>
               <!-- Dataset Link. -->
               <span class="link-block">
-                <a href="https://github.com/yunlong10/MMComposition"
+                <a href="https://github.com/hanghuacs/MMComposition_"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <!-- <i class="far fa-images"></i> -->
