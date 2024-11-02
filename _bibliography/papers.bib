@@ -179,11 +179,20 @@
   bibtex_show={true},
 }
 @article{liu2024emo,
-  title={Emo-Avatar: Efficient Monocular Video Style Avatar through Texture Rendering},
+  title={GaussianStyle: Gaussian Head Avatar via StyleGAN},
   author={Liu, Pinxin and Song, Luchuan and Zhang, Daoan and Hua, Hang and Tang, Yunlong and Tu, Huaijin and Luo, Jiebo and Xu†, Chenliang},
   journal={arXiv preprint arXiv:2402.00827},
   year={2024},
-  preview={emo-avatar-pipeline.png}
+  html={https://arxiv.org/abs/2402.00827},
+  pdf={https://arxiv.org/pdf/2402.00827},
+  bibtex_show={true},
+  abstract={
+    Existing methods like Neural Radiation Fields (NeRF) and 3D Gaussian Splatting (3DGS) have made significant strides in facial attribute control such as facial animation and components editing, yet they struggle with fine-grained representation and scalability in dynamic head modeling.
+    To address these limitations, we propose GaussianStyle, a novel framework that integrates the volumetric strengths of 3DGS with the powerful implicit representation of StyleGAN.
+    The GaussianStyle preserves structural information, such as expressions and poses, using Gaussian points, while projecting the implicit volumetric representation into StyleGAN to capture high-frequency details and mitigate the over-smoothing commonly observed in neural texture rendering.
+    Experimental outcomes indicate that our method achieves state-of-the-art performance in reenactment, novel view synthesis, and animation.
+  },
+  preview={gaussian_style.png}
 }
 @article{wang2023caption,
   title={Caption Anything: Interactive Image Description with Diverse Multimodal Controls},
