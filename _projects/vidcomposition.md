@@ -1,7 +1,7 @@
 ---
 layout: page
 title: VidComposition
-description: 🏆 See how Top MLLMs understand video compostions.
+description: 🏆 See how Top MLLMs understand video compositions.
 img: assets/img/publication_preview/vidcomp_teaser.png
 redirect: https://yunlong10.github.io/VidComposition/
 importance: 1
