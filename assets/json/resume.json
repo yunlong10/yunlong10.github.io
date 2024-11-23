@@ -2,8 +2,7 @@
   "basics": {
     "name": "Yunlong Tang",
     "image": "",
-    "work email": "yunlong.tang@rochester.edu",
-    "personal email": "yunlong.yolo.tang@gmail.com",
+    "e-mail": "yunlong.tang@rochester.edu",
     "website": "https://yunlong10.github.io/",
     "location": {
       "address": "",
@@ -23,11 +22,11 @@
   "education": [
     {
       "name": "University of Rochester",
-      "location": "Rochester, NY, US",
+      "location": "Rochester, NY, USA",
       "url": "https://www.rochester.edu/",
       "position": "Ph.D. Student in Computer Science",
       "startDate": "2023-08",
-      "endDate": "2028-06",
+      "endDate": "Present",
       "advisor": "Chenliang Xu",
       "advisor_url": "https://www.cs.rochester.edu/~cxu22/index.html",
       "img": "assets/img/logo/ur_logo.png"
@@ -67,7 +66,7 @@
     {
       "name": "ByteDance",
       "position": "Research Intern",
-      "location": "San Jose, CA, US",
+      "location": "San Jose, CA, USA",
       "img": "assets/img/logo/bytedance_logo.png",
       "url": "https://www.bytedance.com/en/",
       "startDate": "2024-05",
@@ -79,12 +78,12 @@
     {
       "position": "Conference Reviewer",
       "url": "",
-      "summary": "CVPR 2024, ACM MM 2024, ACL 2024, NeurIPS 2024, ICLR 2025."
+      "summary": "CVPR 2024, ACM MM 2024, ACL 2024, NeurIPS 2024, ICLR 2025"
     },
     {
       "position": "Journal Reviewer",
       "url": "",
-      "summary": "IEEE Transactions on Multimedia (TMM)."
+      "summary": "TPAMI, TMM"
     },
     {
       "position": "Teaching Assistant",
