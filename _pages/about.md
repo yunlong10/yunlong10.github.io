@@ -7,7 +7,14 @@ profile:
   align: right
   image: website/prof_pic.jpg
   image_circular: false # crops the image to make it circular
-  # more_info: >
+  more_info: >
+    <center style="font-size: smaller; margin-top: -10px;">
+      <a href="https://yunlong10.github.io/assets/pdf/cv_yunlong_tang.pdf">CV</a> /
+      <a href="mailto:yunlong.tang@rochester.edu">Email</a> /
+      <a href="https://scholar.google.com/citations?user=xf1rCgoAAAAJ">GScholar</a> /
+      <a href="https://www.linkedin.com/in/yunlong-yolo-tang/">LinkedIn</a>
+    </center>
+
   #   <p>555 your office number</p>
   #   <p>123 your address street</p>
   #   <p>Your City, State 12345</p>
@@ -21,4 +28,10 @@ My name is Yunlong Tang (<a id="about-me" href='https://translate.google.com/?sl
 
 My research focuses on _Multimodal Learning_, especially _Video Understanding & Generation_. I also have a keen interest in _AI-Agents_ and _Computational Arts_.
 
-<a href="cv">I am actively looking for any collaboration. Please feel free to contact me if you are interested!</a>
+<!-- <a href="cv">I am actively looking for any collaboration. Please feel free to contact me if you are interested!</a> -->
+`I am actively looking for a Research Intern position for Summer 2025. Please feel free to contact me if you are interested!`
+
+
+
+
+
