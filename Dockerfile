@@ -40,3 +40,5 @@ EXPOSE 8080
 COPY bin/entry_point.sh /tmp/entry_point.sh
 
 CMD ["/tmp/entry_point.sh"]
+
+# RUN bundle lock --add-platform x86_64-linux
