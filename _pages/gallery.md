@@ -3,9 +3,9 @@ layout: page
 title: Gallery
 permalink: /gallery/
 description: A growing collection of your cool projects.
-nav: false
+nav: true
 nav_order: 4
-display_categories: [work, fun]
+display_categories: [fun]#[work, fun]
 horizontal: false
 ---
 
