@@ -2,10 +2,10 @@
 layout: page
 title: Gallery
 permalink: /gallery/
-description: A growing collection of your cool projects.
+description: A collection of personal artworks, inspirations, and experiences.
 nav: true
 nav_order: 4
-display_categories: [fun]#[work, fun]
+display_categories: [fun] #[work, fun]
 horizontal: false
 ---
 
