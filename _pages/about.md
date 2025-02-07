@@ -24,8 +24,11 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-I'm Yunlong Tang, a second-year CS Ph.D. student at the [University of Rochester](https://www.rochester.edu/), advised by [Prof. Chenliang Xu](https://www.cs.rochester.edu/~cxu22/index.html). I obtained my bachelar’s degree from [SUSTech](https://www.sustech.edu.cn/en/) in 2023, with supervision from [Prof. Feng Zheng](https://scholar.google.com/citations?user=PcmyXHMAAAAJ). I've interned at [ByteDance](https://www.bytedance.com/en/) and [Tencent](https://www.tencent.com/).
+I'm currently a second-year Ph.D. student in the Department of Computer Science at the [University of Rochester](https://www.rochester.edu/), advised by [Prof. Chenliang Xu](https://www.cs.rochester.edu/~cxu22/index.html).
 
-My research focuses on _Multimodal Learning_, especially _Video Understanding & Generation_. I also have a keen interest in _AI-Agents_ and _Computational Arts_.
+I obtained my B.Eng. from [SUSTech](https://www.sustech.edu.cn/en/) in 2023, under the supervision of [Prof. Feng Zheng](https://scholar.google.com/citations?user=PcmyXHMAAAAJ).
+I've interned at [ByteDance](https://www.bytedance.com/en/) and [Tencent](https://www.tencent.com/).
 
-`I'm actively looking for` ~~`a Research Intern position for Summer 2025`~~ `any collaboration. Please feel free to contact me if you are interested!`
+My recent research focuses on multimodal learning, particularly LLMs/VLMs for video understanding. I am also exploring video generation, AI agents, and computational arts.
+
+`Feel free to contact me if you're interested in research collaboration!`
