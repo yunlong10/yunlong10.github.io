@@ -5,7 +5,8 @@
     "position": "Ph.D. Student, University of Rochester",
     "address": "250 Hutchison Rd, Rochester, NY 14620",
     "e-mail": "yunlong.tang@rochester.edu",
-    "interests": "Multimodal Learning, Video Understanding & Generation",
+    "interests": "Multimodal Learning, LLMs/VLMs for Video Understanding,",
+    "": "Video Generation, AI-Agents, and Computational Arts",
     "location": {
       "address": "",
       "postalCode": "NY 14627",
@@ -80,7 +81,7 @@
     {
       "position": "Conference Reviewer",
       "url": "",
-      "summary": "CVPR 2024, ACM MM 2024, ACL 2024, NeurIPS 2024, ICLR 2025"
+      "summary": "CVPR 2024, ACM MM 2024, ACL 2024, NeurIPS 2024, ICLR 2025, ICASSP 2025"
     },
     {
       "position": "Journal Reviewer",
