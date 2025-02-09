@@ -29,6 +29,6 @@ I'm currently a second-year Ph.D. student in the Department of Computer Science 
 I obtained my B.Eng. from [SUSTech](https://www.sustech.edu.cn/en/) in 2023, under the supervision of [Prof. Feng Zheng](https://scholar.google.com/citations?user=PcmyXHMAAAAJ).
 I've interned at [ByteDance](https://www.bytedance.com/en/) and [Tencent](https://www.tencent.com/).
 
-My recent research focuses on multimodal learning, particularly LLMs/VLMs for video understanding. I am also exploring video generation, AI agents, and computational arts.
+My recent research focuses on **multimodal learning**, particularly **LLMs/VLMs for video understanding**. I am also exploring video generation, AI agents, and computational arts.
 
 `Feel free to contact me if you're interested in research collaboration!`
