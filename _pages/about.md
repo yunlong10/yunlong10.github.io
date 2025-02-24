@@ -2,7 +2,7 @@
 layout: about
 title: About
 permalink: /
-subtitle: "Hi there / 你好 / こんにちは :wave: Welcome to my homepage!"
+subtitle: "Hi there / 你好 / こんにちは / Ciallo～(∠・ω< )⌒★ Welcome to my homepage!"
 profile:
   align: right
   image: website/prof_pic.jpg
