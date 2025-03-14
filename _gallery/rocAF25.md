@@ -1,10 +1,10 @@
 ---
 layout: page
-title: Rochester Anime-Fest 2025
+title: Rochester Anime-Fest'25
 description: Rochester Anime-Fest 2025, 10am, 01/05/2025, in DoubleTree by Hilton Hotel Rochester
 img: assets/img/gallery/rocAF25/WechatIMG1138.jpg
 importance: 1
-category: fun
+category: cosplay
 related_publications: true
 ---
 

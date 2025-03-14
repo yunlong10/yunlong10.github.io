@@ -5,7 +5,7 @@ permalink: /gallery/
 description: A collection of personal artworks, inspirations, and experiences.
 nav: true
 nav_order: 4
-display_categories: [fun] #[work, fun]
+display_categories: [cosplay, footprint, artwork] #[work, fun]
 horizontal: false
 ---
 

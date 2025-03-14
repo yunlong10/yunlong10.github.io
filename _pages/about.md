@@ -5,7 +5,7 @@ permalink: /
 subtitle: "Hi there / 你好 / こんにちは / Ciallo～(∠・ω< )⌒★ Welcome to my homepage!"
 profile:
   align: right
-  image: website/prof_pic.jpg
+  image: website/prof_pic_1.jpg
   image_circular: false # crops the image to make it circular
   more_info: >
     <center style="font-size: smaller; margin-top: -10px;">
