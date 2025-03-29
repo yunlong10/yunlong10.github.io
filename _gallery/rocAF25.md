@@ -1,11 +1,11 @@
 ---
 layout: page
-title: Rochester Anime-Fest'25
+title: Nina Iseri
 description: Rochester Anime-Fest 2025, 10am, 01/05/2025, in DoubleTree by Hilton Hotel Rochester
 img: assets/img/gallery/rocAF25/WechatIMG1138.jpg
-importance: 1
+importance: 3
 category: cosplay
-related_publications: true
+related_publications: false
 ---
 
 <div class="row justify-content-sm-center">

@@ -31,4 +31,4 @@ I've interned at [ByteDance](https://www.bytedance.com/en/) and [Tencent](https:
 
 My recent research focuses on **multimodal learning**, particularly **LLMs/VLMs for video understanding**. I am also exploring video generation, AI agents, and computational arts.
 
-`Feel free to contact me if you're interested in research collaboration!`
+`Please read this`[`[note]`](/collaboration_precautions)`if you're interested in research collaboration.`

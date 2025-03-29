@@ -3,9 +3,9 @@ layout: page
 title: Aurora
 description: Aurora, 11pm, 10/11/2024, in Hamlin Beach State Park
 img: assets/img/gallery/aurora/WechatIMG954.jpg
-importance: 1
+importance: 2
 category: footprint
-related_publications: true
+related_publications: false
 ---
 
 <div class="row">
