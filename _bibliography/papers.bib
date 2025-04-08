@@ -132,37 +132,26 @@
   selected={true},
   abbr = {AAAI},
 }
-@article{huang2025fresca,
-  title={FreSca: Unveiling the Scaling Space in Diffusion Models},
-  author={Huang, Chao and Liang, Susan and Tang, Yunlong and Ma, Li and Tian, Yapeng and Xu†, Chenliang},
-  journal={arXiv preprint arXiv:2504.02154},
+@article{tang2025catv,
+  title={Caption Anything in Video: Fine-grained Object-centric Captioning via Spatiotemporal Multimodal Prompting (Coming Soon)},
+  author={Tang, Yunlong and Bi, Jing and Huang, Chao and Liang, Susan and Shimada, Daiki and Hua, Hang and Xiao, Yunzhong and Song, Yizhi and Liu, Pinxin and Feng, Mingqian and Guo, Junjia and Liu, Zhuo and Song, Luchuan and Vosoughi, Ali and He, Jinxi and He, Liu and Zhang, Zeliang and Luo, Jiebo and Xu†, Chenliang},
+  journal={arXiv preprint arXiv:2504.xxxxx},
   year={2025},
-  html={https://arxiv.org/abs/2504.02154},
-  pdf={https://arxiv.org/pdf/2504.02154},
-  preview={fresca.png},
-  code={https://github.com/WikiChao/FreSca},
-  stars={WikiChao/FreSca},
+  preview={cat-v.png},
+  html={https://arxiv.org/abs/2504.xxxxx},
+  pdf={https://arxiv.org/pdf/2504.xxxxx},
+  code={https://github.com/yunlong10/CAT-V},
+  stars={yunlong10/CAT-V},
   bibtex_show={true},
-}
-@article{bi2025verify,
-  title={VERIFY: A Benchmark of Visual Explanation and Reasoning for Investigating Multimodal Reasoning Fidelity},
-  author={Bi, Jing and Guo, Junjia and Liang, Susan and Sun, Guangyu and Song, Luchuan and Tang, Yunlong and He, Jinxi and Wu, Jiarui and Vosoughi, Ali and Chen, Chen and Xu, Chenliang},
-  journal={arXiv preprint arXiv:2503.11557},
-  year={2025},
+  selected={true},
   abstract={
-    Visual reasoning is central to human cognition, enabling individuals to interpret and abstractly understand their environment.
-    Although recent Multimodal Large Language Models (MLLMs) have demonstrated impressive performance across language and vision-language tasks, existing benchmarks primarily measure recognition-based skills and inadequately assess true visual reasoning capabilities.
-    To bridge this critical gap, we introduce VERIFY, a benchmark explicitly designed to isolate and rigorously evaluate the visual reasoning capabilities of state-of-the-art MLLMs.
-    VERIFY compels models to reason primarily from visual information, providing minimal textual context to reduce reliance on domain-specific knowledge and linguistic biases.
-    Each problem is accompanied by a human-annotated reasoning path, making it the first to provide in-depth evaluation of model decision-making processes.
-    Additionally, we propose novel metrics that assess visual reasoning fidelity beyond mere accuracy, highlighting critical imbalances in current model reasoning patterns.
-    Our comprehensive benchmarking of leading MLLMs uncovers significant limitations, underscoring the need for a balanced and holistic approach to both perception and reasoning.
-    For more teaser and testing, visit our project page at https://verify-eqh.pages.dev/
-  },
-  html={https://arxiv.org/abs/2503.11557},
-  pdf={https://arxiv.org/pdf/2503.11557},
-  preview={verify.png},
-  bibtex_show={true}
+    We present CAT-V (Caption AnyThing in Video), a training-free framework for fine-grained object-centric video captioning that enables detailed descriptions of user-selected objects through time.
+    CAT-V integrates three key components: a Segmenter based on SAMURAI for precise object segmentation across frames, a Temporal Analyzer powered by TRACE-Uni for accurate event boundary detection and temporal analysis, and a Captioner using InternVL-2.5 for generating detailed object-centric descriptions.
+    Through spatiotemporal visual prompts and chain-of-thought reasoning, our framework generates detailed, temporally-aware descriptions of objects' attributes, actions, statuses, interactions, and environmental contexts without requiring additional training data.
+    CAT-V supports flexible user interactions through various visual prompts (points, bounding boxes, and irregular regions) and maintains temporal sensitivity by tracking object states and interactions across different time segments.
+    Our approach addresses limitations of existing video captioning methods, which either produce overly abstract descriptions or lack object-level precision, enabling fine-grained, object-specific descriptions while maintaining temporal coherence and spatial accuracy.
+    The GitHub repository for this project is available at: https://github.com/yunlong10/CAT-V
+  }
 }
 @article{hua2024v2xum,
   title={V2Xum-LLM: Cross-modal Video Summarization with Temporal Prompt Instruction Tuning},
@@ -191,6 +180,62 @@
   selected={true},
   abbr = {AAAI},
 }
+@article{huang2025fresca,
+  title={FreSca: Unveiling the Scaling Space in Diffusion Models},
+  author={Huang, Chao and Liang, Susan and Tang, Yunlong and Ma, Li and Tian, Yapeng and Xu†, Chenliang},
+  journal={arXiv preprint arXiv:2504.02154},
+  year={2025},
+  html={https://arxiv.org/abs/2504.02154},
+  pdf={https://arxiv.org/pdf/2504.02154},
+  preview={fresca.png},
+  code={https://github.com/WikiChao/FreSca},
+  stars={WikiChao/FreSca},
+  bibtex_show={true},
+}
+@article{bi2025mllmreasoning,
+  title={Why Reasoning Matters? A Survey of Advancements in Multimodal Reasoning},
+  author={Bi, Jing and Liang, Susan and Zhou, Xiaofei and Liu, Pinxin and Guo, Junjia and Tang, Yunlong and Song, Luchuan and Huang, Chao and Sun, Guangyu and He, Jinxi and Wu, Jiarui and Yang, Shu and Zhang, Daoan and Chen, Chen and Wen, Lianggong Bruce and Liu, Zhang and Luo, Jiebo and Xu, Chenliang},
+  journal={arXiv preprint arXiv:2504.03151},
+  year={2025},
+  html={https://arxiv.org/abs/2504.03151},
+  pdf={https://arxiv.org/pdf/2504.03151},
+  preview={reasoning_survey.png},
+  code={https://github.com/jing-bi/awesome-M.LLM-reasoning},
+  stars={jing-bi/awesome-M.LLM-reasoning},
+  website={https://reason.jing.vision/},
+  abstract={
+    Reasoning is central to human intelligence, enabling structured problem-solving across diverse tasks.
+    Recent advances in large language models (LLMs) have greatly enhanced their reasoning abilities in arithmetic, commonsense, and symbolic domains.
+    However, effectively extending these capabilities into multimodal contexts-where models must integrate both visual and textual inputs-continues to be a significant challenge.
+    Multimodal reasoning introduces complexities, such as handling conflicting information across modalities, which require models to adopt advanced interpretative strategies.
+    Addressing these challenges involves not only sophisticated algorithms but also robust methodologies for evaluating reasoning accuracy and coherence.
+    This paper offers a concise yet insightful overview of reasoning techniques in both textual and multimodal LLMs.
+    Through a thorough and up-to-date comparison, we clearly formulate core reasoning challenges and opportunities, highlighting practical methods for post-training optimization and test-time inference.
+    Our work provides valuable insights and guidance, bridging theoretical frameworks and practical implementations, and sets clear directions for future research.
+  }
+}
+@article{bi2025verify,
+  title={VERIFY: A Benchmark of Visual Explanation and Reasoning for Investigating Multimodal Reasoning Fidelity},
+  author={Bi, Jing and Guo, Junjia and Liang, Susan and Sun, Guangyu and Song, Luchuan and Tang, Yunlong and He, Jinxi and Wu, Jiarui and Vosoughi, Ali and Chen, Chen and Xu, Chenliang},
+  journal={arXiv preprint arXiv:2503.11557},
+  year={2025},
+  abstract={
+    Visual reasoning is central to human cognition, enabling individuals to interpret and abstractly understand their environment.
+    Although recent Multimodal Large Language Models (MLLMs) have demonstrated impressive performance across language and vision-language tasks, existing benchmarks primarily measure recognition-based skills and inadequately assess true visual reasoning capabilities.
+    To bridge this critical gap, we introduce VERIFY, a benchmark explicitly designed to isolate and rigorously evaluate the visual reasoning capabilities of state-of-the-art MLLMs.
+    VERIFY compels models to reason primarily from visual information, providing minimal textual context to reduce reliance on domain-specific knowledge and linguistic biases.
+    Each problem is accompanied by a human-annotated reasoning path, making it the first to provide in-depth evaluation of model decision-making processes.
+    Additionally, we propose novel metrics that assess visual reasoning fidelity beyond mere accuracy, highlighting critical imbalances in current model reasoning patterns.
+    Our comprehensive benchmarking of leading MLLMs uncovers significant limitations, underscoring the need for a balanced and holistic approach to both perception and reasoning.
+    For more teaser and testing, visit our project page at https://verify-eqh.pages.dev/
+  },
+  html={https://arxiv.org/abs/2503.11557},
+  pdf={https://arxiv.org/pdf/2503.11557},
+  website={https://verify-eqh.pages.dev/},
+  preview={verify.png},
+  bibtex_show={true}
+}
+
 @article{huang2024scalingconcept,
   title={Scaling Concept with Text-Guided Diffusion Models},
   author={Huang, Chao and Liang, Susan and Tang, Yunlong and Tian, Yapeng and Kumar, Anurag and Xu†, Chenliang},
