@@ -133,7 +133,7 @@
   abbr = {AAAI},
 }
 @article{tang2025catv,
-  title={Caption Anything in Video: Fine-grained Object-centric Captioning via Spatiotemporal Multimodal Prompting (Coming Soon)},
+  title={Caption Anything in Video: Fine-grained Object-centric Captioning via Spatiotemporal Multimodal Prompting},
   author={Tang, Yunlong and Bi, Jing and Huang, Chao and Liang, Susan and Shimada, Daiki and Hua, Hang and Xiao, Yunzhong and Song, Yizhi and Liu, Pinxin and Feng, Mingqian and Guo, Junjia and Liu, Zhuo and Song, Luchuan and Vosoughi, Ali and He, Jinxi and He, Liu and Zhang, Zeliang and Luo, Jiebo and Xu†, Chenliang},
   journal={arXiv preprint arXiv:2504.05541},
   year={2025},
@@ -185,6 +185,14 @@
   author={Huang, Chao and Liang, Susan and Tang, Yunlong and Ma, Li and Tian, Yapeng and Xu†, Chenliang},
   journal={arXiv preprint arXiv:2504.02154},
   year={2025},
+  abstract={
+    Diffusion models offer impressive controllability for image tasks, primarily through noise predictions that encode task-specific information and classifier-free guidance enabling adjustable scaling.
+    This scaling mechanism implicitly defines a ``scaling space'' whose potential for fine-grained semantic manipulation remains underexplored.
+    We investigate this space, starting with inversion-based editing where the difference between conditional/unconditional noise predictions carries key semantic information.
+    Our core contribution stems from a Fourier analysis of noise predictions, revealing that its low- and high-frequency components evolve differently throughout diffusion.
+    Based on this insight, we introduce FreSca, a straightforward method that applies guidance scaling independently to different frequency bands in the Fourier domain.
+    FreSca demonstrably enhances existing image editing methods without retraining. Excitingly, its effectiveness extends to image understanding tasks such as depth estimation, yielding quantitative gains across multiple datasets.
+  },
   html={https://arxiv.org/abs/2504.02154},
   pdf={https://arxiv.org/pdf/2504.02154},
   preview={fresca.png},
