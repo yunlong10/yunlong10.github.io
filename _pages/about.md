@@ -24,7 +24,7 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-I'm currently a second-year Ph.D. student in the Department of Computer Science at the [University of Rochester](https://www.rochester.edu/), advised by [Prof. Chenliang Xu](https://www.cs.rochester.edu/~cxu22/index.html).
+I'm a second-year Ph.D. student in the Department of Computer Science at the [University of Rochester](https://www.rochester.edu/), advised by [Prof. Chenliang Xu](https://www.cs.rochester.edu/~cxu22/index.html).
 
 I obtained my B.Eng. from [SUSTech](https://www.sustech.edu.cn/en/) in 2023, under the supervision of [Prof. Feng Zheng](https://scholar.google.com/citations?user=PcmyXHMAAAAJ).
 I've interned at [ByteDance](https://www.bytedance.com/en/) and [Tencent](https://www.tencent.com/).
