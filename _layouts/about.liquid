@@ -63,6 +63,11 @@ layout: default
     {% if page.selected_papers %}
       <h2>
         <a href="{{ '/publications/' | relative_url }}" style="color: inherit">Selected Research</a>
+        <a href="https://scholar.google.com/citations?user=xf1rCgoAAAAJ"
+          ><img
+            src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/yunlong10/citation-badge/main/citations.json"
+            alt="Citations"
+        ></a>
       </h2>
       <p style="font-size: 14px;">* Equal Contribution | † Corresponding Author</p>
       {% include selected_papers.liquid %}
