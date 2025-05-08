@@ -66,7 +66,7 @@ layout: default
         <a href="https://scholar.google.com/citations?user=xf1rCgoAAAAJ"
           ><img
             id="citation-badge"
-            src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/yunlong10/citation-badge/main/citations.json&color=b509ac&labelColor=b509ac"
+            src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/yunlong10/citation-badge/main/citations.json&color=b509ac&labelColor=666666"
             alt="Citations"
         ></a>
       </h2>
@@ -79,11 +79,11 @@ layout: default
           const badge = document.getElementById('citation-badge');
           if (badge && themeColor) {
             const color = themeColor.replace('#', '');
-            badge.src = badge.src.replace(/color=[^&]+/, 'color=' + color).replace(/labelColor=[^&]+/, 'labelColor=' + (isDark ? 'fff' : '000'));
+            badge.src = badge.src.replace(/color=[^&]+/, 'color=' + color).replace(/labelColor=[^&]+/, 'labelColor=' + (isDark ? 'fff' : '666666'));
           }
         }
-        // 页面加载时更新颜色
-        document.addEventListener('DOMContentLoaded', updateBadgeColor);
+        // 页面加载时立即更新颜色
+        updateBadgeColor();
         // 主题切换时更新颜色
         document.addEventListener('themeChanged', updateBadgeColor);
       </script>
