@@ -81,6 +81,9 @@ let applyTheme = () => {
       background: getComputedStyle(document.documentElement).getPropertyValue("--global-bg-color") + "ee", // + 'ee' for trasparency.
     });
   }
+
+  // Dispatch theme change event
+  document.dispatchEvent(new CustomEvent("themeChanged", { detail: { theme } }));
 };
 
 let setHighlight = (theme) => {

@@ -65,11 +65,28 @@ layout: default
         <a href="{{ '/publications/' | relative_url }}" style="color: inherit">Selected Research</a>
         <a href="https://scholar.google.com/citations?user=xf1rCgoAAAAJ"
           ><img
-            src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/yunlong10/citation-badge/main/citations.json"
+            id="citation-badge"
+            src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/yunlong10/citation-badge/main/citations.json&color=b509ac&labelColor=b509ac"
             alt="Citations"
         ></a>
       </h2>
       <p style="font-size: 14px;">* Equal Contribution | † Corresponding Author</p>
+      <script>
+        // 获取当前主题颜色并更新徽章
+        function updateBadgeColor() {
+          const themeColor = getComputedStyle(document.documentElement).getPropertyValue('--global-theme-color').trim();
+          const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+          const badge = document.getElementById('citation-badge');
+          if (badge && themeColor) {
+            const color = themeColor.replace('#', '');
+            badge.src = badge.src.replace(/color=[^&]+/, 'color=' + color).replace(/labelColor=[^&]+/, 'labelColor=' + (isDark ? 'fff' : '000'));
+          }
+        }
+        // 页面加载时更新颜色
+        document.addEventListener('DOMContentLoaded', updateBadgeColor);
+        // 主题切换时更新颜色
+        document.addEventListener('themeChanged', updateBadgeColor);
+      </script>
       {% include selected_papers.liquid %}
     {% endif %}
 
