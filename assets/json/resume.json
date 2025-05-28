@@ -75,6 +75,16 @@
       "startDate": "2024-05",
       "endDate": "2024-08",
       "mentor": ["Yiting Liao", "Gen Zhan"]
+    },
+    {
+      "name": "Amazon",
+      "position": "Applied Scientist Intern",
+      "location": "Bellevue, WA, USA",
+      "img": "assets/img/logo/amazon.png",
+      "url": "https://www.aboutamazon.com/",
+      "startDate": "2025-05",
+      "endDate": "Present",
+      "mentor": ["Wei Wang", "Liqiang He"]
     }
   ],
   "services": [
