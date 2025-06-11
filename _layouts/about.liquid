@@ -98,8 +98,39 @@ layout: default
       <li>🎸 I'm an ACG lover, J-Pop fan, and <a href="/gallery/" target="_blank">cosplayer</a>.</li>
       <li>🎨 I started formal painting training at 4.</li>
       <li>
-        <details>
-          <summary>&nbsp;Preferred names (click to unfold).</summary>
+        <style>
+          .collapsible-checkbox {
+            display: none;
+          }
+          .collapsible-label {
+            cursor: pointer;
+            display: block;
+            padding: 5px 0;
+            position: relative;
+          }
+          .collapsible-label::after {
+            content: '▼';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease;
+          }
+          .collapsible-checkbox:checked + .collapsible-label::after {
+            transform: translateY(-50%) rotate(180deg);
+          }
+          .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+          }
+          .collapsible-checkbox:checked + .collapsible-label + .collapsible-content {
+            max-height: 1000px;
+          }
+        </style>
+        <input type="checkbox" id="names-toggle" class="collapsible-checkbox">
+        <label for="names-toggle" class="collapsible-label">💳 Preferred names (click to unfold)</label>
+        <div class="collapsible-content">
           <ul style="line-height: 2;">
             <li>English: Yolo Y. Tang, Yunlong (Yolo) Tang, Yolo Tang.</li>
             <li>
@@ -107,17 +138,18 @@ layout: default
               >たきな (Tanyoro Takina), 唐 悠泷奈/悠泷.
             </li>
             <li>
-              <details>
-                <summary>&nbsp;Evolution (click to unfold).</summary>
-                <ul style="line-height: 1.5" ;>
+              <input type="checkbox" id="evolution-toggle" class="collapsible-checkbox">
+              <label for="evolution-toggle" class="collapsible-label">Evolution (click to unfold)</label>
+              <div class="collapsible-content">
+                <ul style="line-height: 1.5">
                   <li>云龙 (Yunlong) → Yolo (ヨロ、yoro) → 悠泷</li>
                   <li>云 (yun) → 悠 (ゆう、yuu) → 悠 (ateji:ヨロ)</li>
                   <li>龙 → 泷 → 泷奈 → たきな (Takina)</li>
                 </ul>
-              </details>
+              </div>
             </li>
           </ul>
-        </details>
+        </div>
       </li>
     </ul>
 
@@ -128,9 +160,9 @@ layout: default
       src="//clustrmaps.com/map_v2.js?cl=ffffff&d=mErswMtIf2K7G41Iql-K1paY9dnbAA1mf0bzUzgiHAs&co=2698ba&cmo=b509ac&cmn=FF1493&w=350"
     ></script>
     <div style="text-align: center;">
-      <small><i>"What I cannot create, I do not understand."</i></small>
+      <small><i>"Study the science of art. Study the art of science."</i></small>
       <div style="text-align: center;">
-        <small><i>—— Richard Feynman</i></small>
+        <small><i>—— Leonardo da Vinci</i></small>
       </div>
     </div>
 

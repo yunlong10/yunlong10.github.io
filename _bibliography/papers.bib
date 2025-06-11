@@ -1,48 +1,5 @@
 ---
 ---
-@article{tang2024vidcompostion,
-  title={VidComposition: Can MLLMs Analyze Compositions in Compiled Videos?},
-  author={Tang*, Yunlong and Guo*, Junjia and Hua, Hang and Liang, Susan and Feng, Mingqian and Li, Xinyang and Mao, Rui and Huang, Chao and Bi, Jing and Zhang, Zeliang and Fazli, Pooyan and Xu†, Chenliang},
-  journal={IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
-  year={2025},
-  preview={vidcomposition.png},
-  bibtex_show={true},
-  html={https://arxiv.org/abs/2411.10979},
-  website={https://yunlong10.github.io/VidComposition/},
-  code={https://github.com/yunlong10/VidComposition},
-  stars={yunlong10/VidComposition},
-  abstract={
-    The advancement of Multimodal Large Language Models (MLLMs) has enabled significant progress in multimodal understanding, expanding their capacity to analyze video content.
-    However, existing evaluation benchmarks for MLLMs primarily focus on abstract video comprehension, lacking a detailed assessment of their ability to understand video compositions, the nuanced interpretation of how visual elements combine and interact within highly compiled video contexts.
-    We introduce VidComposition, a new benchmark specifically designed to evaluate the video composition understanding capabilities of MLLMs using carefully curated compiled videos and cinematic-level annotations.
-    VidComposition includes 982 videos with 1706 multiple-choice questions, covering various compositional aspects such as camera movement, angle, shot size, narrative structure, character actions and emotions, etc.
-    Our comprehensive evaluation of 33 open-source and proprietary MLLMs reveals a significant performance gap between human and model capabilities. This highlights the limitations of current MLLMs in understanding complex, compiled video compositions and offers insights into areas for further improvement.
-    The leaderboard and evaluation code are available at https://yunlong10.github.io/VidComposition/.
-  },
-  abbr = {CVPR},
-  selected={true},
-}
-@article{tang2025mmperspective,
-  title = {MMPerspective: Do MLLMs Understand Perspective? A Comprehensive Benchmark for Perspective Perception, Reasoning, and Robustness},
-  author = {Tang, Yunlong and Liu, Pinxin and Feng, Mingqian and Tan, Zhangyun and Mao, Rui and Huang, Chao and Bi, Jing and Xiao, Yunzhong and Liang, Susan and Hua, Hang and Vosoughi, Ali and Song, Luchuan and Zhang, Zeliang and Xu, Chenliang},
-  journal = {arXiv preprint arXiv:2505.20426},
-  year = {2025},
-  preview={mmperspective.png},
-  html={https://arxiv.org/abs/2505.20426},
-  pdf={https://arxiv.org/pdf/2505.20426},
-  code={https://github.com/yunlong10/MMPerspective},
-  stars={yunlong10/MMPerspective},
-  bibtex_show={true},
-  abstract={
-    Understanding perspective is fundamental to human visual perception, yet the extent to which multimodal large language models (MLLMs) internalize perspective geometry remains unclear.
-    We introduce MMPerspective, the first benchmark specifically designed to systematically evaluate MLLMs' understanding of perspective through 10 carefully crafted tasks across three complementary dimensions: Perspective Perception, Reasoning, and Robustness.
-    Our benchmark comprises 2,711 real-world and synthetic image instances with 5,083 question-answer pairs that probe key capabilities, such as vanishing point perception and counting, perspective type reasoning, line relationship understanding in 3D space, invariance to perspective-preserving transformations, etc.
-    Through a comprehensive evaluation of 43 state-of-the-art MLLMs, we uncover significant limitations: while models demonstrate competence on surface-level perceptual tasks, they struggle with compositional reasoning and maintaining spatial consistency under perturbations.
-    Our analysis further reveals intriguing patterns between model architecture, scale, and perspective capabilities, highlighting both robustness bottlenecks and the benefits of chain-of-thought prompting.
-    MMPerspective establishes a valuable testbed for diagnosing and advancing spatial understanding in vision-language systems.
-    Resources available at: https://yunlong10.github.io/MMPerspective/
-  }
-}
 @article{vidllmsurvey,
   title={Video Understanding with Large Language Models: A Survey 🔥🔥🔥}, 
   author={Tang*, Yunlong and Bi*, Jing and Xu*, Siting and Song, Luchuan and Liang, Susan and Wang, Teng and Zhang, Daoan and An, Jie and Lin, Jingyang and Zhu, Rongyi and Vosoughi, Ali and Huang, Chao and Zhang, Zeliang and Liu, Pinxin and Feng, Mingqian and Zheng, Feng and Zhang, Jianguo and Luo, Ping and Luo, Jiebo and Xu†, Chenliang},
@@ -68,33 +25,35 @@
   abbr = {TCSVT},
   stars={yunlong10/Awesome-LLMs-for-Video-Understanding}
 }
-@article{tang2025ai4anime,
-  title={Generative AI for Cel-Animation: A Survey 🔥🔥🔥}, 
-  author={Tang, Yunlong and Guo, Junjia and Liu, Pinxin and Wang, Zhiyuan and Hua, Hang and Zhong, Jia-Xing and Xiao, Yunzhong and Huang, Chao and Song, Luchuan and Liang, Susan and Song, Yizhi and He, Liu and Bi, Jing and Feng, Mingqian and Li, Xinyang and Zhang, Zeliang and Xu, Chenliang},
-  journal={arXiv preprint arXiv:2501.06250},
+@article{tang2024vidcompostion,
+  title={VidComposition: Can MLLMs Analyze Compositions in Compiled Videos?},
+  author={Tang*, Yunlong and Guo*, Junjia and Hua, Hang and Liang, Susan and Feng, Mingqian and Li, Xinyang and Mao, Rui and Huang, Chao and Bi, Jing and Zhang, Zeliang and Fazli, Pooyan and Xu†, Chenliang},
+  journal={Proceedings of the Computer Vision and Pattern Recognition Conference (CVPR)},
   year={2025},
-  html={https://arxiv.org/abs/2501.06250},
-  pdf={https://arxiv.org/pdf/2501.06250},
-  code={https://github.com/yunlong10/Awesome-AI4Animation},
-  stars={yunlong10/Awesome-AI4Animation},
-  preview={teaser-ai4anime.png},
-  abstract={
-    Traditional Celluloid (Cel) Animation production pipeline encompasses multiple essential steps, including storyboarding, layout design, keyframe animation, inbetweening, and colorization, which demand substantial manual effort, technical expertise, and significant time investment.
-    These challenges have historically impeded the efficiency and scalability of Cel-Animation production.
-    The rise of generative artificial intelligence (GenAI), encompassing large language models, multimodal models, and diffusion models, offers innovative solutions by automating tasks such as inbetween frame generation, colorization, and storyboard creation.
-    This survey explores how GenAI integration is revolutionizing traditional animation workflows by lowering technical barriers, broadening accessibility for a wider range of creators through tools like AniDoc, ToonCrafter, and AniSora, and enabling artists to focus more on creative expression and artistic innovation. Despite its potential, issues such as maintaining visual consistency, ensuring stylistic coherence, and addressing ethical considerations continue to pose challenges.
-    Furthermore, this paper discusses future directions and explores potential advancements in AI-assisted animation.
-    For further exploration and resources, please visit our GitHub repository: https://github.com/yunlong10/Awesome-AI4Animation
-  },
+  preview={vidcomposition.png},
   bibtex_show={true},
+  html={https://openaccess.thecvf.com/content/CVPR2025/html/Tang_VidComposition_Can_MLLMs_Analyze_Compositions_in_Compiled_Videos_CVPR_2025_paper.html},
+  website={https://yunlong10.github.io/VidComposition/},
+  code={https://github.com/yunlong10/VidComposition},
+  stars={yunlong10/VidComposition},
+  abstract={
+    The advancement of Multimodal Large Language Models (MLLMs) has enabled significant progress in multimodal understanding, expanding their capacity to analyze video content.
+    However, existing evaluation benchmarks for MLLMs primarily focus on abstract video comprehension, lacking a detailed assessment of their ability to understand video compositions, the nuanced interpretation of how visual elements combine and interact within highly compiled video contexts.
+    We introduce VidComposition, a new benchmark specifically designed to evaluate the video composition understanding capabilities of MLLMs using carefully curated compiled videos and cinematic-level annotations.
+    VidComposition includes 982 videos with 1706 multiple-choice questions, covering various compositional aspects such as camera movement, angle, shot size, narrative structure, character actions and emotions, etc.
+    Our comprehensive evaluation of 33 open-source and proprietary MLLMs reveals a significant performance gap between human and model capabilities. This highlights the limitations of current MLLMs in understanding complex, compiled video compositions and offers insights into areas for further improvement.
+    The leaderboard and evaluation code are available at https://yunlong10.github.io/VidComposition/.
+  },
+  abbr = {CVPR},
+  selected={true},
 }
 @article{bi2024unveiling,
   title={Unveiling Visual Perception in Language Models: An Attention Head Analysis Approach},
   author={Bi, Jing and Guo, Junjia and Tang, Yunlong and Wen, Lianggong Bruce and Liu, Zhang and Xu, Chenliang},
-  journal={IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)},
+  journal={Proceedings of the Computer Vision and Pattern Recognition Conference (CVPR)},
   year={2025},
-  html={https://arxiv.org/abs/2412.18108},
-  pdf={https://arxiv.org/pdf/2412.18108},
+  html={https://openaccess.thecvf.com/content/CVPR2025/html/Bi_Unveiling_Visual_Perception_in_Language_Models_An_Attention_Head_Analysis_CVPR_2025_paper.html},
+  pdf={https://openaccess.thecvf.com/content/CVPR2025/papers/Bi_Unveiling_Visual_Perception_in_Language_Models_An_Attention_Head_Analysis_CVPR_2025_paper.pdf},
   bibtex_show={true},
   preview={unveiling.png},
   abbr = {CVPR},
@@ -133,7 +92,6 @@
   bibtex_show={true},
   abbr = {AAAI},
 }
-
 @article{tang2024avicuna,
   title={Empowering LLMs with Pseudo-Untrimmed Videos for Audio-Visual Temporal Understanding},
   author={Tang, Yunlong and Shimada, Daiki and Bi, Jing and Feng, Mingqian and Hua, Hang and Xu†, Chenliang},
@@ -161,26 +119,6 @@
   bibtex_show={true},
   selected={true},
   abbr = {AAAI},
-}
-@article{tang2025catv,
-  title={Caption Anything in Video: Fine-grained Object-centric Captioning via Spatiotemporal Multimodal Prompting},
-  author={Tang, Yunlong and Bi, Jing and Huang, Chao and Liang, Susan and Shimada, Daiki and Hua, Hang and Xiao, Yunzhong and Song, Yizhi and Liu, Pinxin and Feng, Mingqian and Guo, Junjia and Liu, Zhuo and Song, Luchuan and Vosoughi, Ali and He, Jinxi and He, Liu and Zhang, Zeliang and Luo, Jiebo and Xu†, Chenliang},
-  journal={arXiv preprint arXiv:2504.05541},
-  year={2025},
-  preview={cat-v-framework.png},
-  html={https://arxiv.org/abs/2504.05541},
-  pdf={https://arxiv.org/pdf/2504.05541},
-  code={https://github.com/yunlong10/CAT-V},
-  stars={yunlong10/CAT-V},
-  bibtex_show={true},
-  abstract={
-    We present CAT-V (Caption AnyThing in Video), a training-free framework for fine-grained object-centric video captioning that enables detailed descriptions of user-selected objects through time.
-    CAT-V integrates three key components: a Segmenter based on SAMURAI for precise object segmentation across frames, a Temporal Analyzer powered by TRACE-Uni for accurate event boundary detection and temporal analysis, and a Captioner using InternVL-2.5 for generating detailed object-centric descriptions.
-    Through spatiotemporal visual prompts and chain-of-thought reasoning, our framework generates detailed, temporally-aware descriptions of objects' attributes, actions, statuses, interactions, and environmental contexts without requiring additional training data.
-    CAT-V supports flexible user interactions through various visual prompts (points, bounding boxes, and irregular regions) and maintains temporal sensitivity by tracking object states and interactions across different time segments.
-    Our approach addresses limitations of existing video captioning methods, which either produce overly abstract descriptions or lack object-level precision, enabling fine-grained, object-specific descriptions while maintaining temporal coherence and spatial accuracy.
-    The GitHub repository for this project is available at: https://github.com/yunlong10/CAT-V
-  }
 }
 @article{hua2024v2xum,
   title={V2Xum-LLM: Cross-modal Video Summarization with Temporal Prompt Instruction Tuning},
@@ -232,6 +170,130 @@
   code={https://github.com/WikiChao/FreSca},
   stars={WikiChao/FreSca},
   bibtex_show={true},
+  abbr = {CVPR Workshops},
+}
+@article{kubrick2025,
+  title={Kubrick: Multimodal Agent Collaborations for Synthetic Video Generation},
+  author={He, Liu and Song, Yizhi and Huang, Hejun and Liu, Pinxin and Tang, Yunlong and Aliaga, Daniel and Zhou, Xin},
+  journal={arXiv preprint arXiv:2408.10453},
+  year={2025},
+  html={https://arxiv.org/abs/2408.10453},
+  pdf={https://arxiv.org/pdf/2408.10453},
+  bibtex_show={true},
+  abstract={
+    Text-to-video generation has been dominated by diffusion-based or autoregressive models.
+    These novel models provide plausible versatility, but are criticized for improper physical motion, shading and illumination, camera motion, and temporal consistency.
+    The film industry relies on manually-edited Computer-Generated Imagery (CGI) using 3D modeling software.
+    Human-directed 3D synthetic videos address these shortcomings, but require tight collaboration between movie makers and 3D rendering experts.
+    We introduce an automatic synthetic video generation pipeline based on Vision Large Language Model (VLM) agent collaborations.
+    Given a language description of a video, multiple VLM agents direct various processes of the generation pipeline.
+    They cooperate to create Blender scripts which render a video following the given description. Augmented with Blender-based movie making knowledge, the Director agent decomposes the text-based video description into sub-processes.
+    For each sub-process, the Programmer agent produces Python-based Blender scripts based on function composing and API calling.
+    The Reviewer agent, with knowledge of video reviewing, character motion coordinates, and intermediate screenshots, provides feedback to the Programmer agent.
+    The Programmer agent iteratively improves scripts to yield the best video outcome.
+    Our generated videos show better quality than commercial video generation models in five metrics on video quality and instruction-following performance.
+    Our framework outperforms other approaches in a user study on quality, consistency, and rationality.
+  },
+  preview={kubrick.png},
+  abbr = {CVPR Workshops},
+}
+@article{liu2024emo,
+  title={GaussianStyle: Gaussian Head Avatar via StyleGAN},
+  author={Liu, Pinxin and Song, Luchuan and Zhang, Daoan and Hua, Hang and Tang, Yunlong and Tu, Huaijin and Luo, Jiebo and Xu†, Chenliang},
+  journal={International Conference on 3D Vision (3DV)},
+  year={2025},
+  html={https://arxiv.org/abs/2402.00827},
+  pdf={https://arxiv.org/pdf/2402.00827},
+  code={https://github.com/andypinxinliu/HumanFaceProject},
+  stars={andypinxinliu/HumanFaceProject},
+  bibtex_show={true},
+  abstract={
+    Existing methods like Neural Radiation Fields (NeRF) and 3D Gaussian Splatting (3DGS) have made significant strides in facial attribute control such as facial animation and components editing, yet they struggle with fine-grained representation and scalability in dynamic head modeling.
+    To address these limitations, we propose GaussianStyle, a novel framework that integrates the volumetric strengths of 3DGS with the powerful implicit representation of StyleGAN.
+    The GaussianStyle preserves structural information, such as expressions and poses, using Gaussian points, while projecting the implicit volumetric representation into StyleGAN to capture high-frequency details and mitigate the over-smoothing commonly observed in neural texture rendering.
+    Experimental outcomes indicate that our method achieves state-of-the-art performance in reenactment, novel view synthesis, and animation.
+  },
+  abbr={3DV},
+  preview={gaussian_style.png}
+}
+@article{tang2025mmperspective,
+  title = {MMPerspective: Do MLLMs Understand Perspective? A Comprehensive Benchmark for Perspective Perception, Reasoning, and Robustness},
+  author = {Tang, Yunlong and Liu, Pinxin and Feng, Mingqian and Tan, Zhangyun and Mao, Rui and Huang, Chao and Bi, Jing and Xiao, Yunzhong and Liang, Susan and Hua, Hang and Vosoughi, Ali and Song, Luchuan and Zhang, Zeliang and Xu, Chenliang},
+  journal = {arXiv preprint arXiv:2505.20426},
+  year = {2025},
+  preview={mmperspective.png},
+  html={https://arxiv.org/abs/2505.20426},
+  pdf={https://arxiv.org/pdf/2505.20426},
+  code={https://github.com/yunlong10/MMPerspective},
+  stars={yunlong10/MMPerspective},
+  bibtex_show={true},
+  abstract={
+    Understanding perspective is fundamental to human visual perception, yet the extent to which multimodal large language models (MLLMs) internalize perspective geometry remains unclear.
+    We introduce MMPerspective, the first benchmark specifically designed to systematically evaluate MLLMs' understanding of perspective through 10 carefully crafted tasks across three complementary dimensions: Perspective Perception, Reasoning, and Robustness.
+    Our benchmark comprises 2,711 real-world and synthetic image instances with 5,083 question-answer pairs that probe key capabilities, such as vanishing point perception and counting, perspective type reasoning, line relationship understanding in 3D space, invariance to perspective-preserving transformations, etc.
+    Through a comprehensive evaluation of 43 state-of-the-art MLLMs, we uncover significant limitations: while models demonstrate competence on surface-level perceptual tasks, they struggle with compositional reasoning and maintaining spatial consistency under perturbations.
+    Our analysis further reveals intriguing patterns between model architecture, scale, and perspective capabilities, highlighting both robustness bottlenecks and the benefits of chain-of-thought prompting.
+    MMPerspective establishes a valuable testbed for diagnosing and advancing spatial understanding in vision-language systems.
+    Resources available at: https://yunlong10.github.io/MMPerspective/
+  }
+}
+@article{tang2025ai4anime,
+  title={Generative AI for Cel-Animation: A Survey 🔥🔥🔥}, 
+  author={Tang, Yunlong and Guo, Junjia and Liu, Pinxin and Wang, Zhiyuan and Hua, Hang and Zhong, Jia-Xing and Xiao, Yunzhong and Huang, Chao and Song, Luchuan and Liang, Susan and Song, Yizhi and He, Liu and Bi, Jing and Feng, Mingqian and Li, Xinyang and Zhang, Zeliang and Xu, Chenliang},
+  journal={arXiv preprint arXiv:2501.06250},
+  year={2025},
+  html={https://arxiv.org/abs/2501.06250},
+  pdf={https://arxiv.org/pdf/2501.06250},
+  code={https://github.com/yunlong10/Awesome-AI4Animation},
+  stars={yunlong10/Awesome-AI4Animation},
+  preview={teaser-ai4anime.png},
+  abstract={
+    Traditional Celluloid (Cel) Animation production pipeline encompasses multiple essential steps, including storyboarding, layout design, keyframe animation, inbetweening, and colorization, which demand substantial manual effort, technical expertise, and significant time investment.
+    These challenges have historically impeded the efficiency and scalability of Cel-Animation production.
+    The rise of generative artificial intelligence (GenAI), encompassing large language models, multimodal models, and diffusion models, offers innovative solutions by automating tasks such as inbetween frame generation, colorization, and storyboard creation.
+    This survey explores how GenAI integration is revolutionizing traditional animation workflows by lowering technical barriers, broadening accessibility for a wider range of creators through tools like AniDoc, ToonCrafter, and AniSora, and enabling artists to focus more on creative expression and artistic innovation. Despite its potential, issues such as maintaining visual consistency, ensuring stylistic coherence, and addressing ethical considerations continue to pose challenges.
+    Furthermore, this paper discusses future directions and explores potential advancements in AI-assisted animation.
+    For further exploration and resources, please visit our GitHub repository: https://github.com/yunlong10/Awesome-AI4Animation
+  },
+  bibtex_show={true},
+}
+@article{tang2025catv,
+  title={Caption Anything in Video: Fine-grained Object-centric Captioning via Spatiotemporal Multimodal Prompting},
+  author={Tang, Yunlong and Bi, Jing and Huang, Chao and Liang, Susan and Shimada, Daiki and Hua, Hang and Xiao, Yunzhong and Song, Yizhi and Liu, Pinxin and Feng, Mingqian and Guo, Junjia and Liu, Zhuo and Song, Luchuan and Vosoughi, Ali and He, Jinxi and He, Liu and Zhang, Zeliang and Luo, Jiebo and Xu†, Chenliang},
+  journal={arXiv preprint arXiv:2504.05541},
+  year={2025},
+  preview={cat-v-framework.png},
+  html={https://arxiv.org/abs/2504.05541},
+  pdf={https://arxiv.org/pdf/2504.05541},
+  code={https://github.com/yunlong10/CAT-V},
+  stars={yunlong10/CAT-V},
+  bibtex_show={true},
+  abstract={
+    We present CAT-V (Caption AnyThing in Video), a training-free framework for fine-grained object-centric video captioning that enables detailed descriptions of user-selected objects through time.
+    CAT-V integrates three key components: a Segmenter based on SAMURAI for precise object segmentation across frames, a Temporal Analyzer powered by TRACE-Uni for accurate event boundary detection and temporal analysis, and a Captioner using InternVL-2.5 for generating detailed object-centric descriptions.
+    Through spatiotemporal visual prompts and chain-of-thought reasoning, our framework generates detailed, temporally-aware descriptions of objects' attributes, actions, statuses, interactions, and environmental contexts without requiring additional training data.
+    CAT-V supports flexible user interactions through various visual prompts (points, bounding boxes, and irregular regions) and maintains temporal sensitivity by tracking object states and interactions across different time segments.
+    Our approach addresses limitations of existing video captioning methods, which either produce overly abstract descriptions or lack object-level precision, enabling fine-grained, object-specific descriptions while maintaining temporal coherence and spatial accuracy.
+    The GitHub repository for this project is available at: https://github.com/yunlong10/CAT-V
+  }
+}
+@article{hua2025mmigbench,
+  title={MMIG-Bench: Towards Comprehensive and Explainable Evaluation of Multi-Modal Image Generation Models},
+  author={Hua, Hang and Zeng, Ziyun and Song, Yizhi and Tang, Yunlong and He, Liu and Aliaga, Daniel and Xiong, Wei and Luo, Jiebo},
+  journal={arXiv preprint arXiv:2505.19415},
+  year={2025},
+  abstract={
+    Recent multimodal image generators such as GPT-4o, Gemini 2.0 Flash, and Gemini 2.5 Pro excel at following complex instructions, editing images, and maintaining concept consistency. However, they are still evaluated by disjoint toolkits: text-to-image (T2I) benchmarks that lack multi-modal conditioning, and customized image generation benchmarks that overlook compositional semantics and common knowledge.
+    We propose MMIG-Bench, a comprehensive Multi-Modal Image Generation Benchmark that unifies these tasks by pairing 4,850 richly annotated text prompts with 1,750 multi-view reference images across 380 subjects, spanning humans, animals, objects, and artistic styles.
+    MMIG-Bench is equipped with a three-level evaluation framework: (1) low-level metrics for visual artifacts and identity preservation of objects; (2) novel Aspect Matching Score (AMS): a VQA-based mid-level metric that delivers fine-grained prompt-image alignment and shows strong correlation with human judgments; and (3) high-level metrics for aesthetics and human preference.
+    Using MMIG-Bench, we benchmark 17 state-of-the-art models, including Gemini 2.5 Pro, FLUX, DreamBooth, and IP-Adapter, and validate our metrics with 32k human ratings, yielding in-depth insights into architecture and data design.
+  },
+  preview={mmigbench.png},
+  html={https://arxiv.org/abs/2505.19415},
+  code={https://github.com/hanghuacs/MMIG-Bench},
+  website={https://hanghuacs.github.io/MMIG-Bench/},
+  stars={hanghuacs/MMIG-Bench},
+  bibtex_show={true}
 }
 @article{bi2025mllmreasoning,
   title={Why Reasoning Matters? A Survey of Advancements in Multimodal Reasoning},
@@ -275,51 +337,6 @@
   website={https://verify-eqh.pages.dev/},
   preview={verify.png},
   bibtex_show={true}
-}
-
-@article{huang2024scalingconcept,
-  title={Scaling Concept with Text-Guided Diffusion Models},
-  author={Huang, Chao and Liang, Susan and Tang, Yunlong and Tian, Yapeng and Kumar, Anurag and Xu†, Chenliang},
-  journal={arXiv preprint arXiv:2410.24151},
-  year={2024},
-  preview={scaling-concept.png},
-  html={https://arxiv.org/abs/2410.24151},
-  bibtex_show={true},
-  website={https://wikichao.github.io/ScalingConcept/},
-  code={https://github.com/WikiChao/ScalingConcept},
-  stars={WikiChao/ScalingConcept},
-  abstract={
-    Text-guided diffusion models have revolutionized generative tasks by producing high-fidelity content from text descriptions.
-    They have also enabled an editing paradigm where concepts can be replaced through text conditioning (e.g., a dog to a tiger).
-    In this work, we explore a novel approach: instead of replacing a concept, can we enhance or suppress the concept itself?
-    Through an empirical study, we identify a trend where concepts can be decomposed in text-guided diffusion models.
-    Leveraging this insight, we introduce ScalingConcept, a simple yet effective method to scale decomposed concepts up or down in real input without introducing new elements.
-    To systematically evaluate our approach, we present the WeakConcept-10 dataset, where concepts are imperfect and need to be enhanced.
-    More importantly, ScalingConcept enables a variety of novel zero-shot applications across image and audio domains, including tasks such as canonical pose generation and generative sound highlighting or removal.}
-}
-@article{hua2024mmcomposition,
-  title={MMCOMPOSITION: Revisiting the Compositionality of Pre-trained Vision-Language Models},
-  author={Hua*, Hang and Tang*, Yunlong and Zeng*, Ziyun and Cao, Liangliang and Yang, Zhengyuan and He, Hangfeng and Xu, Chenliang and Luo, Jiebo},
-  journal={arXiv preprint arXiv:2410.09733},
-  year={2024},
-  bibtex_show={true},
-  code={https://github.com/hanghuacs/MMComposition},
-  stars={hanghuacs/MMComposition},
-  html={https://arxiv.org/abs/2410.09733},
-  website={https://hanghuacs.github.io/MMComposition/},
-  abstract={
-    The advent of large Vision-Language Models (VLMs) has significantly advanced multimodal understanding, enabling more sophisticated and accurate integration of visual and textual information across various tasks, including image and video captioning, visual question answering, and cross-modal retrieval.
-    Despite VLMs' superior capabilities, researchers lack a comprehensive understanding of their compositionality -- the ability to understand and produce novel combinations of known visual and textual components.
-    Prior benchmarks provide only a relatively rough compositionality evaluation from the perspectives of objects, relations, and attributes while neglecting deeper reasoning about object interactions, counting, and complex compositions.
-    However, compositionality is a critical ability that facilitates coherent reasoning and understanding across modalities for VLMs.
-    To address this limitation, we propose MMCOMPOSITION, a novel human-annotated benchmark for comprehensively and accurately evaluating VLMs' compositionality.
-    Our proposed benchmark serves as a complement to these earlier works.
-    With MMCOMPOSITION, we can quantify and explore the compositionality of the mainstream VLMs.
-    Surprisingly, we find GPT-4o's compositionality inferior to the best open-source model, and we analyze the underlying reasons.
-    Our experimental analysis reveals the limitations of VLMs in fine-grained compositional perception and reasoning, and points to areas for improvement in VLM design and training.
-    Resources available at: https://hanghuacs.github.io/MMComposition/
-  },
-  preview={mmcomp.png}
 }
 @InProceedings{bi2024eagle,
   title={EAGLE: Egocentric AGgregated Language-video Engine}, 
@@ -365,46 +382,29 @@
   preview={eccv-aim.jpg},
   bibtex_show={true},
 }
-@article{liu2024emo,
-  title={GaussianStyle: Gaussian Head Avatar via StyleGAN},
-  author={Liu, Pinxin and Song, Luchuan and Zhang, Daoan and Hua, Hang and Tang, Yunlong and Tu, Huaijin and Luo, Jiebo and Xu†, Chenliang},
-  journal={International Conference on 3D Vision (3DV)},
-  year={2025},
-  html={https://arxiv.org/abs/2402.00827},
-  pdf={https://arxiv.org/pdf/2402.00827},
-  code={https://github.com/andypinxinliu/HumanFaceProject},
-  stars={andypinxinliu/HumanFaceProject},
+@article{hua2024mmcomposition,
+  title={MMCOMPOSITION: Revisiting the Compositionality of Pre-trained Vision-Language Models},
+  author={Hua*, Hang and Tang*, Yunlong and Zeng*, Ziyun and Cao, Liangliang and Yang, Zhengyuan and He, Hangfeng and Xu, Chenliang and Luo, Jiebo},
+  journal={arXiv preprint arXiv:2410.09733},
+  year={2024},
   bibtex_show={true},
+  code={https://github.com/hanghuacs/MMComposition},
+  stars={hanghuacs/MMComposition},
+  html={https://arxiv.org/abs/2410.09733},
+  website={https://hanghuacs.github.io/MMComposition/},
   abstract={
-    Existing methods like Neural Radiation Fields (NeRF) and 3D Gaussian Splatting (3DGS) have made significant strides in facial attribute control such as facial animation and components editing, yet they struggle with fine-grained representation and scalability in dynamic head modeling.
-    To address these limitations, we propose GaussianStyle, a novel framework that integrates the volumetric strengths of 3DGS with the powerful implicit representation of StyleGAN.
-    The GaussianStyle preserves structural information, such as expressions and poses, using Gaussian points, while projecting the implicit volumetric representation into StyleGAN to capture high-frequency details and mitigate the over-smoothing commonly observed in neural texture rendering.
-    Experimental outcomes indicate that our method achieves state-of-the-art performance in reenactment, novel view synthesis, and animation.
+    The advent of large Vision-Language Models (VLMs) has significantly advanced multimodal understanding, enabling more sophisticated and accurate integration of visual and textual information across various tasks, including image and video captioning, visual question answering, and cross-modal retrieval.
+    Despite VLMs' superior capabilities, researchers lack a comprehensive understanding of their compositionality -- the ability to understand and produce novel combinations of known visual and textual components.
+    Prior benchmarks provide only a relatively rough compositionality evaluation from the perspectives of objects, relations, and attributes while neglecting deeper reasoning about object interactions, counting, and complex compositions.
+    However, compositionality is a critical ability that facilitates coherent reasoning and understanding across modalities for VLMs.
+    To address this limitation, we propose MMCOMPOSITION, a novel human-annotated benchmark for comprehensively and accurately evaluating VLMs' compositionality.
+    Our proposed benchmark serves as a complement to these earlier works.
+    With MMCOMPOSITION, we can quantify and explore the compositionality of the mainstream VLMs.
+    Surprisingly, we find GPT-4o's compositionality inferior to the best open-source model, and we analyze the underlying reasons.
+    Our experimental analysis reveals the limitations of VLMs in fine-grained compositional perception and reasoning, and points to areas for improvement in VLM design and training.
+    Resources available at: https://hanghuacs.github.io/MMComposition/
   },
-  abbr={3DV},
-  preview={gaussian_style.png}
-}
-@article{wang2023caption,
-  title={Caption Anything: Interactive Image Description with Diverse Multimodal Controls},
-  author={Wang*, Teng and Zhang*, Jinrui and Fei*, Junjie and Zheng, Hao and Tang, Yunlong and Li, Zhe and Gao, Mingqi and Zhao, Shanshan},
-  journal={arXiv preprint arXiv:2305.02677},
-  year={2023},
-  preview={qingming.gif},
-  html={https://arxiv.org/abs/2305.02677},
-  code={https://github.com/ttengwang/Caption-Anything},
-  pdf={https://arxiv.org/pdf/2305.02677},
-  bibtex_show={true},
-  abstract={
-    Controllable image captioning is an emerging multimodal topic that aims to describe the image with natural language following human purpose, e.g., looking at the specified regions or telling in a particular text style.
-    State-of-the-art methods are trained on annotated pairs of input controls and output captions.
-    However, the scarcity of such well-annotated multimodal data largely limits their usability and scalability for interactive AI systems.
-    Leveraging unimodal instruction-following foundation models is a promising alternative that benefits from broader sources of data.
-    In this paper, we present Caption AnyThing (CAT), a foundation model augmented image captioning framework supporting a wide range of multimodel controls: 1) visual controls, including points, boxes, and trajectories; 2) language controls, such as sentiment, length, language, and factuality.
-    Powered by Segment Anything Model (SAM) and ChatGPT, we unify the visual and language prompts into a modularized framework, enabling the flexible combination between different controls.
-    Extensive case studies demonstrate the user intention alignment capabilities of our framework, shedding light on effective user interaction modeling in vision-language applications.
-    Our code is publicly available at https://github.com/ttengwang/caption-anything
-  },
-  stars={ttengwang/Caption-Anything}
+  preview={mmcomp.png}
 }
 @article{feng2024more,
   title={Do More Details Always Introduce More Hallucinations in LVLM-based Image Captioning?},
@@ -424,6 +424,26 @@
     This decoding is achieved via a well-designed differential score that guides the parallel search and candidate screening.
     The selected unit facts are then aggregated to generate the final caption. Our proposed metrics evaluate the comprehensiveness and accuracy of image captions by comparing the embedding groups of ground-truth image regions and generated text partitions.
     Extensive experiments on the Visual Genome dataset validate the effectiveness of our approach, demonstrating that it produces detailed descriptions while maintaining low hallucination levels.}
+}
+@article{huang2024scalingconcept,
+  title={Scaling Concept with Text-Guided Diffusion Models},
+  author={Huang, Chao and Liang, Susan and Tang, Yunlong and Tian, Yapeng and Kumar, Anurag and Xu†, Chenliang},
+  journal={arXiv preprint arXiv:2410.24151},
+  year={2024},
+  preview={scaling-concept.png},
+  html={https://arxiv.org/abs/2410.24151},
+  bibtex_show={true},
+  website={https://wikichao.github.io/ScalingConcept/},
+  code={https://github.com/WikiChao/ScalingConcept},
+  stars={WikiChao/ScalingConcept},
+  abstract={
+    Text-guided diffusion models have revolutionized generative tasks by producing high-fidelity content from text descriptions.
+    They have also enabled an editing paradigm where concepts can be replaced through text conditioning (e.g., a dog to a tiger).
+    In this work, we explore a novel approach: instead of replacing a concept, can we enhance or suppress the concept itself?
+    Through an empirical study, we identify a trend where concepts can be decomposed in text-guided diffusion models.
+    Leveraging this insight, we introduce ScalingConcept, a simple yet effective method to scale decomposed concepts up or down in real input without introducing new elements.
+    To systematically evaluate our approach, we present the WeakConcept-10 dataset, where concepts are imperfect and need to be enhanced.
+    More importantly, ScalingConcept enables a variety of novel zero-shot applications across image and audio domains, including tasks such as canonical pose generation and generative sound highlighting or removal.}
 }
 @article{tang2023llmva,
   title={LLMVA-GEBC: Large Language Model with Video Adapter for Generic Event Boundary Captioning},
@@ -464,6 +484,28 @@
     We also develop a web-based platform that allows users to interact with the model and generate music visualization designs in real-time.
     Our code is available at https://github.com/yunlong10/LaunchpadGPT.
   },
+}
+@article{wang2023caption,
+  title={Caption Anything: Interactive Image Description with Diverse Multimodal Controls},
+  author={Wang*, Teng and Zhang*, Jinrui and Fei*, Junjie and Zheng, Hao and Tang, Yunlong and Li, Zhe and Gao, Mingqi and Zhao, Shanshan},
+  journal={arXiv preprint arXiv:2305.02677},
+  year={2023},
+  preview={qingming.gif},
+  html={https://arxiv.org/abs/2305.02677},
+  code={https://github.com/ttengwang/Caption-Anything},
+  pdf={https://arxiv.org/pdf/2305.02677},
+  bibtex_show={true},
+  abstract={
+    Controllable image captioning is an emerging multimodal topic that aims to describe the image with natural language following human purpose, e.g., looking at the specified regions or telling in a particular text style.
+    State-of-the-art methods are trained on annotated pairs of input controls and output captions.
+    However, the scarcity of such well-annotated multimodal data largely limits their usability and scalability for interactive AI systems.
+    Leveraging unimodal instruction-following foundation models is a promising alternative that benefits from broader sources of data.
+    In this paper, we present Caption AnyThing (CAT), a foundation model augmented image captioning framework supporting a wide range of multimodel controls: 1) visual controls, including points, boxes, and trajectories; 2) language controls, such as sentiment, length, language, and factuality.
+    Powered by Segment Anything Model (SAM) and ChatGPT, we unify the visual and language prompts into a modularized framework, enabling the flexible combination between different controls.
+    Extensive case studies demonstrate the user intention alignment capabilities of our framework, shedding light on effective user interaction modeling in vision-language applications.
+    Our code is publicly available at https://github.com/ttengwang/caption-anything
+  },
+  stars={ttengwang/Caption-Anything}
 }
 @InProceedings{Tang_2022_ACCV,
     author    = {Tang, Yunlong and Xu, Siting and Wang, Teng and Lin, Qin and Lu, Qinglin and Zheng†, Feng},
