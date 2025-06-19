@@ -3,7 +3,7 @@ layout: page
 title: Gallery
 permalink: /gallery/
 description: A collection of personal artworks, inspirations, and experiences.
-nav: true
+nav: false
 nav_order: 4
 display_categories: [cosplay, artwork, footprint] #[work, fun]
 horizontal: false
