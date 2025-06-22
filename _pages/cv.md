@@ -2,7 +2,7 @@
 layout: cv
 permalink: /cv/
 title: CV
-nav: true
+nav: false
 nav_order: 5
 # redirect: ./assets/pdf/cv_yunlong_tang.pdf
 cv_pdf: cv_yunlong_tang.pdf

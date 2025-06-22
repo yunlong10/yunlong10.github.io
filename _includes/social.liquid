@@ -61,9 +61,6 @@
 {% if site.blogger_url %}
   <a href="{{ site.blogger_url }}" title="Blogger"><i class="fa-brands fa-blogger-b"></i></a>
 {% endif %}
-{% if site.work_url %}
-  <a href="{{ site.work_url }}" title="Work"><i class="fa-solid fa-briefcase"></i></a>
-{% endif %}
 {% if site.wikidata_id %}
   <a href="https://www.wikidata.org/wiki/{{ site.wikidata_id }}" title="Wikidata"><i class="fa-solid fa-barcode"></i></a>
 {% endif %}
@@ -127,4 +124,7 @@
     <img src="{{ site.wechat_qr | prepend: 'assets/img/' | relative_url }}" alt="WeChat QR" id="WeChatQR">
   </div>
   {% include scripts/wechatModal.liquid %}
+{% endif %}
+{% if site.work_url %}
+  <a href="{{ site.work_url }}" title="Work"><i class="ai ai-cv"></i></a>
 {% endif %}
