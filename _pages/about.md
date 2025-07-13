@@ -31,7 +31,7 @@ I obtained my B.Eng. from [SUSTech](https://www.sustech.edu.cn/en/) in 2023, sup
 
 I've interned at [Amazon](https://www.aboutamazon.com/), [ByteDance](https://www.bytedance.com/en/), and [Tencent](https://www.tencent.com/).
 
-I study <em><a href="https://github.com/yunlong10/Awesome-LLMs-for-Video-Understanding">LLMs/Agents for Video Understanding</a></em>.
+I study <em><a href="https://github.com/yunlong10/Awesome-LLMs-for-Video-Understanding">Multimodal LLMs/Agents for Video Understanding</a></em>.
 
 Please feel free to [contact me](/#social-links) if you're interested in collaboration!
 
