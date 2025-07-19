@@ -6,7 +6,7 @@ subtitle: "Hi there / 你好 / こんにちは / Ciallo～(∠・ω< )⌒★ Wel
 profile:
   align: right
   image: website/prof_pic.jpg
-  image_circular: true # crops the image to make it circular
+  image_circular: false # crops the image to make it circular
   more_info:
     false
     # <center style="font-size: smaller; margin-top: -10px;">
