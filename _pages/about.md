@@ -8,13 +8,14 @@ profile:
   image: website/prof_pic.jpg
   image_circular: false # crops the image to make it circular
   more_info:
-    false
-    # <center style="font-size: smaller; margin-top: -10px;">
-    #   <a href="https://yunlong10.github.io/assets/pdf/cv_yunlong_tang.pdf">CV</a> /
-    #   <a href="mailto:yunlong.tang@rochester.edu">Email</a> /
-    #   <a href="https://scholar.google.com/citations?user=xf1rCgoAAAAJ">GScholar</a> /
-    #   <a href="https://www.linkedin.com/in/yunlong-yolo-tang/">LinkedIn</a>
-    # </center>
+  # "<center><small>Pronouns: She/Her/Hers</small></center>"
+  # false
+  # <center style="font-size: smaller; margin-top: -10px;">
+  #   <a href="https://yunlong10.github.io/assets/pdf/cv_yunlong_tang.pdf">CV</a> /
+  #   <a href="mailto:yunlong.tang@rochester.edu">Email</a> /
+  #   <a href="https://scholar.google.com/citations?user=xf1rCgoAAAAJ">GScholar</a> /
+  #   <a href="https://www.linkedin.com/in/yunlong-yolo-tang/">LinkedIn</a>
+  # </center>
 
   #   <p>555 your office number</p>
   #   <p>123 your address street</p>
