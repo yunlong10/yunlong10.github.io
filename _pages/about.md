@@ -2,7 +2,7 @@
 layout: about
 title: About
 permalink: /
-subtitle: "<i>Preferred name: Yolo Y. Tang. Pronouns: she/her.</i>"
+subtitle: "( Preferred name: Yolo Y. Tang | Pronouns: she/her )"
 profile:
   align: right
   image: website/prof_pic.jpg
