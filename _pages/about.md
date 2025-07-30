@@ -2,7 +2,7 @@
 layout: about
 title: About
 permalink: /
-subtitle: "(She / Her / Hers)"
+subtitle: "<i>Preferred name: Yolo Y. Tang. Pronouns: she/her.</i>"
 profile:
   align: right
   image: website/prof_pic.jpg
@@ -25,7 +25,7 @@ selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
 
-Hi there / 你好 / こんにちは / Ciallo～(∠・ω< )⌒★ Welcome to my homepage!
+<!-- Hi there / 你好 / こんにちは / Ciallo～(∠・ω< )⌒★ Welcome to my homepage! -->
 
 I'm a Ph.D. student at the [University of Rochester](https://www.rochester.edu/), advised by [Prof. Chenliang Xu](https://www.cs.rochester.edu/~cxu22/index.html), working on <em><a href="https://github.com/yunlong10/Awesome-LLMs-for-Video-Understanding">LMMs/Agents for Video Understanding</a></em>.
 
