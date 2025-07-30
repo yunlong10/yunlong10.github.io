@@ -2,16 +2,15 @@
 layout: about
 title: About
 permalink: /
-subtitle: "Hi there / 你好 / こんにちは / Ciallo～(∠・ω< )⌒★ Welcome to my homepage!"
+subtitle: "(She / Her / Hers)"
 profile:
   align: right
   image: website/prof_pic.jpg
   image_circular: false # crops the image to make it circular
   more_info:
-  # "<center><small>Pronouns: She/Her/Hers</small></center>"
   # false
   # <center style="font-size: smaller; margin-top: -10px;">
-  #   <a href="https://yunlong10.github.io/assets/pdf/cv_yunlong_tang.pdf">CV</a> /
+  #   <a href="https://yunlong10.github.io/assets/pdf/cv_yunlong_tang.pdf">CV</a> /=
   #   <a href="mailto:yunlong.tang@rochester.edu">Email</a> /
   #   <a href="https://scholar.google.com/citations?user=xf1rCgoAAAAJ">GScholar</a> /
   #   <a href="https://www.linkedin.com/in/yunlong-yolo-tang/">LinkedIn</a>
@@ -25,6 +24,8 @@ news: false # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
 ---
+
+Hi there / 你好 / こんにちは / Ciallo～(∠・ω< )⌒★ Welcome to my homepage!
 
 I'm a Ph.D. student at the [University of Rochester](https://www.rochester.edu/), advised by [Prof. Chenliang Xu](https://www.cs.rochester.edu/~cxu22/index.html), working on <em><a href="https://github.com/yunlong10/Awesome-LLMs-for-Video-Understanding">LMMs/Agents for Video Understanding</a></em>.
 
