@@ -2,11 +2,11 @@
 layout: about
 title: About
 permalink: /
-subtitle: "( Preferred name: Yolo Y. Tang | Pronouns: she/her )"
+subtitle: "<span style='color:gray'>Yolo Y. Tang • /ˈjoʊloʊ taʊn/ • she/her/hers</span>"
 profile:
   align: right
   image: website/prof_pic.jpg
-  image_circular: false # crops the image to make it circular
+  image_circular: false # crops the image to make it cicular
   more_info:
   # false
   # <center style="font-size: smaller; margin-top: -10px;">
