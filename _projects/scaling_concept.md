@@ -5,5 +5,5 @@ description: We use pretrained text-guided diffusion models to scale up/down con
 img: assets/img/publication_preview/scalingconcept_demo.png
 redirect: https://wikichao.github.io/ScalingConcept/
 importance: 3
-category: work
+category: fun
 ---
