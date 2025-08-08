@@ -1,3 +1,151 @@
-<div class="publications">
-  {% bibliography --group_by none --query @*[selected=true]* %}
+{% comment %}
+{% endcomment %}
+<style>
+  .category-nav {
+    display: flex;
+    gap: 0;
+    margin-bottom: 1.2rem;
+    flex-wrap: wrap;
+  }
+  .category-nav .category-btn {
+    padding: 0.01em 0.3em;
+    border: 1.5px solid var(--global-theme-color, #b509ac);
+    border-radius: 4px;
+    background: var(--global-theme-color, #b509ac);
+    color: #fff;
+    font-size: 0.8em;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+      background 0.2s,
+      color 0.2s,
+      box-shadow 0.2s;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+    outline: none;
+    opacity: 0.85;
+    margin: 0;
+  }
+  .category-nav .category-btn:not(:first-child) {
+    margin-left: -1.5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .category-nav .category-btn:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  /* 去掉悬停时的颜色变化 */
+  .category-nav .category-btn:hover,
+  .category-nav .category-btn:focus {
+    background: var(--global-theme-color, #b509ac);
+    color: #fff;
+    opacity: 0.85;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  }
+  /* 浅色模式下选中按钮为白色背景 */
+  .category-nav .category-btn.active {
+    background: #ffffff !important;
+    color: var(--global-theme-color, #b509ac) !important;
+    opacity: 1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1.5px solid var(--global-theme-color, #b509ac) !important;
+  }
+  /* 深色模式下选中按钮为深灰背景 */
+  @media (prefers-color-scheme: dark) {
+    .category-nav .category-btn {
+      background: var(--global-theme-color, #b509ac);
+      color: #fff;
+      border: 1.5px solid var(--global-theme-color, #b509ac);
+    }
+    .category-nav .category-btn.active {
+      background: #232323 !important;
+      color: var(--global-theme-color, #b509ac) !important;
+      border: 1.5px solid var(--global-theme-color, #b509ac) !important;
+    }
+  }
+  /* 确保data-theme="dark"时也应用深色模式样式 */
+  [data-theme='dark'] .category-nav .category-btn {
+    background: var(--global-theme-color, #b509ac);
+    color: #fff;
+    border: 1.5px solid var(--global-theme-color, #b509ac);
+  }
+  [data-theme='dark'] .category-nav .category-btn.active {
+    background: #232323 !important;
+    color: var(--global-theme-color, #b509ac) !important;
+    border: 1.5px solid var(--global-theme-color, #b509ac) !important;
+  }
+  /* 确保data-theme="light"时应用浅色模式样式 */
+  [data-theme='light'] .category-nav .category-btn.active {
+    background: #ffffff !important;
+    color: var(--global-theme-color, #b509ac) !important;
+    border: 1.5px solid var(--global-theme-color, #b509ac) !important;
+  }
+</style>
+
+<div id="publications-container">
+  <div id="work" class="publications" style="display:none;">
+    <div class="publication-cards">
+      {% bibliography --group_by none --query @*[category=work]* %}
+    </div>
+  </div>
+  <div id="fun" class="publications" style="display:none;">
+    <div class="publication-cards">
+      {% bibliography --group_by none --query @*[category=fun]* %}
+    </div>
+  </div>
+  <!-- Add more categories as needed -->
 </div>
+
+<script>
+  function showCategory(category, btn) {
+    // Get all publication groups
+    var categories = document.querySelectorAll('.publications');
+    var target = document.getElementById(category);
+
+    // Check if the clicked category is already active
+    var isCurrentlyActive = target && target.style.display !== 'none';
+
+    // Hide all publication groups
+    categories.forEach(function (cat) {
+      cat.style.display = 'none';
+    });
+
+    // If the clicked category was already active, switch to the other category
+    if (isCurrentlyActive) {
+      var otherCategory = category === 'work' ? 'fun' : 'work';
+      var otherTarget = document.getElementById(otherCategory);
+      if (otherTarget) {
+        otherTarget.style.display = 'block';
+        // Update button active state to the other category
+        var buttons = document.querySelectorAll('.category-nav .category-btn');
+        buttons.forEach(function (b) {
+          b.classList.remove('active');
+        });
+        var otherBtn = document.querySelector('[data-category="' + otherCategory + '"]');
+        if (otherBtn) otherBtn.classList.add('active');
+      }
+    } else {
+      // Show the clicked category
+      if (target) target.style.display = 'block';
+      // Update button active state
+      var buttons = document.querySelectorAll('.category-nav .category-btn');
+      buttons.forEach(function (b) {
+        b.classList.remove('active');
+      });
+      if (btn) btn.classList.add('active');
+    }
+  }
+
+  // On page load, show the first category by default and set correct button style
+  document.addEventListener('DOMContentLoaded', function () {
+    var firstBtn = document.querySelector('.category-nav .category-btn');
+    if (firstBtn) {
+      firstBtn.classList.add('active');
+      var firstCategory = firstBtn.getAttribute('data-category');
+      var categories = document.querySelectorAll('.publications');
+      categories.forEach(function (cat) {
+        cat.style.display = cat.id === firstCategory ? 'block' : 'none';
+      });
+    }
+  });
+</script>
