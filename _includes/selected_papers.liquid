@@ -97,55 +97,70 @@
 </div>
 
 <script>
-  function showCategory(category, btn) {
-    // Get all publication groups
-    var categories = document.querySelectorAll('.publications');
-    var target = document.getElementById(category);
+  (function () {
+    // Cache DOM elements for better performance
+    var categories, buttons;
+    var isInitialized = false;
 
-    // Check if the clicked category is already active
-    var isCurrentlyActive = target && target.style.display !== 'none';
+    function init() {
+      if (isInitialized) return;
+      categories = document.querySelectorAll('.publications');
+      buttons = document.querySelectorAll('.category-nav .category-btn');
+      isInitialized = true;
+    }
 
-    // Hide all publication groups
-    categories.forEach(function (cat) {
-      cat.style.display = 'none';
-    });
+    function showCategory(category, btn) {
+      // Initialize if not done yet
+      if (!isInitialized) init();
 
-    // If the clicked category was already active, switch to the other category
-    if (isCurrentlyActive) {
-      var otherCategory = category === 'work' ? 'fun' : 'work';
-      var otherTarget = document.getElementById(otherCategory);
-      if (otherTarget) {
-        otherTarget.style.display = 'block';
-        // Update button active state to the other category
-        var buttons = document.querySelectorAll('.category-nav .category-btn');
+      var target = document.getElementById(category);
+
+      // Check if the clicked category is already active
+      var isCurrentlyActive = target && target.style.display !== 'none';
+
+      // Hide all publication groups
+      categories.forEach(function (cat) {
+        cat.style.display = 'none';
+      });
+
+      // If the clicked category was already active, switch to the other category
+      if (isCurrentlyActive) {
+        var otherCategory = category === 'work' ? 'fun' : 'work';
+        var otherTarget = document.getElementById(otherCategory);
+        if (otherTarget) {
+          otherTarget.style.display = 'block';
+          // Update button active state to the other category
+          buttons.forEach(function (b) {
+            b.classList.remove('active');
+          });
+          var otherBtn = document.querySelector('[data-category="' + otherCategory + '"]');
+          if (otherBtn) otherBtn.classList.add('active');
+        }
+      } else {
+        // Show the clicked category
+        if (target) target.style.display = 'block';
+        // Update button active state
         buttons.forEach(function (b) {
           b.classList.remove('active');
         });
-        var otherBtn = document.querySelector('[data-category="' + otherCategory + '"]');
-        if (otherBtn) otherBtn.classList.add('active');
+        if (btn) btn.classList.add('active');
       }
-    } else {
-      // Show the clicked category
-      if (target) target.style.display = 'block';
-      // Update button active state
-      var buttons = document.querySelectorAll('.category-nav .category-btn');
-      buttons.forEach(function (b) {
-        b.classList.remove('active');
-      });
-      if (btn) btn.classList.add('active');
     }
-  }
 
-  // On page load, show the first category by default and set correct button style
-  document.addEventListener('DOMContentLoaded', function () {
-    var firstBtn = document.querySelector('.category-nav .category-btn');
-    if (firstBtn) {
-      firstBtn.classList.add('active');
-      var firstCategory = firstBtn.getAttribute('data-category');
-      var categories = document.querySelectorAll('.publications');
-      categories.forEach(function (cat) {
-        cat.style.display = cat.id === firstCategory ? 'block' : 'none';
-      });
-    }
-  });
+    // Expose function globally
+    window.showCategory = showCategory;
+
+    // On page load, show the first category by default and set correct button style
+    document.addEventListener('DOMContentLoaded', function () {
+      init();
+      var firstBtn = buttons[0];
+      if (firstBtn) {
+        firstBtn.classList.add('active');
+        var firstCategory = firstBtn.getAttribute('data-category');
+        categories.forEach(function (cat) {
+          cat.style.display = cat.id === firstCategory ? 'block' : 'none';
+        });
+      }
+    });
+  })();
 </script>
