@@ -1,27 +1,5 @@
 ---
 ---
-@article{tang2025mmperspective,
-  title = {MMPerspective: Do MLLMs Understand Perspective? A Comprehensive Benchmark for Perspective Perception, Reasoning, and Robustness},
-  author = {Tang, Yunlong and Liu, Pinxin and Feng, Mingqian and Tan, Zhangyun and Mao, Rui and Huang, Chao and Bi, Jing and Xiao, Yunzhong and Liang, Susan and Hua, Hang and Vosoughi, Ali and Song, Luchuan and Zhang, Zeliang and Xu, Chenliang},
-  journal = {arXiv preprint arXiv:2505.20426},
-  year = {2025},
-  preview={mmperspective.png},
-  category={fun},
-  html={https://arxiv.org/abs/2505.20426},
-  website={https://yunlong10.github.io/MMPerspective/},
-  code={https://github.com/yunlong10/MMPerspective},
-  stars={yunlong10/MMPerspective},
-  bibtex_show={true},
-  abstract={
-    Understanding perspective is fundamental to human visual perception, yet the extent to which multimodal large language models (MLLMs) internalize perspective geometry remains unclear.
-    We introduce MMPerspective, the first benchmark specifically designed to systematically evaluate MLLMs' understanding of perspective through 10 carefully crafted tasks across three complementary dimensions: Perspective Perception, Reasoning, and Robustness.
-    Our benchmark comprises 2,711 real-world and synthetic image instances with 5,083 question-answer pairs that probe key capabilities, such as vanishing point perception and counting, perspective type reasoning, line relationship understanding in 3D space, invariance to perspective-preserving transformations, etc.
-    Through a comprehensive evaluation of 43 state-of-the-art MLLMs, we uncover significant limitations: while models demonstrate competence on surface-level perceptual tasks, they struggle with compositional reasoning and maintaining spatial consistency under perturbations.
-    Our analysis further reveals intriguing patterns between model architecture, scale, and perspective capabilities, highlighting both robustness bottlenecks and the benefits of chain-of-thought prompting.
-    MMPerspective establishes a valuable testbed for diagnosing and advancing spatial understanding in vision-language systems.
-    Resources available at: https://yunlong10.github.io/MMPerspective/
-  }
-}
 @article{vidllmsurvey,
   title={Video Understanding with Large Language Models: A Survey 🔥🔥🔥}, 
   author={Tang*, Yunlong and Bi*, Jing and Xu*, Siting and Song, Luchuan and Liang, Susan and Wang, Teng and Zhang, Daoan and An, Jie and Lin, Jingyang and Zhu, Rongyi and Vosoughi, Ali and Huang, Chao and Zhang, Zeliang and Liu, Pinxin and Feng, Mingqian and Zheng, Feng and Zhang, Jianguo and Luo, Ping and Luo, Jiebo and Xu†, Chenliang},
@@ -47,6 +25,29 @@
   },
   abbr = {TCSVT},
   stars={yunlong10/Awesome-LLMs-for-Video-Understanding}
+}
+@article{tang2025mmperspective,
+  title = {MMPerspective: Do MLLMs Understand Perspective? A Comprehensive Benchmark for Perspective Perception, Reasoning, and Robustness},
+  author = {Tang, Yunlong and Liu, Pinxin and Feng, Mingqian and Tan, Zhangyun and Mao, Rui and Huang, Chao and Bi, Jing and Xiao, Yunzhong and Liang, Susan and Hua, Hang and Vosoughi, Ali and Song, Luchuan and Zhang, Zeliang and Xu, Chenliang},
+  journal = {NeurIPS 2025; arXiv preprint arXiv:2505.20426},
+  year = {2025},
+  abbr = {NeurIPS},
+  preview={mmperspective.png},
+  category={fun work},
+  html={https://arxiv.org/abs/2505.20426},
+  website={https://yunlong10.github.io/MMPerspective/},
+  code={https://github.com/yunlong10/MMPerspective},
+  stars={yunlong10/MMPerspective},
+  bibtex_show={true},
+  abstract={
+    Understanding perspective is fundamental to human visual perception, yet the extent to which multimodal large language models (MLLMs) internalize perspective geometry remains unclear.
+    We introduce MMPerspective, the first benchmark specifically designed to systematically evaluate MLLMs' understanding of perspective through 10 carefully crafted tasks across three complementary dimensions: Perspective Perception, Reasoning, and Robustness.
+    Our benchmark comprises 2,711 real-world and synthetic image instances with 5,083 question-answer pairs that probe key capabilities, such as vanishing point perception and counting, perspective type reasoning, line relationship understanding in 3D space, invariance to perspective-preserving transformations, etc.
+    Through a comprehensive evaluation of 43 state-of-the-art MLLMs, we uncover significant limitations: while models demonstrate competence on surface-level perceptual tasks, they struggle with compositional reasoning and maintaining spatial consistency under perturbations.
+    Our analysis further reveals intriguing patterns between model architecture, scale, and perspective capabilities, highlighting both robustness bottlenecks and the benefits of chain-of-thought prompting.
+    MMPerspective establishes a valuable testbed for diagnosing and advancing spatial understanding in vision-language systems.
+    Resources available at: https://yunlong10.github.io/MMPerspective/
+  }
 }
 @InProceedings{tang2024vidcompostion,
   title={VidComposition: Can MLLMs Analyze Compositions in Compiled Videos?},
@@ -113,33 +114,6 @@
     This work paves the way for the development of AI systems capable of engaging with diverse modalities.
   },
 }
-@InProceedings{tang2024cardiff,
-  title={CaRDiff: Video Salient Object Ranking Chain of Thought Reasoning for Saliency Prediction with Diffusion}, 
-  author={Tang, Yunlong and Zhan, Gen and Yang, Li and Liao, Yiting and Xu†, Chenliang},
-  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence (AAAI)},
-  year={2025},
-  html={https://ojs.aaai.org/index.php/AAAI/article/view/32785},
-  doi={10.1609/aaai.v39i7.32785},
-  pdf={https://ojs.aaai.org/index.php/AAAI/article/view/32785},
-  volume={39},
-  number={7},
-  pages={7302-7310},
-  preview={cardiff.png},
-  category={work},
-  abstract={
-    Video saliency prediction aims to identify the regions in a video that attract human attention and gaze, driven by bottom-up features from the video and top-down processes like memory and cognition.
-    Among these top-down influences, language plays a crucial role in guiding attention by shaping how visual information is interpreted.
-    Existing methods primarily focus on modeling perceptual information while neglecting the reasoning process facilitated by language, where ranking cues are crucial outcomes of this process and practical guidance for saliency prediction.
-    In this paper, we propose CaRDiff (Caption, Rank, and generate with Diffusion), a framework that imitates the process by integrating multimodal large language model (MLLM), a grounding module, and a diffusion model, to enhance video saliency prediction.
-    Specifically, we introduce a novel prompting method VSOR-CoT (Video Salient Object Ranking Chain of Thought), which utilizes an MLLM with a grounding module to caption video content and infer salient objects along with their rankings and positions.
-    This process derives ranking maps that can be sufficiently leveraged by the diffusion model to decode the saliency maps for the given video accurately.
-    Extensive experiments show the effectiveness of VSOR-CoT in improving the performance of video saliency prediction.
-    The proposed CaRDiff performs better than state-of-the-art models on the MVS dataset and demonstrates cross-dataset capabilities on the DHF1k dataset through zero-shot evaluation.
-  },
-  selected={true},
-  bibtex_show={true},
-  abbr = {AAAI},
-}
 @InProceedings{tang2024avicuna,
   title={Empowering LLMs with Pseudo-Untrimmed Videos for Audio-Visual Temporal Understanding},
   author={Tang, Yunlong and Shimada, Daiki and Bi, Jing and Feng, Mingqian and Hua, Hang and Xu†, Chenliang},
@@ -167,6 +141,33 @@
   stars={yunlong10/AVicuna},
   bibtex_show={true},
   selected={true},
+  abbr = {AAAI},
+}
+@InProceedings{tang2024cardiff,
+  title={CaRDiff: Video Salient Object Ranking Chain of Thought Reasoning for Saliency Prediction with Diffusion}, 
+  author={Tang, Yunlong and Zhan, Gen and Yang, Li and Liao, Yiting and Xu†, Chenliang},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence (AAAI)},
+  year={2025},
+  html={https://ojs.aaai.org/index.php/AAAI/article/view/32785},
+  doi={10.1609/aaai.v39i7.32785},
+  pdf={https://ojs.aaai.org/index.php/AAAI/article/view/32785},
+  volume={39},
+  number={7},
+  pages={7302-7310},
+  preview={cardiff.png},
+  category={work},
+  abstract={
+    Video saliency prediction aims to identify the regions in a video that attract human attention and gaze, driven by bottom-up features from the video and top-down processes like memory and cognition.
+    Among these top-down influences, language plays a crucial role in guiding attention by shaping how visual information is interpreted.
+    Existing methods primarily focus on modeling perceptual information while neglecting the reasoning process facilitated by language, where ranking cues are crucial outcomes of this process and practical guidance for saliency prediction.
+    In this paper, we propose CaRDiff (Caption, Rank, and generate with Diffusion), a framework that imitates the process by integrating multimodal large language model (MLLM), a grounding module, and a diffusion model, to enhance video saliency prediction.
+    Specifically, we introduce a novel prompting method VSOR-CoT (Video Salient Object Ranking Chain of Thought), which utilizes an MLLM with a grounding module to caption video content and infer salient objects along with their rankings and positions.
+    This process derives ranking maps that can be sufficiently leveraged by the diffusion model to decode the saliency maps for the given video accurately.
+    Extensive experiments show the effectiveness of VSOR-CoT in improving the performance of video saliency prediction.
+    The proposed CaRDiff performs better than state-of-the-art models on the MVS dataset and demonstrates cross-dataset capabilities on the DHF1k dataset through zero-shot evaluation.
+  },
+  selected={true},
+  bibtex_show={true},
   abbr = {AAAI},
 }
 @InProceedings{hua2024v2xum,
@@ -289,7 +290,7 @@
 @article{hua2025mmigbench,
   title={MMIG-Bench: Towards Comprehensive and Explainable Evaluation of Multi-Modal Image Generation Models},
   author={Hua, Hang and Zeng, Ziyun and Song, Yizhi and Tang, Yunlong and He, Liu and Aliaga, Daniel and Xiong, Wei and Luo, Jiebo},
-  journal={arXiv preprint arXiv:2505.19415},
+  journal={NeurIPS 2025; arXiv preprint arXiv:2505.19415},
   year={2025},
   abstract={
     Recent multimodal image generators such as GPT-4o, Gemini 2.0 Flash, and Gemini 2.5 Pro excel at following complex instructions, editing images, and maintaining concept consistency. However, they are still evaluated by disjoint toolkits: text-to-image (T2I) benchmarks that lack multi-modal conditioning, and customized image generation benchmarks that overlook compositional semantics and common knowledge.
@@ -297,6 +298,7 @@
     MMIG-Bench is equipped with a three-level evaluation framework: (1) low-level metrics for visual artifacts and identity preservation of objects; (2) novel Aspect Matching Score (AMS): a VQA-based mid-level metric that delivers fine-grained prompt-image alignment and shows strong correlation with human judgments; and (3) high-level metrics for aesthetics and human preference.
     Using MMIG-Bench, we benchmark 17 state-of-the-art models, including Gemini 2.5 Pro, FLUX, DreamBooth, and IP-Adapter, and validate our metrics with 32k human ratings, yielding in-depth insights into architecture and data design.
   },
+  abbr={NeurIPS},
   preview={mmigbench.png},
   html={https://arxiv.org/abs/2505.19415},
   code={https://github.com/hanghuacs/MMIG-Bench},

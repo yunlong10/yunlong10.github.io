@@ -85,12 +85,12 @@
 <div id="publications-container">
   <div id="work" class="publications" style="display:none;">
     <div class="publication-cards">
-      {% bibliography --group_by none --query @*[category=work]* %}
+      {% bibliography --group_by none --query @*[category~=work]* %}
     </div>
   </div>
   <div id="fun" class="publications" style="display:none;">
     <div class="publication-cards">
-      {% bibliography --group_by none --query @*[category=fun]* %}
+      {% bibliography --group_by none --query @*[category~=fun]* %}
     </div>
   </div>
   <!-- Add more categories as needed -->
