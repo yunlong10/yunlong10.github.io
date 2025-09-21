@@ -29,7 +29,7 @@
 @article{tang2025mmperspective,
   title = {MMPerspective: Do MLLMs Understand Perspective? A Comprehensive Benchmark for Perspective Perception, Reasoning, and Robustness},
   author = {Tang, Yunlong and Liu, Pinxin and Feng, Mingqian and Tan, Zhangyun and Mao, Rui and Huang, Chao and Bi, Jing and Xiao, Yunzhong and Liang, Susan and Hua, Hang and Vosoughi, Ali and Song, Luchuan and Zhang, Zeliang and Xu, Chenliang},
-  journal = {NeurIPS 2025; arXiv preprint arXiv:2505.20426},
+  journal = {The 39th Annual Conference on Neural Information Processing Systems (NeurIPS)},
   year = {2025},
   abbr = {NeurIPS},
   preview={mmperspective.png},
@@ -48,6 +48,57 @@
     MMPerspective establishes a valuable testbed for diagnosing and advancing spatial understanding in vision-language systems.
     Resources available at: https://yunlong10.github.io/MMPerspective/
   }
+}
+@article{hua2025mmigbench,
+  title={MMIG-Bench: Towards Comprehensive and Explainable Evaluation of Multi-Modal Image Generation Models},
+  author={Hua, Hang and Zeng, Ziyun and Song, Yizhi and Tang, Yunlong and He, Liu and Aliaga, Daniel and Xiong, Wei and Luo, Jiebo},
+  journal={The 39th Annual Conference on Neural Information Processing Systems (NeurIPS)},
+  year={2025},
+  abstract={
+    Recent multimodal image generators such as GPT-4o, Gemini 2.0 Flash, and Gemini 2.5 Pro excel at following complex instructions, editing images, and maintaining concept consistency. However, they are still evaluated by disjoint toolkits: text-to-image (T2I) benchmarks that lack multi-modal conditioning, and customized image generation benchmarks that overlook compositional semantics and common knowledge.
+    We propose MMIG-Bench, a comprehensive Multi-Modal Image Generation Benchmark that unifies these tasks by pairing 4,850 richly annotated text prompts with 1,750 multi-view reference images across 380 subjects, spanning humans, animals, objects, and artistic styles.
+    MMIG-Bench is equipped with a three-level evaluation framework: (1) low-level metrics for visual artifacts and identity preservation of objects; (2) novel Aspect Matching Score (AMS): a VQA-based mid-level metric that delivers fine-grained prompt-image alignment and shows strong correlation with human judgments; and (3) high-level metrics for aesthetics and human preference.
+    Using MMIG-Bench, we benchmark 17 state-of-the-art models, including Gemini 2.5 Pro, FLUX, DreamBooth, and IP-Adapter, and validate our metrics with 32k human ratings, yielding in-depth insights into architecture and data design.
+  },
+  abbr={NeurIPS},
+  preview={mmigbench.png},
+  html={https://arxiv.org/abs/2505.19415},
+  code={https://github.com/hanghuacs/MMIG-Bench},
+  website={https://hanghuacs.github.io/MMIG-Bench/},
+  stars={hanghuacs/MMIG-Bench},
+  bibtex_show={true}
+}
+@article{huang2025zerosep,
+  title={ZeroSep: Separate Anything in Audio with Zero Training},
+  author={Huang, Chao and Ma, Yuesheng and Huang, Junxuan and Liang, Susan and Tang, Yunlong and Bi, Jing and Liu, Wenqiang and Mesgarani, Nima and Xu, Chenliang},
+  journal={The 39th Annual Conference on Neural Information Processing Systems (NeurIPS)},
+  abstract={
+    Audio source separation is fundamental for machines to understand complex acoustic environments and underpins numerous audio applications.
+    Current supervised deep learning approaches, while powerful, are limited by the need for extensive, task-specific labeled data and struggle to generalize to the immense variability and open-set nature of real-world acoustic scenes.
+    Inspired by the success of generative foundation models, we investigate whether pre-trained text-guided audio diffusion models can overcome these limitations.
+    We make a surprising discovery: zero-shot source separation can be achieved purely through a pre-trained text-guided audio diffusion model under the right configuration.
+    Our method, named ZeroSep, works by inverting the mixed audio into the diffusion model's latent space and then using text conditioning to guide the denoising process to recover individual sources.
+    Without any task-specific training or fine-tuning, ZeroSep repurposes the generative diffusion model for a discriminative separation task and inherently supports open-set scenarios through its rich textual priors.
+    ZeroSep is compatible with a variety of pre-trained text-guided audio diffusion backbones and delivers strong separation performance on multiple separation benchmarks, surpassing even supervised methods.
+  },
+  html={https://arxiv.org/abs/2505.23625},
+  pdf={https://arxiv.org/pdf/2505.23625},
+  preview={zerosep.png},
+  website={https://wikichao.github.io/ZeroSep/},
+  abbr = {NeurIPS},
+  year={2025},
+  bibtex_show={true}
+}
+@article{liu2025harnessing,
+  title={Harnessing the Computation Redundancy in ViTs to Boost Adversarial Transferability},
+  author={Liu, Jiani and Wang, Zhiyuan and Zhang, Zeliang and Huang, Chao and Liang, Susan and Tang, Yunlong and Xu, Chenliang},
+  journal={The 39th Annual Conference on Neural Information Processing Systems (NeurIPS)},
+  pdf={https://arxiv.org/pdf/2504.10804},
+  html={https://arxiv.org/abs/2504.10804},
+  preview={harnessing.png},
+  abbr={NeurIPS},
+  year={2025},
+  bibtex_show={true}
 }
 @InProceedings{tang2024vidcompostion,
   title={VidComposition: Can MLLMs Analyze Compositions in Compiled Videos?},
@@ -287,25 +338,6 @@
     The GitHub repository for this project is available at: https://github.com/yunlong10/CAT-V
   }
 }
-@article{hua2025mmigbench,
-  title={MMIG-Bench: Towards Comprehensive and Explainable Evaluation of Multi-Modal Image Generation Models},
-  author={Hua, Hang and Zeng, Ziyun and Song, Yizhi and Tang, Yunlong and He, Liu and Aliaga, Daniel and Xiong, Wei and Luo, Jiebo},
-  journal={NeurIPS 2025; arXiv preprint arXiv:2505.19415},
-  year={2025},
-  abstract={
-    Recent multimodal image generators such as GPT-4o, Gemini 2.0 Flash, and Gemini 2.5 Pro excel at following complex instructions, editing images, and maintaining concept consistency. However, they are still evaluated by disjoint toolkits: text-to-image (T2I) benchmarks that lack multi-modal conditioning, and customized image generation benchmarks that overlook compositional semantics and common knowledge.
-    We propose MMIG-Bench, a comprehensive Multi-Modal Image Generation Benchmark that unifies these tasks by pairing 4,850 richly annotated text prompts with 1,750 multi-view reference images across 380 subjects, spanning humans, animals, objects, and artistic styles.
-    MMIG-Bench is equipped with a three-level evaluation framework: (1) low-level metrics for visual artifacts and identity preservation of objects; (2) novel Aspect Matching Score (AMS): a VQA-based mid-level metric that delivers fine-grained prompt-image alignment and shows strong correlation with human judgments; and (3) high-level metrics for aesthetics and human preference.
-    Using MMIG-Bench, we benchmark 17 state-of-the-art models, including Gemini 2.5 Pro, FLUX, DreamBooth, and IP-Adapter, and validate our metrics with 32k human ratings, yielding in-depth insights into architecture and data design.
-  },
-  abbr={NeurIPS},
-  preview={mmigbench.png},
-  html={https://arxiv.org/abs/2505.19415},
-  code={https://github.com/hanghuacs/MMIG-Bench},
-  website={https://hanghuacs.github.io/MMIG-Bench/},
-  stars={hanghuacs/MMIG-Bench},
-  bibtex_show={true}
-}
 @article{bi2025mllmreasoning,
   title={Why Reasoning Matters? A Survey of Advancements in Multimodal Reasoning},
   author={Bi, Jing and Liang, Susan and Zhou, Xiaofei and Liu, Pinxin and Guo, Junjia and Tang, Yunlong and Song, Luchuan and Huang, Chao and Sun, Guangyu and He, Jinxi and Wu, Jiarui and Yang, Shu and Zhang, Daoan and Chen, Chen and Wen, Lianggong Bruce and Liu, Zhang and Luo, Jiebo and Xu, Chenliang},
@@ -369,9 +401,7 @@
     Our extensive experiments demonstrate EAGLE's superior performance over existing models, highlighting its ability to balance task-specific understanding with comprehensive video interpretation.
     With EAGLE, we aim to pave the way for novel research opportunities and practical applications in real-world scenarios.
   },
-  bibtex_show={true},
-  category={work},
-  selected={true}
+  bibtex_show={true}
 }
 @InProceedings{moskalenko2024aim,
   title={AIM 2024 Challenge on Video Saliency Prediction: Methods and Results},
