@@ -7,12 +7,13 @@
     margin-bottom: 1.2rem;
     flex-wrap: wrap;
   }
+  /* inactive = light */
   .category-nav .category-btn {
     padding: 0.01em 0.31em;
     border: 1.5px solid var(--global-theme-color, #b509ac);
     border-radius: 4px;
-    background: var(--global-theme-color, #b509ac);
-    color: #fff;
+    background: #ffffff;
+    color: var(--global-theme-color, #b509ac);
     font-size: 0.8em;
     font-weight: 500;
     cursor: pointer;
@@ -34,51 +35,51 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
-  /* 去掉悬停时的颜色变化 */
   .category-nav .category-btn:hover,
   .category-nav .category-btn:focus {
-    background: var(--global-theme-color, #b509ac);
-    color: #fff;
+    background: #ffffff;
+    color: var(--global-theme-color, #b509ac);
     opacity: 0.85;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
   }
-  /* 浅色模式下选中按钮为白色背景 */
+  /* active = dark */
   .category-nav .category-btn.active {
-    background: #ffffff !important;
-    color: var(--global-theme-color, #b509ac) !important;
+    background: var(--global-theme-color, #b509ac) !important;
+    color: #fff !important;
     opacity: 1;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     border: 1.5px solid var(--global-theme-color, #b509ac) !important;
   }
-  /* 深色模式下选中按钮为深灰背景 */
+  /* dark mode */
   @media (prefers-color-scheme: dark) {
     .category-nav .category-btn {
-      background: var(--global-theme-color, #b509ac);
-      color: #fff;
+      background: #232323;
+      color: var(--global-theme-color, #b509ac);
       border: 1.5px solid var(--global-theme-color, #b509ac);
     }
     .category-nav .category-btn.active {
-      background: #232323 !important;
-      color: var(--global-theme-color, #b509ac) !important;
+      background: var(--global-theme-color, #b509ac) !important;
+      color: #fff !important;
       border: 1.5px solid var(--global-theme-color, #b509ac) !important;
     }
   }
-  /* 确保data-theme="dark"时也应用深色模式样式 */
   [data-theme='dark'] .category-nav .category-btn {
-    background: var(--global-theme-color, #b509ac);
-    color: #fff;
+    background: #232323;
+    color: var(--global-theme-color, #b509ac);
     border: 1.5px solid var(--global-theme-color, #b509ac);
   }
   [data-theme='dark'] .category-nav .category-btn.active {
-    background: #232323 !important;
-    color: var(--global-theme-color, #b509ac) !important;
+    background: var(--global-theme-color, #b509ac) !important;
+    color: #fff !important;
     border: 1.5px solid var(--global-theme-color, #b509ac) !important;
   }
-  /* 确保data-theme="light"时应用浅色模式样式 */
+  [data-theme='light'] .category-nav .category-btn {
+    background: #ffffff;
+    color: var(--global-theme-color, #b509ac);
+  }
   [data-theme='light'] .category-nav .category-btn.active {
-    background: #ffffff !important;
-    color: var(--global-theme-color, #b509ac) !important;
-    border: 1.5px solid var(--global-theme-color, #b509ac) !important;
+    background: var(--global-theme-color, #b509ac) !important;
+    color: #fff !important;
   }
 </style>
 
@@ -98,7 +99,6 @@
 
 <script>
   (function () {
-    // Cache DOM elements for better performance
     var categories, buttons;
     var isInitialized = false;
 
@@ -109,58 +109,39 @@
       isInitialized = true;
     }
 
+    function setActiveByCategory(category) {
+      buttons.forEach(function (b) {
+        b.classList.toggle('active', b.getAttribute('data-category') === category);
+      });
+    }
+
+    function showOnly(category) {
+      categories.forEach(function (cat) {
+        cat.style.display = cat.id === category ? 'block' : 'none';
+      });
+      setActiveByCategory(category);
+    }
+
+    // keep "click-active-to-toggle" behavior
     function showCategory(category, btn) {
-      // Initialize if not done yet
       if (!isInitialized) init();
 
       var target = document.getElementById(category);
+      var isActive = target && target.style.display !== 'none';
 
-      // Check if the clicked category is already active
-      var isCurrentlyActive = target && target.style.display !== 'none';
-
-      // Hide all publication groups
-      categories.forEach(function (cat) {
-        cat.style.display = 'none';
-      });
-
-      // If the clicked category was already active, switch to the other category
-      if (isCurrentlyActive) {
-        var otherCategory = category === 'work' ? 'fun' : 'work';
-        var otherTarget = document.getElementById(otherCategory);
-        if (otherTarget) {
-          otherTarget.style.display = 'block';
-          // Update button active state to the other category
-          buttons.forEach(function (b) {
-            b.classList.remove('active');
-          });
-          var otherBtn = document.querySelector('[data-category="' + otherCategory + '"]');
-          if (otherBtn) otherBtn.classList.add('active');
-        }
+      if (isActive) {
+        var other = category === 'work' ? 'fun' : 'work';
+        showOnly(other);
       } else {
-        // Show the clicked category
-        if (target) target.style.display = 'block';
-        // Update button active state
-        buttons.forEach(function (b) {
-          b.classList.remove('active');
-        });
-        if (btn) btn.classList.add('active');
+        showOnly(category);
       }
     }
 
-    // Expose function globally
     window.showCategory = showCategory;
 
-    // On page load, show the first category by default and set correct button style
     document.addEventListener('DOMContentLoaded', function () {
       init();
-      var firstBtn = buttons[0];
-      if (firstBtn) {
-        firstBtn.classList.add('active');
-        var firstCategory = firstBtn.getAttribute('data-category');
-        categories.forEach(function (cat) {
-          cat.style.display = cat.id === firstCategory ? 'block' : 'none';
-        });
-      }
+      showOnly('work'); // default: work visible and active (dark)
     });
   })();
 </script>
