@@ -84,7 +84,7 @@ kaggle_id: # your kaggle id
 keybase_username: # your keybase user name
 lastfm_id: # your lastfm id
 lattes_id: # your ID on Lattes (Brazilian Lattes CV)
-linkedin_username: yunlong-yolo-tang # your LinkedIn user name
+linkedin_username: yolo-yunlong-tang # your LinkedIn user name
 mastodon_username: # your mastodon instance+username in the format instance.tld/@username
 medium_username: # your Medium username
 orcid_id: # your ORCID ID
@@ -106,7 +106,7 @@ wikidata_id: # your wikidata id
 wikipedia_id: # your wikipedia id (Case sensitive)
 work_url: https://yunlong10.github.io/assets/pdf/cv_yunlong_tang.pdf # work page URL
 x_username: yoloytang # your X handle
-youtube_id: yolotang # your youtube channel id (youtube.com/@<youtube_id>)
+youtube_id: yoloytang # your youtube channel id (youtube.com/@<youtube_id>)
 zotero_username: # your zotero username
 
 contact_note: >
