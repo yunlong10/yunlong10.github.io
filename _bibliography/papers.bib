@@ -24,6 +24,29 @@
     Additional resources and updates are maintained at: https://arxiv.org/abs/2510.05034
   },
 }
+
+@article{xiao2025toolmem,
+  title = {ToolMem: Enhancing Multimodal Agents with Learnable Tool Capability Memory},
+  author = {Xiao, Yunzhong and Li, Yangmin and Wang, Hewei and Tang, Yolo Yunlong and Wang, Zora Zhiruo},
+  journal = {arXiv preprint arXiv:2510.06664},
+  year = {2025},
+  preview = {toolmem.png},
+  html = {https://arxiv.org/abs/2510.06664},
+  pdf = {https://arxiv.org/pdf/2510.06664.pdf},
+  bibtex_show = {true},
+  abstract = {
+    Agents utilizing tools powered by large language models (LLMs) or vision-language models (VLMs) have demonstrated remarkable progress in diverse tasks across text and visual modalities.
+    Unlike traditional tools such as calculators, which give deterministic outputs, neural tools perform uncertainly across task scenarios.
+    While different tools for a task may excel in varied scenarios, existing agents typically rely on fixed tools, thus limiting the flexibility in selecting the most suitable tool for specific tasks.
+    In contrast, humans snowball their understanding of the capabilities of different tools by interacting with them, and apply this knowledge to select the optimal tool when solving a future task.
+    To build agents that similarly benefit from this process, we propose ToolMem that enables agents to develop memories of tool capabilities from previous interactions, by summarizing their strengths and weaknesses and storing them in memory; at inference, the agent can retrieve relevant entries from ToolMem, and select the best tool to solve individual tasks more accurately.
+    We evaluate ToolMem on learning varied text generation and text-to-image generation neural tools.
+    Compared to no-memory, generic agents, we find ToolMem-augmented agents predict tool performance 14.8% and 28.7% more accurately across text and multimodal generation scenarios.
+    Moreover, ToolMem facilitates optimal tool selection among multiple choices by 21% and 24% absolute increases in respective scenarios.
+  }
+}
+
+
 @article{pan2025advevo_marl,
   title = {AdvEvo-MARL: Shaping Internalized Safety through Adversarial Co-Evolution in Multi-Agent Reinforcement Learning},
   author = {Pan, Zhenyu and Zhang, Yiting and Liu, Zhuo and Tang, Yolo Yunlong and Zhang, Zeliang and Luo, Haozheng and Han, Yuwei and Zhang, Jianshu and Wu, Dennis and Chen, Hong-Yu and Lu, Haoran and Fang, Haoyang and Li, Manling and Xu, Chenliang and Yu, Philip S. and Liu, Han},
