@@ -66,7 +66,7 @@ layout: default
         <a href="https://scholar.google.com/citations?user=xf1rCgoAAAAJ"
           ><img
             id="citation-badge"
-            src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/yunlong10/citation-badge/main/citations.json&color=b509ac&labelColor=666666"
+            src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/yunlong10/citation-badge/main/citations.json&color=b509ac&labelColor=fff&label=Cited%20by"
             alt="Citations"
         ></a>
       </h2>
@@ -86,7 +86,14 @@ layout: default
           const badge = document.getElementById('citation-badge');
           if (badge && themeColor) {
             const color = themeColor.replace('#', '');
-            badge.src = badge.src.replace(/color=[^&]+/, 'color=' + color).replace(/labelColor=[^&]+/, 'labelColor=' + (isDark ? 'fff' : '666666'));
+            badge.src = badge.src
+              .replace(/color=[^&]+/, 'color=' + color)
+              .replace(/labelColor=[^&]+/, 'labelColor=' + (isDark ? 'fff' : 'fff'))
+              .replace(/label=[^&]*/, 'label=Cited%20by');
+            // 添加边框样式
+            const borderColor = isDark ? 'fff' : '999999';
+            badge.style.border = `1px solid #${borderColor}`;
+            badge.style.borderRadius = '6px';
           }
         }
         // 页面加载时立即更新颜色
@@ -103,8 +110,7 @@ layout: default
     <h5>Fun Facts</h5>
     <ul>
       <li>🩵 Preferred names: Yolo (en) or 芸珑 (zh).</li>
-      <li>🍭 MBTI: INTX | Enneagram: 5w4.</li>
-      <li>🕹️ I’m into ACG, J-pop, singing, and cosplay.</li>
+      <li>🍭 I’m into ACG, J-pop, singing, and cosplay.</li>
       <li>😝 Maybe I’m just cosplaying as a researcher—who knows?</li>
     </ul>
 
