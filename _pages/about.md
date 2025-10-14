@@ -7,7 +7,7 @@ profile:
   align: right
   image: website/prof_pic.jpg
   image_circular: false # crops the image to make it cicular
-  more_info:
+  more_info: "<div style='color:white; margin-top: -40px; margin-bottom: 15px; font-style: italic; white-space: nowrap; text-align: center; font-size: 0.7em; width: 100%; max-width: 100%; text-shadow: 2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.5);'><span style='opacity: 0.9; color: white;'>Yolo at WTC, </span><span style='opacity: 0.9; font-style: normal; color: white; text-shadow: 0 0 1px white, 0 0 2px white;'>📸</span><span style='opacity: 0.9; color: white;'> by <a href='https://sustcsonglin.github.io/' style='color: white; text-shadow: 1px 1px 2px rgba(0,0,0,0.8); text-decoration: underline; text-decoration-color: var(--global-theme-color);'>Songlin Yang</a>, 09/25</span></div>"
   # false
   # <center style="font-size: smaller; margin-top: -10px;">
   #   <a href="https://yunlong10.github.io/assets/pdf/cv_yunlong_tang.pdf">CV</a> /=
