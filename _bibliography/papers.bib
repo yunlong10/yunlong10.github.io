@@ -149,7 +149,8 @@
   abbr = {NeurIPS},
   year={2025},
   bibtex_show={true},
-  pdf={https://arxiv.org/pdf/2505.23625},
+  code={https://github.com/WikiChao/ZeroSep},
+  stars={WikiChao/ZeroSep},
   abstract={
     Audio source separation is fundamental for machines to understand complex acoustic environments and underpins numerous audio applications.
     Current supervised deep learning approaches, while powerful, are limited by the need for extensive, task-specific labeled data and struggle to generalize to the immense variability and open-set nature of real-world acoustic scenes.
@@ -194,15 +195,8 @@
   category={work},
   abbr = {CVPR},
   selected={true},
-  google_scholar_id={_FxGoFyzp5QC},
-  abstract={
-    The advancement of Multimodal Large Language Models (MLLMs) has enabled significant progress in multimodal understanding, expanding their capacity to analyze video content.
-    However, existing evaluation benchmarks for MLLMs primarily focus on abstract video comprehension, lacking a detailed assessment of their ability to understand video compositions, the nuanced interpretation of how visual elements combine and interact within highly compiled video contexts.
-    We introduce VidComposition, a new benchmark specifically designed to evaluate the video composition understanding capabilities of MLLMs using carefully curated compiled videos and cinematic-level annotations.
-    VidComposition includes 982 videos with 1706 multiple-choice questions, covering various compositional aspects such as camera movement, angle, shot size, narrative structure, character actions and emotions, etc.
-    Our comprehensive evaluation of 33 open-source and proprietary MLLMs reveals a significant performance gap between human and model capabilities. This highlights the limitations of current MLLMs in understanding complex, compiled video compositions and offers insights into areas for further improvement.
-    The leaderboard and evaluation code are available at https://yunlong10.github.io/VidComposition/.
-  }
+  poster={vidcomp.pdf},
+  google_scholar_id={_FxGoFyzp5QC}
 }
 @article{tang2025ai4anime,
   title={Generative AI for Cel-Animation: A Survey 🔥🔥🔥}, 
@@ -214,10 +208,10 @@
   html={https://arxiv.org/abs/2501.06250},
   code={https://github.com/yunlong10/Awesome-AI4Animation},
   stars={yunlong10/Awesome-AI4Animation},
+  poster={ai4anime.pdf},
   preview={teaser-ai4anime.png},
   bibtex_show={true},
   google_scholar_id={Se3iqnhoufwC},
-  pdf={https://arxiv.org/pdf/2501.06250},
   abstract={
     Traditional Celluloid (Cel) Animation production pipeline encompasses multiple essential steps, including storyboarding, layout design, keyframe animation, inbetweening, and colorization, which demand substantial manual effort, technical expertise, and significant time investment.
     These challenges have historically impeded the efficiency and scalability of Cel-Animation production.
@@ -235,6 +229,9 @@
   html={https://openaccess.thecvf.com/content/CVPR2025/html/Bi_Unveiling_Visual_Perception_in_Language_Models_An_Attention_Head_Analysis_CVPR_2025_paper.html},
   bibtex_show={true},
   preview={unveiling.png},
+  website={https://page-visual-head.jing.vision/},
+  code={https://github.com/jing-bi/visual-head},
+  stars={jing-bi/visual-head},
   abbr = {CVPR},
   abstract = {
     Recent advancements in Multimodal Large Language Models (MLLMs) have demonstrated remarkable progress in visual understanding.
@@ -256,8 +253,8 @@
   doi={10.1609/aaai.v39i7.32784},
   category={work},
   preview={teaser-avicuna.png},
+  poster={avicuna.pdf},
   html={https://ojs.aaai.org/index.php/AAAI/article/view/32784},
-  pdf={https://ojs.aaai.org/index.php/AAAI/article/view/32784},
   code={https://github.com/yunlong10/AVicuna},
   stars={yunlong10/AVicuna},
   bibtex_show={true},
@@ -292,20 +289,9 @@
   code={https://github.com/hanghuacs/V2Xum-LLM},
   bibtex_show={true},
   selected={true},
+  poster={v2xum.pdf},
   abbr = {AAAI},
   google_scholar_id={zYLM7Y9cAGgC},
-  abstract={
-    Video summarization aims to create short, accurate, and cohesive summaries of longer videos.
-    Despite the existence of various video summarization datasets, a notable limitation is their limited amount of source videos, which hampers the effective training of advanced large vision-language models (VLMs).
-    Additionally, most existing datasets are created for video-to-video summarization, overlooking the contemporary need for multimodal video content summarization.
-    Recent efforts have been made to expand from unimodal to multimodal video summarization, categorizing the task into three sub-tasks based on the summary's modality: video-to-video (V2V), video-to-text (V2T), and a combination of video and text summarization (V2VT).
-    However, the textual summaries in previous multimodal datasets are inadequate.
-    To address these issues, we introduce Instruct-V2Xum, a cross-modal video summarization dataset featuring 30,000 diverse videos sourced from YouTube, with lengths ranging from 40 to 940 seconds and an average summarization ratio of 16.39%.
-    Each video summary in Instruct-V2Xum is paired with a textual summary that references specific frame indexes, facilitating the generation of aligned video and textual summaries.
-    In addition, we propose a new video summarization framework named V2Xum-LLM. V2Xum-LLM, specifically V2Xum-LLaMA in this study, is the first framework that unifies different video summarization tasks into one large language model's (LLM) text decoder and achieves task-controllable video summarization with temporal prompts and task instructions.
-    Experiments show that V2Xum-LLaMA outperforms strong baseline models on multiple video summarization tasks.
-    Furthermore, we propose an enhanced evaluation metric for V2V and V2VT summarization tasks.
-  }
 }
 @InProceedings{tang2024cardiff,
   title={CaRDiff: Video Salient Object Ranking Chain of Thought Reasoning for Saliency Prediction with Diffusion}, 
@@ -323,6 +309,7 @@
   selected={true},
   bibtex_show={true},
   abbr = {AAAI},
+  poster={cardiff.pdf},
   google_scholar_id={W7OEmFMy1HYC},
   abstract={
     Video saliency prediction aims to identify the regions in a video that attract human attention and gaze, driven by bottom-up features from the video and top-down processes like memory and cognition.
@@ -497,17 +484,7 @@
   website={https://challenges.videoprocessing.ai/challenges/video-saliency-prediction-leaderboard.html},
   preview={eccv-aim.jpg},
   bibtex_show={true},
-  abstract={
-    This paper reviews the Challenge on Video Saliency Prediction at AIM 2024.
-    The goal of the participants was to develop a method for predicting accurate saliency maps for the provided set of video sequences.
-    Saliency maps are widely exploited in various applications, including video compression, quality assessment, visual perception studies, the advertising industry, etc.
-    For this competition, a previously unused large-scale audio-visual mouse saliency (AViMoS) dataset of 1500 videos with more than 70 observers per video was collected using crowdsourced mouse tracking.
-    The dataset collection methodology has been validated using conventional eye-tracking data and has shown high consistency.
-    Over 30 teams registered in the challenge, and there are 7 teams that submitted the results in the final phase.
-    The final phase solutions were tested and ranked by commonly used quality metrics on a private test subset.
-    The results of this evaluation and the descriptions of the solutions are presented in this report.
-    All data, including the private test subset, is made publicly available on the challenge homepage - https://challenges.videoprocessing.ai/challenges/video-saliency-prediction.html
-  }
+  award={Rank 1st},
 }
 @article{hua2024mmcomposition,
   title={MMCOMPOSITION: Revisiting the Compositionality of Pre-trained Vision-Language Models},
@@ -585,7 +562,7 @@
   abbr={CVPRW},
   bibtex_show={true},
   stars={zjr2000/LLMVA-GEBC},
-  pdf={https://arxiv.org/pdf/2306.10354},
+  award={Rank 1st},
   abstract={
     Our winning entry for the CVPR 2023 Generic Event Boundary Captioning (GEBC) competition is detailed in this paper.
     Unlike conventional video captioning tasks, GEBC demands that the captioning model possess an understanding of immediate changes in status around the designated video boundary, making it a difficult task.
@@ -604,10 +581,10 @@
   abbr={ICMC},
   category={fun},
   bibtex_show={true},
+  award={Oral},
   html={https://arxiv.org/abs/2307.04827},
   code={https://github.com/yunlong10/LaunchpadGPT},
   stars={yunlong10/LaunchpadGPT},
-  pdf={https://arxiv.org/pdf/2307.04827},
   abstract={
     Launchpad is a popular music instrument for live performance and music production.
     In this paper, we propose LaunchpadGPT, a language model that can generate music visualization designs for Launchpad.

@@ -1,5 +1,34 @@
 ---
 ---
+<style>
+  .award-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    margin-left: 8px;
+    box-shadow: 0 1px 3px rgba(255, 107, 107, 0.3);
+    vertical-align: middle;
+    border: 1px solid #ff6b6b;
+    line-height: 1.2;
+  }
+
+  /* Dark mode support */
+  @media (prefers-color-scheme: dark) {
+    .award-badge {
+      background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+      box-shadow: 0 2px 4px rgba(255, 107, 107, 0.4);
+    }
+  }
+
+  [data-theme='dark'] .award-badge {
+    background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+    box-shadow: 0 2px 4px rgba(255, 107, 107, 0.4);
+  }
+</style>
 <div class="row">
   {% if site.enable_publication_thumbnails %}
     <div class="col col-sm-2 abbr">
@@ -186,11 +215,6 @@
 
     <!-- Links/Buttons -->
     <div class="links">
-      {% if entry.award %}
-        <a class="award btn btn-sm z-depth-0" role="button">
-          {%- if entry.award_name %}{{ entry.award_name }}{% else %}Awarded{% endif -%}
-        </a>
-      {% endif %}
       {% if entry.abstract %}
         <a class="abstract btn btn-sm z-depth-0" role="button">Abs</a>
       {% endif %}
@@ -206,6 +230,13 @@
       {% endif %}
       {% if entry.arxiv %}
         <a href="http://arxiv.org/abs/{{ entry.arxiv }}" class="btn btn-sm z-depth-0" role="button">arXiv</a>
+      {% endif %}
+      {% if entry.poster %}
+        {% if entry.poster contains '://' %}
+          <a href="{{ entry.poster }}" class="btn btn-sm z-depth-0" role="button">Poster</a>
+        {% else %}
+          <a href="{{ entry.poster | prepend: '/assets/pdf/' | relative_url }}" class="btn btn-sm z-depth-0" role="button">Poster</a>
+        {% endif %}
       {% endif %}
       {% if entry.bibtex_show %}
         <a class="bibtex btn btn-sm z-depth-0" role="button">
@@ -235,13 +266,6 @@
       {% if entry.blog %}
         <a href="{{ entry.blog }}" class="btn btn-sm z-depth-0" role="button">Blog</a>
       {% endif %}
-      {% if entry.poster %}
-        {% if entry.poster contains '://' %}
-          <a href="{{ entry.poster }}" class="btn btn-sm z-depth-0" role="button">Poster</a>
-        {% else %}
-          <a href="{{ entry.poster | prepend: '/assets/pdf/' | relative_url }}" class="btn btn-sm z-depth-0" role="button">Poster</a>
-        {% endif %}
-      {% endif %}
       {% if entry.slides %}
         {% if entry.slides contains '://' %}
           <a href="{{ entry.slides }}" class="btn btn-sm z-depth-0" role="button">Slides</a>
@@ -258,14 +282,10 @@
           >
         </a>
       {% endif %}
+      {% if entry.award %}
+        <span class="award-badge">{{ entry.award }}</span>
+      {% endif %}
     </div>
-
-    {% if entry.award %}
-      <!-- Hidden Award block -->
-      <div class="award hidden d-print-inline">
-        <p>{{ entry.award | markdownify }}</p>
-      </div>
-    {% endif %}
 
     {% if entry.abstract %}
       <!-- Hidden abstract block -->
