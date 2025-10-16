@@ -245,7 +245,7 @@
               class="fas fa-quote-right"
               style="font-size: 1.1em; margin-right: 3px; -webkit-text-stroke: 1px currentColor; -webkit-text-fill-color: transparent;"
             ></i>
-            {%- google_scholar_citations site.scholar_userid entry.google_scholar_id %}&nbsp;)
+            <span class="gs-cites" data-article-id="{{ entry.google_scholar_id }}">…</span>&nbsp;)
           {% else %}
             Cite
           {% endif %}
@@ -311,3 +311,28 @@
     {% endif %}
   </div>
 </div>
+<script>
+  (function () {
+    var alreadyFilled = window.__GS_CITES_FILLED__;
+    if (alreadyFilled) return;
+    window.__GS_CITES_FILLED__ = true;
+
+    var url = 'https://raw.githubusercontent.com/yunlong10/citation-badge/main/per_article_citations.json';
+    fetch(url, { cache: 'no-cache' })
+      .then(function (r) {
+        return r.json();
+      })
+      .then(function (map) {
+        document.querySelectorAll('.gs-cites').forEach(function (el) {
+          var id = el.getAttribute('data-article-id');
+          var val = map && Object.prototype.hasOwnProperty.call(map, id) ? map[id] : 0;
+          el.textContent = String(val);
+        });
+      })
+      .catch(function () {
+        document.querySelectorAll('.gs-cites').forEach(function (el) {
+          el.textContent = 'N/A';
+        });
+      });
+  })();
+</script>
