@@ -243,9 +243,9 @@
           {% if entry.google_scholar_id %}
             Cite (&nbsp;<i
               class="fas fa-quote-right"
-              style="font-size: 1.1em; margin-right: 3px; -webkit-text-stroke: 1px currentColor; -webkit-text-fill-color: transparent;"
+              style="font-size: 1.1em; margin-right: 0px; -webkit-text-stroke: 1px currentColor; -webkit-text-fill-color: transparent;"
             ></i>
-            <span class="gs-cites" data-article-id="{{ entry.google_scholar_id }}">…</span>&nbsp;)
+            <span class="gs-cites" data-article-id="{{ entry.google_scholar_id }}" style="color: inherit;">…</span>&nbsp;)
           {% else %}
             Cite
           {% endif %}
