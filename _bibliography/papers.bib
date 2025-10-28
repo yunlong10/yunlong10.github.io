@@ -1,8 +1,9 @@
 ---
 ---
+
 @article{tang2025videolmm_posttraining,
   title = {Video-LMM Post-Training: A Deep Dive into Video Reasoning with Large Multimodal Models},
-  author = {Tang, Yolo Yunlong and Bi, Jing and Liu, Pinxin and Pan, Zhenyu and Tan, Zhangyun and Shen, Qianxiang and Liu, Jiani and Hua, Hang and Guo, Junjia and Xiao, Yunzhong and Huang, Chao and Wang, Zhiyuan and Liang, Susan and Liu, Xinyi and Song, Yizhi and Nie, Yuhe and Zhong, Jia-Xing and Li, Bozheng and Qi, Daiqing and Zeng, Ziyun and Vosoughi, Ali and Song, Luchuan and Zhang, Zeliang and Shimada, Daiki and Liu, Han and Luo, Jiebo and Xu, Chenliang},
+  author = {Tang, Yolo Yunlong and Bi, Jing and Liu, Pinxin and Pan, Zhenyu and Tan, Zhangyun and Shen, Qianxiang and Liu, Jiani and Hua, Hang and Guo, Junjia and Xiao, Yunzhong and Huang, Chao and Wang, Zhiyuan and Liang, Susan and Liu, Xinyi and Song, Yizhi and Huang, Junhua and Zhong, Jia-Xing and Li, Bozheng and Qi, Daiqing and Zeng, Ziyun and Vosoughi, Ali and Song, Luchuan and Zhang, Zeliang and Shimada, Daiki and Liu, Han and Luo, Jiebo and Xu, Chenliang},
   journal = {arXiv preprint arXiv:2510.05034},
   year = {2025},
   preview = {videolmm_posttraining.png},
@@ -24,6 +25,58 @@
     This survey aims to provide researchers and practitioners with a unified framework for advancing Video-LMM capabilities.
     Additional resources and updates are maintained at: https://arxiv.org/abs/2510.05034
   },
+}
+
+@InProceedings{liang2025pavas,
+    author = {Liang, Susan and Huang, Chao and Tang, Yunlong and Zhang, Zeliang and Xu, Chenliang},
+    title  = {p-AVAS: Can Physics-Integrated Audio-Visual Modeling Boost Neural Acoustic Synthesis?},
+    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+    year      = {2025},
+    pages     = {13942-13951},
+    html = {https://openaccess.thecvf.com/content/ICCV2025/html/Liang_p-AVAS_Can_Physics-Integrated_Audio-Visual_Modeling_Boost_Neural_Acoustic_Synthesis_ICCV_2025_paper.html},
+    pdf = {https://openaccess.thecvf.com/content/ICCV2025/papers/Liang_p-AVAS_Can_Physics-Integrated_Audio-Visual_Modeling_Boost_Neural_Acoustic_Synthesis_ICCV_2025_paper.pdf},
+    bibtex_show = {true},
+    abbr = {ICCV},
+    preview = {pi_avas.png},
+    abstract = {
+      The Audio-Visual Acoustic Synthesis (AVAS) task aims to model realistic audio propagation behavior within a specific visual scene.
+      Prior works often rely on sparse image representations to guide acoustic synthesis.
+      However, we argue that this approach is insufficient to capture the intricate physical properties of the environment and may struggle with generalization across diverse scenes.
+      In this work, we review the limitations of existing pipelines and address the research question: Can we leverage physical audio-visual associations to enhance neural acoustic synthesis?
+      We introduce Physics-Integrated Audio-Visual Acoustic Synthesis (PI-AVAS or \pi-AVAS), a novel framework designed with two key objectives.
+      i) Generalization: We develop a vision-guided audio simulation framework that leverages physics-based sound propagation.
+      By explicitly modeling vision-grounded geometry and sound rays, our approach achieves robust performance across diverse visual environments.
+      ii) Realism: While simulation-based approaches offer generalizability, they often compromise on realism.
+      To mitigate this, we incorporate a second stage for data-centric refinement, where we propose a flow matching-based audio refinement model to narrow the gap between simulation and real-world audio-visual scenes.
+      Extensive experiments demonstrate the effectiveness and robustness of our method.
+      We achieve state-of-the-art performance on the RWAVS-Gen, RWAVS, and RAF datasets.
+      Additionally, we show that our approach can be seamlessly integrated with existing methods to significantly improve their performance.
+    },
+
+}
+
+@article{tang2025ai4anime,
+  title={Generative AI for Cel-Animation: A Survey 🔥🔥🔥}, 
+  author={Tang, Yunlong and Guo, Junjia and Liu, Pinxin and Wang, Zhiyuan and Hua, Hang and Zhong, Jia-Xing and Xiao, Yunzhong and Huang, Chao and Song, Luchuan and Liang, Susan and Song, Yizhi and He, Liu and Bi, Jing and Feng, Mingqian and Li, Xinyang and Zhang, Zeliang and Xu, Chenliang},
+  journal={ICCV AISTORY Workshop; arXiv preprint arXiv:2501.06250},
+  abbr={ICCVW},
+  year={2025},
+  category={fun},
+  html={https://arxiv.org/abs/2501.06250},
+  code={https://github.com/yunlong10/Awesome-AI4Animation},
+  stars={yunlong10/Awesome-AI4Animation},
+  poster={ai4anime.pdf},
+  preview={teaser-ai4anime.png},
+  bibtex_show={true},
+  google_scholar_id={Se3iqnhoufwC},
+  abstract={
+    Traditional Celluloid (Cel) Animation production pipeline encompasses multiple essential steps, including storyboarding, layout design, keyframe animation, inbetweening, and colorization, which demand substantial manual effort, technical expertise, and significant time investment.
+    These challenges have historically impeded the efficiency and scalability of Cel-Animation production.
+    The rise of generative artificial intelligence (GenAI), encompassing large language models, multimodal models, and diffusion models, offers innovative solutions by automating tasks such as inbetween frame generation, colorization, and storyboard creation.
+    This survey explores how GenAI integration is revolutionizing traditional animation workflows by lowering technical barriers, broadening accessibility for a wider range of creators through tools like AniDoc, ToonCrafter, and AniSora, and enabling artists to focus more on creative expression and artistic innovation. Despite its potential, issues such as maintaining visual consistency, ensuring stylistic coherence, and addressing ethical considerations continue to pose challenges.
+    Furthermore, this paper discusses future directions and explores potential advancements in AI-assisted animation.
+    For further exploration and resources, please visit our GitHub repository: https://github.com/yunlong10/Awesome-AI4Animation
+  }
 }
 
 @article{xiao2025toolmem,
@@ -72,7 +125,7 @@
 @article{vidllmsurvey,
   title={Video Understanding with Large Language Models: A Survey 🔥🔥🔥}, 
   author={Tang*, Yunlong and Bi*, Jing and Xu*, Siting and Song, Luchuan and Liang, Susan and Wang, Teng and Zhang, Daoan and An, Jie and Lin, Jingyang and Zhu, Rongyi and Vosoughi, Ali and Huang, Chao and Zhang, Zeliang and Liu, Pinxin and Feng, Mingqian and Zheng, Feng and Zhang, Jianguo and Luo, Ping and Luo, Jiebo and Xu†, Chenliang},
-  journal={IEEE Transactions on Circuits and Systems for Video Technology},
+  journal={IEEE Transactions on Circuits and Systems for Video Technology (TCSVT)},
   year={2025},
   preview={vidllm_survey.png},
   selected={true},
@@ -100,7 +153,7 @@
 @article{tang2025mmperspective,
   title = {MMPerspective: Do MLLMs Understand Perspective? A Comprehensive Benchmark for Perspective Perception, Reasoning, and Robustness},
   author = {Tang, Yunlong and Liu, Pinxin and Feng, Mingqian and Tan, Zhangyun and Mao, Rui and Huang, Chao and Bi, Jing and Xiao, Yunzhong and Liang, Susan and Hua, Hang and Vosoughi, Ali and Song, Luchuan and Zhang, Zeliang and Xu, Chenliang},
-  journal = {The 39th Annual Conference on Neural Information Processing Systems},
+  journal = {The 39th Annual Conference on Neural Information Processing Systems (NeurIPS)},
   year = {2025},
   abbr = {NeurIPS},
   preview={mmperspective.png},
@@ -123,7 +176,7 @@
 @article{hua2025mmigbench,
   title={MMIG-Bench: Towards Comprehensive and Explainable Evaluation of Multi-Modal Image Generation Models},
   author={Hua, Hang and Zeng, Ziyun and Song, Yizhi and Tang, Yunlong and He, Liu and Aliaga, Daniel and Xiong, Wei and Luo, Jiebo},
-  journal={The 39th Annual Conference on Neural Information Processing Systems},
+  journal={The 39th Annual Conference on Neural Information Processing Systems (NeurIPS)},
   year={2025},
   abbr={NeurIPS},
   preview={mmigbench.png},
@@ -142,7 +195,7 @@
 @article{huang2025zerosep,
   title={ZeroSep: Separate Anything in Audio with Zero Training},
   author={Huang, Chao and Ma, Yuesheng and Huang, Junxuan and Liang, Susan and Tang, Yunlong and Bi, Jing and Liu, Wenqiang and Mesgarani, Nima and Xu, Chenliang},
-  journal={The 39th Annual Conference on Neural Information Processing Systems},
+  journal={The 39th Annual Conference on Neural Information Processing Systems (NeurIPS)},
   html={https://arxiv.org/abs/2505.23625},
   preview={zerosep.png},
   website={https://wikichao.github.io/ZeroSep/},
@@ -164,7 +217,7 @@
 @article{liu2025harnessing,
   title={Harnessing the Computation Redundancy in ViTs to Boost Adversarial Transferability},
   author={Liu, Jiani and Wang, Zhiyuan and Zhang, Zeliang and Huang, Chao and Liang, Susan and Tang, Yunlong and Xu, Chenliang},
-  journal={The 39th Annual Conference on Neural Information Processing Systems},
+  journal={The 39th Annual Conference on Neural Information Processing Systems (NeurIPS)},
   html={https://arxiv.org/abs/2504.10804},
   preview={harnessing.png},
   abbr={NeurIPS},
@@ -183,7 +236,7 @@
 @InProceedings{tang2024vidcompostion,
   title={VidComposition: Can MLLMs Analyze Compositions in Compiled Videos?},
   author={Tang*, Yunlong and Guo*, Junjia and Hua, Hang and Liang, Susan and Feng, Mingqian and Li, Xinyang and Mao, Rui and Huang, Chao and Bi, Jing and Zhang, Zeliang and Fazli, Pooyan and Xu†, Chenliang},
-  booktitle={Proceedings of the Computer Vision and Pattern Recognition Conference},
+  booktitle={Proceedings of the Computer Vision and Pattern Recognition Conference (CVPR)},
   year={2025},
   pages={8490-8500},
   preview={vidcomposition.png},
@@ -198,33 +251,11 @@
   poster={vidcomp.pdf},
   google_scholar_id={_FxGoFyzp5QC}
 }
-@article{tang2025ai4anime,
-  title={Generative AI for Cel-Animation: A Survey 🔥🔥🔥}, 
-  author={Tang, Yunlong and Guo, Junjia and Liu, Pinxin and Wang, Zhiyuan and Hua, Hang and Zhong, Jia-Xing and Xiao, Yunzhong and Huang, Chao and Song, Luchuan and Liang, Susan and Song, Yizhi and He, Liu and Bi, Jing and Feng, Mingqian and Li, Xinyang and Zhang, Zeliang and Xu, Chenliang},
-  journal={ICCV AISTORY Workshop; arXiv preprint arXiv:2501.06250},
-  abbr={ICCVW},
-  year={2025},
-  category={fun},
-  html={https://arxiv.org/abs/2501.06250},
-  code={https://github.com/yunlong10/Awesome-AI4Animation},
-  stars={yunlong10/Awesome-AI4Animation},
-  poster={ai4anime.pdf},
-  preview={teaser-ai4anime.png},
-  bibtex_show={true},
-  google_scholar_id={Se3iqnhoufwC},
-  abstract={
-    Traditional Celluloid (Cel) Animation production pipeline encompasses multiple essential steps, including storyboarding, layout design, keyframe animation, inbetweening, and colorization, which demand substantial manual effort, technical expertise, and significant time investment.
-    These challenges have historically impeded the efficiency and scalability of Cel-Animation production.
-    The rise of generative artificial intelligence (GenAI), encompassing large language models, multimodal models, and diffusion models, offers innovative solutions by automating tasks such as inbetween frame generation, colorization, and storyboard creation.
-    This survey explores how GenAI integration is revolutionizing traditional animation workflows by lowering technical barriers, broadening accessibility for a wider range of creators through tools like AniDoc, ToonCrafter, and AniSora, and enabling artists to focus more on creative expression and artistic innovation. Despite its potential, issues such as maintaining visual consistency, ensuring stylistic coherence, and addressing ethical considerations continue to pose challenges.
-    Furthermore, this paper discusses future directions and explores potential advancements in AI-assisted animation.
-    For further exploration and resources, please visit our GitHub repository: https://github.com/yunlong10/Awesome-AI4Animation
-  }
-}
+
 @InProceedings{bi2024unveiling,
   title={Unveiling Visual Perception in Language Models: An Attention Head Analysis Approach},
   author={Bi, Jing and Guo, Junjia and Tang, Yunlong and Wen, Lianggong Bruce and Liu, Zhang and Xu, Chenliang},
-  booktitle={Proceedings of the Computer Vision and Pattern Recognition Conference},
+  booktitle={Proceedings of the Computer Vision and Pattern Recognition Conference (CVPR)},
   year={2025},
   html={https://openaccess.thecvf.com/content/CVPR2025/html/Bi_Unveiling_Visual_Perception_in_Language_Models_An_Attention_Head_Analysis_CVPR_2025_paper.html},
   bibtex_show={true},
@@ -245,7 +276,7 @@
 @InProceedings{tang2024avicuna,
   title={Empowering LLMs with Pseudo-Untrimmed Videos for Audio-Visual Temporal Understanding},
   author={Tang, Yunlong and Shimada, Daiki and Bi, Jing and Feng, Mingqian and Hua, Hang and Xu†, Chenliang},
-  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence (AAAI)},
   volume={39},
   number={7},
   pages={7293-7301},
@@ -275,7 +306,7 @@
 @InProceedings{hua2024v2xum,
   title={V2Xum-LLM: Cross-modal Video Summarization with Temporal Prompt Instruction Tuning},
   author={Hua*, Hang and Tang*, Yunlong and Xu, Chenliang and Luo†, Jiebo},
-  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence (AAAI)},
   volume={39},
   number={4},
   pages={3599-3607},
@@ -296,7 +327,7 @@
 @InProceedings{tang2024cardiff,
   title={CaRDiff: Video Salient Object Ranking Chain of Thought Reasoning for Saliency Prediction with Diffusion}, 
   author={Tang, Yunlong and Zhan, Gen and Yang, Li and Liao, Yiting and Xu†, Chenliang},
-  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence (AAAI)},
   year={2025},
   html={https://ojs.aaai.org/index.php/AAAI/article/view/32785},
   pdf={https://ojs.aaai.org/index.php/AAAI/article/view/32785},
@@ -371,7 +402,7 @@
 @article{liu2024emo,
   title={GaussianStyle: Gaussian Head Avatar via StyleGAN},
   author={Liu, Pinxin and Song, Luchuan and Zhang, Daoan and Hua, Hang and Tang, Yunlong and Tu, Huaijin and Luo, Jiebo and Xu†, Chenliang},
-  journal={International Conference on 3D Vision},
+  journal={International Conference on 3D Vision (3DV)},
   year={2025},
   html={https://arxiv.org/abs/2402.00827},
   code={https://github.com/andypinxinliu/HumanFaceProject},
@@ -453,7 +484,7 @@
 @InProceedings{bi2024eagle,
   title={EAGLE: Egocentric AGgregated Language-video Engine}, 
   author={Bi, Jing and Tang, Yunlong and Song, Luchuan and Vosoughi, Ali and Nguyen, Nguyen and Xu†, Chenliang},
-  booktitle={Proceedings of the 32nd ACM International Conference on Multimedia},
+  booktitle={Proceedings of the 32nd ACM International Conference on Multimedia (ACM MM)},
   year={2024},
   pages={1682--1691},
   doi={10.1145/3664647.3681618},
@@ -478,7 +509,7 @@
 @InProceedings{moskalenko2024aim,
   title={AIM 2024 Challenge on Video Saliency Prediction: Methods and Results},
   author={Moskalenko, Andrey and Bryncev, Alexey and Vatolin, Dmitry and Timofte, Radu and Zhan, Gen and Yang, Li and Tang, Yunlong and Liao, Yiting and Lin, Jiongzhi and Huang, Baitao and Moradi, Morteza and Moradi, Mohammad and Rundo, Francesco and Spampinato, Concetto and Borji, Ali and Palazzo, Simone and Zhu, Yuxin and Sun, Yinan and Duan, Huiyu and Cao, Yuqin and Jia, Ziheng and Hu, Qiang and Min, Xiongkuo and Zhai, Guangtao and Fang, Hao and Cong, Runmin and Lu, Xiankai and Zhou, Xiaofei and Zhang, Wei and Zhao, Chunyu and Mu, Wentao and Deng, Tao and Tavakoli, Hamed R},
-  booktitle={Proceedings of the European Conference on Computer Vision Workshops},
+  booktitle={Proceedings of the European Conference on Computer Vision (ECCV) Workshops},
   abbr={ECCVW},
   code={https://github.com/msu-video-group/ECCVW24_Saliency_Prediction},
   stars={msu-video-group/ECCVW24_Saliency_Prediction},
@@ -577,7 +608,7 @@
 @InProceedings{xu2023launchpadgpt,
   title={LaunchpadGPT: Language Model as Music Visualization Designer on Launchpad},
   author={Xu*, Siting and Tang*, Yunlong and Zheng†, Feng},
-  booktitle={Proceedings of the International Computer Music Conference},
+  booktitle={Proceedings of the International Computer Music Conference (ICMC)},
   year={2023},
   pages={213-217},
   preview={launchpadgpt.png},
@@ -622,7 +653,7 @@
 @InProceedings{Tang_2022_ACCV,
     author    = {Tang, Yunlong and Xu, Siting and Wang, Teng and Lin, Qin and Lu, Qinglin and Zheng†, Feng},
     title     = {Multi-modal Segment Assemblage Network for Ad Video Editing with Importance-Coherence Reward},
-    booktitle = {Proceedings of the Asian Conference on Computer Vision},
+    booktitle = {Proceedings of the Asian Conference on Computer Vision (ACCV)},
     year      = {2022},
     pages     = {3519-3535},
     preview   = {m_san.png},
