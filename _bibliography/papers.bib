@@ -1,77 +1,26 @@
 ---
 ---
-
-@article{tang2025videolmm_posttraining,
-  title = {Video-LMM Post-Training: A Deep Dive into Video Reasoning with Large Multimodal Models 🔥🔥🔥},
-  author = {Tang, Yolo Yunlong and Bi, Jing and Liu, Pinxin and Pan, Zhenyu and Tan, Zhangyun and Shen, Qianxiang and Liu, Jiani and Hua, Hang and Guo, Junjia and Xiao, Yunzhong and Huang, Chao and Wang, Zhiyuan and Liang, Susan and Liu, Xinyi and Song, Yizhi and Huang, Junhua and Zhong, Jia-Xing and Li, Bozheng and Qi, Daiqing and Zeng, Ziyun and Vosoughi, Ali and Song, Luchuan and Zhang, Zeliang and Shimada, Daiki and Liu, Han and Luo, Jiebo and Xu, Chenliang},
-  journal = {arXiv preprint arXiv:2510.05034},
-  year = {2025},
-  preview = {videolmm_posttraining.png},
-  html = {https://arxiv.org/abs/2510.05034},
-  pdf = {https://arxiv.org/pdf/2510.05034.pdf},
-  bibtex_show = {true},
-  google_scholar_id = {9ZlFYXVOiuMC},
-  stars = {yunlong10/Awesome-Video-LMM-Post-Training},
-  code = {https://github.com/yunlong10/Awesome-Video-LMM-Post-Training},
-  abstract = {
-    Video understanding represents the most challenging frontier in computer vision.
-    It requires models to reason about complex spatiotemporal relationships, long-term dependencies, and multimodal evidence.
-    The recent emergence of Video-Large Multimodal Models (Video-LMMs), which integrate visual encoders with powerful decoder-based language models, has demonstrated remarkable capabilities in video understanding tasks.
-    However, the critical phase that transforms these models from basic perception systems into sophisticated reasoning engines, post-training, remains fragmented across the literature.
-    This survey provides the first comprehensive examination of post-training methodologies for Video-LMMs, encompassing three fundamental pillars: supervised fine-tuning (SFT) with chain-of-thought, reinforcement learning (RL) from verifiable objectives, and test-time scaling (TTS) through enhanced inference computation.
-    We present a structured taxonomy that clarifies the roles, interconnections, and video-specific adaptations of these techniques, addressing unique challenges such as temporal localization, spatiotemporal grounding, long video efficiency, and multimodal evidence integration.
-    Through systematic analysis of representative methods, we synthesize key design principles, insights, and evaluation protocols while identifying critical open challenges in reward design, scalability, and cost-performance optimization.
-    We further curate essential benchmarks, datasets, and metrics to facilitate rigorous assessment of post-training effectiveness.
-    This survey aims to provide researchers and practitioners with a unified framework for advancing Video-LMM capabilities.
-    Additional resources and updates are maintained at: https://arxiv.org/abs/2510.05034
-  },
-}
-
-@InProceedings{liang2025pavas,
-    author = {Liang, Susan and Huang, Chao and Tang, Yunlong and Zhang, Zeliang and Xu, Chenliang},
-    title  = {p-AVAS: Can Physics-Integrated Audio-Visual Modeling Boost Neural Acoustic Synthesis?},
-    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
-    year      = {2025},
-    pages     = {13942-13951},
-    html = {https://openaccess.thecvf.com/content/ICCV2025/html/Liang_p-AVAS_Can_Physics-Integrated_Audio-Visual_Modeling_Boost_Neural_Acoustic_Synthesis_ICCV_2025_paper.html},
-    pdf = {https://openaccess.thecvf.com/content/ICCV2025/papers/Liang_p-AVAS_Can_Physics-Integrated_Audio-Visual_Modeling_Boost_Neural_Acoustic_Synthesis_ICCV_2025_paper.pdf},
-    bibtex_show = {true},
-    abbr = {ICCV},
-    website = {https://liangsusan-git.github.io/project/pi_avas/},
-    preview = {pi_avas.png},
-    abstract = {
-      The Audio-Visual Acoustic Synthesis (AVAS) task aims to model realistic audio propagation behavior within a specific visual scene.
-      Prior works often rely on sparse image representations to guide acoustic synthesis.
-      However, we argue that this approach is insufficient to capture the intricate physical properties of the environment and may struggle with generalization across diverse scenes.
-      In this work, we review the limitations of existing pipelines and address the research question: Can we leverage physical audio-visual associations to enhance neural acoustic synthesis?
-      We introduce Physics-Integrated Audio-Visual Acoustic Synthesis (PI-AVAS or \pi-AVAS), a novel framework designed with two key objectives.
-      i) Generalization: We develop a vision-guided audio simulation framework that leverages physics-based sound propagation.
-      By explicitly modeling vision-grounded geometry and sound rays, our approach achieves robust performance across diverse visual environments.
-      ii) Realism: While simulation-based approaches offer generalizability, they often compromise on realism.
-      To mitigate this, we incorporate a second stage for data-centric refinement, where we propose a flow matching-based audio refinement model to narrow the gap between simulation and real-world audio-visual scenes.
-      Extensive experiments demonstrate the effectiveness and robustness of our method.
-      We achieve state-of-the-art performance on the RWAVS-Gen, RWAVS, and RAF datasets.
-      Additionally, we show that our approach can be seamlessly integrated with existing methods to significantly improve their performance.
-    },
-
-}
-
-@article{tang2025ai4anime,
-  title={Generative AI for Cel-Animation: A Survey 🔥🔥🔥}, 
-  author={Tang, Yunlong and Guo, Junjia and Liu, Pinxin and Wang, Zhiyuan and Hua, Hang and Zhong, Jia-Xing and Xiao, Yunzhong and Huang, Chao and Song, Luchuan and Liang, Susan and Song, Yizhi and He, Liu and Bi, Jing and Feng, Mingqian and Li, Xinyang and Zhang, Zeliang and Xu, Chenliang},
-  journal={Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV) Workshops},
-  abbr={ICCV Workshop},
+@article{tang2025videor4,
+  title={Video-R4: Reinforcing Text-Rich Video Reasoning with Visual Rumination},
+  author={Tang, Yolo Yunlong and Shimada, Daiki and Hua, Hang and Huang, Chao and Bi, Jing and Feris, Rogerio and Xu, Chenliang},
+  journal={arXiv preprint arXiv:2511.17490},
   year={2025},
-  category={fun},
-  pages={3778-3791},
-  html={https://openaccess.thecvf.com/content/ICCV2025W/AISTORY/html/Tang_Generative_AI_for_Cel-Animation_A_Survey_ICCVW_2025_paper.html},
-  code={https://github.com/yunlong10/Awesome-AI4Animation},
-  stars={yunlong10/Awesome-AI4Animation},
-  poster={ai4anime.pdf},
-  preview={teaser-ai4anime.png},
+  preview={video-r4.png},
+  html={https://arxiv.org/abs/2511.17490},
+  code={https://github.com/yunlong10/Video-R4},
+  stars={yunlong10/Video-R4},
+  website={https://yunlong10.github.io/Video-R4/},
   bibtex_show={true},
-  google_scholar_id={Se3iqnhoufwC},
-  pdf={https://openaccess.thecvf.com/content/ICCV2025W/AISTORY/papers/Tang_Generative_AI_for_Cel-Animation_A_Survey_ICCVW_2025_paper.pdf}
+  category={work},
+  abstract={
+    Understanding text-rich videos requires reading small, transient textual cues that often demand repeated inspection.
+    Yet most video QA models rely on single-pass perception over fixed frames, leading to hallucinations and failures on fine-grained evidence.
+    Inspired by how humans pause, zoom, and re-read critical regions, we introduce Video-R4 (Reinforcing Text-Rich Video Reasoning with Visual Rumination), a video reasoning LMM that performs visual rumination: iteratively selecting frames, zooming into informative regions, re-encoding retrieved pixels, and updating its reasoning state.
+    We construct two datasets with executable rumination trajectories: Video-R4-CoT-17k for supervised practice and Video-R4-RL-30k for reinforcement learning.
+    We propose a multi-stage rumination learning framework that progressively finetunes a 7B LMM to learn atomic and mixing visual operations via SFT and GRPO-based RL.
+    Video-R4-7B achieves state-of-the-art results on M4-ViteVQA and further generalizes to multi-page document QA, slides QA, and generic video QA, demonstrating that iterative rumination is an effective paradigm for pixel-grounded multimodal reasoning.
+    For more information, readers are recommended to visit the repository at https://github.com/yunlong10/Video-R4.
+  },
 }
 
 @article{xiao2025toolmem,
@@ -94,8 +43,31 @@
     Moreover, ToolMem facilitates optimal tool selection among multiple choices by 21% and 24% absolute increases in respective scenarios.
   }
 }
-
-
+@article{tang2025videolmm_posttraining,
+  title = {Video-LMM Post-Training: A Deep Dive into Video Reasoning with Large Multimodal Models 🔥🔥🔥},
+  author = {Tang, Yolo Yunlong and Bi, Jing and Liu, Pinxin and Pan, Zhenyu and Tan, Zhangyun and Shen, Qianxiang and Liu, Jiani and Hua, Hang and Guo, Junjia and Xiao, Yunzhong and Huang, Chao and Wang, Zhiyuan and Liang, Susan and Liu, Xinyi and Song, Yizhi and Huang, Junhua and Zhong, Jia-Xing and Li, Bozheng and Qi, Daiqing and Zeng, Ziyun and Vosoughi, Ali and Song, Luchuan and Zhang, Zeliang and Shimada, Daiki and Liu, Han and Luo, Jiebo and Xu, Chenliang},
+  journal = {arXiv preprint arXiv:2510.05034},
+  year = {2025},
+  preview = {videolmm_posttraining.png},
+  html = {https://arxiv.org/abs/2510.05034},
+  pdf = {https://arxiv.org/pdf/2510.05034.pdf},
+  bibtex_show = {true},
+  category={work},
+  stars = {yunlong10/Awesome-Video-LMM-Post-Training},
+  code = {https://github.com/yunlong10/Awesome-Video-LMM-Post-Training},
+  abstract = {
+    Video understanding represents the most challenging frontier in computer vision.
+    It requires models to reason about complex spatiotemporal relationships, long-term dependencies, and multimodal evidence.
+    The recent emergence of Video-Large Multimodal Models (Video-LMMs), which integrate visual encoders with powerful decoder-based language models, has demonstrated remarkable capabilities in video understanding tasks.
+    However, the critical phase that transforms these models from basic perception systems into sophisticated reasoning engines, post-training, remains fragmented across the literature.
+    This survey provides the first comprehensive examination of post-training methodologies for Video-LMMs, encompassing three fundamental pillars: supervised fine-tuning (SFT) with chain-of-thought, reinforcement learning (RL) from verifiable objectives, and test-time scaling (TTS) through enhanced inference computation.
+    We present a structured taxonomy that clarifies the roles, interconnections, and video-specific adaptations of these techniques, addressing unique challenges such as temporal localization, spatiotemporal grounding, long video efficiency, and multimodal evidence integration.
+    Through systematic analysis of representative methods, we synthesize key design principles, insights, and evaluation protocols while identifying critical open challenges in reward design, scalability, and cost-performance optimization.
+    We further curate essential benchmarks, datasets, and metrics to facilitate rigorous assessment of post-training effectiveness.
+    This survey aims to provide researchers and practitioners with a unified framework for advancing Video-LMM capabilities.
+    Additional resources and updates are maintained at: https://arxiv.org/abs/2510.05034
+  },
+}
 @article{pan2025advevo_marl,
   title = {AdvEvo-MARL: Shaping Internalized Safety through Adversarial Co-Evolution in Multi-Agent Reinforcement Learning},
   author = {Pan, Zhenyu and Zhang, Yiting and Liu, Zhuo and Tang, Yolo Yunlong and Zhang, Zeliang and Luo, Haozheng and Han, Yuwei and Zhang, Jianshu and Wu, Dennis and Chen, Hong-Yu and Lu, Haoran and Fang, Haoyang and Li, Manling and Xu, Chenliang and Yu, Philip S. and Liu, Han},
@@ -116,35 +88,6 @@
     These results show that safety and utility can be jointly improved without relying on extra guard agents or added system overhead.
   }
 }
-
-@article{vidllmsurvey,
-  title={Video Understanding with Large Language Models: A Survey 🔥🔥🔥}, 
-  author={Tang, Yunlong and Bi, Jing and Xu, Siting and Song, Luchuan and Liang, Susan and Wang, Teng and Zhang, Daoan and An, Jie and Lin, Jingyang and Zhu, Rongyi and Vosoughi, Ali and Huang, Chao and Zhang, Zeliang and Liu, Pinxin and Feng, Mingqian and Zheng, Feng and Zhang, Jianguo and Luo, Ping and Luo, Jiebo and Xu†, Chenliang},
-  journal={IEEE Transactions on Circuits and Systems for Video Technology (TCSVT)},
-  year={2025},
-  preview={vidllm_survey.png},
-  selected={true},
-  html={https://ieeexplore.ieee.org/document/10982110},
-  code={https://github.com/yunlong10/Awesome-LLMs-for-Video-Understanding},
-  bibtex_show={true},
-  category={work},
-  abbr = {TCSVT},
-  publisher={IEEE},
-  stars={yunlong10/Awesome-LLMs-for-Video-Understanding},
-  google_scholar_id={qjMakFHDy7sC},
-  pdf={https://ieeexplore.ieee.org/document/10982110},
-  abstract={
-    With the burgeoning growth of online video platforms and the escalating volume of video content, the demand for proficient video understanding tools has intensified markedly.
-    Given the remarkable capabilities of large language models (LLMs) in language and multimodal tasks, this survey provides a detailed overview of recent advancements in video understanding that harness the power of LLMs (Vid-LLMs).
-    The emergent capabilities of Vid-LLMs are surprisingly advanced, particularly their ability for open-ended multi-granularity (general, temporal, and spatiotemporal) reasoning combined with commonsense knowledge, suggesting a promising path for future video understanding.
-    We examine the unique characteristics and capabilities of Vid-LLMs, categorizing the approaches into three main types: Video Analyzer x LLM, Video Embedder x LLM, and (Analyzer + Embedder) x LLM.
-    Furthermore, we identify five sub-types based on the functions of LLMs in Vid-LLMs: LLM as Summarizer, LLM as Manager, LLM as Text Decoder, LLM as Regressor, and LLM as Hidden Layer.
-    Furthermore, this survey presents a comprehensive study of the tasks, datasets, benchmarks, and evaluation methodologies for Vid-LLMs.
-    Additionally, it explores the expansive applications of Vid-LLMs across various domains, highlighting their remarkable scalability and versatility in real-world video understanding challenges.
-    Finally, it summarizes the limitations of existing Vid-LLMs and outlines directions for future research.
-    For more information, readers are recommended to visit the repository at https://github.com/yunlong10/awesome-llms-for-video-understanding.
-  }
-}
 @article{tang2025mmperspective,
   title = {MMPerspective: Do MLLMs Understand Perspective? A Comprehensive Benchmark for Perspective Perception, Reasoning, and Robustness},
   author = {Tang, Yunlong and Liu, Pinxin and Tan, Zhangyun and Feng, Mingqian and Mao, Rui and Huang, Chao and Bi, Jing and Xiao, Yunzhong and Liang, Susan and Hua, Hang and Vosoughi, Ali and Song, Luchuan and Zhang, Zeliang and Xu, Chenliang},
@@ -160,6 +103,9 @@
   stars={yunlong10/MMPerspective},
   bibtex_show={true},
 }
+
+
+
 @article{hua2025mmigbench,
   title={MMIG-Bench: Towards Comprehensive and Explainable Evaluation of Multi-Modal Image Generation Models},
   author={Hua, Hang and Zeng, Ziyun and Song, Yizhi and Tang, Yunlong and He, Liu and Aliaga, Daniel and Xiong, Wei and Luo, Jiebo},
@@ -214,6 +160,82 @@
     Our approach, named Harnessing Redundancy for Transferability (HRT), identifies and utilizes the most influential computation paths in ViTs to craft adversarial examples that are more likely to transfer across different models and architectures.
     Through extensive experiments on ImageNet and CIFAR-10, we demonstrate that HRT significantly improves adversarial transferability compared to existing methods, achieving up to 15% higher success rates in black-box attacks.
     Our findings provide new insights into the relationship between model architecture and adversarial robustness, opening new directions for both attack and defense strategies.
+  }
+}
+@InProceedings{liang2025pavas,
+    author = {Liang, Susan and Huang, Chao and Tang, Yunlong and Zhang, Zeliang and Xu, Chenliang},
+    title  = {p-AVAS: Can Physics-Integrated Audio-Visual Modeling Boost Neural Acoustic Synthesis?},
+    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+    year      = {2025},
+    pages     = {13942-13951},
+    html = {https://openaccess.thecvf.com/content/ICCV2025/html/Liang_p-AVAS_Can_Physics-Integrated_Audio-Visual_Modeling_Boost_Neural_Acoustic_Synthesis_ICCV_2025_paper.html},
+    pdf = {https://openaccess.thecvf.com/content/ICCV2025/papers/Liang_p-AVAS_Can_Physics-Integrated_Audio-Visual_Modeling_Boost_Neural_Acoustic_Synthesis_ICCV_2025_paper.pdf},
+    bibtex_show = {true},
+    abbr = {ICCV},
+    website = {https://liangsusan-git.github.io/project/pi_avas/},
+    preview = {pi_avas.png},
+    abstract = {
+      The Audio-Visual Acoustic Synthesis (AVAS) task aims to model realistic audio propagation behavior within a specific visual scene.
+      Prior works often rely on sparse image representations to guide acoustic synthesis.
+      However, we argue that this approach is insufficient to capture the intricate physical properties of the environment and may struggle with generalization across diverse scenes.
+      In this work, we review the limitations of existing pipelines and address the research question: Can we leverage physical audio-visual associations to enhance neural acoustic synthesis?
+      We introduce Physics-Integrated Audio-Visual Acoustic Synthesis (PI-AVAS or \pi-AVAS), a novel framework designed with two key objectives.
+      i) Generalization: We develop a vision-guided audio simulation framework that leverages physics-based sound propagation.
+      By explicitly modeling vision-grounded geometry and sound rays, our approach achieves robust performance across diverse visual environments.
+      ii) Realism: While simulation-based approaches offer generalizability, they often compromise on realism.
+      To mitigate this, we incorporate a second stage for data-centric refinement, where we propose a flow matching-based audio refinement model to narrow the gap between simulation and real-world audio-visual scenes.
+      Extensive experiments demonstrate the effectiveness and robustness of our method.
+      We achieve state-of-the-art performance on the RWAVS-Gen, RWAVS, and RAF datasets.
+      Additionally, we show that our approach can be seamlessly integrated with existing methods to significantly improve their performance.
+    },
+
+}
+
+@article{tang2025ai4anime,
+  title={Generative AI for Cel-Animation: A Survey 🔥🔥🔥}, 
+  author={Tang, Yunlong and Guo, Junjia and Liu, Pinxin and Wang, Zhiyuan and Hua, Hang and Zhong, Jia-Xing and Xiao, Yunzhong and Huang, Chao and Song, Luchuan and Liang, Susan and Song, Yizhi and He, Liu and Bi, Jing and Feng, Mingqian and Li, Xinyang and Zhang, Zeliang and Xu, Chenliang},
+  journal={Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV) Workshops},
+  abbr={ICCV Workshop},
+  year={2025},
+  category={fun},
+  pages={3778-3791},
+  html={https://openaccess.thecvf.com/content/ICCV2025W/AISTORY/html/Tang_Generative_AI_for_Cel-Animation_A_Survey_ICCVW_2025_paper.html},
+  code={https://github.com/yunlong10/Awesome-AI4Animation},
+  stars={yunlong10/Awesome-AI4Animation},
+  poster={ai4anime.pdf},
+  preview={teaser-ai4anime.png},
+  bibtex_show={true},
+  google_scholar_id={Se3iqnhoufwC},
+  pdf={https://openaccess.thecvf.com/content/ICCV2025W/AISTORY/papers/Tang_Generative_AI_for_Cel-Animation_A_Survey_ICCVW_2025_paper.pdf}
+}
+
+
+@article{vidllmsurvey,
+  title={Video Understanding with Large Language Models: A Survey 🔥🔥🔥}, 
+  author={Tang, Yunlong and Bi, Jing and Xu, Siting and Song, Luchuan and Liang, Susan and Wang, Teng and Zhang, Daoan and An, Jie and Lin, Jingyang and Zhu, Rongyi and Vosoughi, Ali and Huang, Chao and Zhang, Zeliang and Liu, Pinxin and Feng, Mingqian and Zheng, Feng and Zhang, Jianguo and Luo, Ping and Luo, Jiebo and Xu†, Chenliang},
+  journal={IEEE Transactions on Circuits and Systems for Video Technology (TCSVT)},
+  year={2025},
+  preview={vidllm_survey.png},
+  selected={true},
+  html={https://ieeexplore.ieee.org/document/10982110},
+  code={https://github.com/yunlong10/Awesome-LLMs-for-Video-Understanding},
+  bibtex_show={true},
+  category={work},
+  abbr = {TCSVT},
+  publisher={IEEE},
+  stars={yunlong10/Awesome-LLMs-for-Video-Understanding},
+  google_scholar_id={qjMakFHDy7sC},
+  pdf={https://ieeexplore.ieee.org/document/10982110},
+  abstract={
+    With the burgeoning growth of online video platforms and the escalating volume of video content, the demand for proficient video understanding tools has intensified markedly.
+    Given the remarkable capabilities of large language models (LLMs) in language and multimodal tasks, this survey provides a detailed overview of recent advancements in video understanding that harness the power of LLMs (Vid-LLMs).
+    The emergent capabilities of Vid-LLMs are surprisingly advanced, particularly their ability for open-ended multi-granularity (general, temporal, and spatiotemporal) reasoning combined with commonsense knowledge, suggesting a promising path for future video understanding.
+    We examine the unique characteristics and capabilities of Vid-LLMs, categorizing the approaches into three main types: Video Analyzer x LLM, Video Embedder x LLM, and (Analyzer + Embedder) x LLM.
+    Furthermore, we identify five sub-types based on the functions of LLMs in Vid-LLMs: LLM as Summarizer, LLM as Manager, LLM as Text Decoder, LLM as Regressor, and LLM as Hidden Layer.
+    Furthermore, this survey presents a comprehensive study of the tasks, datasets, benchmarks, and evaluation methodologies for Vid-LLMs.
+    Additionally, it explores the expansive applications of Vid-LLMs across various domains, highlighting their remarkable scalability and versatility in real-world video understanding challenges.
+    Finally, it summarizes the limitations of existing Vid-LLMs and outlines directions for future research.
+    For more information, readers are recommended to visit the repository at https://github.com/yunlong10/awesome-llms-for-video-understanding.
   }
 }
 @InProceedings{tang2024vidcompostion,
