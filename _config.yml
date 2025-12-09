@@ -314,8 +314,7 @@ display_categories: ["external-services"] # these categories will be displayed o
 
 scholar:
   last_name: [Tang]
-  first_name: [Yunlong, "Yolo Yunlong"]
-
+  first_name: [Yunlong, "Yolo Yunlong", "Yolo Y."]
   style: apa
   locale: en
 
