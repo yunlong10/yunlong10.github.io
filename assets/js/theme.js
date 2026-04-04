@@ -50,6 +50,15 @@ let applyTheme = () => {
 
   document.documentElement.setAttribute("data-theme", theme);
 
+  // Safari iOS: reduce pale strip above page (rubber band / chrome) by matching UI tint to gradient top.
+  let themeColorMeta = document.querySelector('meta[name="theme-color"]');
+  if (themeColorMeta) {
+    let top = getComputedStyle(document.documentElement).getPropertyValue("--global-bg-gradient-top").trim();
+    if (top) {
+      themeColorMeta.setAttribute("content", top);
+    }
+  }
+
   // Add class to tables.
   let tables = document.getElementsByTagName("table");
   for (let i = 0; i < tables.length; i++) {
