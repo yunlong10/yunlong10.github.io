@@ -632,6 +632,9 @@ third_party_libraries:
 jekyll_get_json:
   - data: resume
     json: assets/json/resume.json # it can also be an url
+  # Selected publications: build-time sort + cite counts (offline build skips if fetch fails)
+  - data: pub_citations
+    json: https://raw.githubusercontent.com/yunlong10/citation-badge/main/per_article_citations.json
 jsonresume:
   - basics
   - work

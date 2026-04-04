@@ -69,7 +69,9 @@
     {% include scripts/pseudocode.liquid %}
     {% include scripts/analytics.liquid %}
     {% include scripts/progressBar.liquid %}
-    {% include scripts/wechatModal.liquid %}
+    {% if site.wechat_qr %}
+      {% include scripts/wechatModal.liquid %}
+    {% endif %}
     {% include scripts/imageLayouts.liquid %}
     {% include scripts/jekyll_tabs.liquid %}
     {% include scripts/back_to_top.liquid %}

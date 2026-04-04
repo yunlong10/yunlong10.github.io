@@ -38,6 +38,8 @@
   {% if entry.stars %}
     data-github-repo="{{ entry.stars }}"
   {% endif %}
+  data-sort-cites="{% if entry.google_scholar_id and site.data.pub_citations %}{{ site.data.pub_citations[entry.google_scholar_id] | default: 0 }}{% else %}0{% endif %}"
+  data-sort-stars="{% if entry.stars and site.data.pub_stars %}{{ site.data.pub_stars[entry.stars] | default: 0 }}{% else %}0{% endif %}"
 >
   {% if site.enable_publication_thumbnails %}
     <div class="col col-sm-2 abbr">
@@ -65,12 +67,17 @@
       {% endif %}
       {% if entry.preview %}
         {% if entry.preview contains '://' %}
-          <img class="preview z-depth-1 rounded" src="{{ entry.preview }}">
+          <img
+            class="preview z-depth-1 rounded"
+            src="{{ entry.preview }}"
+            loading="lazy"
+            alt="Publication preview"
+          >
         {% else %}
           {% assign entry_path = entry.preview | prepend: '/assets/img/publication_preview/' %}
           {%
             include figure.liquid
-            loading="eager"
+            loading="lazy"
             path=entry_path
             sizes = "200px"
             class="preview z-depth-1 rounded"
@@ -258,7 +265,9 @@
               class="fas fa-quote-right"
               style="font-size: 1.1em; margin-right: 0px; -webkit-text-stroke: 1px currentColor; -webkit-text-fill-color: transparent;"
             ></i>
-            <span class="gs-cites" data-article-id="{{ entry.google_scholar_id }}" style="color: inherit;">…</span>&nbsp;)
+            <span class="gs-cites" data-article-id="{{ entry.google_scholar_id }}" style="color: inherit;">
+              {%- if site.data.pub_citations %}{{ site.data.pub_citations[entry.google_scholar_id] | default: '…' }}{% else %}…{% endif -%}</span
+            >&nbsp;)
           {% else %}
             Cite
           {% endif %}

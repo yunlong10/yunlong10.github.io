@@ -7,31 +7,37 @@
       window.dispatchEvent(new CustomEvent('pubCiteMapReady', { detail: map }));
     }
 
-    var els = document.querySelectorAll('.gs-cites');
-    if (els.length === 0) {
-      dispatchMap({});
-      return;
-    }
-    if (window.__PUB_CITE_MAP_LOADING__) return;
-    window.__PUB_CITE_MAP_LOADING__ = true;
-
-    fetch(url, { cache: 'no-cache' })
-      .then(function (r) {
-        return r.json();
-      })
-      .then(function (map) {
-        document.querySelectorAll('.gs-cites').forEach(function (el) {
-          var id = el.getAttribute('data-article-id');
-          var val = map && Object.prototype.hasOwnProperty.call(map, id) ? map[id] : 0;
-          el.textContent = String(val);
-        });
-        dispatchMap(map || {});
-      })
-      .catch(function () {
-        document.querySelectorAll('.gs-cites').forEach(function (el) {
-          el.textContent = 'N/A';
-        });
+    function run() {
+      var els = document.querySelectorAll('.gs-cites');
+      if (els.length === 0) {
         dispatchMap({});
-      });
+        return;
+      }
+      if (window.__PUB_CITE_MAP_LOADING__) return;
+      window.__PUB_CITE_MAP_LOADING__ = true;
+
+      fetch(url, { cache: 'default' })
+        .then(function (r) {
+          return r.json();
+        })
+        .then(function (map) {
+          document.querySelectorAll('.gs-cites').forEach(function (el) {
+            var id = el.getAttribute('data-article-id');
+            var val = map && Object.prototype.hasOwnProperty.call(map, id) ? map[id] : 0;
+            el.textContent = String(val);
+          });
+          dispatchMap(map || {});
+        })
+        .catch(function () {
+          document.querySelectorAll('.gs-cites').forEach(function (el) {
+            el.textContent = 'N/A';
+          });
+          dispatchMap({});
+        });
+    }
+
+    // Run immediately: citation JSON is small and must load before pub-list sort; idle deferral
+    // caused a visible flash of unsorted publications on slow networks.
+    run();
   })();
 </script>

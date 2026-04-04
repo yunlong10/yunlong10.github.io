@@ -28,7 +28,7 @@ layout: default
           {% capture sizes %}(min-width: {{site.max_width}}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
       30vw, 95vw"{% endcapture %}
           {%
-            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
+            include figure.liquid loading="eager" fetchpriority="high" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
             cache_bust=true
           %}
         {% endif %}
@@ -99,13 +99,42 @@ layout: default
     </ul>
 
     <h5>Visitor Map</h5>
-    <div class="visitor-map">
-      <script
-        type="text/javascript"
-        id="clustrmaps"
-        src="//clustrmaps.com/map_v2.js?cl=ffffff&d=mErswMtIf2K7G41Iql-K1paY9dnbAA1mf0bzUzgiHAs&co=5a9bd4&cmo=b83d7f&cmn=ff6ba3&w=350"
-      ></script>
-    </div>
+    <div
+      class="visitor-map"
+      id="clustrmaps-host"
+      data-clustrmaps-src="https://clustrmaps.com/map_v2.js?cl=ffffff&d=mErswMtIf2K7G41Iql-K1paY9dnbAA1mf0bzUzgiHAs&co=5a9bd4&cmo=b83d7f&cmn=ff6ba3&w=350"
+    ></div>
+    <script>
+      (function () {
+        var host = document.getElementById('clustrmaps-host');
+        if (!host || host.dataset.loaded === '1') return;
+        function loadClustrmaps() {
+          if (host.dataset.loaded === '1') return;
+          host.dataset.loaded = '1';
+          var s = document.createElement('script');
+          s.async = true;
+          s.id = 'clustrmaps';
+          s.src = host.getAttribute('data-clustrmaps-src');
+          host.appendChild(s);
+        }
+        if (!('IntersectionObserver' in window)) {
+          loadClustrmaps();
+          return;
+        }
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                loadClustrmaps();
+                io.disconnect();
+              }
+            });
+          },
+          { rootMargin: '120px' }
+        );
+        io.observe(host);
+      })();
+    </script>
     <div style="color: var(--global-subtitle-color); margin-top: 0px; opacity: 0.85; white-space: nowrap; text-align: center; font-size: 0.9em; width: 100%; max-width: 100%;">
       <span>Thank you for your visit!</span>
     </div>

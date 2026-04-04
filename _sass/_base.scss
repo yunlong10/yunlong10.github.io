@@ -243,7 +243,7 @@ ul.task-list input[type="checkbox"] {
 
 // Navbar customization
 
-// Site chrome: no extra gap above the fixed bar; fully opaque so body gradient never bleeds through.
+// Site chrome: no extra gap above the fixed bar.
 header {
   margin: 0;
   padding: 0;
@@ -261,12 +261,16 @@ header {
 .navbar {
   box-shadow: none;
   border-bottom: 1px solid var(--global-divider-color);
-  background-color: var(--global-bg-color);
+  background-color: color-mix(in srgb, var(--global-bg-color) 80%, transparent);
+  -webkit-backdrop-filter: saturate(160%) blur(10px);
+  backdrop-filter: saturate(160%) blur(10px);
   opacity: 1;
 }
 
 .navbar .dropdown-menu {
-  background-color: var(--global-bg-color);
+  background-color: color-mix(in srgb, var(--global-bg-color) 88%, transparent);
+  -webkit-backdrop-filter: saturate(160%) blur(10px);
+  backdrop-filter: saturate(160%) blur(10px);
   border: 1px solid var(--global-divider-color);
 
   a:not(.active) {
@@ -335,6 +339,7 @@ header {
       align-items: center;
       justify-content: center;
       min-height: 1em;
+      text-decoration: none;
 
       i::before {
         color: var(--global-text-color);
@@ -342,6 +347,8 @@ header {
       }
 
       &:hover {
+        text-decoration: none;
+
         i::before {
           color: var(--global-accent-blue);
         }
@@ -430,6 +437,7 @@ header {
       align-items: center;
       justify-content: center;
       min-height: 1em;
+      text-decoration: none;
 
       i::before {
         color: var(--global-text-color);
@@ -437,6 +445,8 @@ header {
       }
 
       &:hover {
+        text-decoration: none;
+
         i::before {
           color: var(--global-theme-color);
         }
@@ -955,60 +965,91 @@ html.transition *:after {
   }
 }
 
-progress {
-  /* Positioning */
+// Segmented rainbow stripe for the scroll reading indicator (repeats horizontally).
+$reading-progress-segment: 30px;
+$reading-progress-rainbow: repeating-linear-gradient(
+  90deg,
+  #e53935 0 $reading-progress-segment,
+  #fb8c00 $reading-progress-segment ($reading-progress-segment * 2),
+  #fdd835 ($reading-progress-segment * 2) ($reading-progress-segment * 3),
+  #43a047 ($reading-progress-segment * 3) ($reading-progress-segment * 4),
+  #1e88e5 ($reading-progress-segment * 4) ($reading-progress-segment * 5),
+  #8e24aa ($reading-progress-segment * 5) ($reading-progress-segment * 6)
+);
+
+// Scroll reading indicator: rainbow fill + circular icon at the leading edge.
+// Above .navbar.fixed-top (1030) so the circular marker isn’t painted under the header.
+.reading-progress {
   position: fixed;
   left: 0;
   top: 56px;
-  z-index: 10;
-
-  /* Dimensions */
+  z-index: 1031;
   width: 100%;
-  height: 1px;
+  height: 3px;
+  pointer-events: none;
+  --reading-progress-marker-r: 13px; // half of outer marker (22px + 2px border ≈ centered clamp)
 
-  /* Reset the appearance */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+  .reading-progress-track {
+    position: absolute;
+    inset: 0;
+    background-color: transparent;
+  }
 
-  /* Get rid of the default border in Firefox/Opera. */
-  border: none;
+  .reading-progress-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: var(--reading-progress-pct, 0%);
+    max-width: 100%;
+    background-color: transparent;
+    background-image: $reading-progress-rainbow;
+  }
 
-  /* Progress bar container for Firefox/IE10  */
-  background-color: transparent;
+  .reading-progress-marker {
+    position: absolute;
+    left: clamp(var(--reading-progress-marker-r), var(--reading-progress-pct, 0%), calc(100% - var(--reading-progress-marker-r)));
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
 
-  /* Progress bar value for IE10  */
-  color: var(--global-accent-blue);
-}
+  .reading-progress-marker-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--global-bg-color);
+    box-shadow:
+      0 0 0 1px rgba(127, 127, 127, 0.28),
+      0 1px 4px rgba(0, 0, 0, 0.12);
+    background-color: var(--global-bg-color);
+    overflow: hidden;
+    box-sizing: content-box;
+  }
 
-progress::-webkit-progress-bar {
-  background-color: transparent;
-}
+  .reading-progress-marker-inner img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
 
-progress::-webkit-progress-value {
-  background-color: var(--global-accent-blue);
-}
+  .reading-progress-marker-emoji {
+    font-size: 0.75rem;
+    line-height: 1;
+    user-select: none;
+  }
 
-progress::-moz-progress-bar {
-  background-color: var(--global-accent-blue);
-}
-
-// Old names .progress-container / .progress-bar collided with Bootstrap and could show a second bar.
-.reading-progress-fallback {
-  width: 100%;
-  background-color: transparent;
-  position: fixed;
-  top: 56px;
-  left: 0;
-  height: 5px;
-  display: block;
-}
-
-.reading-progress-fallback-fill {
-  background-color: var(--global-accent-blue);
-  width: 0%;
-  display: block;
-  height: inherit;
+  .reading-progress-marker-fallback {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: var(--global-theme-color);
+  }
 }
 
 /* Copy button */

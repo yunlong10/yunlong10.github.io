@@ -1,6 +1,6 @@
 <div id="selected-publications" class="publications">
   <div class="publication-cards">
-    {% bibliography --group_by none --query @*[selected=true]* %}
+    {% selected_bibliography_sorted --group_by none --query @*[selected=true]* %}
   </div>
 </div>
 <script>
@@ -9,21 +9,38 @@
     var select = document.getElementById('pub-sort-by');
     if (!root || !select) return;
 
-    select.value = 'cites';
+    var starMapCache = null;
+    var starMapPromise = null;
 
-    function parseShieldsStarsMessage(msg) {
-      if (msg == null || msg === '') return 0;
-      var lower = String(msg).trim().replace(/,/g, '').toLowerCase();
+    /** Handles plain integers, commas, and compact k/m (YAML or shields-style). */
+    function parseCount(val) {
+      if (val == null || val === '') return 0;
+      var s = String(val).trim().replace(/,/g, '');
+      var lower = s.toLowerCase();
       if (lower.endsWith('k')) {
-        var nk = parseFloat(lower.slice(0, -1));
-        return isNaN(nk) ? 0 : Math.round(nk * 1000);
+        var k = parseFloat(lower.slice(0, -1));
+        return isNaN(k) ? 0 : Math.round(k * 1000);
       }
       if (lower.endsWith('m')) {
-        var nm = parseFloat(lower.slice(0, -1));
-        return isNaN(nm) ? 0 : Math.round(nm * 1e6);
+        var m = parseFloat(lower.slice(0, -1));
+        return isNaN(m) ? 0 : Math.round(m * 1e6);
       }
-      var n = parseInt(lower, 10);
+      var n = parseInt(s, 10);
       return isNaN(n) ? 0 : n;
+    }
+
+    function citesForRow(row) {
+      if (!row) return 0;
+      return parseCount(row.getAttribute('data-sort-cites'));
+    }
+
+    function starsForRow(row) {
+      if (!row) return 0;
+      var repo = row.getAttribute('data-github-repo');
+      if (repo && starMapCache && Object.prototype.hasOwnProperty.call(starMapCache, repo)) {
+        return starMapCache[repo];
+      }
+      return parseCount(row.getAttribute('data-sort-stars'));
     }
 
     function yearForRow(row) {
@@ -32,52 +49,43 @@
       return isNaN(y) ? 0 : y;
     }
 
-    function citesForRow(row, citeMap) {
-      if (!row || !citeMap) return 0;
-      var id = row.getAttribute('data-scholar-id');
-      if (!id || !Object.prototype.hasOwnProperty.call(citeMap, id)) return 0;
-      return citeMap[id];
-    }
-
-    function starsForRow(row, starMap) {
-      if (!row || !starMap) return 0;
-      var repo = row.getAttribute('data-github-repo');
-      if (!repo || !Object.prototype.hasOwnProperty.call(starMap, repo)) return 0;
-      return starMap[repo];
-    }
-
-    function collectRepos() {
-      var set = {};
-      root.querySelectorAll('.publication-cards .row[data-github-repo]').forEach(function (row) {
-        var repo = row.getAttribute('data-github-repo');
-        if (repo) set[repo] = true;
+    function ensureStarMap() {
+      if (starMapCache) return Promise.resolve(starMapCache);
+      if (starMapPromise) return starMapPromise;
+      var repos = [];
+      root.querySelectorAll('.row[data-github-repo]').forEach(function (r) {
+        var repo = r.getAttribute('data-github-repo');
+        if (repo && repos.indexOf(repo) === -1) repos.push(repo);
       });
-      return Object.keys(set);
-    }
-
-    function fetchStarMap(repos) {
-      if (!repos.length) return Promise.resolve({});
-      var starMap = {};
-      return Promise.all(
+      if (!repos.length) {
+        starMapCache = {};
+        return Promise.resolve(starMapCache);
+      }
+      starMapPromise = Promise.all(
         repos.map(function (repo) {
           var u = 'https://img.shields.io/github/stars/' + repo + '.json';
-          return fetch(u, { cache: 'no-cache' })
+          return fetch(u, { cache: 'default' })
             .then(function (r) {
               return r.json();
             })
             .then(function (j) {
-              starMap[repo] = parseShieldsStarsMessage(j && j.message);
+              return { repo: repo, n: parseCount(j && j.message) };
             })
             .catch(function () {
-              starMap[repo] = 0;
+              return { repo: repo, n: 0 };
             });
         })
-      ).then(function () {
-        return starMap;
+      ).then(function (pairs) {
+        starMapCache = {};
+        pairs.forEach(function (p) {
+          starMapCache[p.repo] = p.n;
+        });
+        return starMapCache;
       });
+      return starMapPromise;
     }
 
-    function sortList(criterion, citeMap, starMap) {
+    function sortList(criterion) {
       root.querySelectorAll('.publication-cards').forEach(function (wrap) {
         var list = wrap.querySelector('ol.bibliography');
         if (!list) return;
@@ -87,10 +95,10 @@
         items.sort(function (a, b) {
           var ra = a.querySelector('.row');
           var rb = b.querySelector('.row');
-          var ca = citesForRow(ra, citeMap);
-          var cb = citesForRow(rb, citeMap);
-          var sa = starsForRow(ra, starMap);
-          var sb = starsForRow(rb, starMap);
+          var ca = citesForRow(ra);
+          var cb = citesForRow(rb);
+          var sa = starsForRow(ra);
+          var sb = starsForRow(rb);
           var ya = yearForRow(ra);
           var yb = yearForRow(rb);
           var cmp;
@@ -127,32 +135,18 @@
       });
     }
 
-    function applySort(citeMap, starMap) {
+    select.addEventListener('change', function () {
       var c = select.value;
       if (c !== 'year' && c !== 'cites' && c !== 'stars') c = 'cites';
-      sortList(c, citeMap, starMap);
-    }
-
-    function wireSort(citeMap) {
-      citeMap = citeMap || {};
-      return fetchStarMap(collectRepos()).then(function (starMap) {
-        applySort(citeMap, starMap);
-        select.addEventListener('change', function () {
-          applySort(citeMap, starMap);
+      if (c === 'stars') {
+        ensureStarMap().then(function () {
+          sortList('stars');
         });
-      });
-    }
+      } else {
+        sortList(c);
+      }
+    });
 
-    if (window.__PUB_CITE_MAP__ !== undefined) {
-      wireSort(window.__PUB_CITE_MAP__ || {});
-    } else {
-      window.addEventListener(
-        'pubCiteMapReady',
-        function (ev) {
-          wireSort(ev.detail || {});
-        },
-        { once: true }
-      );
-    }
+    ensureStarMap().catch(function () {});
   })();
 </script>

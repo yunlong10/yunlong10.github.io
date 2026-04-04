@@ -6,6 +6,8 @@ on:
       - master
       - main
     paths:
+      - "_plugins/**"
+      - "_data/**"
       - "assets/**"
       - "**.bib"
       - "**.html"
@@ -33,6 +35,8 @@ on:
       - master
       - main
     paths:
+      - "_plugins/**"
+      - "_data/**"
       - "assets/**"
       - "**.bib"
       - "**.html"

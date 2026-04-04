@@ -5,6 +5,8 @@ title: Publications
 description: "* Equal Contribution"
 nav: false
 nav_order: 2
+math: false
+masonry: false
 ---
 
 <!-- _pages/publications.md -->

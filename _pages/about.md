@@ -24,6 +24,9 @@ profile:
 news: false # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"
 social: true # includes social icons at the bottom of the page
+# Skip heavy scripts not used on the landing page (see _includes/scripts/mathjax.liquid, masonry.liquid)
+math: false
+masonry: false
 ---
 
 <!-- Hi there / 你好 / こんにちは / Ciallo～(∠・ω< )⌒★ Welcome to my homepage! -->
