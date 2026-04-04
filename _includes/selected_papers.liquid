@@ -1,147 +1,158 @@
-{% comment %}
-{% endcomment %}
-<style>
-  .category-nav {
-    display: flex;
-    gap: 0;
-    margin-bottom: 1.2rem;
-    flex-wrap: wrap;
-  }
-  /* inactive = light */
-  .category-nav .category-btn {
-    padding: 0.01em 0.28em;
-    border: 1.5px solid var(--global-theme-color, #b509ac);
-    border-radius: 4px;
-    background: #ffffff;
-    color: var(--global-theme-color, #b509ac);
-    font-size: 0.8em;
-    font-weight: 500;
-    cursor: pointer;
-    transition:
-      background 0.2s,
-      color 0.2s,
-      box-shadow 0.2s;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-    outline: none;
-    opacity: 0.85;
-    margin: 0;
-  }
-  .category-nav .category-btn:not(:first-child) {
-    margin-left: -1.5px;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-  }
-  .category-nav .category-btn:not(:last-child) {
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  .category-nav .category-btn:hover,
-  .category-nav .category-btn:focus {
-    background: #ffffff;
-    color: var(--global-theme-color, #b509ac);
-    opacity: 0.85;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-  }
-  /* active = dark */
-  .category-nav .category-btn.active {
-    background: var(--global-theme-color, #b509ac) !important;
-    color: #fff !important;
-    opacity: 1;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border: 1.5px solid var(--global-theme-color, #b509ac) !important;
-  }
-  /* dark mode */
-  @media (prefers-color-scheme: dark) {
-    .category-nav .category-btn {
-      background: #232323;
-      color: var(--global-theme-color, #b509ac);
-      border: 1.5px solid var(--global-theme-color, #b509ac);
-    }
-    .category-nav .category-btn.active {
-      background: var(--global-theme-color, #b509ac) !important;
-      color: #fff !important;
-      border: 1.5px solid var(--global-theme-color, #b509ac) !important;
-    }
-  }
-  [data-theme='dark'] .category-nav .category-btn {
-    background: #232323;
-    color: var(--global-theme-color, #b509ac);
-    border: 1.5px solid var(--global-theme-color, #b509ac);
-  }
-  [data-theme='dark'] .category-nav .category-btn.active {
-    background: var(--global-theme-color, #b509ac) !important;
-    color: #fff !important;
-    border: 1.5px solid var(--global-theme-color, #b509ac) !important;
-  }
-  [data-theme='light'] .category-nav .category-btn {
-    background: #ffffff;
-    color: var(--global-theme-color, #b509ac);
-  }
-  [data-theme='light'] .category-nav .category-btn.active {
-    background: var(--global-theme-color, #b509ac) !important;
-    color: #fff !important;
-  }
-</style>
-
-<div id="publications-container">
-  <div id="work" class="publications" style="display:none;">
-    <div class="publication-cards">
-      {% bibliography --group_by none --query @*[category~=work]* %}
-    </div>
+<div id="selected-publications" class="publications">
+  <div class="publication-cards">
+    {% bibliography --group_by none --query @*[selected=true]* %}
   </div>
-  <div id="fun" class="publications" style="display:none;">
-    <div class="publication-cards">
-      {% bibliography --group_by none --query @*[category~=fun]* %}
-    </div>
-  </div>
-  <!-- Add more categories as needed -->
 </div>
-
 <script>
   (function () {
-    var categories, buttons;
-    var isInitialized = false;
+    var root = document.getElementById('selected-publications');
+    var select = document.getElementById('pub-sort-by');
+    if (!root || !select) return;
 
-    function init() {
-      if (isInitialized) return;
-      categories = document.querySelectorAll('.publications');
-      buttons = document.querySelectorAll('.category-nav .category-btn');
-      isInitialized = true;
-    }
+    select.value = 'cites';
 
-    function setActiveByCategory(category) {
-      buttons.forEach(function (b) {
-        b.classList.toggle('active', b.getAttribute('data-category') === category);
-      });
-    }
-
-    function showOnly(category) {
-      categories.forEach(function (cat) {
-        cat.style.display = cat.id === category ? 'block' : 'none';
-      });
-      setActiveByCategory(category);
-    }
-
-    // keep "click-active-to-toggle" behavior
-    function showCategory(category, btn) {
-      if (!isInitialized) init();
-
-      var target = document.getElementById(category);
-      var isActive = target && target.style.display !== 'none';
-
-      if (isActive) {
-        var other = category === 'work' ? 'fun' : 'work';
-        showOnly(other);
-      } else {
-        showOnly(category);
+    function parseShieldsStarsMessage(msg) {
+      if (msg == null || msg === '') return 0;
+      var lower = String(msg).trim().replace(/,/g, '').toLowerCase();
+      if (lower.endsWith('k')) {
+        var nk = parseFloat(lower.slice(0, -1));
+        return isNaN(nk) ? 0 : Math.round(nk * 1000);
       }
+      if (lower.endsWith('m')) {
+        var nm = parseFloat(lower.slice(0, -1));
+        return isNaN(nm) ? 0 : Math.round(nm * 1e6);
+      }
+      var n = parseInt(lower, 10);
+      return isNaN(n) ? 0 : n;
     }
 
-    window.showCategory = showCategory;
+    function yearForRow(row) {
+      if (!row) return 0;
+      var y = parseInt(row.getAttribute('data-sort-year'), 10);
+      return isNaN(y) ? 0 : y;
+    }
 
-    document.addEventListener('DOMContentLoaded', function () {
-      init();
-      showOnly('work'); // default: work visible and active (dark)
-    });
+    function citesForRow(row, citeMap) {
+      if (!row || !citeMap) return 0;
+      var id = row.getAttribute('data-scholar-id');
+      if (!id || !Object.prototype.hasOwnProperty.call(citeMap, id)) return 0;
+      return citeMap[id];
+    }
+
+    function starsForRow(row, starMap) {
+      if (!row || !starMap) return 0;
+      var repo = row.getAttribute('data-github-repo');
+      if (!repo || !Object.prototype.hasOwnProperty.call(starMap, repo)) return 0;
+      return starMap[repo];
+    }
+
+    function collectRepos() {
+      var set = {};
+      root.querySelectorAll('.publication-cards .row[data-github-repo]').forEach(function (row) {
+        var repo = row.getAttribute('data-github-repo');
+        if (repo) set[repo] = true;
+      });
+      return Object.keys(set);
+    }
+
+    function fetchStarMap(repos) {
+      if (!repos.length) return Promise.resolve({});
+      var starMap = {};
+      return Promise.all(
+        repos.map(function (repo) {
+          var u = 'https://img.shields.io/github/stars/' + repo + '.json';
+          return fetch(u, { cache: 'no-cache' })
+            .then(function (r) {
+              return r.json();
+            })
+            .then(function (j) {
+              starMap[repo] = parseShieldsStarsMessage(j && j.message);
+            })
+            .catch(function () {
+              starMap[repo] = 0;
+            });
+        })
+      ).then(function () {
+        return starMap;
+      });
+    }
+
+    function sortList(criterion, citeMap, starMap) {
+      root.querySelectorAll('.publication-cards').forEach(function (wrap) {
+        var list = wrap.querySelector('ol.bibliography');
+        if (!list) return;
+        var items = Array.prototype.filter.call(list.children, function (el) {
+          return el.tagName === 'LI';
+        });
+        items.sort(function (a, b) {
+          var ra = a.querySelector('.row');
+          var rb = b.querySelector('.row');
+          var ca = citesForRow(ra, citeMap);
+          var cb = citesForRow(rb, citeMap);
+          var sa = starsForRow(ra, starMap);
+          var sb = starsForRow(rb, starMap);
+          var ya = yearForRow(ra);
+          var yb = yearForRow(rb);
+          var cmp;
+          if (criterion === 'cites') {
+            cmp = cb - ca;
+            if (cmp !== 0) return cmp;
+            cmp = sb - sa;
+            if (cmp !== 0) return cmp;
+            return yb - ya;
+          }
+          if (criterion === 'stars') {
+            cmp = sb - sa;
+            if (cmp !== 0) return cmp;
+            cmp = cb - ca;
+            if (cmp !== 0) return cmp;
+            return yb - ya;
+          }
+          if (criterion === 'year') {
+            cmp = yb - ya;
+            if (cmp !== 0) return cmp;
+            cmp = cb - ca;
+            if (cmp !== 0) return cmp;
+            return sb - sa;
+          }
+          cmp = cb - ca;
+          if (cmp !== 0) return cmp;
+          cmp = sb - sa;
+          if (cmp !== 0) return cmp;
+          return yb - ya;
+        });
+        items.forEach(function (li) {
+          list.appendChild(li);
+        });
+      });
+    }
+
+    function applySort(citeMap, starMap) {
+      var c = select.value;
+      if (c !== 'year' && c !== 'cites' && c !== 'stars') c = 'cites';
+      sortList(c, citeMap, starMap);
+    }
+
+    function wireSort(citeMap) {
+      citeMap = citeMap || {};
+      return fetchStarMap(collectRepos()).then(function (starMap) {
+        applySort(citeMap, starMap);
+        select.addEventListener('change', function () {
+          applySort(citeMap, starMap);
+        });
+      });
+    }
+
+    if (window.__PUB_CITE_MAP__ !== undefined) {
+      wireSort(window.__PUB_CITE_MAP__ || {});
+    } else {
+      window.addEventListener(
+        'pubCiteMapReady',
+        function (ev) {
+          wireSort(ev.detail || {});
+        },
+        { once: true }
+      );
+    }
   })();
 </script>

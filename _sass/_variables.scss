@@ -16,8 +16,17 @@ $green-color-lime: #b7d12a !default;
 $green-color-dark: #009f06 !default;
 $green-color-light: #ddffdd !default;
 $green-color-bright: #11d68b !default;
-$purple-color: #b509ac !default;
-$light-purple-color: lighten($purple-color, 25%);
+// Pink · white · blue palette (personal theme)
+$theme-rose: #b83d7f !default;
+$theme-rose-deep: #942562 !default;
+$theme-sky: #2f6fad !default;
+$theme-sky-light: #5a9bd4 !default;
+$blush-white: #fffbfd !default;
+$ink-blue: #1c2433 !default;
+$navy-footer: #2c3d5c !default;
+
+$purple-color: $theme-rose !default; // al-folio legacy name → rose
+$light-purple-color: lighten($theme-rose, 22%);
 $pink-color: #f92080 !default;
 $pink-color-light: #ffdddd !default;
 $yellow-color: #efcc00 !default;
@@ -32,7 +41,7 @@ $black-color: #000000 !default;
 
 // Theme colors
 
-$code-bg-color-light: rgba($purple-color, 0.05);
+$code-bg-color-light: rgba($theme-rose, 0.07);
 $code-bg-color-dark: #2c3237 !default;
 
 // Font awesome location

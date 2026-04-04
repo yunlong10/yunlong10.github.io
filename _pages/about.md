@@ -2,7 +2,7 @@
 layout: about
 title: About
 permalink: /
-subtitle: "<span style='color:gray'>[ Yolo Y. Tang • /<i>ˈjoʊloʊ tɛn </i>/ • 芸珑 • she/her/hers ]</span>"
+subtitle: "[ Yolo Y. Tang • /ˈjoʊloʊ tɛn/ • 芸珑 • she/her/hers ]"
 profile:
   align: right
   image: website/prof_pic.jpg

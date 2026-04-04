@@ -49,7 +49,8 @@ d-article {
     display: inline;
   }
   blockquote {
-    border-left: 2px solid var(--global-theme-color) !important;
+    border: 1px solid var(--global-divider-color) !important;
+    border-radius: 4px;
   }
 
   // Style taken from code blocks

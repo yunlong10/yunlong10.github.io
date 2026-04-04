@@ -130,10 +130,10 @@
     </div>
   </nav>
   {% if site.enable_progressbar %}
-    <!-- Scrolling Progress Bar -->
+    <!-- Scrolling Progress Bar (avoid class "progress-bar" — Bootstrap styles it globally) -->
     <progress id="progress" value="0">
-      <div class="progress-container">
-        <span class="progress-bar"></span>
+      <div class="reading-progress-fallback">
+        <span class="reading-progress-fallback-fill"></span>
       </div>
     </progress>
   {% endif %}

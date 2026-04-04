@@ -47,7 +47,7 @@ rss_icon: false
 
 navbar_fixed: true
 footer_fixed: true
-search_enabled: true
+search_enabled: false
 socials_in_search: true
 bib_search: true
 
@@ -73,7 +73,7 @@ acm_id: # your dl.acm.org/profile/id
 blogger_url: # your blogger URL
 bluesky_url: # your bluesky URL
 dblp_url: # your DBLP profile url
-discord_id: # your discord id (18-digit unique numerical identifier)
+discord_id: discord.com/users/yoloytang # discord.com/users/<id>
 facebook_id: # your facebook id
 flickr_id: # your flickr id
 github_username: yunlong10 # your GitHub user name
@@ -106,11 +106,10 @@ wikidata_id: # your wikidata id
 wikipedia_id: # your wikipedia id (Case sensitive)
 work_url: https://yunlong10.github.io/assets/pdf/cv_yunlong_tang.pdf # work page URL
 x_username: yoloytang # your X handle
-youtube_id: yoloytang # your youtube channel id (youtube.com/@<youtube_id>)
+youtube_id: # was yoloytang; use Discord instead
 zotero_username: # your zotero username
 
-contact_note: >
-  Best by email.
+contact_note: ""
 
 # -----------------------------------------------------------------------------
 # Analytics and search engine verification

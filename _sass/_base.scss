@@ -20,7 +20,9 @@ strong {
 }
 
 hr {
-  border-top: 1px solid var(--global-divider-color);
+  border: none;
+  border-top: 2px solid var(--global-divider-color);
+  opacity: 0.95;
 }
 
 table {
@@ -32,6 +34,12 @@ table {
   th {
     font-weight: bold;
   }
+
+  thead th {
+    background-color: var(--global-table-header-bg);
+    color: var(--global-heading-h3-color);
+    border-color: var(--global-divider-color);
+  }
 }
 
 a,
@@ -39,7 +47,7 @@ table.table a {
   color: var(--global-theme-color);
 
   &:hover {
-    color: var(--global-theme-color);
+    color: var(--global-hover-color);
     text-decoration: underline;
   }
 
@@ -57,7 +65,8 @@ table.table a {
 
 blockquote {
   background: var(--global-bg-color);
-  border-left: 5px solid var(--global-theme-color);
+  border: 1px solid var(--global-divider-color);
+  border-radius: 4px;
   margin: 1.5em 0;
   padding: 1em;
   font-size: 1.2rem;
@@ -68,7 +77,7 @@ blockquote {
 
   /* Tips, warnings, and dangers blockquotes */
   &.block-tip {
-    border-color: var(--global-tip-block);
+    border: 1px solid var(--global-tip-block);
     background-color: var(--global-tip-block-bg);
 
     p {
@@ -86,7 +95,7 @@ blockquote {
   }
 
   &.block-warning {
-    border-color: var(--global-warning-block);
+    border: 1px solid var(--global-warning-block);
     background-color: var(--global-warning-block-bg);
 
     p {
@@ -104,7 +113,7 @@ blockquote {
   }
 
   &.block-danger {
-    border-color: var(--global-danger-block);
+    border: 1px solid var(--global-danger-block);
     background-color: var(--global-danger-block-bg);
 
     p {
@@ -158,6 +167,7 @@ ul.task-list input[type="checkbox"] {
 
 .card {
   background-color: var(--global-card-bg-color);
+  border: 1px solid var(--global-card-border-color);
 
   .card-img {
     width: 100%;
@@ -233,11 +243,26 @@ ul.task-list input[type="checkbox"] {
 
 // Navbar customization
 
+// Site chrome: no extra gap above the fixed bar; fully opaque so body gradient never bleeds through.
+header {
+  margin: 0;
+  padding: 0;
+}
+
+// Do not set position on .navbar alone — it would override Bootstrap’s .fixed-top (same specificity, later sheet wins).
+.navbar.fixed-top {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+
 .navbar {
   box-shadow: none;
   border-bottom: 1px solid var(--global-divider-color);
   background-color: var(--global-bg-color);
-  opacity: 0.95;
+  opacity: 1;
 }
 
 .navbar .dropdown-menu {
@@ -288,7 +313,7 @@ ul.task-list input[type="checkbox"] {
   .navbar-nav .nav-item.active > .nav-link {
     background-color: inherit;
     font-weight: bolder;
-    color: var(--global-theme-color);
+    color: var(--global-nav-active-color);
 
     &:hover {
       color: var(--global-hover-color);
@@ -296,11 +321,21 @@ ul.task-list input[type="checkbox"] {
   }
 
   .navbar-brand.social {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.45rem;
     padding-bottom: 0;
     padding-top: 0;
     font-size: 1.7rem;
+    line-height: 1;
 
     a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 1em;
+
       i::before {
         color: var(--global-text-color);
         transition-property: all 0.2s ease-in-out;
@@ -308,9 +343,18 @@ ul.task-list input[type="checkbox"] {
 
       &:hover {
         i::before {
-          color: var(--global-theme-color);
+          color: var(--global-accent-blue);
         }
       }
+    }
+
+    /* Optically large glyphs vs. neighbors at equal font-size */
+    a .fa-discord {
+      font-size: 0.88em;
+    }
+
+    a .fa-weixin {
+      font-size: 0.93em;
     }
   }
 }
@@ -373,9 +417,20 @@ ul.task-list input[type="checkbox"] {
   text-align: center;
 
   .contact-icons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.65rem;
     font-size: 4rem;
+    line-height: 1;
 
     a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 1em;
+
       i::before {
         color: var(--global-text-color);
         transition-property: all 0.2s ease-in-out;
@@ -386,6 +441,14 @@ ul.task-list input[type="checkbox"] {
           color: var(--global-theme-color);
         }
       }
+    }
+
+    a .fa-discord {
+      font-size: 0.9em;
+    }
+
+    a .fa-weixin {
+      font-size: 0.95em;
     }
   }
 
@@ -421,85 +484,6 @@ ul.task-list input[type="checkbox"] {
 @media only screen and (max-width: 400px) {
   .wechat-modal > img {
     width: 100%;
-  }
-}
-
-// Profile GIF Modal
-#profileImageContainer {
-  cursor: pointer;
-  transition: opacity 0.3s ease;
-}
-
-#profileImageContainer:hover {
-  opacity: 0.8;
-}
-
-.profile-gif-modal {
-  display: none;
-  position: fixed;
-  z-index: 1000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.9);
-  align-items: center;
-  justify-content: center;
-}
-
-.profile-gif-modal[style*="display: flex"],
-.profile-gif-modal.show {
-  display: flex;
-}
-
-.profile-gif-content {
-  display: block;
-  width: auto;
-  height: auto;
-  max-width: 90vw;
-  max-height: 90vh;
-  object-fit: contain;
-  animation: fadeIn 0.3s;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.profile-gif-close {
-  position: absolute;
-  top: 15px;
-  right: 35px;
-  color: #f1f1f1;
-  font-size: 40px;
-  font-weight: bold;
-  cursor: pointer;
-  z-index: 1001;
-  transition: color 0.3s ease;
-}
-
-.profile-gif-close:hover,
-.profile-gif-close:focus {
-  color: #bbb;
-  text-decoration: none;
-}
-
-@media only screen and (max-width: 600px) {
-  .profile-gif-content {
-    max-width: 95%;
-    max-height: 95%;
-  }
-  .profile-gif-close {
-    top: 10px;
-    right: 20px;
-    font-size: 30px;
   }
 }
 
@@ -725,6 +709,14 @@ footer.sticky-bottom {
 
 // Publications
 
+// About: Sort by select next to equal-contribution note (slimmer than .form-control-sm)
+.selected-research-note-row select#pub-sort-by {
+  padding: 0.08rem 0.38rem;
+  font-size: 0.8125rem;
+  line-height: 1.25;
+  min-height: 0;
+}
+
 .publications {
   margin-top: 2rem;
 
@@ -941,7 +933,7 @@ html.transition *:after {
 // Extra Markdown style (post Customization)
 .post {
   .post-meta {
-    color: var(--global-text-color-light);
+    color: var(--global-meta-color);
     font-size: 0.875rem;
     margin-bottom: 0;
   }
@@ -986,7 +978,7 @@ progress {
   background-color: transparent;
 
   /* Progress bar value for IE10  */
-  color: var(--global-theme-color);
+  color: var(--global-accent-blue);
 }
 
 progress::-webkit-progress-bar {
@@ -994,14 +986,15 @@ progress::-webkit-progress-bar {
 }
 
 progress::-webkit-progress-value {
-  background-color: var(--global-theme-color);
+  background-color: var(--global-accent-blue);
 }
 
 progress::-moz-progress-bar {
-  background-color: var(--global-theme-color);
+  background-color: var(--global-accent-blue);
 }
 
-.progress-container {
+// Old names .progress-container / .progress-bar collided with Bootstrap and could show a second bar.
+.reading-progress-fallback {
   width: 100%;
   background-color: transparent;
   position: fixed;
@@ -1011,8 +1004,8 @@ progress::-moz-progress-bar {
   display: block;
 }
 
-.progress-bar {
-  background-color: var(--global-theme-color);
+.reading-progress-fallback-fill {
+  background-color: var(--global-accent-blue);
   width: 0%;
   display: block;
   height: inherit;
@@ -1102,22 +1095,44 @@ nav[data-toggle="toc"] {
   .nav > li > a {
     color: var(--global-text-color);
     font-size: 0.75rem;
+    border-left: none !important;
+    padding-left: 1rem !important;
 
     &:hover {
       color: var(--global-hover-color);
-      border-left-color: var(--global-hover-color);
+      background-color: var(--global-code-bg-color);
     }
   }
 
   .nav-link.active {
     color: var(--global-theme-color);
-    border-left-color: var(--global-theme-color);
     font-size: 0.75rem;
+    border-left: none !important;
+    padding-left: 1rem !important;
+    background-color: var(--global-code-bg-color);
 
     &:hover {
       color: var(--global-hover-color);
-      border-left-color: var(--global-hover-color);
     }
+  }
+
+  .nav .nav > li > a {
+    border-left: none !important;
+    padding-left: 1.5rem !important;
+
+    &:focus,
+    &:hover {
+      padding-left: 1.5rem !important;
+      background-color: var(--global-code-bg-color);
+    }
+  }
+
+  .nav .nav > li > .active,
+  .nav .nav > li > .active:focus,
+  .nav .nav > li > .active:hover {
+    border-left: none !important;
+    padding-left: 1.5rem !important;
+    background-color: var(--global-code-bg-color);
   }
 }
 
@@ -1180,6 +1195,25 @@ nav[data-toggle="toc"] {
 .map {
   height: 400px;
   width: 100%;
+}
+
+// ClustrMaps widget on about page
+.visitor-map {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 8px;
+  overflow: hidden;
+  line-height: 0;
+
+  iframe,
+  img {
+    display: block;
+    max-width: 100%;
+    border-radius: 8px;
+  }
 }
 
 swiper-container {

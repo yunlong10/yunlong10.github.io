@@ -2,10 +2,17 @@
  * Content
  ******************************************************************************/
 
+// Keep the strip under the fixed navbar a solid page bg so no “empty” blue band shows above the nav.
+$navbar-gradient-offset: 56px;
+
 body {
   padding-bottom: 70px;
   color: var(--global-text-color);
   background-color: var(--global-bg-color);
+  background-image: linear-gradient(180deg, var(--global-bg-gradient-top) 0%, var(--global-bg-color) 36%, var(--global-bg-color) 100%);
+  background-repeat: no-repeat;
+  background-position: 0 $navbar-gradient-offset;
+  background-size: 100% calc(min(92vh, 960px) - #{$navbar-gradient-offset});
 
   h1,
   h2,
@@ -29,6 +36,14 @@ body.sticky-bottom-footer {
 
 .container {
   max-width: $max-content-width;
+}
+
+.post-header .desc {
+  color: var(--global-subtitle-color);
+}
+
+.post article h3 {
+  color: var(--global-heading-h3-color);
 }
 
 // Profile

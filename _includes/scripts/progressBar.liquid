@@ -49,9 +49,10 @@
     }
 
     function initializeProgressElement() {
-      let navbarHeight = $('#navbar').outerHeight(true);
+      // Exclude margins so body isn’t given extra top padding (avoids a blank band under the viewport top).
+      let navbarHeight = $('#navbar').outerHeight();
       $('body').css({ 'padding-top': navbarHeight });
-      $('progress-container').css({ 'padding-top': navbarHeight });
+      $('.reading-progress-fallback').css({ 'padding-top': navbarHeight });
       progressBar.css({ top: navbarHeight });
       progressBar.attr({
         max: getDistanceToScroll(),

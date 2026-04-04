@@ -19,8 +19,6 @@ layout: default
       <div class="profile float-{% if page.profile.align == 'left' %}left{% else %}right{% endif %}">
         {% if page.profile.image %}
           {% assign profile_image_path = page.profile.image | prepend: 'assets/img/' %}
-          {% assign profile_image_name = page.profile.image | remove: '.jpg' | remove: '.jpeg' | remove: '.png' %}
-          {% assign profile_gif_path = profile_image_name | append: '_anim.gif' | prepend: 'assets/img/' %}
           {% if page.profile.image_circular %}
             {% assign profile_image_class = 'img-fluid z-depth-1 rounded-circle' %}
           {% else %}
@@ -29,17 +27,10 @@ layout: default
           {% endif %}
           {% capture sizes %}(min-width: {{site.max_width}}) {{ site.max_width | minus: 30 | times: 0.3}}px, (min-width: 576px)
       30vw, 95vw"{% endcapture %}
-          <div id="profileImageContainer" style="cursor: pointer;">
-            {%
-              include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
-              cache_bust=true
-            %}
-          </div>
-          <!-- GIF Modal -->
-          <div id="profileGifModal" class="profile-gif-modal">
-            <span class="profile-gif-close">&times;</span>
-            <img class="profile-gif-content" id="profileGifImage" src="{{ profile_gif_path | relative_url }}" alt="Profile Animation">
-          </div>
+          {%
+            include figure.liquid loading="eager" path=profile_image_path class=profile_image_class sizes=sizes alt=page.profile.image
+            cache_bust=true
+          %}
         {% endif %}
         {% if page.profile.more_info %}
           <div class="more-info">{{ page.profile.more_info }}</div>
@@ -70,46 +61,30 @@ layout: default
 
     <!-- Selected papers -->
     {% if page.selected_papers %}
-      <h2>
-        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">Selected Research</a>
-        <a href="https://scholar.google.com/citations?user=xf1rCgoAAAAJ"
-          ><img
-            id="citation-badge"
-            src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/yunlong10/citation-badge/main/citations.json&color=b509ac&labelColor=fff&label=Cited%20by"
-            alt="Citations"
-        ></a>
-      </h2>
-      <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
-        <p style="font-size: 14px; margin: 0;">* Equal Contribution | † Corresponding Author</p>
-        <div class="category-nav" style="margin: 0;">
-          <button class="category-btn" data-category="work" onclick="showCategory('work', this)">Work</button>
-          <button class="category-btn" data-category="fun" onclick="showCategory('fun', this)">Fun</button>
-          <!-- Add more categories as needed -->
-        </div>
+      <h2>Selected Research</h2>
+      <div
+        class="selected-research-note-row"
+        style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.65rem; font-size: 14px; margin: 0 0 0.75rem 0;"
+      >
+        <span>* Equal Contribution</span>
+        <span style="color: var(--global-text-color-light, #888); user-select: none;" aria-hidden="true">|</span>
+        <span
+          class="selected-pubs-toolbar"
+          style="display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.5rem;"
+        >
+          <label for="pub-sort-by" class="mb-0" style="font-size: 14px;">Sort by</label>
+          <select
+            id="pub-sort-by"
+            class="form-control form-control-sm"
+            style="width: auto; min-width: 9rem;"
+            aria-label="Sort selected publications"
+          >
+            <option value="cites" selected>Cited by</option>
+            <option value="stars">Stars</option>
+            <option value="year">Year</option>
+          </select>
+        </span>
       </div>
-      <script>
-        // 获取当前主题颜色并更新徽章
-        function updateBadgeColor() {
-          const themeColor = getComputedStyle(document.documentElement).getPropertyValue('--global-theme-color').trim();
-          const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-          const badge = document.getElementById('citation-badge');
-          if (badge && themeColor) {
-            const color = themeColor.replace('#', '');
-            badge.src = badge.src
-              .replace(/color=[^&]+/, 'color=' + color)
-              .replace(/labelColor=[^&]+/, 'labelColor=' + (isDark ? 'fff' : 'fff'))
-              .replace(/label=[^&]*/, 'label=Cited%20by');
-            // 添加边框样式
-            const borderColor = isDark ? 'fff' : '999999';
-            badge.style.border = `1px solid #${borderColor}`;
-            badge.style.borderRadius = '6px';
-          }
-        }
-        // 页面加载时立即更新颜色
-        updateBadgeColor();
-        // 主题切换时更新颜色
-        document.addEventListener('themeChanged', updateBadgeColor);
-      </script>
       {% include selected_papers.liquid %}
     {% endif %}
 
@@ -124,12 +99,14 @@ layout: default
     </ul>
 
     <h5>Visitor Map</h5>
-    <script
-      type="text/javascript"
-      id="clustrmaps"
-      src="//clustrmaps.com/map_v2.js?cl=ffffff&d=mErswMtIf2K7G41Iql-K1paY9dnbAA1mf0bzUzgiHAs&co=2698ba&cmo=b509ac&cmn=FF1493&w=350"
-    ></script>
-    <div style="color:gray; margin-top: 0px; opacity: 0.6; white-space: nowrap; text-align: center; font-size: 0.9em; width: 100%; max-width: 100%;">
+    <div class="visitor-map">
+      <script
+        type="text/javascript"
+        id="clustrmaps"
+        src="//clustrmaps.com/map_v2.js?cl=ffffff&d=mErswMtIf2K7G41Iql-K1paY9dnbAA1mf0bzUzgiHAs&co=5a9bd4&cmo=b83d7f&cmn=ff6ba3&w=350"
+      ></script>
+    </div>
+    <div style="color: var(--global-subtitle-color); margin-top: 0px; opacity: 0.85; white-space: nowrap; text-align: center; font-size: 0.9em; width: 100%; max-width: 100%;">
       <span>Thank you for your visit!</span>
     </div>
 
@@ -139,7 +116,9 @@ layout: default
       <div class="social">
         <div class="contact-icons">{% include social.liquid %}</div>
 
-        <div class="contact-note">{{ site.contact_note }}</div>
+        {% if site.contact_note %}
+          <div class="contact-note">{{ site.contact_note }}</div>
+        {% endif %}
       </div>
     {% endif %}
 
@@ -148,40 +127,3 @@ layout: default
     {% endif %}
   </article>
 </div>
-
-<!-- Profile GIF Modal Script -->
-<script>
-  (function () {
-    var profileGifModal = document.getElementById('profileGifModal');
-    var profileImageContainer = document.getElementById('profileImageContainer');
-    var profileGifClose = document.getElementsByClassName('profile-gif-close')[0];
-    var profileGifImage = document.getElementById('profileGifImage');
-
-    if (!profileGifModal) return;
-
-    if (profileImageContainer) {
-      profileImageContainer.addEventListener('click', function () {
-        profileGifModal.style.display = 'flex';
-      });
-    }
-
-    if (profileGifClose) {
-      profileGifClose.addEventListener('click', function () {
-        profileGifModal.style.display = 'none';
-      });
-    }
-
-    // 点击 GIF 本身也关闭
-    if (profileGifImage) {
-      profileGifImage.addEventListener('click', function () {
-        profileGifModal.style.display = 'none';
-      });
-    }
-
-    profileGifModal.addEventListener('click', function (event) {
-      if (event.target == profileGifModal) {
-        profileGifModal.style.display = 'none';
-      }
-    });
-  })();
-</script>
