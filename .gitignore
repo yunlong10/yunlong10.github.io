@@ -11,3 +11,9 @@ assets/libs/
 node_modules/
 vendor
 .idea
+
+# Google PhD Fellowship application (keep cv.pdf trackable)
+assets/pdf/cv_yunlong_tang/proposal_essays*
+assets/pdf/cv_yunlong_tang/proposal_refs.bib
+assets/pdf/cv_yunlong_tang/Google fellowship*
+assets/pdf/cv_yunlong_tang/*GooglePhDFellowship*

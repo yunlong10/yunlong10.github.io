@@ -552,7 +552,7 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{\textbf{AAAI} Demonstration Program}
-      \field{note}{\textit{Best Demo Award Runner-up}}
+      \field{note}{\textcolor{red}{\textit{Best Demo Award Runner-up}}}
       \field{title}{Caption Anything in Video: Fine-grained Object-centric Captioning via Spatiotemporal Multimodal Prompting}
       \field{year}{2026}
       \true{nocite}
