@@ -336,7 +336,7 @@
             title: 'Work',
             section: 'Socials',
             handler: () => {
-              window.open("{{ site.work_url }}", "_blank");
+              window.open("{{ site.work_url | relative_url }}", "_blank");
             },
           },
         {%- endif -%}

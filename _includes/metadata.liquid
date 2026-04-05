@@ -147,7 +147,7 @@
     {% assign sameaslinks = sameaslinks | push: link %}
   {% endif %}
   {% if site.work_url %}
-    {% capture link %}{{ site.work_url }}{% endcapture %}
+    {% capture link %}{{ site.work_url | absolute_url }}{% endcapture %}
     {% assign sameaslinks = sameaslinks | push: link %}
   {% endif %}
   {% if site.wikidata_id %}

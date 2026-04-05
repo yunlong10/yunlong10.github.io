@@ -1,2 +1,2 @@
-# Optional: "owner/repo" -> integer stars (same as `stars` in papers.bib) for build-time ordering.
+# Optional: "owner/repo" -> integer stars for sort (data-sort-stars / selected_bibliography_sorted).
 {}

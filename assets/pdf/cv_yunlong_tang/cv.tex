@@ -1,0 +1,90 @@
+\documentclass{resume}
+
+\usepackage[left=0.7in,top=1in,right=0.8in,bottom=1.2in]{geometry}
+\usepackage{stackengine}
+\usepackage{tgpagella}
+\usepackage{eulervm}
+\usepackage{helvet}
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{mdwlist}
+\usepackage{xcolor}
+
+\definecolor{cvprblue}{rgb}{0.21,0.49,0.74}
+
+\hypersetup{
+  colorlinks=true,        % Enable colored links
+  linkcolor=cvprblue,     % Set color for internal links
+  citecolor=cvprblue,     % Set color for citation links
+  urlcolor=cvprblue       % Set color for URLs
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\rfoot{Page \thepage \hspace{1pt} of \pageref{LastPage}}
+
+\def\yenrule{\rule{1.3ex}{.1ex}}
+\def\textyen{\renewcommand\stacktype{L}\stackon[.4ex]{\stackon[.65ex]{Y}{\yenrule}}{\yenrule}}
+
+% defernumbers=true breaks numeric labels with \printbibliography[check=...] (entries can show [0]).
+% Bibliography: show full author lists (no truncation). Inline \cite{} still capped via maxcitenames.
+\usepackage[natbib,maxbibnames=999,minbibnames=1,maxcitenames=3,mincitenames=1,url=false,sorting=none]{biblatex}
+\addbibresource{pubs.bib}
+\newbibmacro{string+doi}[1]{%
+  \iffieldundef{doi}{\iffieldundef{url}{#1}{\href{\thefield{url}}{#1}}}{\href{http://dx.doi.org/\thefield{doi}}{#1}}}
+\DeclareFieldFormat*{title}{\usebibmacro{string+doi}{\mkbibemph{#1}}}
+\setlength\bibitemsep{5pt}
+
+% Whitelist: only these keys can appear under Publications (even if pubs.bib or \nocite drifts).
+% When adding/removing a CV paper, update both this check and sections/2-publications.tex \nocite.
+% Use \iffieldequalstr{entrykey}{...} (works inside \defbibcheck); \ifstrequal can be undefined in some setups.
+\defbibcheck{cvonly}{%
+  \ifboolexpr{
+    test {\iffieldequalstr{entrykey}{tang2025videor4}} or
+    test {\iffieldequalstr{entrykey}{tang2026takusen}} or
+    test {\iffieldequalstr{entrykey}{tang2025catv}} or
+    test {\iffieldequalstr{entrykey}{tang2024vidcompostion}} or
+    test {\iffieldequalstr{entrykey}{tang2025mmperspective}} or
+    test {\iffieldequalstr{entrykey}{vidllmsurvey}} or
+    test {\iffieldequalstr{entrykey}{tang2024avicuna}} or
+    test {\iffieldequalstr{entrykey}{hua2024v2xum}} or
+    test {\iffieldequalstr{entrykey}{tang2024cardiff}} or
+    test {\iffieldequalstr{entrykey}{tang2025videolmm_posttraining}} or
+    test {\iffieldequalstr{entrykey}{bi2024unveiling}} or
+    test {\iffieldequalstr{entrykey}{bi2024eagle}} or
+    test {\iffieldequalstr{entrykey}{tang2023llmva}} or
+    test {\iffieldequalstr{entrykey}{wang2023caption}} or
+    test {\iffieldequalstr{entrykey}{tang2022msan}}
+  }{}{%
+    \skipentry}%
+}
+
+\begin{document}
+
+% {\fontsize{18}{18}\selectfont\textbf{Freda Shi} ({\normalsize a.k.a.}, \textbf{Haoyue Shi})}
+
+    {\fontsize{18}{18}\selectfont\textbf{Yolo Yunlong Tang}}
+
+
+~E-mail: \href{mailto:yunlong.tang@rochester.edu}{yunlong.tang@rochester.edu}~~|~~Phone: (+1)585-616-0074
+
+~Homepage: \href{https://yunlong10.github.io/}{yunlong10.github.io}~~|~~\href{https://scholar.google.com/citations?user=xf1rCgoAAAAJ}{Google Scholar}~~|~~\href{https://github.com/yunlong10}{GitHub}~~|~~\href{https://www.linkedin.com/in/yunlong-yolo-tang/}{LinkedIn}
+
+~Research Area: \textit{Multimodal Learning, LMMs/Agents for Video Understanding}
+
+\vspace{10pt}
+\hrule
+\input{sections/0-education}
+\input{sections/1-experience}
+\input{sections/2-publications}
+\input{sections/3-projects}
+\input{sections/4-awards}
+\input{sections/5-services}
+\input{sections/6-misc}
+
+
+\end{document}

@@ -104,7 +104,7 @@ wechat_qr: wechat-qr.png # filename of your wechat qr-code saved as an image (e.
 whatsapp_number: # your WhatsApp number (full phone number in international format. Omit any zeroes, brackets, or dashes when adding the phone number in international format.)
 wikidata_id: # your wikidata id
 wikipedia_id: # your wikipedia id (Case sensitive)
-work_url: https://yunlong10.github.io/assets/pdf/cv_yunlong_tang.pdf # work page URL
+work_url: /assets/pdf/cv_yunlong_tang/cv.pdf # CV PDF (use path; templates apply relative_url / absolute_url)
 x_username: yoloytang # your X handle
 youtube_id: # was yoloytang; use Discord instead
 zotero_username: # your zotero username

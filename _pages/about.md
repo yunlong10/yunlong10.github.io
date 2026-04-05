@@ -8,18 +8,7 @@ profile:
   image: website/prof_pic.jpg
   image_circular: false # crops the image to make it cicular
   more_info:
-    #"<center><div style='color:white; margin-top: -35px; margin-bottom: 15px; font-style: italic; white-space: nowrap; font-size: 0.65em; width: 100%; max-width: 100%; text-shadow: 1.5px 1.5px 3px rgba(0,0,0,0.6), 0 0 6px rgba(0,0,0,0.3);'>Photo credit: <a href='https://sustcsonglin.github.io/' style='color: white; text-shadow: 1px 1px 1.5px rgba(0,0,0,0.6); text-decoration: underline; text-decoration-color: var(--global-theme-color);'>Songlin Yang</a></div></center>"
-  # false
-  # <center style="font-size: smaller; margin-top: -10px;">
-  #   <a href="https://yunlong10.github.io/assets/pdf/cv_yunlong_tang.pdf">CV</a> /=
-  #   <a href="mailto:yunlong.tang@rochester.edu">Email</a> /
-  #   <a href="https://scholar.google.com/citations?user=xf1rCgoAAAAJ">GScholar</a> /
-  #   <a href="https://www.linkedin.com/in/yunlong-yolo-tang/">LinkedIn</a>
-  # </center>
-
-  #   <p>555 your office number</p>
-  #   <p>123 your address street</p>
-  #   <p>Your City, State 12345</p>
+    # false
 
 news: false # includes a list of news items
 selected_papers: true # includes a list of papers marked as "selected={true}"

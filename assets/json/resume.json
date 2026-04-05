@@ -91,12 +91,12 @@
     {
       "position": "Conference Reviewer",
       "url": "",
-      "summary": "CVPR 2024, ACM MM 2024, ACL 2024, NeurIPS 2024, ICLR 2025, ICASSP 2025, ICML 2025"
+      "summary": "CVPR 2026, ICML 2026, AAAI 2026, NeurIPS 2025, ICML 2025, ICASSP 2025, ICLR 2025, NeurIPS 2024, ACL 2024, ACM MM 2024, CVPR 2024"
     },
     {
       "position": "Journal Reviewer",
       "url": "",
-      "summary": "TPAMI, TMM"
+      "summary": "TPAMI, TMM, TIP, TCSVT"
     },
     {
       "position": "Teaching Assistant",
@@ -110,6 +110,12 @@
     }
   ],
   "awards": [
+    {
+      "title": "Best Demo Award Runner-Up at AAAI 2026 Demonstration Program",
+      "date": "2026",
+      "awarder": "AAAI 2026",
+      "summary": "Best Demo Award Runner-Up at the AAAI 2026 Demonstration Program for <em>CAT-V</em> (Caption Anything in Video)."
+    },
     {
       "title": "First Place in AIM Challenge on Video Saliency Prediction",
       "date": "2024",
