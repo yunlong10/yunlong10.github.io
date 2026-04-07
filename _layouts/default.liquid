@@ -70,6 +70,9 @@
     {% include scripts/analytics.liquid %}
     {% include scripts/progressBar.liquid %}
     {% if site.wechat_qr %}
+      <div id="WeChatMod" class="wechat-modal">
+        <img src="{{ site.wechat_qr | prepend: 'assets/img/' | relative_url }}" alt="WeChat QR" id="WeChatQR">
+      </div>
       {% include scripts/wechatModal.liquid %}
     {% endif %}
     {% include scripts/imageLayouts.liquid %}

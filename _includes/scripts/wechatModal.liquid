@@ -1,18 +1,24 @@
 <!-- WeChat Modal -->
 
 <script>
-  var wechatModal = document.getElementById('WeChatMod');
-  var wechatBtn = document.querySelectorAll('[id="WeChatBtn"]');
+  (function () {
+    var modal = document.getElementById('WeChatMod');
+    if (!modal) return;
 
-  for (var i = 0; i < wechatBtn.length; i++) {
-    wechatBtn[i].onclick = function () {
-      wechatModal.style.display = 'block';
-    };
-  }
+    document.querySelectorAll('[id="WeChatBtn"]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        modal.classList.add('active');
+      });
+    });
 
-  window.onclick = function (event) {
-    if (event.target == wechatModal) {
-      wechatModal.style.display = 'none';
-    }
-  };
+    modal.addEventListener('click', function (e) {
+      if (e.target === modal) modal.classList.remove('active');
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        modal.classList.remove('active');
+      }
+    });
+  })();
 </script>
