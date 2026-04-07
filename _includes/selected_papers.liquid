@@ -49,6 +49,12 @@
       return isNaN(y) ? 0 : y;
     }
 
+    function authorPosForRow(row) {
+      if (!row) return 999;
+      var p = parseInt(row.getAttribute('data-sort-author-pos'), 10);
+      return isNaN(p) ? 999 : p;
+    }
+
     function ensureStarMap() {
       if (starMapCache) return Promise.resolve(starMapCache);
       if (starMapPromise) return starMapPromise;
@@ -101,8 +107,21 @@
           var sb = starsForRow(rb);
           var ya = yearForRow(ra);
           var yb = yearForRow(rb);
+          var pa = authorPosForRow(ra);
+          var pb = authorPosForRow(rb);
           var cmp;
           if (criterion === 'cites') {
+            cmp = cb - ca;
+            if (cmp !== 0) return cmp;
+            cmp = pa - pb;
+            if (cmp !== 0) return cmp;
+            cmp = sb - sa;
+            if (cmp !== 0) return cmp;
+            return yb - ya;
+          }
+          if (criterion === 'authorpos') {
+            cmp = pa - pb;
+            if (cmp !== 0) return cmp;
             cmp = cb - ca;
             if (cmp !== 0) return cmp;
             cmp = sb - sa;
@@ -137,7 +156,7 @@
 
     select.addEventListener('change', function () {
       var c = select.value;
-      if (c !== 'year' && c !== 'cites' && c !== 'stars') c = 'cites';
+      if (c !== 'year' && c !== 'cites' && c !== 'authorpos' && c !== 'stars') c = 'cites';
       if (c === 'stars') {
         ensureStarMap().then(function () {
           sortList('stars');

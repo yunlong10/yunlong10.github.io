@@ -116,6 +116,12 @@
               </button>
             </li>
           {% endif %}
+          <!-- Visitor Map Globe -->
+          <li class="nav-item">
+            <button id="visitor-map-toggle" title="Visitor Map">
+              <i class="fa-solid fa-earth-americas fa-spin" id="visitor-globe-icon"></i>
+            </button>
+          </li>
           {% if site.enable_darkmode %}
             <!-- Toggle theme mode -->
             <li class="toggle-container">
@@ -163,4 +169,57 @@
       </div>
     </div>
   {% endif %}
+  <!-- Visitor Map Modal -->
+  <div id="visitor-map-modal" class="visitor-map-modal">
+    <div class="visitor-map-modal-backdrop"></div>
+    <div class="visitor-map-modal-content">
+      <div class="visitor-map-modal-header">
+        <span>Visitor Map</span>
+        <button class="visitor-map-close" aria-label="Close">&times;</button>
+      </div>
+      <div
+        class="visitor-map"
+        id="visitor-map-container"
+        data-clustrmaps-src="https://clustrmaps.com/map_v2.js?cl=ffffff&d=mErswMtIf2K7G41Iql-K1paY9dnbAA1mf0bzUzgiHAs&co=5a9bd4&cmo=b83d7f&cmn=ff6ba3&w=300"
+      ></div>
+      <div class="visitor-map-footer">Thank you for your visit!</div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var toggle = document.getElementById('visitor-map-toggle');
+      var modal = document.getElementById('visitor-map-modal');
+      var backdrop = modal.querySelector('.visitor-map-modal-backdrop');
+      var closeBtn = modal.querySelector('.visitor-map-close');
+
+      function openModal() {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        var container = document.getElementById('visitor-map-container');
+        if (container && container.dataset.loaded !== '1') {
+          container.dataset.loaded = '1';
+          var s = document.createElement('script');
+          s.async = true;
+          s.id = 'clustrmaps';
+          s.src = container.getAttribute('data-clustrmaps-src');
+          container.appendChild(s);
+        }
+      }
+
+      function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      toggle.addEventListener('click', function () {
+        if (modal.classList.contains('active')) closeModal();
+        else openModal();
+      });
+      backdrop.addEventListener('click', closeModal);
+      closeBtn.addEventListener('click', closeModal);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+      });
+    })();
+  </script>
 </header>

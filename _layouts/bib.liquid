@@ -40,6 +40,7 @@
   {% endif %}
   data-sort-cites="{% if entry.google_scholar_id and site.data.pub_citations %}{{ site.data.pub_citations[entry.google_scholar_id] | default: 0 }}{% else %}0{% endif %}"
   data-sort-stars="{% if entry.stars and site.data.pub_stars %}{{ site.data.pub_stars[entry.stars] | default: 0 }}{% else %}0{% endif %}"
+  data-sort-author-pos="{% assign _ap = 999 %}{% for author in entry.author_array %}{% assign _aln = author.last | regex_replace: '[*∗‡§¶‖&^]', '' %}{% if site.scholar.last_name contains _aln %}{% if site.scholar.first_name contains author.first %}{% assign _ap = forloop.index %}{% endif %}{% endif %}{% endfor %}{{ _ap }}"
 >
   {% if site.enable_publication_thumbnails %}
     <div class="col col-sm-2 abbr">
@@ -258,6 +259,18 @@
           <a href="{{ entry.poster | prepend: '/assets/pdf/' | relative_url }}" class="btn btn-sm z-depth-0" role="button">Poster</a>
         {% endif %}
       {% endif %}
+      {% if entry.supp %}
+        {% if entry.supp contains '://' %}
+          <a href="{{ entry.supp }}" class="btn btn-sm z-depth-0" role="button">Supp</a>
+        {% else %}
+          <a href="{{ entry.supp | prepend: '/assets/pdf/' | relative_url }}" class="btn btn-sm z-depth-0" role="button">Supp</a>
+        {% endif %}
+      {% endif %}
+      {% if entry.video and site.enable_video_embedding %}
+        <a class="abstract btn btn-sm z-depth-0" role="button">Video</a>
+      {% elsif entry.video %}
+        <a href="{{ entry.video }}" class="btn btn-sm z-depth-0" role="button">Video</a>
+      {% endif %}
       {% if entry.bibtex_show %}
         <a class="bibtex btn btn-sm z-depth-0" role="button">
           {% if entry.google_scholar_id %}
@@ -272,18 +285,6 @@
             Cite
           {% endif %}
         </a>
-      {% endif %}
-      {% if entry.supp %}
-        {% if entry.supp contains '://' %}
-          <a href="{{ entry.supp }}" class="btn btn-sm z-depth-0" role="button">Supp</a>
-        {% else %}
-          <a href="{{ entry.supp | prepend: '/assets/pdf/' | relative_url }}" class="btn btn-sm z-depth-0" role="button">Supp</a>
-        {% endif %}
-      {% endif %}
-      {% if entry.video and site.enable_video_embedding %}
-        <a class="abstract btn btn-sm z-depth-0" role="button">Video</a>
-      {% elsif entry.video %}
-        <a href="{{ entry.video }}" class="btn btn-sm z-depth-0" role="button">Video</a>
       {% endif %}
       {% if entry.blog %}
         <a href="{{ entry.blog }}" class="btn btn-sm z-depth-0" role="button">Blog</a>

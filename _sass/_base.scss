@@ -207,14 +207,6 @@ ul.task-list input[type="checkbox"] {
   }
 }
 
-.profile.float-right {
-  margin-left: 1rem;
-}
-
-.profile.float-left {
-  margin-right: 1rem;
-}
-
 @media (min-width: 576px) {
   .profile {
     width: 30%;
@@ -224,6 +216,14 @@ ul.task-list input[type="checkbox"] {
         display: block;
       }
     }
+  }
+
+  .profile.float-right {
+    margin-left: 1rem;
+  }
+
+  .profile.float-left {
+    margin-right: 1rem;
   }
 }
 
@@ -407,7 +407,8 @@ header {
 }
 
 #light-toggle,
-#search-toggle {
+#search-toggle,
+#visitor-map-toggle {
   padding: 0;
   border: 0;
   background-color: inherit;
@@ -416,6 +417,12 @@ header {
   &:hover {
     color: var(--global-hover-color);
   }
+}
+
+#visitor-globe-icon {
+  margin-left: 10px;
+  margin-top: 12px;
+  --fa-animation-duration: 4s;
 }
 
 // Social (bottom)
@@ -1238,7 +1245,7 @@ nav[data-toggle="toc"] {
   width: 100%;
 }
 
-// ClustrMaps widget on about page
+// ClustrMaps widget
 .visitor-map {
   display: block;
   width: fit-content;
@@ -1255,6 +1262,82 @@ nav[data-toggle="toc"] {
     max-width: 100%;
     border-radius: 8px;
   }
+}
+
+// Visitor Map Modal (triggered from navbar globe icon)
+.visitor-map-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+
+    .visitor-map-modal-content {
+      transform: translateY(0) scale(1);
+    }
+  }
+}
+
+.visitor-map-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+}
+
+.visitor-map-modal-content {
+  position: relative;
+  background: var(--global-bg-color);
+  border-radius: 14px;
+  padding: 20px 24px 16px;
+  max-width: 420px;
+  width: 90%;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  transform: translateY(12px) scale(0.97);
+  transition: transform 0.3s ease;
+}
+
+.visitor-map-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--global-text-color);
+}
+
+.visitor-map-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--global-text-color);
+  opacity: 0.6;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.visitor-map-footer {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 0.85em;
+  color: var(--global-subtitle-color);
+  opacity: 0.85;
 }
 
 swiper-container {
@@ -1448,4 +1531,160 @@ ninja-keys::part(ninja-input-wrapper) {
 ::highlight(search) {
   background-color: var(--global-theme-color);
   color: var(--global-text-color);
+}
+
+// Research Map (subway-style visualization)
+.research-map {
+  margin: 0.5rem 0 0.5rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  cursor: zoom-in;
+  border-radius: 10px;
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.2s ease;
+
+  &:hover {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+// Research Map Modal
+.research-map-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+
+    .research-map-modal-content {
+      transform: translateY(0) scale(1);
+    }
+  }
+}
+
+.research-map-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+}
+
+.research-map-modal-content {
+  position: relative;
+  background: var(--global-bg-color);
+  border-radius: 14px;
+  padding: 20px 28px 16px;
+  max-width: 960px;
+  width: 94%;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  transform: translateY(12px) scale(0.97);
+  transition: transform 0.3s ease;
+}
+
+.research-map-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--global-text-color);
+}
+
+.research-map-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--global-text-color);
+  opacity: 0.6;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.research-map-modal-body {
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.research-map-modal-footer {
+  text-align: center;
+  margin-top: 8px;
+  font-size: 0.85em;
+  color: var(--global-subtitle-color);
+  opacity: 0.85;
+}
+
+.rm-bg {
+  fill: var(--global-bg-color, #fff);
+}
+
+.rm-label {
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+
+  &-center {
+    text-anchor: middle;
+  }
+}
+
+.rm-name {
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  fill: var(--global-text-color);
+}
+
+.rm-venue {
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    sans-serif;
+  font-size: 10px;
+  fill: var(--global-text-color);
+  opacity: 0.55;
+}
+
+.rm-station {
+  cursor: pointer;
+  text-decoration: none;
+
+  &:hover .rm-name {
+    text-decoration: underline;
+    opacity: 0.8;
+  }
 }

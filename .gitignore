@@ -11,6 +11,7 @@ assets/libs/
 node_modules/
 vendor
 .idea
+research-map-editor.html
 
 # Google PhD Fellowship application (keep cv.pdf trackable)
 assets/pdf/cv_yunlong_tang/proposal_essays*
