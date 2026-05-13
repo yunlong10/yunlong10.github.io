@@ -38,26 +38,7 @@ layout: default
       </div>
     {% endif %}
 
-    <div class="clearfix">{{ content }}</div>
-
-    <!-- News -->
-    {% if page.news and site.announcements.enabled %}
-      <h2>
-        <a href="{{ '/news/' | relative_url }}" style="color: inherit">News</a>
-      </h2>
-      {% include news.liquid limit=true %}
-      <a href="news">👉 More news</a>
-      <br>
-      <br>
-    {% endif %}
-
-    <!-- Latest posts -->
-    {% if site.latest_posts.enabled %}
-      <h2>
-        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">latest posts</a>
-      </h2>
-      {% include latest_posts.liquid %}
-    {% endif %}
+    {{ content }}
 
     <!-- Research Interests (subway map) -->
     <h2>Research Interests</h2>
@@ -224,6 +205,27 @@ layout: default
       })();
     </script>
 
+    <div style="clear: both;"></div>
+
+    <!-- News -->
+    {% if page.news and site.announcements.enabled %}
+      <h2>
+        <a href="{{ '/news/' | relative_url }}" style="color: inherit">News</a>
+      </h2>
+      {% include news.liquid limit=true %}
+      <a href="news">👉 More news</a>
+      <br>
+      <br>
+    {% endif %}
+
+    <!-- Latest posts -->
+    {% if site.latest_posts.enabled %}
+      <h2>
+        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">latest posts</a>
+      </h2>
+      {% include latest_posts.liquid %}
+    {% endif %}
+
     <!-- Selected papers -->
     {% if page.selected_papers %}
       <h2>Selected Publications</h2>
@@ -260,9 +262,8 @@ layout: default
     <br>
     <h5>Fun Facts</h5>
     <ul>
-      <li>🩵 Preferred names: Yolo (en) or 芸珑 (zh).</li>
-      <li>🍭 I’m into ACG, J-pop, singing, and cosplay.</li>
-      <li>😝 Maybe I’m just cosplaying as a researcher—who knows?</li>
+      <li>🍭 Yolo is really into ACG, J-pop, and cosplay — maybe she's just cosplaying as a researcher ((</li>
+      <li>🩵 Preferred names: Yolo or 芸珑. Please don't deadname or misgender her :)</li>
     </ul>
 
     <h5 id="social-links">Social Links</h5>

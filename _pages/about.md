@@ -20,11 +20,11 @@ masonry: false
 
 <!-- Hi there / 你好 / こんにちは / Ciallo～(∠・ω< )⌒★ Welcome to my homepage! -->
 
-I'm a Ph.D. student at the [University of Rochester](https://www.rochester.edu/), advised by [Prof. Chenliang Xu](https://www.cs.rochester.edu/~cxu22/index.html), working on <a href="https://github.com/yunlong10/Awesome-LLMs-for-Video-Understanding"><i>LMMs/Agents</i> &times; <i>Video Understanding</i></a>.
+Yolo is a Ph.D. candidate at the [University of Rochester](https://www.rochester.edu/), advised by [Prof. Chenliang Xu](https://www.cs.rochester.edu/~cxu22/index.html), working on <a href="https://github.com/yunlong10/Awesome-LLMs-for-Video-Understanding"><i>LMMs/Agents</i> &times; <i>Video Understanding</i></a>.
+She earned her B.Eng. from [SUSTech](https://www.sustech.edu.cn/en/).
 
-I obtained my B.Eng. from [SUSTech](https://www.sustech.edu.cn/en/) in 2023, supervised by [Prof. Feng Zheng](https://scholar.google.com/citations?user=PcmyXHMAAAAJ).
-I've interned at [Amazon](https://www.aboutamazon.com/), [ByteDance](https://www.bytedance.com/en/), and [Tencent](https://www.tencent.com/).
+<!-- supervised by [Prof. Feng Zheng](https://scholar.google.com/citations?user=PcmyXHMAAAAJ). -->
 
-Please feel free to [contact me](/#social-links) if you're interested in collaboration!
+She's interned at [Amazon](https://www.aboutamazon.com/), [ByteDance](https://www.bytedance.com/en/), and [Tencent](https://www.tencent.com/).
 
-<!-- `Please read this`[`[note]`](/collaboration_precautions)`if you're interested in research collaboration.` -->
+<!-- Please feel free to [contact me](/#social-links) if you're interested in collaboration! -->
