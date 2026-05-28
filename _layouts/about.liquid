@@ -257,26 +257,13 @@ layout: default
       {% include selected_papers.liquid %}
     {% endif %}
 
-    <!-- Social -->
+    <!-- Misc -->
     <h2>Misc.</h2>
-    <br>
-    <h5>Fun Facts</h5>
     <ul>
-      <li>🍭 Yolo is really into ACG, J-pop, and cosplay — maybe she's just cosplaying as a researcher ((</li>
-      <li>🩵 Preferred names: Yolo or 芸珑. Please don't deadname or misgender her :)</li>
+      <li>🍭 Please don't deadname or misgender Yolo. She goes by Yolo (in English) or 芸珑 (in Mandarin).</li>
+      <li>🩵 Yolo is really into J-pop, painting, and cosplay — maybe she's just cosplaying as an AI researcher :)</li>
+      <li>🛀 A shower thought by Yolo: <b>Video Agent = LMM + Coding Harness</b> — no video-specific magic needed.</li>
     </ul>
-
-    <h5 id="social-links">Social Links</h5>
-
-    {% if page.social %}
-      <div class="social">
-        <div class="contact-icons">{% include social.liquid %}</div>
-
-        {% if site.contact_note %}
-          <div class="contact-note">{{ site.contact_note }}</div>
-        {% endif %}
-      </div>
-    {% endif %}
 
     {% if site.newsletter.enabled and site.footer_fixed %}
       {% include scripts/newsletter.liquid center=true %}
