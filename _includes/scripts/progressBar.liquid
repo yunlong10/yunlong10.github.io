@@ -12,9 +12,15 @@
       const pageLoadStartedAt = Date.now();
       const pageLoadMinMs = 900;
       let pageLoadPct = 0;
-      if (pageLoadProgress.length) $('body').addClass('page-is-loading');
+      const pageLoadAlreadySeen = (function () {
+        try {
+          return sessionStorage.getItem('pageLoadProgressSeen') === '1';
+        } catch (e) {
+          return false;
+        }
+      })();
       const pageLoadTimer = setInterval(function () {
-        if (!pageLoadProgress.length || pageLoadProgress.hasClass('page-load-progress-done')) {
+        if (pageLoadAlreadySeen || !pageLoadProgress.length || pageLoadProgress.hasClass('page-load-progress-done')) {
           clearInterval(pageLoadTimer);
           return;
         }
@@ -74,6 +80,7 @@
       }
 
       function finishPageLoadProgress() {
+        if (pageLoadAlreadySeen) return;
         if (!pageLoadProgress.length || pageLoadProgress.hasClass('page-load-progress-done')) return;
         const elapsed = Date.now() - pageLoadStartedAt;
         const remaining = Math.max(0, pageLoadMinMs - elapsed);
@@ -82,6 +89,9 @@
           pageLoadProgress.addClass('page-load-progress-complete');
           setPageLoadPct(100);
           setTimeout(function () {
+            try {
+              sessionStorage.setItem('pageLoadProgressSeen', '1');
+            } catch (e) {}
             pageLoadProgress.addClass('page-load-progress-finishing');
             $('body').removeClass('page-is-loading').addClass('page-has-loaded');
             setTimeout(function () {

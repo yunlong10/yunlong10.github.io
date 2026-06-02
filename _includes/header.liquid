@@ -123,6 +123,20 @@
         <span class="page-load-progress-label">0%</span>
       </div>
     </div>
+    <script>
+      (function () {
+        var loader = document.getElementById('page-load-progress');
+        try {
+          if (sessionStorage.getItem('pageLoadProgressSeen') === '1') {
+            if (loader) loader.classList.add('page-load-progress-done');
+          } else {
+            document.body.classList.add('page-is-loading');
+          }
+        } catch (e) {
+          document.body.classList.add('page-is-loading');
+        }
+      })();
+    </script>
     {% unless page.progressbar == false %}
       <!-- Scroll reading indicator: rainbow fill + site icon marker at the leading edge -->
       <div

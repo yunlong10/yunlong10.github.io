@@ -9,6 +9,10 @@ page_class: misc-jp
 math: false
 masonry: false
 medium_zoom: false
+table_enhance: false
+common_js: false
+copy_code: false
+jupyter: false
 ---
 
 <ul class="misc-list">

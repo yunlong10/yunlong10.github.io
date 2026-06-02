@@ -1,0 +1,34 @@
+<p class="research-map-mobile-hint">Swipe left or right to explore the full map.</p>
+<div class="research-controls">
+  <div class="research-control-buttons" aria-label="Research controls">
+    <div class="research-control-pill research-control-search" data-research-pill="search">
+      <button type="button" class="research-control-button" data-research-control="search" aria-pressed="false" title="Search publications">
+        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+        <span>Search</span>
+      </button>
+      <div class="research-control-expansion">
+        {% include bib_search.liquid %}
+      </div>
+    </div>
+    <button type="button" class="research-control-button" data-research-control="reset" title="Reset filters">
+      <i class="fa-solid fa-rotate-left" aria-hidden="true"></i>
+      <span>Reset</span>
+    </button>
+    <div class="research-control-pill research-control-sort" data-research-pill="sort">
+      <button type="button" class="research-control-button" data-research-control="sort" aria-pressed="false" title="Sort publications">
+        <i class="fa-solid fa-arrow-down-wide-short" aria-hidden="true"></i>
+        <span>Sort</span>
+      </button>
+      <div class="research-control-expansion">
+        <select id="pub-sort-by" aria-label="Sort publications">
+          <option value="default" selected hidden></option>
+          <option value="cites">Citations</option>
+          <option value="year">Year</option>
+          <option value="authorpos">Author position</option>
+          <option value="stars">GitHub stars</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+<p class="selected-research-note-row">* Equal Contribution | † Corresponding Author</p>

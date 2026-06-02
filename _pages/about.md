@@ -19,6 +19,10 @@ social: true # includes social icons at the bottom of the page
 math: false
 masonry: false
 medium_zoom: false
+table_enhance: false
+common_js: false
+copy_code: false
+jupyter: false
 ---
 
 <div class="about-bio" markdown="1">
