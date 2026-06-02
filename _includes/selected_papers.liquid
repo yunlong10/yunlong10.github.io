@@ -11,6 +11,13 @@
 
     var starMapCache = null;
     var starMapPromise = null;
+    var initialOrder = new Map();
+
+    root.querySelectorAll('.publication-cards ol.bibliography').forEach(function (list) {
+      Array.prototype.forEach.call(list.children, function (el, idx) {
+        if (el.tagName === 'LI') initialOrder.set(el, idx);
+      });
+    });
 
     /** Handles plain integers, commas, and compact k/m (YAML or shields-style). */
     function parseCount(val) {
@@ -98,6 +105,15 @@
         var items = Array.prototype.filter.call(list.children, function (el) {
           return el.tagName === 'LI';
         });
+        if (criterion === 'default') {
+          items.sort(function (a, b) {
+            return (initialOrder.get(a) || 0) - (initialOrder.get(b) || 0);
+          });
+          items.forEach(function (li) {
+            list.appendChild(li);
+          });
+          return;
+        }
         items.sort(function (a, b) {
           var ra = a.querySelector('.row');
           var rb = b.querySelector('.row');
@@ -156,7 +172,7 @@
 
     select.addEventListener('change', function () {
       var c = select.value;
-      if (c !== 'year' && c !== 'cites' && c !== 'authorpos' && c !== 'stars') c = 'cites';
+      if (c !== 'default' && c !== 'year' && c !== 'cites' && c !== 'authorpos' && c !== 'stars') c = 'default';
       if (c === 'stars') {
         ensureStarMap().then(function () {
           sortList('stars');

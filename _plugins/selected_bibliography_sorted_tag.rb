@@ -21,6 +21,10 @@ module Jekyll
         stars = normalize_hash(site.data["pub_stars"])
 
         items = items.compact.sort do |e1, e2|
+          if (cmp = default_last_cmp(e1, e2)) != 0
+            next cmp
+          end
+
           c1 = cite_count(e1, cite)
           c2 = cite_count(e2, cite)
           if (cmp = c2 <=> c1) != 0
@@ -51,6 +55,21 @@ module Jekyll
         return {} unless h.is_a?(Hash)
 
         h.transform_keys(&:to_s)
+      end
+
+      def default_last_cmp(e1, e2)
+        k1 = entry_key(e1)
+        k2 = entry_key(e2)
+        return 1 if k1 == "vidllmsurvey" && k2 != "vidllmsurvey"
+        return -1 if k2 == "vidllmsurvey" && k1 != "vidllmsurvey"
+
+        0
+      end
+
+      def entry_key(entry)
+        return entry.key.to_s if entry.respond_to?(:key)
+
+        entry["key"].to_s
       end
 
       def cite_count(entry, cite)

@@ -28,11 +28,15 @@
 <!-- Fonts & Icons -->
 <link defer rel="stylesheet" href="{{ '/assets/css/academicons.min.css' | relative_url | bust_file_cache }}">
 <link
-  defer
-  rel="stylesheet"
+  rel="preload"
+  as="style"
   type="text/css"
   href="{{ site.third_party_libraries.google_fonts.url.fonts }}"
+  onload="this.onload=null;this.rel='stylesheet'"
 >
+<noscript>
+  <link rel="stylesheet" type="text/css" href="{{ site.third_party_libraries.google_fonts.url.fonts }}">
+</noscript>
 
 <!-- Code Syntax Highlighting -->
 <link

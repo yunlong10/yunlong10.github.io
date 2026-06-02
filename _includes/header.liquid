@@ -4,21 +4,8 @@
     <div class="container">
       {% if page.permalink != '/' %}
         <a class="navbar-brand title font-weight-lighter" href="{{ site.baseurl }}/">
-          {% if site.title == 'blank' %}
-            {% if site.first_name %}
-              <span class="font-weight-bold">
-                {{- site.first_name -}}
-              </span>
-            {% endif %}
-            {% if site.middle_name %}
-              {{- site.middle_name -}}
-            {% endif %}
-            {% if site.last_name %}
-              {{- site.last_name -}}
-            {% endif %}
-          {% else %}
-            {{- site.title -}}
-          {% endif %}
+          <span class="font-weight-bold">Yolo</span>
+          Tang
         </a>
       {% elsif site.enable_navbar_social %}
         <!-- Social Icons -->
@@ -42,20 +29,6 @@
 
       <div class="collapse navbar-collapse text-right" id="navbarNav">
         <ul class="navbar-nav ml-auto flex-nowrap">
-          {% for page in site.pages %}
-            {% if page.permalink == '/' %} {% assign about_title = page.title %} {% endif %}
-          {% endfor %}
-
-          <!-- About -->
-          <li class="nav-item {% if page.permalink == '/' %}active{% endif %}">
-            <a class="nav-link" href="{{ '/' | relative_url }}">
-              {{- about_title }}
-              {% if page.permalink == '/' %}
-                <span class="sr-only">(current)</span>
-              {% endif %}
-            </a>
-          </li>
-
           <!-- Other pages -->
           {% assign sorted_pages = site.pages | sort: 'nav_order' %}
           {% for p in sorted_pages %}
@@ -96,11 +69,19 @@
                 </li>
               {% else %}
                 {% assign parent_link = p.permalink | remove: 'index.html' %}
-                <li class="nav-item {% if page.url contains parent_link %}active{% endif %}">
+                {% assign is_active_page = false %}
+                {% if parent_link == '/' %}
+                  {% if page.url == '/' %}
+                    {% assign is_active_page = true %}
+                  {% endif %}
+                {% elsif page.url contains parent_link %}
+                  {% assign is_active_page = true %}
+                {% endif %}
+                <li class="nav-item {% if is_active_page %}active{% endif %}">
                   {% if p.permalink contains '/blog/' %}{% assign url = '/blog/' %} {% else %}{% assign url = p.url %}{% endif %}
                   <a class="nav-link" href="{{ url | relative_url }}">
                     {{- p.title }}
-                    {% if page.url contains p.url %}
+                    {% if is_active_page %}
                       <span class="sr-only">(current)</span>
                     {% endif %}
                   </a>
@@ -116,7 +97,7 @@
               </button>
             </li>
           {% endif %}
-          <!-- Visitor Map Globe -->
+          <!-- Visitor Map -->
           <li class="nav-item">
             <button id="visitor-map-toggle" title="Visitor Map">
               <i class="fa-solid fa-earth-americas fa-spin" id="visitor-globe-icon"></i>
@@ -136,38 +117,46 @@
     </div>
   </nav>
   {% if site.enable_progressbar %}
-    <!-- Scroll reading indicator: rainbow fill + site icon marker at the leading edge -->
-    <div
-      id="reading-progress"
-      class="reading-progress"
-      role="progressbar"
-      aria-valuemin="0"
-      aria-valuenow="0"
-      aria-valuemax="100"
-      aria-label="Reading progress"
-      style="--reading-progress-pct: 0%;"
-    >
-      <div class="reading-progress-track" aria-hidden="true"></div>
-      <div class="reading-progress-fill" aria-hidden="true"></div>
-      <div class="reading-progress-marker" aria-hidden="true">
-        <span class="reading-progress-marker-inner">
-          {% if site.icon != blank and site.icon.size <= 4 %}
-            <span class="reading-progress-marker-emoji">{{ site.icon }}</span>
-          {% elsif site.icon != blank %}
-            <img
-              src="{{ site.icon | prepend: '/assets/img/' | relative_url | bust_file_cache }}"
-              alt=""
-              width="22"
-              height="22"
-              decoding="async"
-              fetchpriority="low"
-            >
-          {% else %}
-            <span class="reading-progress-marker-fallback"></span>
-          {% endif %}
-        </span>
+    <div id="page-load-progress" class="page-load-progress" aria-hidden="true">
+      <div class="page-load-progress-ring">
+        <div class="page-load-progress-ring-fill"></div>
+        <span class="page-load-progress-label">0%</span>
       </div>
     </div>
+    {% unless page.progressbar == false %}
+      <!-- Scroll reading indicator: rainbow fill + site icon marker at the leading edge -->
+      <div
+        id="reading-progress"
+        class="reading-progress"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuenow="0"
+        aria-valuemax="100"
+        aria-label="Reading progress"
+        style="--reading-progress-pct: 0%;"
+      >
+        <div class="reading-progress-track" aria-hidden="true"></div>
+        <div class="reading-progress-fill" aria-hidden="true"></div>
+        <div class="reading-progress-marker" aria-hidden="true">
+          <span class="reading-progress-marker-inner">
+            {% if site.icon != blank and site.icon.size <= 4 %}
+              <span class="reading-progress-marker-emoji">{{ site.icon }}</span>
+            {% elsif site.icon != blank %}
+              <img
+                src="{{ site.icon | prepend: '/assets/img/' | relative_url | bust_file_cache }}"
+                alt=""
+                width="22"
+                height="22"
+                decoding="async"
+                fetchpriority="low"
+              >
+            {% else %}
+              <span class="reading-progress-marker-fallback"></span>
+            {% endif %}
+          </span>
+        </div>
+      </div>
+    {% endunless %}
   {% endif %}
   <!-- Visitor Map Modal -->
   <div id="visitor-map-modal" class="visitor-map-modal">
