@@ -7,10 +7,9 @@ first_name: Yolo
 middle_name: Y.
 last_name: Tang
 email: yunlong.tang@rochester.edu
-description: > # the ">" symbol means to ignore newlines until "footer_text:"
-  CS PhD Student | Multimodal Learning | Video Understanding
+description:
 footer_text: >
-  Theme by <a href="https://github.com/alshedivat/al-folio" target="_blank">al-folio</a>.
+
 keywords: jekyll, jekyll-theme, academic-website, portfolio-website # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: logo/icon.jpg # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
@@ -84,7 +83,7 @@ kaggle_id: # your kaggle id
 keybase_username: # your keybase user name
 lastfm_id: # your lastfm id
 lattes_id: # your ID on Lattes (Brazilian Lattes CV)
-linkedin_username: yoloytang # your LinkedIn user name
+linkedin_username: # your LinkedIn user name
 mastodon_username: # your mastodon instance+username in the format instance.tld/@username
 medium_username: # your Medium username
 orcid_id: # your ORCID ID
@@ -104,7 +103,7 @@ wechat_qr: wechat-qr.png # filename of your wechat qr-code saved as an image (e.
 whatsapp_number: # your WhatsApp number (full phone number in international format. Omit any zeroes, brackets, or dashes when adding the phone number in international format.)
 wikidata_id: # your wikidata id
 wikipedia_id: # your wikipedia id (Case sensitive)
-work_url: /assets/pdf/cv_yunlong_tang/cv.pdf # CV PDF (use path; templates apply relative_url / absolute_url)
+work_url: # CV PDF (use path; templates apply relative_url / absolute_url)
 x_username: yoloytang # your X handle
 youtube_id: # was yoloytang; use Discord instead
 zotero_username: # your zotero username
@@ -120,6 +119,8 @@ contact_note: ""
 google_analytics: # your Google Analytics measurement ID (format: G-XXXXXXXXXX)
 cronitor_analytics: # cronitor RUM analytics site ID (format: XXXXXXXXX)
 pirsch_analytics: # your Pirsch analytics site ID (length 32 characters)
+umami_website_id: 2c4d8d6e-e2f3-4c71-9d15-fb5dd0beb917 # your Umami website ID
+umami_script_url: https://cloud.umami.is/script.js # use your self-hosted script URL if needed
 
 # For Google Search Console, see https://support.google.com/webmasters/answer/9008080?hl=en#meta_tag_verification&zippy=%2Chtml-tag
 google_site_verification: # your google-site-verification ID (Google Search Console)
@@ -129,8 +130,8 @@ bing_site_verification: # out your bing-site-verification ID (Bing Webmaster)
 # Blog
 # -----------------------------------------------------------------------------
 
-blog_name: al-folio # blog_name will be displayed in your blog page
-blog_description: a simple whitespace theme for academics
+blog_name: "Yo'Log" # blog_name will be displayed in your blog page
+blog_description:
 permalink: /blog/:year/:title/
 lsi: false # produce an index for related posts
 
@@ -423,6 +424,7 @@ lazy_loading_images: true # enables lazy loading of images (recommended)
 enable_google_analytics: false # enables google analytics
 enable_cronitor_analytics: false # enables cronitor RUM analytics
 enable_pirsch_analytics: false # enables Pirsch analytics (https://pirsch.io/)
+enable_umami_analytics: true # enables Umami analytics (https://umami.is/)
 enable_google_verification: false # enables google site verification
 enable_bing_verification: false # enables bing site verification
 enable_masonry: true # enables automatic project cards arrangement

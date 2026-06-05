@@ -1,7 +1,7 @@
 ---
 layout: default
 permalink: /blog/
-title: Blog
+title: Yo'Log
 nav: true
 nav_order: 4
 pagination:

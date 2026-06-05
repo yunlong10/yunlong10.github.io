@@ -1021,8 +1021,7 @@ header {
 }
 
 #light-toggle,
-#search-toggle,
-#visitor-map-toggle {
+#search-toggle {
   padding: 0;
   border: 0;
   background-color: inherit;
@@ -1031,12 +1030,6 @@ header {
   &:hover {
     color: var(--global-hover-color);
   }
-}
-
-#visitor-globe-icon {
-  margin-left: 10px;
-  margin-top: 12px;
-  --fa-animation-duration: 4s;
 }
 
 // Social (bottom)
@@ -1986,113 +1979,6 @@ nav[data-toggle="toc"] {
 .map {
   height: 400px;
   width: 100%;
-}
-
-// ClustrMaps widget
-.visitor-map {
-  display: block;
-  width: fit-content;
-  min-width: 300px;
-  min-height: 160px;
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 8px;
-  overflow: hidden;
-  line-height: 0;
-
-  iframe,
-  img {
-    display: block;
-    max-width: 100%;
-    border-radius: 8px;
-  }
-}
-
-.visitor-map-placeholder {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 160px;
-  color: var(--global-subtitle-color);
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-// Visitor Map Modal (triggered from navbar globe icon)
-.visitor-map-modal {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  visibility: hidden;
-  transition:
-    opacity 0.3s ease,
-    visibility 0.3s ease;
-
-  &.active {
-    opacity: 1;
-    visibility: visible;
-
-    .visitor-map-modal-content {
-      transform: translateY(0) scale(1);
-    }
-  }
-}
-
-.visitor-map-modal-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-  backdrop-filter: blur(6px);
-}
-
-.visitor-map-modal-content {
-  position: relative;
-  background: var(--global-bg-color);
-  border-radius: 14px;
-  padding: 20px 24px 16px;
-  max-width: 420px;
-  width: 90%;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-  transform: translateY(12px) scale(0.97);
-  transition: transform 0.3s ease;
-}
-
-.visitor-map-modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-  font-weight: 600;
-  font-size: 1rem;
-  color: var(--global-text-color);
-}
-
-.visitor-map-close {
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  line-height: 1;
-  cursor: pointer;
-  color: var(--global-text-color);
-  opacity: 0.6;
-  transition: opacity 0.2s;
-
-  &:hover {
-    opacity: 1;
-  }
-}
-
-.visitor-map-footer {
-  text-align: center;
-  margin-top: 8px;
-  font-size: 0.85em;
-  color: var(--global-subtitle-color);
-  opacity: 0.85;
 }
 
 swiper-container {

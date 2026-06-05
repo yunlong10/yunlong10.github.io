@@ -26,10 +26,10 @@ jupyter: false
 ---
 
 <div class="about-bio" markdown="1">
-
-Yolo is a Ph.D. candidate at the [University of Rochester](https://www.rochester.edu/), advised by [Prof. Chenliang Xu](https://www.cs.rochester.edu/~cxu22/index.html), working on <a href="https://github.com/yunlong10/Awesome-LLMs-for-Video-Understanding"><i>LMMs/Agents</i> &times; <i>Video Understanding</i></a>.
-She earned her B.Eng. from [SUSTech](https://www.sustech.edu.cn/en/).
-She's interned at [Amazon](https://www.aboutamazon.com/), [ByteDance](https://www.bytedance.com/en/), and [Tencent](https://www.tencent.com/).
+Yolo works on <a href="https://github.com/yunlong10/Awesome-LLMs-for-Video-Understanding"><i>LMMs/Agents</i> &times; <i>Video Understanding</i></a>.
+She is currently a Ph.D. candidate at the [University of Rochester](https://www.rochester.edu/), advised by [Prof. Chenliang Xu](https://www.cs.rochester.edu/~cxu22/index.html).
+Previously, she earned her B.Eng. from [SUSTech](https://www.sustech.edu.cn/en/).
+She has interned at [Amazon](https://www.aboutamazon.com/), [ByteDance](https://www.bytedance.com/en/), and [Tencent](https://www.tencent.com/).
 
 </div>
 
@@ -44,7 +44,7 @@ She's interned at [Amazon](https://www.aboutamazon.com/), [ByteDance](https://ww
   </a>
   <a href="{{ '/blog/' | relative_url }}">
     <i class="fa-solid fa-pen-nib" aria-hidden="true"></i>
-    <span class="quick-link-title">Blog</span>
+    <span class="quick-link-title">Yo'Log</span>
   </a>
   <a href="{{ '/misc/' | relative_url }}">
     <i class="fa-solid fa-star" aria-hidden="true"></i>
