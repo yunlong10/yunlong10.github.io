@@ -14,7 +14,7 @@ layout: default
         </button>
       {% endif %}
       <p class="about-hello">
-        <span class="about-hello-rotator" aria-live="polite">Hi there / 你好 / こんにちは / Ciallo ～(∠・ω< )⌒★</span>
+        <span class="about-hello-rotator" aria-live="polite">Hi there / 你好 / こんにちは / Ciallo ～(∠・ω&lt; )⌒★</span>
       </p>
     </div>
     {% if page.subtitle %}
@@ -66,7 +66,7 @@ layout: default
     var promptBox = document.querySelector('.about-prompt');
     if (!rotator || !identity || !avatar || !bubble || !promptBox) return;
 
-    var names = ["Hi there / 你好 / こんにちは / Ciallo ～(∠・ω< )⌒★", "This is Yolo", "Welcome to Yolo's homepage"];
+    var names = ['Hi there / 你好 / こんにちは / Ciallo ～(∠・ω< )⌒★', 'This is Yolo', "Welcome to Yolo's homepage"];
     var index = 0;
     var clickTimer = null;
     var speechTimer = null;
@@ -137,7 +137,7 @@ layout: default
           var tailSizeRaw = bubbleStyle.getPropertyValue('--speech-tail-size').trim();
           var rootFontSize = parseFloat(window.getComputedStyle(document.documentElement).fontSize) || 16;
           var tailSize = tailSizeRaw.endsWith('rem') ? parseFloat(tailSizeRaw) * rootFontSize : parseFloat(tailSizeRaw);
-          var tailHalfDiagonal = (tailSize || 0) * Math.SQRT2 / 2;
+          var tailHalfDiagonal = ((tailSize || 0) * Math.SQRT2) / 2;
           var naturalTargetX = avatarRect.left + avatarRect.width / 2;
           var minBubbleCenter = promptRect.left + bubbleRect.width / 2;
           var maxBubbleCenter = promptRect.right - bubbleRect.width / 2;
@@ -145,7 +145,7 @@ layout: default
           var targetY = avatarRect.top - pointerOffset - identityRect.top;
 
           bubble.style.setProperty('--speech-bubble-left', targetX + 'px');
-          bubble.style.setProperty('--speech-bubble-top', (targetY - tailHalfDiagonal - bubbleRect.height) + 'px');
+          bubble.style.setProperty('--speech-bubble-top', targetY - tailHalfDiagonal - bubbleRect.height + 'px');
           if (done) done();
         });
       });
