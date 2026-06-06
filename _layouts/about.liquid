@@ -312,6 +312,7 @@ layout: default
 
     function showSpeechAfterMascotMove(revealClass, shouldShow) {
       window.clearTimeout(speechTimer);
+      identity.classList.add('is-preparing-speech');
       identity.classList.remove('is-speaking');
 
       var done = false;
@@ -319,9 +320,15 @@ layout: default
         if (done) return;
         done = true;
         avatar.removeEventListener('transitionend', onTransitionEnd);
-        if (!shouldShow()) return;
+        if (!shouldShow()) {
+          identity.classList.remove('is-preparing-speech');
+          return;
+        }
         updateSpeechPointer(function () {
-          if (shouldShow()) identity.classList.add('is-speaking');
+          identity.classList.remove('is-preparing-speech');
+          window.requestAnimationFrame(function () {
+            if (shouldShow()) identity.classList.add('is-speaking');
+          });
         });
       }
 
@@ -338,12 +345,16 @@ layout: default
     }
 
     function setGreeting(nextIndex) {
+      identity.classList.add('is-preparing-speech');
+      identity.classList.remove('is-speaking');
       index = nextIndex % names.length;
       rotator.innerHTML = names[index];
       rotator.classList.remove('is-changing');
     }
 
     function setInteractionGreeting() {
+      identity.classList.add('is-preparing-speech');
+      identity.classList.remove('is-speaking');
       rotator.innerHTML = interactionMessages[interactionIndex];
       rotator.classList.remove('is-changing');
       interactionIndex = (interactionIndex + 1) % interactionMessages.length;
@@ -353,6 +364,7 @@ layout: default
       window.clearTimeout(autoCycleStepTimer);
       autoCycleActive = false;
       identity.classList.remove('is-click-pop');
+      identity.classList.remove('is-preparing-speech');
       identity.classList.remove('is-speaking');
     }
 
@@ -392,7 +404,10 @@ layout: default
     identity.addEventListener('mouseleave', function () {
       window.clearTimeout(speechTimer);
       identity.classList.remove('is-hovered');
-      if (!clickPopActive && !autoCycleActive) identity.classList.remove('is-speaking');
+      if (!clickPopActive && !autoCycleActive) {
+        identity.classList.remove('is-preparing-speech');
+        identity.classList.remove('is-speaking');
+      }
     });
 
     avatar.addEventListener('click', function () {
@@ -409,9 +424,10 @@ layout: default
       clickTimer = window.setTimeout(function () {
         window.clearTimeout(speechTimer);
         identity.classList.remove('is-click-pop');
+        identity.classList.remove('is-preparing-speech');
         identity.classList.remove('is-speaking');
         clickPopActive = false;
-      }, 1800);
+      }, autoSpeechDurationMs);
     });
 
     window.addEventListener('resize', function () {

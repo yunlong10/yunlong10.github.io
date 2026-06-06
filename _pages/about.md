@@ -27,9 +27,7 @@ jupyter: false
 
 <div class="about-bio about-prompt" markdown="1">
 
-Yolo is a Ph.D. candidate at the [University of Rochester](https://www.rochester.edu/), advised by [Prof. Chenliang Xu](https://www.cs.rochester.edu/~cxu22/index.html), working on <a href="https://github.com/yunlong10/Awesome-LLMs-for-Video-Understanding"><i>LMMs/Agents</i> &times; <i>Video Understanding</i></a>.
-Previously, she earned her B.Eng. from [SUSTech](https://www.sustech.edu.cn/en/).
-She has interned at [Amazon](https://www.aboutamazon.com/), [ByteDance](https://www.bytedance.com/en/), and [Tencent](https://www.tencent.com/).
+Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://www.rochester.edu/) (UR), advised by [Prof. Chenliang Xu](https://www.cs.rochester.edu/~cxu22/index.html), working on <a href="https://github.com/yunlong10/Awesome-LLMs-for-Video-Understanding">LMMs/Agents &times; Video Understanding</a>. She earned her M.S. from UR in 2025 en route to her Ph.D. and received her B.Eng. from [SUSTech](https://www.sustech.edu.cn/en/) in 2023. She has interned at [Amazon](https://www.aboutamazon.com/), [ByteDance](https://www.bytedance.com/en/), and [Tencent](https://www.tencent.com/).
 
 <div class="about-prompt-actions" aria-label="Contact links">
   <a href="mailto:{{ site.email | encode_email }}" class="about-prompt-action" aria-label="Email" title="Email">

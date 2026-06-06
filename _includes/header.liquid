@@ -2,11 +2,10 @@
   <!-- Nav Bar -->
   <nav id="navbar" class="navbar navbar-light navbar-expand-sm {% if site.navbar_fixed %}fixed-top{% else %}sticky-top{% endif %}" role="navigation">
     <div class="container">
-      <span class="navbar-toggler navbar-menu-toggle collapsed" aria-hidden="true">
-        <span class="icon-bar top-bar"></span>
-        <span class="icon-bar middle-bar"></span>
-        <span class="icon-bar bottom-bar"></span>
-      </span>
+      {% assign navbar_avatar_path = 'assets/img/website/prof_pic.jpg' | relative_url %}
+      <button type="button" class="navbar-menu-avatar" aria-label="Show profile photo" aria-controls="navbar-avatar-modal">
+        <img src="{{ navbar_avatar_path }}" alt="" aria-hidden="true">
+      </button>
       <a class="navbar-brand title font-weight-lighter navbar-brand-centered" href="{{ site.baseurl }}/">
         <span class="font-weight-bold">Yolo</span>
         Tang
@@ -95,6 +94,60 @@
       {% endif %}
     </div>
   </nav>
+  <div id="navbar-avatar-modal" class="navbar-avatar-modal" aria-hidden="true">
+    <img src="{{ navbar_avatar_path }}" alt="Profile photo">
+  </div>
+  <script>
+    (function () {
+      var avatarButton = document.querySelector('.navbar-menu-avatar');
+      var avatarModal = document.getElementById('navbar-avatar-modal');
+      if (!avatarButton || !avatarModal) return;
+      var avatarImage = avatarButton.querySelector('img');
+      var avatarModalImage = avatarModal.querySelector('img');
+      var avatarImages = [];
+      {% for file in site.static_files %}
+        {% assign avatar_path = file.path | downcase %}
+        {% if avatar_path contains '/assets/img/website/' %}
+          {% if avatar_path contains '.jpg' or avatar_path contains '.jpeg' or avatar_path contains '.png' or avatar_path contains '.webp' or avatar_path contains '.gif' %}
+            avatarImages.push('{{ file.path | relative_url }}');
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+
+      if (avatarImages.length && avatarImage && avatarModalImage) {
+        var selectedAvatar = avatarImages[Math.floor(Math.random() * avatarImages.length)];
+        try {
+          var previousAvatar = window.sessionStorage.getItem('navbarAvatar');
+          if (avatarImages.length > 1 && selectedAvatar === previousAvatar) {
+            selectedAvatar = avatarImages[(avatarImages.indexOf(selectedAvatar) + 1) % avatarImages.length];
+          }
+          window.sessionStorage.setItem('navbarAvatar', selectedAvatar);
+        } catch (e) {
+          // Private browsing or blocked storage should not affect avatar rendering.
+        }
+        avatarImage.src = selectedAvatar;
+        avatarModalImage.src = selectedAvatar;
+      }
+
+      function closeAvatarModal() {
+        avatarModal.classList.remove('active');
+        avatarModal.setAttribute('aria-hidden', 'true');
+      }
+
+      avatarButton.addEventListener('click', function () {
+        avatarModal.classList.add('active');
+        avatarModal.setAttribute('aria-hidden', 'false');
+      });
+
+      avatarModal.addEventListener('click', function (e) {
+        if (e.target === avatarModal) closeAvatarModal();
+      });
+
+      window.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeAvatarModal();
+      });
+    })();
+  </script>
   {% if site.enable_progressbar %}
     <div id="page-load-progress" class="page-load-progress" aria-hidden="true">
       <div class="page-load-progress-ring">
