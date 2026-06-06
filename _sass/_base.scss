@@ -327,6 +327,7 @@ ul.task-list input[type="checkbox"] {
     font-weight: 400;
     line-height: inherit;
     max-width: 100%;
+    opacity: 0.86;
     overflow: hidden;
     text-align: center;
     transition: opacity 0.18s ease;
@@ -435,6 +436,7 @@ ul.task-list input[type="checkbox"] {
   .about-identity.is-speaking {
     .about-hello {
       opacity: 1;
+      pointer-events: auto;
       transform: translate(-50%, 0) scale(1);
     }
   }
@@ -461,7 +463,6 @@ ul.task-list input[type="checkbox"] {
     .about-hello {
       justify-content: center;
       font-size: calc(clamp(1.55rem, 7.2vw, 1.95rem) * var(--speech-font-scale, 1));
-      max-width: calc(100vw - 7rem);
     }
 
     .about-hello-rotator {
@@ -564,14 +565,6 @@ ul.task-list input[type="checkbox"] {
       border-right: 2px solid color-mix(in srgb, var(--global-theme-color) 72%, var(--global-text-color));
       vertical-align: -0.18em;
       animation: about-prompt-caret 0.8s steps(1) infinite;
-    }
-  }
-
-  &.is-inline-panel-open {
-    .post-header,
-    .about-prompt,
-    .about-quick-links {
-      transform: translateY(-1.15rem);
     }
   }
 
@@ -726,9 +719,9 @@ ul.task-list input[type="checkbox"] {
     display: grid;
     grid-template-rows: 0fr;
     width: min(100%, 960px);
-    margin: 0 auto;
+    margin: 0.85rem auto 0;
     opacity: 0;
-    transform: translateY(1.35rem);
+    transform: translateY(0.65rem);
     transition:
       grid-template-rows 0.58s ease,
       opacity 0.45s ease,
@@ -741,7 +734,7 @@ ul.task-list input[type="checkbox"] {
     &.is-visible {
       grid-template-rows: 1fr;
       opacity: 1;
-      transform: translateY(-0.35rem);
+      transform: translateY(0);
     }
   }
 

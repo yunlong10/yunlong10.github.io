@@ -82,17 +82,17 @@
               </button>
             </li>
           {% endif %}
-          {% if site.enable_darkmode %}
-            <!-- Toggle theme mode -->
-            <li class="toggle-container">
-              <button id="light-toggle" title="Change theme">
-                <i class="ti ti-moon-filled" id="light-toggle-dark"></i>
-                <i class="ti ti-sun-filled" id="light-toggle-light"></i>
-              </button>
-            </li>
-          {% endif %}
         </ul>
       </div>
+      {% if site.enable_darkmode %}
+        <!-- Toggle theme mode -->
+        <div class="toggle-container navbar-theme-toggle">
+          <button id="light-toggle" title="Change theme">
+            <i class="ti ti-moon-filled" id="light-toggle-dark"></i>
+            <i class="ti ti-sun-filled" id="light-toggle-light"></i>
+          </button>
+        </div>
+      {% endif %}
     </div>
   </nav>
   {% if site.enable_progressbar %}

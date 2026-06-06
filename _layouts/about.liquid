@@ -14,7 +14,7 @@ layout: default
         </button>
       {% endif %}
       <p class="about-hello">
-        <span class="about-hello-rotator" aria-live="polite">Hi there / 你好 / こんにちは / Ciallo ～(∠・ω&lt; )⌒★</span>
+        <span class="about-hello-rotator" aria-live="polite">Hi there / 你好 / こんにちは / 안녕 / Ciallo ～(∠・ω&lt; )⌒★</span>
       </p>
     </div>
     {% if page.subtitle %}
@@ -70,17 +70,31 @@ layout: default
     if (!rotator || !identity || !avatar || !bubble || !promptBox) return;
 
     var names = [
-      '🤗 Hi there/你好/こんにちは/Ciallo ～(∠・ω< )⌒★',
+      '🤗 Hi there/你好/こんにちは/안녕/Ciallo ～(∠・ω< )⌒★',
       '🍭 This is Yolo Y. Tang (芸珑 in Mandarin or <ruby>夜<rt>よる</rt></ruby> in Japanese).',
-      "🏠 Welcome to Yolo's personal website, a cozy corner for research, projects, and little curiosities!",
+      "🏠 Welcome to Yolo's personal website and have fun exploring!",
+    ];
+    var interactionMessages = [
+      '🐾 Thanks for stopping by.',
+      '🐈 Always happy to have curious visitors.',
+      '✨ Feel free to explore the research and projects.',
+      '📚 New ideas are usually hiding one click away.',
+      '☕ Hope you enjoy the visit.',
     ];
     var index = 0;
+    var interactionIndex = 0;
     var clickTimer = null;
     var speechTimer = null;
+    var autoCycleStepTimer = null;
     var clickPopActive = false;
+    var autoCycleActive = false;
+    var autoCycleIndex = 0;
     var pointerOffset = 1;
     var mascotRevealFallbackMs = 360;
     var typingSpeedMs = 16;
+    var autoCycleIntervalMs = 15000;
+    var autoCycleInitialDelayMs = 10000;
+    var autoSpeechDurationMs = 5000;
 
     function typePromptText() {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -323,26 +337,69 @@ layout: default
       });
     }
 
+    function setGreeting(nextIndex) {
+      index = nextIndex % names.length;
+      rotator.innerHTML = names[index];
+      rotator.classList.remove('is-changing');
+    }
+
+    function setInteractionGreeting() {
+      rotator.innerHTML = interactionMessages[interactionIndex];
+      rotator.classList.remove('is-changing');
+      interactionIndex = (interactionIndex + 1) % interactionMessages.length;
+    }
+
+    function stopAutoSpeechCycle() {
+      window.clearTimeout(autoCycleStepTimer);
+      autoCycleActive = false;
+      identity.classList.remove('is-click-pop');
+      identity.classList.remove('is-speaking');
+    }
+
+    function extendAutoSpeechCycle() {
+      if (!autoCycleActive) return false;
+      window.clearTimeout(autoCycleStepTimer);
+      autoCycleStepTimer = window.setTimeout(stopAutoSpeechCycle, autoSpeechDurationMs);
+      return true;
+    }
+
+    function startAutoSpeechCycle() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (clickPopActive || autoCycleActive || identity.classList.contains('is-hovered')) return;
+
+      autoCycleActive = true;
+      setGreeting(autoCycleIndex);
+      autoCycleIndex = (autoCycleIndex + 1) % names.length;
+      showSpeechAfterMascotMove('is-click-pop', function () {
+        return autoCycleActive && identity.classList.contains('is-click-pop') && !clickPopActive;
+      });
+
+      autoCycleStepTimer = window.setTimeout(stopAutoSpeechCycle, autoSpeechDurationMs);
+    }
+
     avatar.addEventListener('mouseenter', function () {
+      if (extendAutoSpeechCycle()) return;
       if (!clickPopActive) {
+        setInteractionGreeting();
         showSpeechAfterMascotMove('is-hovered', function () {
           return identity.classList.contains('is-hovered') && !clickPopActive;
         });
       }
     });
 
+    bubble.addEventListener('mouseenter', extendAutoSpeechCycle);
+
     identity.addEventListener('mouseleave', function () {
       window.clearTimeout(speechTimer);
       identity.classList.remove('is-hovered');
-      if (!clickPopActive) identity.classList.remove('is-speaking');
+      if (!clickPopActive && !autoCycleActive) identity.classList.remove('is-speaking');
     });
 
     avatar.addEventListener('click', function () {
       window.clearTimeout(clickTimer);
+      if (autoCycleActive) stopAutoSpeechCycle();
       clickPopActive = true;
-      index = (index + 1) % names.length;
-      rotator.innerHTML = names[index];
-      rotator.classList.remove('is-changing');
+      setInteractionGreeting();
       identity.classList.remove('is-speaking');
       identity.classList.remove('is-hovered');
       showSpeechAfterMascotMove('is-click-pop', function () {
@@ -368,22 +425,10 @@ layout: default
       }
     });
 
-    window.setInterval(function () {
-      if (clickPopActive) return;
-      index = (index + 1) % names.length;
-      rotator.classList.add('is-changing');
-
-      window.setTimeout(function () {
-        rotator.innerHTML = names[index];
-        rotator.classList.remove('is-changing');
-        if (identity.classList.contains('is-hovered')) {
-          identity.classList.remove('is-speaking');
-          updateSpeechPointer(function () {
-            if (identity.classList.contains('is-hovered') && !clickPopActive) identity.classList.add('is-speaking');
-          });
-        }
-      }, 180);
-    }, 2700);
+    window.setTimeout(function () {
+      startAutoSpeechCycle();
+      window.setInterval(startAutoSpeechCycle, autoCycleIntervalMs);
+    }, autoCycleInitialDelayMs);
   })();
 </script>
 <script defer src="{{ '/assets/js/research.js' | relative_url | bust_file_cache }}"></script>
