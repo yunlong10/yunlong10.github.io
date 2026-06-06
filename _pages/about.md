@@ -7,7 +7,7 @@ nav_order: 1
 subtitle:
 profile:
   align: right
-  image: website/prof_pic.jpg
+  image: website/prof_pic_4_26_sq.jpg
   hide: true
   image_circular: false # crops the image to make it cicular
   more_info:
@@ -31,7 +31,7 @@ Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://ww
 
 <div class="about-prompt-actions" aria-label="Contact links">
   <a href="mailto:{{ site.email | encode_email }}" class="about-prompt-action" aria-label="Email" title="Email">
-    <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+    <i class="fa-regular fa-envelope" aria-hidden="true"></i>
   </a>
   <div class="about-prompt-action-group">
     <a href="https://scholar.google.com/citations?user={{ site.scholar_userid }}" class="about-prompt-action" aria-label="Google Scholar" title="Google Scholar">

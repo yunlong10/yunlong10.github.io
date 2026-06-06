@@ -3,12 +3,11 @@ layout: default
 ---
 <div class="post about-jp">
   <header class="post-header">
-    {% if page.profile.image %}
-      {% assign title_avatar_path = page.profile.image | prepend: 'assets/img/' | relative_url %}
+    {% if site.icon %}
       {% assign title_icon_path = site.icon | prepend: 'assets/img/' | relative_url %}
     {% endif %}
     <div class="about-identity">
-      {% if page.profile.image %}
+      {% if site.icon %}
         <button type="button" class="post-title-avatar-button" aria-label="Show greeting">
           <img class="post-title-avatar" src="{{ title_icon_path }}" alt="" aria-hidden="true">
         </button>
@@ -21,12 +20,6 @@ layout: default
       <p class="desc">{{ page.subtitle }}</p>
     {% endif %}
   </header>
-
-  {% if page.profile.image %}
-    <div id="profile-avatar-modal" class="profile-avatar-modal" aria-hidden="true">
-      <img src="{{ title_avatar_path }}" alt="Profile photo">
-    </div>
-  {% endif %}
 
   <article>
     {% if page.profile and page.profile.hide != true %}
@@ -171,6 +164,12 @@ layout: default
         trigger.classList.remove('is-active');
         window.setTimeout(function () {
           if (!panel.classList.contains('is-visible')) panel.hidden = true;
+          if (aboutRoot && panel.getAttribute('data-about-panel') === 'blog') {
+            aboutRoot.classList.remove('is-blog-panel-open');
+          }
+          if (aboutRoot && panel.getAttribute('data-about-panel') === 'research') {
+            aboutRoot.classList.remove('is-research-panel-open');
+          }
         }, 420);
       }
 
@@ -186,7 +185,12 @@ layout: default
         trigger.classList.add('is-active');
         window.requestAnimationFrame(function () {
           aboutRoot.classList.add('is-inline-panel-open');
+          aboutRoot.classList.toggle('is-blog-panel-open', panel.getAttribute('data-about-panel') === 'blog');
+          aboutRoot.classList.toggle('is-research-panel-open', panel.getAttribute('data-about-panel') === 'research');
           panel.classList.add('is-visible');
+          if (['blog', 'gallery', 'misc'].indexOf(panel.getAttribute('data-about-panel')) !== -1) {
+            return;
+          }
           panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         });
       }
@@ -226,6 +230,12 @@ layout: default
           }
           window.setTimeout(function () {
             if (!panel.classList.contains('is-visible')) panel.hidden = true;
+            if (panel.getAttribute('data-about-panel') === 'blog') {
+              aboutRoot.classList.remove('is-blog-panel-open');
+            }
+            if (panel.getAttribute('data-about-panel') === 'research') {
+              aboutRoot.classList.remove('is-research-panel-open');
+            }
           }, 420);
           aboutRoot.classList.remove('is-inline-panel-open');
           return;
