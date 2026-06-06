@@ -2,7 +2,7 @@
 layout: page
 title: Research
 permalink: /research/
-nav: true
+nav: false
 nav_order: 2
 page_class: research-jp
 selected_papers: true
@@ -22,6 +22,7 @@ jupyter: false
     <div class="research-map-paper-panel-header">
       <button type="button" class="research-map-paper-close" aria-label="Hide selected paper">&times;</button>
     </div>
+    <p class="selected-research-note-row">* Equal Contribution | † Corresponding Author</p>
     {% include selected_papers.liquid %}
   </div>
 {% endif %}

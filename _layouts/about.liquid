@@ -64,15 +64,160 @@ layout: default
     var avatar = document.querySelector('.post-title-avatar-button');
     var bubble = document.querySelector('.about-hello');
     var promptBox = document.querySelector('.about-prompt');
+    var aboutRoot = document.querySelector('.about-jp');
+    var panelTriggers = Array.prototype.slice.call(document.querySelectorAll('[data-about-panel-trigger]'));
+    var inlinePanels = Array.prototype.slice.call(document.querySelectorAll('[data-about-panel]'));
     if (!rotator || !identity || !avatar || !bubble || !promptBox) return;
 
-    var names = ['Hi there / 你好 / こんにちは / Ciallo ～(∠・ω< )⌒★', 'This is Yolo', "Welcome to Yolo's homepage"];
+    var names = [
+      '🤗 Hi there/你好/こんにちは/Ciallo ～(∠・ω< )⌒★',
+      '🍭 This is Yolo Y. Tang (芸珑 in Mandarin or <ruby>夜<rt>よる</rt></ruby> in Japanese).',
+      "🏠 Welcome to Yolo's personal website, a cozy corner for research, projects, and little curiosities!",
+    ];
     var index = 0;
     var clickTimer = null;
     var speechTimer = null;
     var clickPopActive = false;
     var pointerOffset = 1;
     var mascotRevealFallbackMs = 360;
+    var typingSpeedMs = 16;
+
+    function typePromptText() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+      var walker = document.createTreeWalker(promptBox, NodeFilter.SHOW_TEXT, {
+        acceptNode: function (node) {
+          var parent = node.parentElement;
+          if (!parent || parent.closest('.about-prompt-actions')) return NodeFilter.FILTER_REJECT;
+          if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        },
+      });
+      var textNodes = [];
+      var node;
+      while ((node = walker.nextNode())) {
+        textNodes.push({
+          node: node,
+          text: node.nodeValue,
+        });
+      }
+      if (!textNodes.length) return;
+
+      promptBox.setAttribute('aria-busy', 'true');
+      promptBox.classList.add('is-typing');
+      textNodes.forEach(function (item) {
+        item.node.nodeValue = '';
+      });
+      var caret = document.createElement('span');
+      caret.className = 'about-prompt-caret';
+      caret.setAttribute('aria-hidden', 'true');
+
+      var nodeIndex = 0;
+      var charIndex = 0;
+
+      function moveCaretAfter(targetNode) {
+        targetNode.parentNode.insertBefore(caret, targetNode.nextSibling);
+      }
+
+      function typeNextCharacter() {
+        var item = textNodes[nodeIndex];
+        moveCaretAfter(item.node);
+        item.node.nodeValue += item.text.charAt(charIndex);
+        charIndex += 1;
+
+        if (charIndex >= item.text.length) {
+          nodeIndex += 1;
+          charIndex = 0;
+        }
+
+        if (nodeIndex < textNodes.length) {
+          window.setTimeout(typeNextCharacter, typingSpeedMs);
+          return;
+        }
+
+        promptBox.classList.remove('is-typing');
+        promptBox.removeAttribute('aria-busy');
+        caret.remove();
+      }
+
+      window.setTimeout(typeNextCharacter, 180);
+    }
+
+    typePromptText();
+
+    if (aboutRoot && panelTriggers.length && inlinePanels.length) {
+      function panelForTrigger(trigger) {
+        return document.querySelector('[data-about-panel="' + trigger.getAttribute('data-about-panel-trigger') + '"]');
+      }
+
+      function closeInlinePanel(panel, trigger) {
+        if (!panel || !trigger) return;
+        panel.classList.remove('is-visible');
+        trigger.setAttribute('aria-expanded', 'false');
+        trigger.classList.remove('is-active');
+        window.setTimeout(function () {
+          if (!panel.classList.contains('is-visible')) panel.hidden = true;
+        }, 420);
+      }
+
+      function openInlinePanel(panel, trigger) {
+        inlinePanels.forEach(function (otherPanel) {
+          if (otherPanel === panel) return;
+          var otherTrigger = document.querySelector('[data-about-panel-trigger="' + otherPanel.getAttribute('data-about-panel') + '"]');
+          closeInlinePanel(otherPanel, otherTrigger);
+        });
+
+        panel.hidden = false;
+        trigger.setAttribute('aria-expanded', 'true');
+        trigger.classList.add('is-active');
+        window.requestAnimationFrame(function () {
+          aboutRoot.classList.add('is-inline-panel-open');
+          panel.classList.add('is-visible');
+          panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+      }
+
+      function closeAllInlinePanels() {
+        inlinePanels.forEach(function (panel) {
+          var trigger = document.querySelector('[data-about-panel-trigger="' + panel.getAttribute('data-about-panel') + '"]');
+          closeInlinePanel(panel, trigger);
+        });
+        aboutRoot.classList.remove('is-inline-panel-open');
+      }
+
+      panelTriggers.forEach(function (trigger) {
+        trigger.addEventListener('click', function (e) {
+          var panel = panelForTrigger(trigger);
+          if (!panel) return;
+          e.preventDefault();
+          if (panel.classList.contains('is-visible')) {
+            closeAllInlinePanels();
+            return;
+          }
+          openInlinePanel(panel, trigger);
+        });
+      });
+    }
+
+    window.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape' || !aboutRoot || !aboutRoot.classList.contains('is-inline-panel-open')) return;
+      inlinePanels.forEach(function (panel) {
+        var trigger = document.querySelector('[data-about-panel-trigger="' + panel.getAttribute('data-about-panel') + '"]');
+        if (panel.classList.contains('is-visible')) {
+          panel.classList.remove('is-visible');
+          if (trigger) {
+            trigger.setAttribute('aria-expanded', 'false');
+            trigger.classList.remove('is-active');
+            trigger.focus();
+          }
+          window.setTimeout(function () {
+            if (!panel.classList.contains('is-visible')) panel.hidden = true;
+          }, 420);
+          aboutRoot.classList.remove('is-inline-panel-open');
+          return;
+        }
+      });
+    });
 
     function fitSpeechBubble() {
       bubble.style.setProperty('--speech-font-scale', '1');
@@ -196,7 +341,7 @@ layout: default
       window.clearTimeout(clickTimer);
       clickPopActive = true;
       index = (index + 1) % names.length;
-      rotator.textContent = names[index];
+      rotator.innerHTML = names[index];
       rotator.classList.remove('is-changing');
       identity.classList.remove('is-speaking');
       identity.classList.remove('is-hovered');
@@ -229,7 +374,7 @@ layout: default
       rotator.classList.add('is-changing');
 
       window.setTimeout(function () {
-        rotator.textContent = names[index];
+        rotator.innerHTML = names[index];
         rotator.classList.remove('is-changing');
         if (identity.classList.contains('is-hovered')) {
           identity.classList.remove('is-speaking');
@@ -238,6 +383,7 @@ layout: default
           });
         }
       }, 180);
-    }, 2200);
+    }, 2700);
   })();
 </script>
+<script defer src="{{ '/assets/js/research.js' | relative_url | bust_file_cache }}"></script>

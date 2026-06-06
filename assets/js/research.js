@@ -13,6 +13,9 @@
   var controls = document.querySelector(".research-controls");
   var controlButtons = Array.prototype.slice.call(document.querySelectorAll(".research-control-button[data-research-control]"));
   var sortButtonLabel = document.querySelector('.research-control-button[data-research-control="sort"] span');
+  var paperPanelTimer = null;
+  var paperPanelTransitionMs = 860;
+  var paperPanelScrollMs = 980;
 
   function allPaperItems() {
     if (!selectedPubs) return [];
@@ -78,13 +81,72 @@
 
   function hidePaperPanel() {
     if (!paperPanel) return;
-    paperPanel.hidden = true;
-    allPaperItems().forEach(function (li) {
-      li.hidden = true;
-    });
+    window.clearTimeout(paperPanelTimer);
+    if (!paperPanel.hidden) {
+      paperPanel.style.setProperty("--research-paper-panel-height", paperPanel.scrollHeight + "px");
+      window.requestAnimationFrame(function () {
+        paperPanel.classList.remove("is-visible");
+        paperPanel.style.setProperty("--research-paper-panel-height", "0px");
+      });
+    }
     document.querySelectorAll(".rm-station.active, .rm-topic.active").forEach(function (node) {
       node.classList.remove("active");
     });
+    paperPanelTimer = window.setTimeout(function () {
+      if (paperPanel.classList.contains("is-visible")) return;
+      paperPanel.hidden = true;
+      allPaperItems().forEach(function (li) {
+        li.hidden = true;
+      });
+    }, paperPanelTransitionMs);
+  }
+
+  function revealPaperPanel(shouldScroll) {
+    if (!paperPanel) return;
+    window.clearTimeout(paperPanelTimer);
+    var wasVisible = !paperPanel.hidden && paperPanel.classList.contains("is-visible");
+    paperPanel.hidden = false;
+    if (!wasVisible) {
+      paperPanel.classList.remove("is-visible");
+      paperPanel.style.setProperty("--research-paper-panel-height", "0px");
+    }
+
+    window.requestAnimationFrame(function () {
+      paperPanel.style.setProperty("--research-paper-panel-height", paperPanel.scrollHeight + "px");
+      paperPanel.classList.add("is-visible");
+      if (shouldScroll) {
+        window.setTimeout(
+          function () {
+            slowScrollToPanel();
+          },
+          wasVisible ? 180 : 420
+        );
+      }
+    });
+  }
+
+  function slowScrollToPanel() {
+    if (!paperPanel) return;
+    var startY = window.pageYOffset || document.documentElement.scrollTop || 0;
+    var panelTop = paperPanel.getBoundingClientRect().top + startY;
+    var headerOffset = Math.min(window.innerHeight * 0.12, 96);
+    var targetY = Math.max(panelTop - headerOffset, 0);
+    var distance = targetY - startY;
+    if (Math.abs(distance) < 8) return;
+
+    var startTime = null;
+    function easeInOutCubic(t) {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function step(timestamp) {
+      if (startTime === null) startTime = timestamp;
+      var progress = Math.min((timestamp - startTime) / paperPanelScrollMs, 1);
+      window.scrollTo(0, startY + distance * easeInOutCubic(progress));
+      if (progress < 1) window.requestAnimationFrame(step);
+    }
+
+    window.requestAnimationFrame(step);
   }
 
   function showPapersForSearch() {
@@ -95,13 +157,13 @@
     }
 
     setControlMode("search");
-    paperPanel.hidden = false;
     allPaperItems().forEach(function (li) {
       li.hidden = false;
     });
     document.querySelectorAll(".rm-station.active, .rm-topic.active").forEach(function (node) {
       node.classList.remove("active");
     });
+    revealPaperPanel(false);
   }
 
   function clearBibSearch() {
@@ -178,7 +240,6 @@
         list.appendChild(li);
       });
     }
-    paperPanel.hidden = false;
     document.querySelectorAll(".rm-station.active, .rm-topic.active").forEach(function (n) {
       n.classList.remove("active");
     });
@@ -189,7 +250,7 @@
     });
     node.classList.add("active");
     if (sortSelect && !isDefaultSort()) sortSelect.dispatchEvent(new Event("change"));
-    paperPanel.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    revealPaperPanel(true);
     return true;
   }
 

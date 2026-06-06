@@ -3,7 +3,7 @@ layout: page
 title: Misc.
 permalink: /misc/
 description:
-nav: true
+nav: false
 nav_order: 5
 page_class: misc-jp
 math: false
