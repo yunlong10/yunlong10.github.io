@@ -5,15 +5,21 @@ layout: default
   <header class="post-header">
     {% if page.profile.image %}
       {% assign title_avatar_path = page.profile.image | prepend: 'assets/img/' | relative_url %}
-      <button type="button" class="post-title-avatar-button" aria-label="Preview profile photo">
-        <img class="post-title-avatar" src="{{ title_avatar_path }}" alt="" aria-hidden="true">
-      </button>
+      {% assign title_icon_path = site.icon | prepend: 'assets/img/' | relative_url %}
     {% endif %}
-    <h1 class="post-title">
-      <span class="font-weight-bold">Yolo</span>
-      <span class="font-weight-bold">Tang</span>
-    </h1>
-    <p class="desc">{{ page.subtitle }}</p>
+    <div class="about-identity">
+      {% if page.profile.image %}
+        <button type="button" class="post-title-avatar-button" aria-label="Show greeting">
+          <img class="post-title-avatar" src="{{ title_icon_path }}" alt="" aria-hidden="true">
+        </button>
+      {% endif %}
+      <p class="about-hello">
+        <span class="about-hello-rotator" aria-live="polite">Hi there / 你好 / こんにちは / Ciallo ～(∠・ω< )⌒★</span>
+      </p>
+    </div>
+    {% if page.subtitle %}
+      <p class="desc">{{ page.subtitle }}</p>
+    {% endif %}
   </header>
 
   {% if page.profile.image %}
@@ -53,26 +59,185 @@ layout: default
 </div>
 <script>
   (function () {
-    var modal = document.getElementById('profile-avatar-modal');
-    var trigger = document.querySelector('.post-title-avatar-button');
-    if (!modal || !trigger) return;
+    var rotator = document.querySelector('.about-hello-rotator');
+    var identity = document.querySelector('.about-identity');
+    var avatar = document.querySelector('.post-title-avatar-button');
+    var bubble = document.querySelector('.about-hello');
+    var promptBox = document.querySelector('.about-prompt');
+    if (!rotator || !identity || !avatar || !bubble || !promptBox) return;
 
-    function openModal() {
-      modal.classList.add('active');
-      modal.setAttribute('aria-hidden', 'false');
+    var names = ["Hi there / 你好 / こんにちは / Ciallo ～(∠・ω< )⌒★", "This is Yolo", "Welcome to Yolo's homepage"];
+    var index = 0;
+    var clickTimer = null;
+    var speechTimer = null;
+    var clickPopActive = false;
+    var pointerOffset = 1;
+    var mascotRevealFallbackMs = 360;
+
+    function fitSpeechBubble() {
+      bubble.style.setProperty('--speech-font-scale', '1');
+      bubble.style.setProperty('--speech-bubble-width', 'fit-content');
+
+      var promptWidth = promptBox.getBoundingClientRect().width;
+      var bubbleStyle = window.getComputedStyle(bubble);
+      var rotatorStyle = window.getComputedStyle(rotator);
+      var horizontalChrome =
+        parseFloat(bubbleStyle.paddingLeft) +
+        parseFloat(bubbleStyle.paddingRight) +
+        parseFloat(bubbleStyle.borderLeftWidth) +
+        parseFloat(bubbleStyle.borderRightWidth);
+      var measure = document.createElement('span');
+      measure.textContent = rotator.textContent;
+      measure.style.position = 'absolute';
+      measure.style.visibility = 'hidden';
+      measure.style.whiteSpace = 'nowrap';
+      measure.style.fontFamily = rotatorStyle.fontFamily;
+      measure.style.fontSize = bubbleStyle.fontSize;
+      measure.style.fontWeight = rotatorStyle.fontWeight;
+      measure.style.letterSpacing = rotatorStyle.letterSpacing;
+      document.body.appendChild(measure);
+      var textWidth = measure.getBoundingClientRect().width;
+      measure.remove();
+      var naturalWidth = textWidth + horizontalChrome;
+      if (!promptWidth || !textWidth) return;
+
+      var availableTextWidth = Math.max(promptWidth - horizontalChrome - 12, 1);
+      var scale = Math.min(1, availableTextWidth / textWidth);
+      var fittedWidth = Math.min(naturalWidth, promptWidth);
+      bubble.style.setProperty('--speech-bubble-width', fittedWidth + 'px');
+      bubble.style.setProperty('--speech-font-scale', scale.toFixed(3));
+
+      for (var i = 0; i < 4; i++) {
+        var currentStyle = window.getComputedStyle(bubble);
+        var currentAvailable =
+          bubble.getBoundingClientRect().width -
+          parseFloat(currentStyle.paddingLeft) -
+          parseFloat(currentStyle.paddingRight) -
+          parseFloat(currentStyle.borderLeftWidth) -
+          parseFloat(currentStyle.borderRightWidth);
+        var currentTextWidth = rotator.scrollWidth;
+
+        if (currentTextWidth <= currentAvailable) break;
+
+        scale = scale * (currentAvailable / currentTextWidth) * 0.985;
+        bubble.style.setProperty('--speech-font-scale', scale.toFixed(3));
+      }
     }
 
-    function closeModal() {
-      modal.classList.remove('active');
-      modal.setAttribute('aria-hidden', 'true');
+    function updateSpeechPointer(done) {
+      window.requestAnimationFrame(function () {
+        fitSpeechBubble();
+
+        window.requestAnimationFrame(function () {
+          var identityRect = identity.getBoundingClientRect();
+          var avatarRect = avatar.getBoundingClientRect();
+          var bubbleRect = bubble.getBoundingClientRect();
+          var promptRect = promptBox.getBoundingClientRect();
+          var bubbleStyle = window.getComputedStyle(bubble);
+          var tailSizeRaw = bubbleStyle.getPropertyValue('--speech-tail-size').trim();
+          var rootFontSize = parseFloat(window.getComputedStyle(document.documentElement).fontSize) || 16;
+          var tailSize = tailSizeRaw.endsWith('rem') ? parseFloat(tailSizeRaw) * rootFontSize : parseFloat(tailSizeRaw);
+          var tailHalfDiagonal = (tailSize || 0) * Math.SQRT2 / 2;
+          var naturalTargetX = avatarRect.left + avatarRect.width / 2;
+          var minBubbleCenter = promptRect.left + bubbleRect.width / 2;
+          var maxBubbleCenter = promptRect.right - bubbleRect.width / 2;
+          var targetX = Math.min(Math.max(naturalTargetX, minBubbleCenter), maxBubbleCenter) - identityRect.left;
+          var targetY = avatarRect.top - pointerOffset - identityRect.top;
+
+          bubble.style.setProperty('--speech-bubble-left', targetX + 'px');
+          bubble.style.setProperty('--speech-bubble-top', (targetY - tailHalfDiagonal - bubbleRect.height) + 'px');
+          if (done) done();
+        });
+      });
     }
 
-    trigger.addEventListener('click', openModal);
-    modal.addEventListener('click', function (e) {
-      if (e.target === modal) closeModal();
+    function showSpeechAfterMascotMove(revealClass, shouldShow) {
+      window.clearTimeout(speechTimer);
+      identity.classList.remove('is-speaking');
+
+      var done = false;
+      function showSpeech() {
+        if (done) return;
+        done = true;
+        avatar.removeEventListener('transitionend', onTransitionEnd);
+        if (!shouldShow()) return;
+        updateSpeechPointer(function () {
+          if (shouldShow()) identity.classList.add('is-speaking');
+        });
+      }
+
+      function onTransitionEnd(e) {
+        if (e.target === avatar && e.propertyName === 'transform') showSpeech();
+      }
+
+      avatar.addEventListener('transitionend', onTransitionEnd);
+      speechTimer = window.setTimeout(showSpeech, mascotRevealFallbackMs);
+
+      window.requestAnimationFrame(function () {
+        identity.classList.add(revealClass);
+      });
+    }
+
+    avatar.addEventListener('mouseenter', function () {
+      if (!clickPopActive) {
+        showSpeechAfterMascotMove('is-hovered', function () {
+          return identity.classList.contains('is-hovered') && !clickPopActive;
+        });
+      }
     });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
+
+    identity.addEventListener('mouseleave', function () {
+      window.clearTimeout(speechTimer);
+      identity.classList.remove('is-hovered');
+      if (!clickPopActive) identity.classList.remove('is-speaking');
     });
+
+    avatar.addEventListener('click', function () {
+      window.clearTimeout(clickTimer);
+      clickPopActive = true;
+      index = (index + 1) % names.length;
+      rotator.textContent = names[index];
+      rotator.classList.remove('is-changing');
+      identity.classList.remove('is-speaking');
+      identity.classList.remove('is-hovered');
+      showSpeechAfterMascotMove('is-click-pop', function () {
+        return identity.classList.contains('is-click-pop');
+      });
+
+      clickTimer = window.setTimeout(function () {
+        window.clearTimeout(speechTimer);
+        identity.classList.remove('is-click-pop');
+        identity.classList.remove('is-speaking');
+        clickPopActive = false;
+      }, 1800);
+    });
+
+    window.addEventListener('resize', function () {
+      if (identity.classList.contains('is-speaking')) {
+        identity.classList.remove('is-speaking');
+        updateSpeechPointer(function () {
+          if (identity.classList.contains('is-hovered') || identity.classList.contains('is-click-pop')) {
+            identity.classList.add('is-speaking');
+          }
+        });
+      }
+    });
+
+    window.setInterval(function () {
+      if (clickPopActive) return;
+      index = (index + 1) % names.length;
+      rotator.classList.add('is-changing');
+
+      window.setTimeout(function () {
+        rotator.textContent = names[index];
+        rotator.classList.remove('is-changing');
+        if (identity.classList.contains('is-hovered')) {
+          identity.classList.remove('is-speaking');
+          updateSpeechPointer(function () {
+            if (identity.classList.contains('is-hovered') && !clickPopActive) identity.classList.add('is-speaking');
+          });
+        }
+      }, 180);
+    }, 2200);
   })();
 </script>

@@ -12,7 +12,7 @@ footer_text: >
 
 keywords: jekyll, jekyll-theme, academic-website, portfolio-website # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
-icon: logo/icon.jpg # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
+icon: logo/icon.png # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
 
 url: https://yunlong10.github.io # the base hostname & protocol for your site
 baseurl: # the subpath of your site, e.g. /blog/. Leave blank for root
@@ -72,7 +72,7 @@ acm_id: # your dl.acm.org/profile/id
 blogger_url: # your blogger URL
 bluesky_url: # your bluesky URL
 dblp_url: # your DBLP profile url
-discord_id: discord.com/users/yoloytang # discord.com/users/<id>
+discord_id: # discord.com/users/<id>
 facebook_id: # your facebook id
 flickr_id: # your flickr id
 github_username: yunlong10 # your GitHub user name

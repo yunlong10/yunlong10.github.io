@@ -132,7 +132,7 @@
       })();
     </script>
     {% unless page.progressbar == false %}
-      <!-- Scroll reading indicator: rainbow fill + site icon marker at the leading edge -->
+      <!-- Scroll reading indicator: rainbow fill -->
       <div
         id="reading-progress"
         class="reading-progress"
@@ -145,24 +145,6 @@
       >
         <div class="reading-progress-track" aria-hidden="true"></div>
         <div class="reading-progress-fill" aria-hidden="true"></div>
-        <div class="reading-progress-marker" aria-hidden="true">
-          <span class="reading-progress-marker-inner">
-            {% if site.icon != blank and site.icon.size <= 4 %}
-              <span class="reading-progress-marker-emoji">{{ site.icon }}</span>
-            {% elsif site.icon != blank %}
-              <img
-                src="{{ site.icon | prepend: '/assets/img/' | relative_url | bust_file_cache }}"
-                alt=""
-                width="22"
-                height="22"
-                decoding="async"
-                fetchpriority="low"
-              >
-            {% else %}
-              <span class="reading-progress-marker-fallback"></span>
-            {% endif %}
-          </span>
-        </div>
       </div>
     {% endunless %}
   {% endif %}
