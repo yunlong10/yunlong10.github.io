@@ -33,6 +33,26 @@ Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://ww
   <a href="mailto:{{ site.email | encode_email }}" class="about-prompt-action" aria-label="Email" title="Email">
     <i class="fa-regular fa-envelope" aria-hidden="true"></i>
   </a>
+  <details class="about-model-select">
+    <summary aria-label="Yolo mode">
+      <span class="about-model-variant" data-about-model-current>Creative</span>
+      <span class="about-model-brand">Yolo</span>
+    </summary>
+    <div class="about-model-options" role="listbox" aria-label="Yolo mode options">
+      <button type="button" role="option" aria-selected="false" data-about-model-value="Academic">
+        <span class="about-model-variant">Academic</span>
+        <span class="about-model-brand">Yolo</span>
+      </button>
+      <button type="button" role="option" aria-selected="true" data-about-model-value="Creative">
+        <span class="about-model-variant">Creative</span>
+        <span class="about-model-brand">Yolo</span>
+      </button>
+      <button type="button" role="option" aria-selected="false" data-about-model-value="Meow">
+        <span class="about-model-variant">Meow</span>
+        <span class="about-model-brand">Yolo</span>
+      </button>
+    </div>
+  </details>
   <div class="about-prompt-action-group">
     <a href="https://scholar.google.com/citations?user={{ site.scholar_userid }}" class="about-prompt-action" aria-label="Google Scholar" title="Google Scholar">
       <i class="ai ai-google-scholar" aria-hidden="true"></i>

@@ -10,6 +10,26 @@
       {% endif %}
     </div>
   </footer>
+  <script>
+    (function () {
+      var footerHideTimeout;
+      var footer = document.querySelector('footer.fixed-bottom');
+
+      if (!footer) return;
+
+      window.addEventListener(
+        'scroll',
+        function () {
+          document.body.classList.add('footer-hidden-while-scrolling');
+          window.clearTimeout(footerHideTimeout);
+          footerHideTimeout = window.setTimeout(function () {
+            document.body.classList.remove('footer-hidden-while-scrolling');
+          }, 300);
+        },
+        { passive: true }
+      );
+    })();
+  </script>
 {% else %}
   <footer class="sticky-bottom mt-5" role="contentinfo">
     {% if site.newsletter.enabled %}

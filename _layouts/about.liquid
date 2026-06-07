@@ -5,11 +5,21 @@ layout: default
   <header class="post-header">
     {% if site.icon %}
       {% assign title_icon_path = site.icon | prepend: 'assets/img/' | relative_url %}
+      {% assign academic_icon_path = 'assets/img/logo/icon_academic.jpg' | relative_url %}
+      {% assign meow_icon_path = 'assets/img/logo/icon_meow.png' | relative_url %}
     {% endif %}
     <div class="about-identity">
       {% if site.icon %}
         <button type="button" class="post-title-avatar-button" aria-label="Show greeting">
-          <img class="post-title-avatar" src="{{ title_icon_path }}" alt="" aria-hidden="true">
+          <img
+            class="post-title-avatar"
+            src="{{ title_icon_path }}"
+            data-default-icon="{{ title_icon_path }}"
+            data-academic-icon="{{ academic_icon_path }}"
+            data-meow-icon="{{ meow_icon_path }}"
+            alt=""
+            aria-hidden="true"
+          >
         </button>
       {% endif %}
       <p class="about-hello">
@@ -55,25 +65,63 @@ layout: default
     var rotator = document.querySelector('.about-hello-rotator');
     var identity = document.querySelector('.about-identity');
     var avatar = document.querySelector('.post-title-avatar-button');
+    var avatarImage = document.querySelector('.post-title-avatar');
     var bubble = document.querySelector('.about-hello');
     var promptBox = document.querySelector('.about-prompt');
     var aboutRoot = document.querySelector('.about-jp');
+    var modelPicker = document.querySelector('.about-model-select');
     var panelTriggers = Array.prototype.slice.call(document.querySelectorAll('[data-about-panel-trigger]'));
     var inlinePanels = Array.prototype.slice.call(document.querySelectorAll('[data-about-panel]'));
+
     if (!rotator || !identity || !avatar || !bubble || !promptBox) return;
 
-    var names = [
-      '🤗 Hi there/你好/こんにちは/안녕/Ciallo ～(∠・ω< )⌒★',
-      '🍭 This is Yolo Y. Tang (芸珑 in Mandarin or <ruby>夜<rt>よる</rt></ruby> in Japanese).',
-      "🏠 Welcome to Yolo's personal website and have fun exploring!",
-    ];
-    var interactionMessages = [
-      '🐾 Thanks for stopping by.',
-      '🐈 Always happy to have curious visitors.',
-      '✨ Feel free to explore the research and projects.',
-      '📚 New ideas are usually hiding one click away.',
-      '☕ Hope you enjoy the visit.',
-    ];
+    var speechModes = {
+      Academic: {
+        greetings: [
+          'Hello, I am Yolo Y. Tang, a final-year Ph.D. candidate at the University of Rochester.',
+          'My research centers on LMMs and agents for video understanding.',
+          'You can explore selected papers, projects, and recent updates from here.',
+        ],
+        interactions: [
+          'Thanks for visiting.',
+          'Research notes and project details are one click away.',
+          'For papers and citations, start with the research panel.',
+          'I am happy to point you toward the most relevant work.',
+          'New questions often make the best reading path.',
+        ],
+      },
+      Creative: {
+        greetings: [
+          '🤗 Hi there/你好/こんにちは/안녕/Ciallo ～(∠・ω< )⌒★',
+          '🍭 This is Yolo Y. Tang (芸珑 in Mandarin or <ruby>夜<rt>よる</rt></ruby> in Japanese).',
+          "🏠 Welcome to Yolo's personal website and have fun exploring!",
+        ],
+        interactions: [
+          '🐾 Thanks for stopping by.',
+          '🐈 Always happy to have curious visitors.',
+          '✨ Feel free to explore the research and projects.',
+          '📚 New ideas are usually hiding one click away.',
+          '🩵 Hope you enjoy the visit.',
+        ],
+      },
+      Meow: {
+        greetings: [
+          '🐾 Meow there / 你好 / こんにちは / 안녕 / Ciallo ～(∠・ω< )⌒★',
+          '🐱 I am Yolo, currently accepting papers, ideas, treats, and gentle head pats.',
+          '🐈 Paw around the site. If anything breaks, the cat was not here.',
+        ],
+        interactions: [
+          '🐾 Mrrp. Yolo likes head pats and cozy snuggles.',
+          '🐱 You clicked the cat. The cat approves this research direction.',
+          '🍣 Purr review complete: promising, but needs more snacks.',
+          '🐈 Tiny paw detected. Opening curiosity mode.',
+          '😼 Meow mode is scientifically unserious. Please cite the cat responsibly.',
+        ],
+      },
+    };
+    var currentSpeechMode = 'Creative';
+    var names = speechModes[currentSpeechMode].greetings;
+    var interactionMessages = speechModes[currentSpeechMode].interactions;
     var index = 0;
     var interactionIndex = 0;
     var clickTimer = null;
@@ -88,6 +136,50 @@ layout: default
     var autoCycleIntervalMs = 15000;
     var autoCycleInitialDelayMs = 10000;
     var autoSpeechDurationMs = 5000;
+
+    function setSpeechMode(mode) {
+      if (!speechModes[mode]) return;
+      currentSpeechMode = mode;
+      names = speechModes[currentSpeechMode].greetings;
+      interactionMessages = speechModes[currentSpeechMode].interactions;
+      index = 0;
+      interactionIndex = 0;
+      autoCycleIndex = 0;
+      if (avatarImage) {
+        if (mode === 'Academic') {
+          avatarImage.src = avatarImage.dataset.academicIcon;
+        } else if (mode === 'Meow') {
+          avatarImage.src = avatarImage.dataset.meowIcon;
+        } else {
+          avatarImage.src = avatarImage.dataset.defaultIcon;
+        }
+      }
+    }
+
+    if (modelPicker) {
+      var currentModel = modelPicker.querySelector('[data-about-model-current]');
+      var modelOptions = Array.prototype.slice.call(modelPicker.querySelectorAll('[data-about-model-value]'));
+
+      modelOptions.forEach(function (option) {
+        option.addEventListener('click', function () {
+          var selectedMode = option.getAttribute('data-about-model-value');
+          if (currentModel) currentModel.textContent = selectedMode;
+          setSpeechMode(selectedMode);
+          modelOptions.forEach(function (otherOption) {
+            otherOption.setAttribute('aria-selected', String(otherOption === option));
+          });
+          modelPicker.removeAttribute('open');
+        });
+      });
+
+      document.addEventListener('click', function (event) {
+        if (!modelPicker.contains(event.target)) modelPicker.removeAttribute('open');
+      });
+
+      modelPicker.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') modelPicker.removeAttribute('open');
+      });
+    }
 
     function typePromptText() {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;

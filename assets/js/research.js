@@ -14,8 +14,33 @@
   var controlButtons = Array.prototype.slice.call(document.querySelectorAll(".research-control-button[data-research-control]"));
   var sortButtonLabel = document.querySelector('.research-control-button[data-research-control="sort"] span');
   var paperPanelTimer = null;
+  var paperPanelHeightTimer = null;
   var paperPanelTransitionMs = 860;
   var paperPanelScrollMs = 980;
+
+  function isPaperPanelVisible() {
+    return paperPanel && !paperPanel.hidden && paperPanel.classList.contains("is-visible");
+  }
+
+  function setPaperPanelHeightToContent() {
+    if (!isPaperPanelVisible()) return;
+    paperPanel.style.setProperty("--research-paper-panel-height", paperPanel.scrollHeight + "px");
+  }
+
+  function releasePaperPanelHeight() {
+    if (!isPaperPanelVisible()) return;
+    paperPanel.style.setProperty("--research-paper-panel-height", "none");
+  }
+
+  function schedulePaperPanelHeightRelease() {
+    window.clearTimeout(paperPanelHeightTimer);
+    paperPanelHeightTimer = window.setTimeout(releasePaperPanelHeight, paperPanelTransitionMs + 80);
+  }
+
+  function refreshPaperPanelHeight() {
+    setPaperPanelHeightToContent();
+    schedulePaperPanelHeightRelease();
+  }
 
   function allPaperItems() {
     if (!selectedPubs) return [];
@@ -82,6 +107,7 @@
   function hidePaperPanel() {
     if (!paperPanel) return;
     window.clearTimeout(paperPanelTimer);
+    window.clearTimeout(paperPanelHeightTimer);
     if (!paperPanel.hidden) {
       paperPanel.style.setProperty("--research-paper-panel-height", paperPanel.scrollHeight + "px");
       window.requestAnimationFrame(function () {
@@ -114,6 +140,7 @@
     window.requestAnimationFrame(function () {
       paperPanel.style.setProperty("--research-paper-panel-height", paperPanel.scrollHeight + "px");
       paperPanel.classList.add("is-visible");
+      schedulePaperPanelHeightRelease();
       if (shouldScroll) {
         window.setTimeout(
           function () {
@@ -300,6 +327,12 @@
     document.addEventListener("DOMContentLoaded", function () {
       window.setTimeout(showPapersForSearch, 0);
     });
+  }
+  if (paperPanel) {
+    paperPanel.querySelectorAll("img").forEach(function (img) {
+      if (!img.complete) img.addEventListener("load", refreshPaperPanelHeight, { once: true });
+    });
+    window.addEventListener("resize", refreshPaperPanelHeight, { passive: true });
   }
   hidePaperPanel();
 })();
