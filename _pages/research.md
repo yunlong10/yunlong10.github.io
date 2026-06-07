@@ -19,9 +19,6 @@ jupyter: false
 {% if page.selected_papers %}
 
   <div id="research-map-paper-panel" class="research-map-paper-panel" hidden>
-    <div class="research-map-paper-panel-header">
-      <button type="button" class="research-map-paper-close" aria-label="Hide selected paper">&times;</button>
-    </div>
     <p class="selected-research-note-row">* Equal Contribution | † Corresponding Author</p>
     {% include selected_papers.liquid %}
   </div>

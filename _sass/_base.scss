@@ -1032,31 +1032,6 @@ ul.task-list input[type="checkbox"] {
     text-align: center;
   }
 
-  .research-map-paper-panel-header {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-bottom: 0;
-    color: var(--global-subtitle-color);
-    font-size: 0.9rem;
-    letter-spacing: 0.055em;
-  }
-
-  .research-map-paper-close {
-    border: 0;
-    background: transparent;
-    color: var(--global-text-color);
-    cursor: pointer;
-    font-size: 1.25rem;
-    line-height: 1;
-    opacity: 0.55;
-
-    &:hover {
-      opacity: 1;
-    }
-  }
-
   .selected-research-note-row {
     display: flex;
     flex-wrap: wrap;
