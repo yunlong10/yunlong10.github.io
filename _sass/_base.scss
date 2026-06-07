@@ -1308,13 +1308,13 @@ ul.task-list input[type="checkbox"] {
 
   @media (max-width: 575px) {
     &.is-blog-panel-open {
-      padding-top: max(1.75rem, calc((100svh - 14rem - 23rem) / 2 - 3.75rem));
-      transform: translateY(clamp(-2.55rem, -4.6svh, -1.35rem));
+      padding-top: 2.5rem;
+      transform: translateY(-1rem);
     }
 
     &.is-research-panel-open {
-      padding-top: max(1.75rem, calc((100svh - 14rem - 23rem) / 2 - 3.75rem));
-      transform: translateY(clamp(-2.55rem, -4.6svh, -1.35rem));
+      padding-top: 2.5rem;
+      transform: translateY(-1rem);
     }
   }
 
