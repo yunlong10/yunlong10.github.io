@@ -1321,13 +1321,13 @@ ul.task-list input[type="checkbox"] {
   }
 
   &.is-blog-panel-open {
-    padding-top: max(0.75rem, calc((100svh - 14rem - 23rem) / 2 - clamp(7rem, 12.5svh, 10.5rem)));
-    transform: translateY(clamp(-5.5rem, -9.25svh, -3rem));
+    padding-top: max(1.5rem, calc((100svh - 14rem - 23rem) / 2 - clamp(3rem, 5.5svh, 4.5rem)));
+    transform: translateY(clamp(-2.75rem, -4.5svh, -1.5rem));
   }
 
   &.is-research-panel-open {
-    padding-top: max(0.75rem, calc((100svh - 14rem - 23rem) / 2 - clamp(7rem, 12.5svh, 10.5rem)));
-    transform: translateY(clamp(-5.5rem, -9.25svh, -3rem));
+    padding-top: max(1.5rem, calc((100svh - 14rem - 23rem) / 2 - clamp(3rem, 5.5svh, 4.5rem)));
+    transform: translateY(clamp(-2.75rem, -4.5svh, -1.5rem));
   }
 
   @media (max-width: 575px) {
