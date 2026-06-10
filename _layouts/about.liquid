@@ -160,11 +160,17 @@ layout: default
       }
       if (contactAction && contactIcon) {
         var useTelegram = mode === 'Meow' && contactAction.dataset.telegramHref;
+        var useWeChat = mode === 'Creative' && contactAction.dataset.wechatIcon;
         var href = useTelegram ? contactAction.dataset.telegramHref : contactAction.dataset.emailHref;
-        var label = useTelegram ? contactAction.dataset.telegramLabel : contactAction.dataset.emailLabel;
-        var icon = useTelegram ? contactAction.dataset.telegramIcon : contactAction.dataset.emailIcon;
+        var label = useTelegram
+          ? contactAction.dataset.telegramLabel
+          : useWeChat
+            ? contactAction.dataset.wechatLabel
+            : contactAction.dataset.emailLabel;
+        var icon = useTelegram ? contactAction.dataset.telegramIcon : useWeChat ? contactAction.dataset.wechatIcon : contactAction.dataset.emailIcon;
         contactAction.href = href;
         contactAction.title = label;
+        contactAction.dataset.contactMode = useWeChat ? 'wechat' : useTelegram ? 'telegram' : 'email';
         contactAction.setAttribute('aria-label', label);
         contactIcon.className = icon;
       }
@@ -181,6 +187,16 @@ layout: default
     }
 
     setSpeechMode(currentSpeechMode);
+
+    if (contactAction) {
+      contactAction.addEventListener('click', function (event) {
+        if (contactAction.dataset.contactMode !== 'wechat') return;
+        var wechatModal = document.getElementById('WeChatMod');
+        if (!wechatModal) return;
+        event.preventDefault();
+        wechatModal.classList.add('active');
+      });
+    }
 
     if (modelPicker) {
       var currentModel = modelPicker.querySelector('[data-about-model-current]');

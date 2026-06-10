@@ -70,6 +70,8 @@ Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://ww
     data-email-href="mailto:{{ site.email | encode_email }}"
     data-email-label="Email"
     data-email-icon="fa-regular fa-envelope"
+    data-wechat-label="WeChat"
+    data-wechat-icon="fa-brands fa-weixin"
     data-telegram-href="https://telegram.me/yoloytang"
     data-telegram-label="Telegram"
     data-telegram-icon="fa-brands fa-telegram"
