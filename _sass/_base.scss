@@ -213,6 +213,8 @@ ul.task-list input[type="checkbox"] {
 .misc-jp {
   font-family: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
   margin-top: -0.75rem;
+  --about-creative-font: Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --about-meow-font: "Chalkboard SE", "Comic Sans MS", "Marker Felt", Palatino, serif;
   --about-text-max-width: 960px;
   --about-kasumi-line: linear-gradient(
     90deg,
@@ -222,6 +224,22 @@ ul.task-list input[type="checkbox"] {
     color-mix(in srgb, var(--global-divider-color) 45%, transparent) 76%,
     transparent 100%
   );
+
+  &.is-creative-mode {
+    font-family: var(--about-creative-font);
+
+    :where(p, h1, h2, h3, h4, h5, h6, em, div, li, span, strong, a, button, summary) {
+      font-family: var(--about-creative-font);
+    }
+  }
+
+  &.is-meow-mode {
+    font-family: var(--about-meow-font);
+
+    :where(p, h1, h2, h3, h4, h5, h6, em, div, li, span, strong, a, button, summary) {
+      font-family: var(--about-meow-font);
+    }
+  }
 
   strong,
   b,
@@ -558,6 +576,7 @@ ul.task-list input[type="checkbox"] {
   }
 
   .about-prompt-actions {
+    --about-action-size: 2.25rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -570,12 +589,14 @@ ul.task-list input[type="checkbox"] {
     display: flex;
     align-items: center;
     gap: 0.42rem;
+    margin-left: -0.45rem;
   }
 
   .about-model-select {
     position: relative;
     display: inline-flex;
     align-items: center;
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
     margin-left: auto;
     margin-right: -0.45rem;
     transform: translateY(2px);
@@ -584,7 +605,9 @@ ul.task-list input[type="checkbox"] {
       display: inline-flex;
       align-items: center;
       gap: 0.28rem;
-      height: 2.05rem;
+      box-sizing: border-box;
+      height: var(--about-action-size);
+      min-height: var(--about-action-size);
       min-width: 7.6rem;
       padding: 0 1.75rem 0 0.78rem;
       border: 0;
@@ -630,12 +653,14 @@ ul.task-list input[type="checkbox"] {
     .about-model-variant {
       color: color-mix(in srgb, var(--global-text-color) 78%, var(--global-subtitle-color));
       font-weight: 500;
+      transform: translateY(0.05em);
     }
 
     .about-model-brand {
       color: color-mix(in srgb, var(--global-subtitle-color) 82%, var(--global-bg-color));
       font-weight: 400;
       letter-spacing: 0.005em;
+      transform: translateY(0.05em);
     }
 
     .about-model-options {
@@ -675,6 +700,30 @@ ul.task-list input[type="checkbox"] {
         background-color 0.18s ease,
         color 0.18s ease;
 
+      &[data-about-model-value="Academic"] {
+        &,
+        .about-model-variant,
+        .about-model-brand {
+          font-family: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
+        }
+      }
+
+      &[data-about-model-value="Creative"] {
+        &,
+        .about-model-variant,
+        .about-model-brand {
+          font-family: var(--about-creative-font);
+        }
+      }
+
+      &[data-about-model-value="Meow"] {
+        &,
+        .about-model-variant,
+        .about-model-brand {
+          font-family: var(--about-meow-font);
+        }
+      }
+
       &::after {
         content: "";
         position: absolute;
@@ -705,14 +754,39 @@ ul.task-list input[type="checkbox"] {
         }
       }
     }
+
+    &.is-creative-mode {
+      font-family: var(--about-creative-font);
+
+      .about-model-variant,
+      .about-model-brand {
+        transform: translateY(0.07em);
+      }
+    }
+
+    &.is-meow-mode {
+      font-family: var(--about-meow-font);
+
+      summary {
+        font-size: 1rem;
+      }
+
+      .about-model-variant,
+      .about-model-brand {
+        transform: translateY(-0.1em);
+      }
+    }
   }
 
   .about-prompt-action {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
+    box-sizing: border-box;
+    width: var(--about-action-size);
+    height: var(--about-action-size);
+    min-width: var(--about-action-size);
+    min-height: var(--about-action-size);
     padding: 0;
     border: 0;
     border-radius: 999px;
@@ -731,11 +805,13 @@ ul.task-list input[type="checkbox"] {
       background-color: color-mix(in srgb, var(--global-theme-color) 10%, transparent);
       color: var(--global-theme-color);
       text-decoration: none;
-      transform: translateY(-1px);
     }
 
     .ai-google-scholar {
-      font-size: 1.18em;
+      display: inline-block;
+      font-size: 1.26em;
+      line-height: 1;
+      transform: translate(-0.04em, 0.02325em);
     }
 
     .fa-github,
@@ -744,15 +820,19 @@ ul.task-list input[type="checkbox"] {
     }
   }
 
-  .about-prompt-action[aria-label="Google Scholar"] .ai-google-scholar {
-    display: inline-block;
-    position: relative;
-    top: 1.2px;
-  }
+  .about-prompt-email {
+    margin-right: -0.18rem;
+    transform: translateY(0.1rem);
 
-  .about-prompt-action[aria-label="GitHub"] .fa-github {
-    display: inline-block;
-    transform: translateX(1px);
+    i {
+      font-size: 1.08em;
+      transform: translateY(0.02em);
+    }
+
+    .fa-telegram {
+      font-size: 1.12em;
+      transform: translateY(0);
+    }
   }
 
   .about-prompt-action-plus {
@@ -828,7 +908,7 @@ ul.task-list input[type="checkbox"] {
     }
 
     .quick-link-title {
-      font-weight: 700;
+      font-weight: 400;
       letter-spacing: 0.01em;
       font-size: 0.9rem;
     }
@@ -1401,6 +1481,32 @@ header {
   white-space: nowrap;
 }
 
+body.is-about-creative-mode,
+body.is-about-meow-mode {
+  --about-creative-font: Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --about-meow-font: "Chalkboard SE", "Comic Sans MS", "Marker Felt", Palatino, serif;
+}
+
+body.is-about-creative-mode {
+  .navbar,
+  .navbar-brand,
+  .navbar-brand span,
+  footer.fixed-bottom,
+  footer.sticky-bottom {
+    font-family: var(--about-creative-font);
+  }
+}
+
+body.is-about-meow-mode {
+  .navbar,
+  .navbar-brand,
+  .navbar-brand span,
+  footer.fixed-bottom,
+  footer.sticky-bottom {
+    font-family: var(--about-meow-font);
+  }
+}
+
 .navbar-menu-avatar {
   display: inline-flex;
   align-items: center;
@@ -1545,6 +1651,13 @@ header {
     }
 
     /* Optically large glyphs vs. neighbors at equal font-size */
+    a .ai-google-scholar {
+      display: inline-block;
+      font-size: 1.12em;
+      line-height: 1;
+      transform: translate(-0.04em, 0.035em);
+    }
+
     a .fa-discord {
       font-size: 0.88em;
     }
@@ -1666,6 +1779,13 @@ header {
           color: var(--global-theme-color);
         }
       }
+    }
+
+    a .ai-google-scholar {
+      display: inline-block;
+      font-size: 1.12em;
+      line-height: 1;
+      transform: translate(-0.04em, 0.035em);
     }
 
     a .fa-discord {

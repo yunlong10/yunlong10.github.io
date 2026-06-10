@@ -70,6 +70,8 @@ layout: default
     var promptBox = document.querySelector('.about-prompt');
     var aboutRoot = document.querySelector('.about-jp');
     var modelPicker = document.querySelector('.about-model-select');
+    var contactAction = document.querySelector('[data-about-contact-action]');
+    var contactIcon = contactAction ? contactAction.querySelector('i') : null;
     var panelTriggers = Array.prototype.slice.call(document.querySelectorAll('[data-about-panel-trigger]'));
     var inlinePanels = Array.prototype.slice.call(document.querySelectorAll('[data-about-panel]'));
 
@@ -127,6 +129,7 @@ layout: default
     var clickTimer = null;
     var speechTimer = null;
     var autoCycleStepTimer = null;
+    var speechRequestId = 0;
     var clickPopActive = false;
     var autoCycleActive = false;
     var autoCycleIndex = 0;
@@ -139,6 +142,7 @@ layout: default
 
     function setSpeechMode(mode) {
       if (!speechModes[mode]) return;
+      dismissSpeechBubble();
       currentSpeechMode = mode;
       names = speechModes[currentSpeechMode].greetings;
       interactionMessages = speechModes[currentSpeechMode].interactions;
@@ -154,7 +158,29 @@ layout: default
           avatarImage.src = avatarImage.dataset.defaultIcon;
         }
       }
+      if (contactAction && contactIcon) {
+        var useTelegram = mode === 'Meow' && contactAction.dataset.telegramHref;
+        var href = useTelegram ? contactAction.dataset.telegramHref : contactAction.dataset.emailHref;
+        var label = useTelegram ? contactAction.dataset.telegramLabel : contactAction.dataset.emailLabel;
+        var icon = useTelegram ? contactAction.dataset.telegramIcon : contactAction.dataset.emailIcon;
+        contactAction.href = href;
+        contactAction.title = label;
+        contactAction.setAttribute('aria-label', label);
+        contactIcon.className = icon;
+      }
+      if (modelPicker) {
+        modelPicker.classList.toggle('is-creative-mode', mode === 'Creative');
+        modelPicker.classList.toggle('is-meow-mode', mode === 'Meow');
+      }
+      if (aboutRoot) {
+        aboutRoot.classList.toggle('is-creative-mode', mode === 'Creative');
+        aboutRoot.classList.toggle('is-meow-mode', mode === 'Meow');
+      }
+      document.body.classList.toggle('is-about-creative-mode', mode === 'Creative');
+      document.body.classList.toggle('is-about-meow-mode', mode === 'Meow');
     }
+
+    setSpeechMode(currentSpeechMode);
 
     if (modelPicker) {
       var currentModel = modelPicker.querySelector('[data-about-model-current]');
@@ -414,6 +440,7 @@ layout: default
 
     function showSpeechAfterMascotMove(revealClass, shouldShow) {
       window.clearTimeout(speechTimer);
+      var requestId = ++speechRequestId;
       identity.classList.add('is-preparing-speech');
       identity.classList.remove('is-speaking');
 
@@ -422,7 +449,7 @@ layout: default
         if (done) return;
         done = true;
         avatar.removeEventListener('transitionend', onTransitionEnd);
-        if (!shouldShow()) {
+        if (requestId !== speechRequestId || !shouldShow()) {
           identity.classList.remove('is-preparing-speech');
           return;
         }
@@ -444,6 +471,19 @@ layout: default
       window.requestAnimationFrame(function () {
         identity.classList.add(revealClass);
       });
+    }
+
+    function dismissSpeechBubble() {
+      speechRequestId += 1;
+      window.clearTimeout(clickTimer);
+      window.clearTimeout(speechTimer);
+      window.clearTimeout(autoCycleStepTimer);
+      clickPopActive = false;
+      autoCycleActive = false;
+      identity.classList.remove('is-hovered');
+      identity.classList.remove('is-click-pop');
+      identity.classList.remove('is-preparing-speech');
+      identity.classList.remove('is-speaking');
     }
 
     function setGreeting(nextIndex) {

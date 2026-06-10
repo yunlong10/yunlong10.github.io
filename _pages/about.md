@@ -18,7 +18,7 @@ social: true # includes social icons at the bottom of the page
 # Skip heavy scripts not used on the landing page (see _includes/scripts/mathjax.liquid, masonry.liquid)
 math: false
 masonry: false
-medium_zoom: false
+medium_zoom: true
 table_enhance: false
 common_js: false
 copy_code: false
@@ -30,9 +30,17 @@ jupyter: false
 Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://www.rochester.edu/) (UR), advised by [Prof. Chenliang Xu](https://www.cs.rochester.edu/~cxu22/index.html), working on <a href="https://github.com/yunlong10/Awesome-LLMs-for-Video-Understanding">LMMs/Agents &times; Video Understanding</a>. She earned her M.S. from UR in 2025 en route to her Ph.D. and received her B.Eng. from [SUSTech](https://www.sustech.edu.cn/en/) in 2023. She has interned at [Amazon](https://www.aboutamazon.com/), [ByteDance](https://www.bytedance.com/en/), and [Tencent](https://www.tencent.com/).
 
 <div class="about-prompt-actions" aria-label="Contact links">
-  <a href="mailto:{{ site.email | encode_email }}" class="about-prompt-action" aria-label="Email" title="Email">
-    <i class="fa-regular fa-envelope" aria-hidden="true"></i>
-  </a>
+  <div class="about-prompt-action-group">
+    <a href="https://scholar.google.com/citations?user={{ site.scholar_userid }}" class="about-prompt-action" aria-label="Google Scholar" title="Google Scholar">
+      <i class="ai ai-google-scholar" aria-hidden="true"></i>
+    </a>
+    <a href="https://github.com/{{ site.github_username }}" class="about-prompt-action" aria-label="GitHub" title="GitHub">
+      <i class="fa-brands fa-github" aria-hidden="true"></i>
+    </a>
+    <a href="https://x.com/{{ site.x_username }}" class="about-prompt-action" aria-label="X" title="X">
+      <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
+    </a>
+  </div>
   <details class="about-model-select">
     <summary aria-label="Yolo mode">
       <span class="about-model-variant" data-about-model-current>Creative</span>
@@ -53,17 +61,21 @@ Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://ww
       </button>
     </div>
   </details>
-  <div class="about-prompt-action-group">
-    <a href="https://scholar.google.com/citations?user={{ site.scholar_userid }}" class="about-prompt-action" aria-label="Google Scholar" title="Google Scholar">
-      <i class="ai ai-google-scholar" aria-hidden="true"></i>
-    </a>
-    <a href="https://github.com/{{ site.github_username }}" class="about-prompt-action" aria-label="GitHub" title="GitHub">
-      <i class="fa-brands fa-github" aria-hidden="true"></i>
-    </a>
-    <a href="https://x.com/{{ site.x_username }}" class="about-prompt-action" aria-label="X" title="X">
-      <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
-    </a>
-  </div>
+  <a
+    href="mailto:{{ site.email | encode_email }}"
+    class="about-prompt-action about-prompt-email"
+    aria-label="Email"
+    title="Email"
+    data-about-contact-action
+    data-email-href="mailto:{{ site.email | encode_email }}"
+    data-email-label="Email"
+    data-email-icon="fa-regular fa-envelope"
+    data-telegram-href="https://telegram.me/yoloytang"
+    data-telegram-label="Telegram"
+    data-telegram-icon="fa-brands fa-telegram"
+  >
+    <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+  </a>
 </div>
 
 </div>
