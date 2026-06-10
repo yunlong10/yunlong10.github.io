@@ -43,15 +43,15 @@ Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://ww
   </div>
   <details class="about-model-select">
     <summary aria-label="Yolo mode">
-      <span class="about-model-variant" data-about-model-current>Creative</span>
+      <span class="about-model-variant" data-about-model-current>Academic</span>
       <span class="about-model-brand">Yolo</span>
     </summary>
     <div class="about-model-options" role="listbox" aria-label="Yolo mode options">
-      <button type="button" role="option" aria-selected="false" data-about-model-value="Academic">
+      <button type="button" role="option" aria-selected="true" data-about-model-value="Academic">
         <span class="about-model-variant">Academic</span>
         <span class="about-model-brand">Yolo</span>
       </button>
-      <button type="button" role="option" aria-selected="true" data-about-model-value="Creative">
+      <button type="button" role="option" aria-selected="false" data-about-model-value="Creative">
         <span class="about-model-variant">Creative</span>
         <span class="about-model-brand">Yolo</span>
       </button>
