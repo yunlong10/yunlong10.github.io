@@ -31,13 +31,51 @@ Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://ww
 
 <div class="about-prompt-actions" aria-label="Contact links">
   <div class="about-prompt-action-group">
-    <a href="https://scholar.google.com/citations?user={{ site.scholar_userid }}" class="about-prompt-action" aria-label="Google Scholar" title="Google Scholar">
+    <a
+      href="https://scholar.google.com/citations?user={{ site.scholar_userid }}"
+      class="about-prompt-action"
+      aria-label="Google Scholar"
+      title="Google Scholar"
+      target="_blank"
+      rel="noopener noreferrer"
+      data-about-scholar-action
+      data-scholar-href="https://scholar.google.com/citations?user={{ site.scholar_userid }}"
+      data-scholar-label="Google Scholar"
+      data-scholar-icon="ai ai-google-scholar"
+      data-instagram-href="https://www.instagram.com/yoloytang.art/"
+      data-instagram-label="Instagram"
+      data-instagram-icon="fa-brands fa-instagram"
+    >
       <i class="ai ai-google-scholar" aria-hidden="true"></i>
     </a>
-    <a href="https://github.com/{{ site.github_username }}" class="about-prompt-action" aria-label="GitHub" title="GitHub">
+    <a
+      href="https://github.com/{{ site.github_username }}"
+      class="about-prompt-action about-prompt-github"
+      aria-label="GitHub"
+      title="GitHub"
+      target="_blank"
+      rel="noopener noreferrer"
+      data-about-github-action
+      data-github-href="https://github.com/{{ site.github_username }}"
+      data-github-label="GitHub"
+      data-github-icon="fa-brands fa-github"
+      data-youtube-href="https://www.youtube.com/@yoloytang-art"
+      data-youtube-label="YouTube"
+      data-youtube-icon="fa-brands fa-square-youtube"
+    >
       <i class="fa-brands fa-github" aria-hidden="true"></i>
     </a>
-    <a href="https://x.com/{{ site.x_username }}" class="about-prompt-action" aria-label="X" title="X">
+    <a
+      href="https://x.com/{{ site.x_username }}"
+      class="about-prompt-action about-prompt-x"
+      aria-label="X"
+      title="X"
+      target="_blank"
+      rel="noopener noreferrer"
+      data-about-x-action
+      data-x-href="https://x.com/{{ site.x_username }}"
+      data-x-creative-href="https://x.com/yoloytang_art"
+    >
       <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
     </a>
   </div>
@@ -70,8 +108,9 @@ Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://ww
     data-email-href="mailto:{{ site.email | encode_email }}"
     data-email-label="Email"
     data-email-icon="fa-regular fa-envelope"
-    data-wechat-label="WeChat"
-    data-wechat-icon="fa-brands fa-weixin"
+    data-discord-href="https://discord.com/users/1152784980167106662"
+    data-discord-label="Discord"
+    data-discord-icon="fa-brands fa-discord"
     data-telegram-href="https://telegram.me/yoloytang"
     data-telegram-label="Telegram"
     data-telegram-icon="fa-brands fa-telegram"
@@ -116,7 +155,7 @@ Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://ww
 
 <section id="about-gallery-panel" class="about-inline-panel about-inline-simple gallery-jp" data-about-panel="gallery" aria-label="Gallery" hidden>
   <div class="about-inline-panel-inner">
-    <p class="gallery-note">Coming soon.</p>
+    {% include painting_gallery.liquid %}
   </div>
 </section>
 

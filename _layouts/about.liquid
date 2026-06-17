@@ -72,8 +72,14 @@ layout: default
     var modelPicker = document.querySelector('.about-model-select');
     var contactAction = document.querySelector('[data-about-contact-action]');
     var contactIcon = contactAction ? contactAction.querySelector('i') : null;
+    var scholarAction = document.querySelector('[data-about-scholar-action]');
+    var scholarIcon = scholarAction ? scholarAction.querySelector('i') : null;
+    var xAction = document.querySelector('[data-about-x-action]');
+    var githubAction = document.querySelector('[data-about-github-action]');
+    var githubIcon = githubAction ? githubAction.querySelector('i') : null;
     var panelTriggers = Array.prototype.slice.call(document.querySelectorAll('[data-about-panel-trigger]'));
     var inlinePanels = Array.prototype.slice.call(document.querySelectorAll('[data-about-panel]'));
+    var collapseInlinePanels = null;
 
     if (!rotator || !identity || !avatar || !bubble || !promptBox) return;
 
@@ -137,12 +143,27 @@ layout: default
     var mascotRevealFallbackMs = 360;
     var typingSpeedMs = 16;
     var autoCycleIntervalMs = 15000;
+    var autoCycleMeowIntervalMs = 7000;
     var autoCycleInitialDelayMs = 10000;
     var autoSpeechDurationMs = 5000;
+    var autoCycleTimerId = null;
+
+    function currentAutoCycleIntervalMs() {
+      return currentSpeechMode === 'Meow' ? autoCycleMeowIntervalMs : autoCycleIntervalMs;
+    }
+
+    function restartAutoCycleInterval() {
+      if (autoCycleTimerId === null) return;
+      window.clearInterval(autoCycleTimerId);
+      autoCycleTimerId = window.setInterval(startAutoSpeechCycle, currentAutoCycleIntervalMs());
+    }
 
     function setSpeechMode(mode) {
       if (!speechModes[mode]) return;
       dismissSpeechBubble();
+      if (mode === 'Meow' && typeof collapseInlinePanels === 'function') {
+        collapseInlinePanels();
+      }
       currentSpeechMode = mode;
       names = speechModes[currentSpeechMode].greetings;
       interactionMessages = speechModes[currentSpeechMode].interactions;
@@ -160,19 +181,56 @@ layout: default
       }
       if (contactAction && contactIcon) {
         var useTelegram = mode === 'Meow' && contactAction.dataset.telegramHref;
-        var useWeChat = mode === 'Creative' && contactAction.dataset.wechatIcon;
-        var href = useTelegram ? contactAction.dataset.telegramHref : contactAction.dataset.emailHref;
+        var useDiscord = mode === 'Creative' && contactAction.dataset.discordHref;
+        var href = useTelegram
+          ? contactAction.dataset.telegramHref
+          : useDiscord
+            ? contactAction.dataset.discordHref
+            : contactAction.dataset.emailHref;
         var label = useTelegram
           ? contactAction.dataset.telegramLabel
-          : useWeChat
-            ? contactAction.dataset.wechatLabel
+          : useDiscord
+            ? contactAction.dataset.discordLabel
             : contactAction.dataset.emailLabel;
-        var icon = useTelegram ? contactAction.dataset.telegramIcon : useWeChat ? contactAction.dataset.wechatIcon : contactAction.dataset.emailIcon;
+        var icon = useTelegram
+          ? contactAction.dataset.telegramIcon
+          : useDiscord
+            ? contactAction.dataset.discordIcon
+            : contactAction.dataset.emailIcon;
         contactAction.href = href;
         contactAction.title = label;
-        contactAction.dataset.contactMode = useWeChat ? 'wechat' : useTelegram ? 'telegram' : 'email';
+        contactAction.dataset.contactMode = useDiscord ? 'discord' : useTelegram ? 'telegram' : 'email';
         contactAction.setAttribute('aria-label', label);
         contactIcon.className = icon;
+        if (useDiscord || useTelegram) {
+          contactAction.target = '_blank';
+          contactAction.rel = 'noopener noreferrer';
+        } else {
+          contactAction.removeAttribute('target');
+          contactAction.removeAttribute('rel');
+        }
+      }
+      if (scholarAction && scholarIcon) {
+        var useInstagram = mode === 'Creative' || mode === 'Meow';
+        var scholarHref = useInstagram ? scholarAction.dataset.instagramHref : scholarAction.dataset.scholarHref;
+        var scholarLabel = useInstagram ? scholarAction.dataset.instagramLabel : scholarAction.dataset.scholarLabel;
+        var scholarIconClass = useInstagram ? scholarAction.dataset.instagramIcon : scholarAction.dataset.scholarIcon;
+        scholarAction.href = scholarHref;
+        scholarAction.title = scholarLabel;
+        scholarAction.setAttribute('aria-label', scholarLabel);
+        scholarIcon.className = scholarIconClass;
+      }
+      if (xAction) {
+        var useArtX = mode === 'Creative' || mode === 'Meow';
+        xAction.href = useArtX ? xAction.dataset.xCreativeHref : xAction.dataset.xHref;
+      }
+      if (githubAction && githubIcon) {
+        var useYoutube = mode === 'Creative' || mode === 'Meow';
+        githubAction.href = useYoutube ? githubAction.dataset.youtubeHref : githubAction.dataset.githubHref;
+        var ghLabel = useYoutube ? githubAction.dataset.youtubeLabel : githubAction.dataset.githubLabel;
+        githubAction.title = ghLabel;
+        githubAction.setAttribute('aria-label', ghLabel);
+        githubIcon.className = useYoutube ? githubAction.dataset.youtubeIcon : githubAction.dataset.githubIcon;
       }
       if (modelPicker) {
         modelPicker.classList.toggle('is-creative-mode', mode === 'Creative');
@@ -184,6 +242,7 @@ layout: default
       }
       document.body.classList.toggle('is-about-creative-mode', mode === 'Creative');
       document.body.classList.toggle('is-about-meow-mode', mode === 'Meow');
+      restartAutoCycleInterval();
     }
 
     setSpeechMode(currentSpeechMode);
@@ -304,6 +363,12 @@ layout: default
           if (aboutRoot && panel.getAttribute('data-about-panel') === 'research') {
             aboutRoot.classList.remove('is-research-panel-open');
           }
+          if (aboutRoot && panel.getAttribute('data-about-panel') === 'gallery') {
+            aboutRoot.classList.remove('is-gallery-panel-open');
+          }
+          if (aboutRoot && panel.getAttribute('data-about-panel') === 'misc') {
+            aboutRoot.classList.remove('is-misc-panel-open');
+          }
         }, 420);
       }
 
@@ -321,6 +386,8 @@ layout: default
           aboutRoot.classList.add('is-inline-panel-open');
           aboutRoot.classList.toggle('is-blog-panel-open', panel.getAttribute('data-about-panel') === 'blog');
           aboutRoot.classList.toggle('is-research-panel-open', panel.getAttribute('data-about-panel') === 'research');
+          aboutRoot.classList.toggle('is-gallery-panel-open', panel.getAttribute('data-about-panel') === 'gallery');
+          aboutRoot.classList.toggle('is-misc-panel-open', panel.getAttribute('data-about-panel') === 'misc');
           panel.classList.add('is-visible');
           if (['blog', 'gallery', 'misc'].indexOf(panel.getAttribute('data-about-panel')) !== -1) {
             return;
@@ -336,6 +403,8 @@ layout: default
         });
         aboutRoot.classList.remove('is-inline-panel-open');
       }
+
+      collapseInlinePanels = closeAllInlinePanels;
 
       panelTriggers.forEach(function (trigger) {
         trigger.addEventListener('click', function (e) {
@@ -369,6 +438,12 @@ layout: default
             }
             if (panel.getAttribute('data-about-panel') === 'research') {
               aboutRoot.classList.remove('is-research-panel-open');
+            }
+            if (panel.getAttribute('data-about-panel') === 'gallery') {
+              aboutRoot.classList.remove('is-gallery-panel-open');
+            }
+            if (panel.getAttribute('data-about-panel') === 'misc') {
+              aboutRoot.classList.remove('is-misc-panel-open');
             }
           }, 420);
           aboutRoot.classList.remove('is-inline-panel-open');
@@ -601,7 +676,7 @@ layout: default
 
     window.setTimeout(function () {
       startAutoSpeechCycle();
-      window.setInterval(startAutoSpeechCycle, autoCycleIntervalMs);
+      autoCycleTimerId = window.setInterval(startAutoSpeechCycle, currentAutoCycleIntervalMs());
     }, autoCycleInitialDelayMs);
   })();
 </script>

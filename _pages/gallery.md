@@ -14,4 +14,4 @@ copy_code: false
 jupyter: false
 ---
 
-Coming soon.
+{% include painting_gallery.liquid %}

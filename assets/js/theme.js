@@ -1,12 +1,14 @@
 // Has to be in the head tag, otherwise a flicker effect will occur.
 
-// Toggle through light and dark theme settings.
+// Cycle through the theme settings: system -> light -> dark -> system.
 let toggleThemeSetting = () => {
-  let theme = determineComputedTheme();
-  if (theme == "light") {
+  let themeSetting = determineThemeSetting();
+  if (themeSetting == "system") {
+    setThemeSetting("light");
+  } else if (themeSetting == "light") {
     setThemeSetting("dark");
   } else {
-    setThemeSetting("light");
+    setThemeSetting("system");
   }
 };
 
@@ -18,7 +20,7 @@ let setThemeSetting = (themeSetting) => {
     localStorage.removeItem("theme");
   }
 
-  document.documentElement.setAttribute("data-theme-setting", determineComputedTheme());
+  document.documentElement.setAttribute("data-theme-setting", determineThemeSetting());
 
   applyTheme();
 };
@@ -245,7 +247,7 @@ let determineComputedTheme = () => {
 };
 
 let initTheme = () => {
-  document.documentElement.setAttribute("data-theme-setting", determineComputedTheme());
+  document.documentElement.setAttribute("data-theme-setting", determineThemeSetting());
   applyTheme();
 
   // Add event listener to the theme toggle button.
@@ -262,7 +264,7 @@ let initTheme = () => {
     let systemThemeQuery = window.matchMedia("(prefers-color-scheme: dark)");
     let handleSystemThemeChange = function () {
       if (determineThemeSetting() == "system") {
-        document.documentElement.setAttribute("data-theme-setting", determineComputedTheme());
+        document.documentElement.setAttribute("data-theme-setting", "system");
         applyTheme();
       }
     };

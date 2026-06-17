@@ -334,5 +334,40 @@
     });
     window.addEventListener("resize", refreshPaperPanelHeight, { passive: true });
   }
+
+  function positionTopicDots() {
+    var gap = 6;
+    trigger.querySelectorAll(".rm-topic .rm-dot").forEach(function (dot) {
+      var label = dot.parentNode.querySelector(".rm-label");
+      if (!label) return;
+      var box;
+      try {
+        box = label.getBBox();
+      } catch (err) {
+        return;
+      }
+      if (!box || !box.width) return;
+      dot.setAttribute("cx", box.x - gap - dot.r.baseVal.value);
+      dot.setAttribute("cy", box.y + box.height / 2);
+    });
+  }
+
+  positionTopicDots();
+  window.addEventListener("load", positionTopicDots);
+  window.addEventListener("resize", positionTopicDots, { passive: true });
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(positionTopicDots);
+  }
+  // The map can live inside a panel that is hidden on load (getBBox fails while
+  // hidden), so re-measure once it actually becomes visible.
+  if ("IntersectionObserver" in window) {
+    var dotObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) positionTopicDots();
+      });
+    });
+    dotObserver.observe(trigger);
+  }
+
   hidePaperPanel();
 })();

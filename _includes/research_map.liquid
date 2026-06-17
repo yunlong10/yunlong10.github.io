@@ -11,9 +11,9 @@
       </defs>
 
       <!-- === Lines (back to front) === -->
-      <path d="M100,85 L470,85" stroke="#2563EB" stroke-width="6" fill="none" stroke-linecap="round"/>
-      <path d="M470,85 L830,85" stroke="#7C3AED" stroke-width="6" fill="none" stroke-linecap="round"/>
-      <path d="M170,160 L295,160 C375,160 455,75 470,85 C525,50 605,0 695,0 L695,0"
+      <path class="rm-line-blue" d="M100,85 L470,85" stroke="#2563EB" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <path class="rm-line-purple" d="M470,85 L830,85" stroke="#7C3AED" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <path class="rm-line-spatial" d="M170,160 L295,160 C375,160 455,75 470,85 C525,50 605,0 695,0 L695,0"
             stroke="#F9A8D4" stroke-width="6" fill="none" stroke-linecap="round"/>
       <path d="M430,0 L695,0" stroke="#38BDF8" stroke-width="6" fill="none" stroke-linecap="round"/>
       <path d="M100,85 C170,35 190,5 265,0 L295,0 C370,5 420,55 470,85"
@@ -32,22 +32,37 @@
       </g>
 
       <!-- Track labels -->
-      <text x="190" y="70" class="rm-label rm-topic" fill="#2563EB" data-paper-keys="tang2024avicuna,hua2024v2xum,tang2026takusen,tang2025catv,vidllmsurvey" role="button" tabindex="0" aria-label="Show temporal understanding papers">Temporal Understanding</text>
-      <text x="225" y="-10" class="rm-label rm-topic" fill="#DB2777" data-paper-keys="tang2025videor4,tang2025videolmm_posttraining,vidllmsurvey" role="button" tabindex="0" aria-label="Show video reasoning papers">Video Reasoning</text>
-      <text x="655" y="70" class="rm-label rm-topic" fill="#7C3AED" text-anchor="middle" data-paper-keys="tang2024cardiff,tang2025catv,tang2025videor4,vidllmsurvey" role="button" tabindex="0" aria-label="Show spatiotemporal LMMs and agents papers">Spatiotemporal LMMs/Agents</text>
-      <text x="535" y="-10" class="rm-label rm-topic" fill="#38BDF8" text-anchor="end" data-paper-keys="tang2024vidcompostion,tang2025mmperspective,vidllmsurvey" role="button" tabindex="0" aria-label="Show LMM evaluation papers">LMM Evaluation</text>
-      <text x="170" y="150" class="rm-label rm-topic" fill="#F9A8D4" data-paper-keys="tang2025mmperspective,vidllmsurvey" role="button" tabindex="0" aria-label="Show spatial understanding papers">Spatial Understanding</text>
+      <g class="rm-topic" data-paper-keys="tang2024avicuna,hua2024v2xum,tang2026takusen,tang2025catv,vidllmsurvey" role="button" tabindex="0" aria-label="Show temporal understanding papers">
+        <circle class="rm-dot rm-dot-blue" r="5" cx="179" cy="65" style="animation-delay:0s"/>
+        <text x="190" y="70" class="rm-label rm-text-blue" fill="#2563EB">Temporal Understanding</text>
+      </g>
+      <g class="rm-topic" data-paper-keys="tang2025videor4,tang2025videolmm_posttraining,vidllmsurvey" role="button" tabindex="0" aria-label="Show video reasoning papers">
+        <circle class="rm-dot" r="5" cx="214" cy="-15" fill="#DB2777" style="color:#DB2777;animation-delay:.45s"/>
+        <text x="225" y="-10" class="rm-label" fill="#DB2777">Video Reasoning</text>
+      </g>
+      <g class="rm-topic" data-paper-keys="tang2024cardiff,tang2025catv,tang2025videor4,vidllmsurvey" role="button" tabindex="0" aria-label="Show spatiotemporal LMMs and agents papers">
+        <circle class="rm-dot rm-dot-purple" r="5" cx="548" cy="65" style="animation-delay:.9s"/>
+        <text x="655" y="70" class="rm-label rm-text-purple" fill="#7C3AED" text-anchor="middle">Spatiotemporal LMMs/Agents</text>
+      </g>
+      <g class="rm-topic" data-paper-keys="tang2024vidcompostion,tang2025mmperspective,vidllmsurvey" role="button" tabindex="0" aria-label="Show LMM evaluation papers">
+        <circle class="rm-dot" r="5" cx="412" cy="-15" fill="#38BDF8" style="color:#38BDF8;animation-delay:1.35s"/>
+        <text x="535" y="-10" class="rm-label" fill="#38BDF8" text-anchor="end">LMM Evaluation</text>
+      </g>
+      <g class="rm-topic" data-paper-keys="tang2025mmperspective,vidllmsurvey" role="button" tabindex="0" aria-label="Show spatial understanding papers">
+        <circle class="rm-dot rm-dot-spatial" r="5" cx="159" cy="145" style="animation-delay:.7s"/>
+        <text x="170" y="150" class="rm-label rm-text-spatial" fill="#F9A8D4">Spatial Understanding</text>
+      </g>
 
       <!-- === Stations === -->
       <a href="https://github.com/yunlong10/AVicuna" target="_blank" class="rm-station" data-paper-key="tang2024avicuna" aria-label="Show AVicuna paper">
-        <circle cx="210" cy="85" r="8" fill="#2563EB"/>
+        <circle class="rm-fill-blue" cx="210" cy="85" r="8" fill="#2563EB"/>
         <circle cx="210" cy="85" r="5" class="rm-bg"/>
         <text x="210" y="107" class="rm-name" text-anchor="middle">AVicuna</text>
         <text x="210" y="120" class="rm-venue" text-anchor="middle">[AAAI '25]</text>
       </a>
 
       <a href="https://hanghuacs.github.io/v2xum/" target="_blank" class="rm-station" data-paper-key="hua2024v2xum" aria-label="Show V2Xum-LLM paper">
-        <circle cx="340" cy="85" r="8" fill="#2563EB"/>
+        <circle class="rm-fill-blue" cx="340" cy="85" r="8" fill="#2563EB"/>
         <circle cx="340" cy="85" r="5" class="rm-bg"/>
         <text x="340" y="107" class="rm-name" text-anchor="middle">V2Xum-LLM</text>
         <text x="340" y="120" class="rm-venue" text-anchor="middle">[AAAI '25]</text>
@@ -61,7 +76,7 @@
       </a>
 
       <a href="https://yunlong10.github.io/MMPerspective/" target="_blank" class="rm-station" data-paper-key="tang2025mmperspective" aria-label="Show MMPerspective paper">
-        <circle cx="695" cy="0" r="8" fill="#F9A8D4"/>
+        <circle class="rm-fill-spatial" cx="695" cy="0" r="8" fill="#F9A8D4"/>
         <path d="M687,0 A8,8 0 0,1 703,0 Z" fill="#38BDF8"/>
         <circle cx="695" cy="0" r="5" class="rm-bg"/>
         <text x="695" y="-23" class="rm-name" text-anchor="middle">MMPerspective</text>
@@ -76,7 +91,7 @@
       </a>
 
       <a href="https://ojs.aaai.org/index.php/AAAI/article/view/32785" target="_blank" class="rm-station" data-paper-key="tang2024cardiff" aria-label="Show CaRDiff paper">
-        <circle cx="590" cy="85" r="8" fill="#7C3AED"/>
+        <circle class="rm-fill-purple" cx="590" cy="85" r="8" fill="#7C3AED"/>
         <circle cx="590" cy="85" r="5" class="rm-bg"/>
         <text x="590" y="107" class="rm-name" text-anchor="middle">CaRDiff</text>
         <text x="590" y="120" class="rm-venue" text-anchor="middle">[AAAI '25]</text>
@@ -92,7 +107,7 @@
       </a>
 
       <a href="https://github.com/yunlong10/CAT-V" target="_blank" class="rm-station" data-paper-key="tang2025catv" aria-label="Show CAT-V paper">
-        <circle cx="710" cy="85" r="8" fill="#7C3AED"/>
+        <circle class="rm-fill-purple" cx="710" cy="85" r="8" fill="#7C3AED"/>
         <circle cx="710" cy="85" r="5" class="rm-bg"/>
         <text x="710" y="107" class="rm-name" text-anchor="middle">CAT-V</text>
         <text x="710" y="120" class="rm-venue" text-anchor="middle">[AAAI Demo '26]</text>
@@ -100,17 +115,17 @@
 
       <a href="https://yunlong10.github.io/Video-R4/" target="_blank" class="rm-station" data-paper-key="tang2025videor4" aria-label="Show Video-R4 paper">
         <circle cx="830" cy="85" r="8" fill="#DB2777"/>
-        <path d="M822,85 A8,8 0 0,1 838,85 Z" fill="#7C3AED"/>
+        <path class="rm-fill-purple" d="M822,85 A8,8 0 0,1 838,85 Z" fill="#7C3AED"/>
         <circle cx="830" cy="85" r="5" class="rm-bg"/>
         <text x="830" y="57" class="rm-name" text-anchor="middle">Video-R4</text>
         <text x="830" y="68" class="rm-venue" text-anchor="middle">[CVPR Findings '26]</text>
       </a>
 
       <!-- Dashed future lines -->
-      <path d="M838,82 L910,82" stroke="#7C3AED" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="6,5"/>
+      <path class="rm-line-purple" d="M838,82 L910,82" stroke="#7C3AED" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="6,5"/>
       <path d="M838,88 L910,88" stroke="#DB2777" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="6,5"/>
       <path d="M703,-2 C840,5 920,69 920,75" stroke="#38BDF8" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="6,5"/>
-      <path d="M703,2 C790,0 920,69 920,75" stroke="#F9A8D4" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="6,5"/>
+      <path class="rm-line-spatial" d="M703,2 C790,0 920,69 920,75" stroke="#F9A8D4" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="6,5"/>
 
       <!-- Future marker -->
       <circle cx="920" cy="85" r="12" fill="var(--global-text-color)"/>
