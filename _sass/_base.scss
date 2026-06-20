@@ -1807,23 +1807,28 @@ ul.task-list input[type="checkbox"] {
     width: 100%;
     margin: 0.5rem auto 0;
     text-align: center;
+    // The widget is a fixed 600px box; on narrow screens it is scaled down
+    // with a transform (see the inline script in about.md). Clip the
+    // leftover layout width so it never triggers horizontal overflow.
+    overflow: hidden;
 
     // The whos.amung.us widget injects a fixed-width container <span>
-    // (display:inline-block, width, and a stray margin-right:<width>px)
-    // that throws off centering, and it forgets position:relative so the
-    // absolutely-positioned map image/pins anchor to an outer ancestor.
-    // Target ONLY that direct-child container (the pins are also <span>s
-    // nested inside it and must keep their absolute positioning).
+    // (display:inline-block, width, and a stray margin-right:<width>px) and
+    // forgets position:relative, so the absolutely-positioned map image/pins
+    // anchor to an outer ancestor. Target ONLY that direct-child container
+    // (the pins are also <span>s nested inside it and must keep their
+    // absolute positioning). Centering + responsive scaling is handled by JS
+    // via transform; transform-origin must be top-left for the math to work.
     > span {
       position: relative !important;
       display: block !important;
-      margin-left: auto !important;
-      margin-right: auto !important;
+      margin: 0 !important;
       // The map image/pins are position:absolute with no offsets, so they
       // fall back to their static position. With inherited text-align:center
       // that static origin lands at the span's center, shoving the map ~half
       // its width to the right. Reset to left so they anchor at the edge.
       text-align: left !important;
+      transform-origin: top left !important;
     }
   }
 

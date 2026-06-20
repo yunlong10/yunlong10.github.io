@@ -198,6 +198,31 @@ Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://ww
       <script id="_waule0">var _wau_opt = { target: "_blank" }; var _wau = _wau || []; _wau.push(["map", "xarqno8oer", "le0", "600", "300", "dashmap", "heart-pink"]);</script>
       <script async src="//waust.at/m.js"></script>
     </div>
+    <script>
+      (function () {
+        var NAT_W = 600,
+          NAT_H = 300;
+        function fit() {
+          var map = document.querySelector('.misc-map');
+          if (!map) return;
+          var span = map.querySelector(':scope > span');
+          if (!span) return;
+          var w = map.clientWidth;
+          if (!w) return; // panel still collapsed/hidden
+          var scale = Math.min(1, w / NAT_W);
+          var offset = Math.max(0, (w - NAT_W * scale) / 2);
+          span.style.transform = 'translateX(' + offset + 'px) scale(' + scale + ')';
+          map.style.height = NAT_H * scale + 'px';
+        }
+        var map = document.querySelector('.misc-map');
+        if (!map) return;
+        if ('ResizeObserver' in window) new ResizeObserver(fit).observe(map);
+        else window.addEventListener('resize', fit);
+        // The widget injects its <span> asynchronously after a network call.
+        new MutationObserver(fit).observe(map, { childList: true, subtree: true });
+        fit();
+      })();
+    </script>
   </div>
 </section>
 
