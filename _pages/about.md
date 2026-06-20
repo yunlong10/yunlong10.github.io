@@ -195,7 +195,7 @@ Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://ww
     </ul>
     <!-- <h4 class="misc-heading">Visitor Map</h4> -->
     <div class="misc-map">
-      <script id="_waule0">var _wau = _wau || []; _wau.push(["map", "xarqno8oer", "le0", "600", "300", "dashmap", "heart-pink"]);</script>
+      <script id="_waule0">var _wau_opt = { target: "_blank" }; var _wau = _wau || []; _wau.push(["map", "xarqno8oer", "le0", "600", "300", "dashmap", "heart-pink"]);</script>
       <script async src="//waust.at/m.js"></script>
     </div>
   </div>
