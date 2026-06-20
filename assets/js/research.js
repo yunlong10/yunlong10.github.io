@@ -53,6 +53,21 @@
     return entry ? entry.closest("li") : null;
   }
 
+  // Papers that should only surface via the "Others" node, not in the hub
+  // (LMMs/Agents x Video Understanding) "all papers" view.
+  var OTHERS_ONLY_KEYS = ["tang2025ai4anime", "hua2024mmcomposition"];
+
+  function hubPaperItems() {
+    var excluded = new Set();
+    OTHERS_ONLY_KEYS.forEach(function (key) {
+      var li = paperItemForKey(key);
+      if (li) excluded.add(li);
+    });
+    return allPaperItems().filter(function (li) {
+      return !excluded.has(li);
+    });
+  }
+
   function paperKeysForNode(node) {
     if (!node) return [];
     var raw = node.getAttribute("data-paper-keys") || node.getAttribute("data-paper-key") || "";
@@ -88,8 +103,8 @@
   function paperItemsForNode(node) {
     if (!node) return [];
     if (node.getAttribute("data-paper-mode") === "all-cites") {
-      if (isDefaultSort()) return defaultOrderedItems(allPaperItems());
-      return allPaperItems().sort(function (a, b) {
+      if (isDefaultSort()) return defaultOrderedItems(hubPaperItems());
+      return hubPaperItems().sort(function (a, b) {
         var ar = a.querySelector(".row");
         var br = b.querySelector(".row");
         return parseCount(br && br.getAttribute("data-sort-cites")) - parseCount(ar && ar.getAttribute("data-sort-cites"));
@@ -258,8 +273,9 @@
     var items = paperItemsForNode(node);
     if (!items.length) return false;
 
+    var itemSet = new Set(items);
     allPaperItems().forEach(function (li) {
-      li.hidden = items.indexOf(li) === -1;
+      li.hidden = !itemSet.has(li);
     });
     if (items[0] && items[0].parentElement) {
       var list = items[0].parentElement;
@@ -352,9 +368,15 @@
     });
   }
 
+  var positionTopicDotsTimer = null;
+  function positionTopicDotsDebounced() {
+    window.clearTimeout(positionTopicDotsTimer);
+    positionTopicDotsTimer = window.setTimeout(positionTopicDots, 120);
+  }
+
   positionTopicDots();
   window.addEventListener("load", positionTopicDots);
-  window.addEventListener("resize", positionTopicDots, { passive: true });
+  window.addEventListener("resize", positionTopicDotsDebounced, { passive: true });
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(positionTopicDots);
   }

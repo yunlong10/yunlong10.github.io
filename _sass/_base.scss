@@ -1867,7 +1867,19 @@ ul.task-list input[type="checkbox"] {
     display: none;
   }
 
-  &.is-inline-panel-open article::after {
+  // The closing line is no longer shown at the bottom of the article; for
+  // every panel it sits just below the 4 quick-link buttons instead
+  // (.about-panel-divider). So article::after stays hidden in all states.
+
+  .about-panel-divider {
+    display: none;
+    width: min(8rem, 34%);
+    height: 1px;
+    margin: 1.4rem auto 0.2rem;
+    background: var(--about-kasumi-line);
+  }
+
+  &.is-inline-panel-open .about-panel-divider {
     display: block;
   }
 

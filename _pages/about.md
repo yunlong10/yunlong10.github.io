@@ -140,6 +140,8 @@ Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://ww
   </a>
 </nav>
 
+<div class="about-panel-divider" aria-hidden="true"></div>
+
 <section id="about-research-panel" class="about-inline-panel about-inline-research research-jp" data-about-panel="research" aria-label="Research" hidden>
   <div class="about-inline-panel-inner">
     {% include research_map.liquid %}
@@ -218,8 +220,14 @@ Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://ww
         if (!map) return;
         if ('ResizeObserver' in window) new ResizeObserver(fit).observe(map);
         else window.addEventListener('resize', fit);
-        // The widget injects its <span> asynchronously after a network call.
-        new MutationObserver(fit).observe(map, { childList: true, subtree: true });
+        // The widget injects its <span> asynchronously after a network call;
+        // observe only until it appears, then disconnect to avoid perpetual
+        // fit() calls (and forced layouts) on every later widget DOM change.
+        var injectionObserver = new MutationObserver(function () {
+          fit();
+          if (map.querySelector(':scope > span')) injectionObserver.disconnect();
+        });
+        injectionObserver.observe(map, { childList: true, subtree: true });
         fit();
       })();
     </script>
