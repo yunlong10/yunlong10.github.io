@@ -188,10 +188,16 @@ Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://ww
 
 <section id="about-misc-panel" class="about-inline-panel about-inline-simple misc-jp" data-about-panel="misc" aria-label="Misc." hidden>
   <div class="about-inline-panel-inner">
+    <!-- <h4 class="misc-heading">Good to Know</h4> -->
     <ul class="misc-list">
       <li>Please don't deadname or misgender Yolo. She prefers Yolo (in English) or 芸珑 (in Mandarin).</li>
       <li>Yolo is really into J-pop, <a href="{{ '/gallery/' | relative_url }}">painting</a>, and cosplay — maybe she's just cosplaying as a researcher :)</li>
     </ul>
+    <!-- <h4 class="misc-heading">Visitor Map</h4> -->
+    <div class="misc-map">
+      <script id="_waule0">var _wau = _wau || []; _wau.push(["map", "xarqno8oer", "le0", "600", "300", "dashmap", "heart-pink"]);</script>
+      <script async src="//waust.at/m.js"></script>
+    </div>
   </div>
 </section>
 

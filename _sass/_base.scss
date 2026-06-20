@@ -1772,6 +1772,20 @@ ul.task-list input[type="checkbox"] {
     color: color-mix(in srgb, var(--global-text-color) 50%, var(--global-bg-color));
   }
 
+  .misc-heading {
+    margin: 1.6rem 0 0.9rem;
+    text-align: center;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--global-text-color) 70%, var(--global-bg-color));
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
   .misc-list {
     list-style: disc;
     width: fit-content;
@@ -1785,6 +1799,31 @@ ul.task-list input[type="checkbox"] {
       display: list-item;
       list-style: disc;
       margin-bottom: 0.75rem;
+    }
+  }
+
+  .misc-map {
+    display: block;
+    width: 100%;
+    margin: 0.5rem auto 0;
+    text-align: center;
+
+    // The whos.amung.us widget injects a fixed-width container <span>
+    // (display:inline-block, width, and a stray margin-right:<width>px)
+    // that throws off centering, and it forgets position:relative so the
+    // absolutely-positioned map image/pins anchor to an outer ancestor.
+    // Target ONLY that direct-child container (the pins are also <span>s
+    // nested inside it and must keep their absolute positioning).
+    > span {
+      position: relative !important;
+      display: block !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      // The map image/pins are position:absolute with no offsets, so they
+      // fall back to their static position. With inherited text-align:center
+      // that static origin lands at the span's center, shoving the map ~half
+      // its width to the right. Reset to left so they anchor at the edge.
+      text-align: left !important;
     }
   }
 
