@@ -55,7 +55,7 @@
 
   // Papers that should only surface via the "Others" node, not in the hub
   // (LMMs/Agents x Video Understanding) "all papers" view.
-  var OTHERS_ONLY_KEYS = ["tang2025ai4anime", "hua2024mmcomposition"];
+  var OTHERS_ONLY_KEYS = ["tang2025ai4anime", "hua2024mmcomposition", "wang2023caption"];
 
   function hubPaperItems() {
     var excluded = new Set();

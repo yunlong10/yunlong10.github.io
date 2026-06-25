@@ -439,7 +439,7 @@
         var show = filter === '*' || tags.indexOf(filter) !== -1;
         posts[p].style.display = show ? '' : 'none';
       }
-      layoutMasonry();
+      requestMasonryLayout();
     }
 
     for (var f = 0; f < filterButtons.length; f++) {
@@ -530,6 +530,15 @@
     var masonryGap = 24;
     var masonryTarget = 340;
     var masonryLastWidth = 0;
+    var masonryFrame = 0;
+
+    function requestMasonryLayout() {
+      if (masonryFrame) return;
+      masonryFrame = window.requestAnimationFrame(function () {
+        masonryFrame = 0;
+        layoutMasonry();
+      });
+    }
 
     function layoutMasonry() {
       if (!feed) return;
@@ -575,24 +584,38 @@
       layoutMasonry();
       var feedImages = feed.querySelectorAll('img');
       for (var fi = 0; fi < feedImages.length; fi++) {
-        if (feedImages[fi].complete) continue;
-        feedImages[fi].addEventListener('load', layoutMasonry);
-        feedImages[fi].addEventListener('error', layoutMasonry);
+        if (feedImages[fi].complete) {
+          if (feedImages[fi].decode) feedImages[fi].decode().then(requestMasonryLayout).catch(requestMasonryLayout);
+          continue;
+        }
+        feedImages[fi].addEventListener('load', requestMasonryLayout);
+        feedImages[fi].addEventListener('error', requestMasonryLayout);
       }
-      window.addEventListener('load', layoutMasonry);
+      var feedVideos = feed.querySelectorAll('video');
+      for (var fv = 0; fv < feedVideos.length; fv++) {
+        feedVideos[fv].addEventListener('loadedmetadata', requestMasonryLayout);
+        feedVideos[fv].addEventListener('loadeddata', requestMasonryLayout);
+      }
+      window.addEventListener('load', requestMasonryLayout);
       var resizeTimer;
       window.addEventListener('resize', function () {
         window.clearTimeout(resizeTimer);
-        resizeTimer = window.setTimeout(layoutMasonry, 120);
+        resizeTimer = window.setTimeout(requestMasonryLayout, 120);
       });
       if (document.fonts && document.fonts.ready) {
-        document.fonts.ready.then(layoutMasonry);
+        document.fonts.ready.then(requestMasonryLayout);
       }
       if (window.ResizeObserver) {
-        var ro = new ResizeObserver(function () {
-          if (feed.clientWidth && feed.clientWidth !== masonryLastWidth) layoutMasonry();
+        var feedObserver = new ResizeObserver(function () {
+          if (feed.clientWidth && feed.clientWidth !== masonryLastWidth) requestMasonryLayout();
         });
-        ro.observe(feed);
+        feedObserver.observe(feed);
+
+        var itemObserver = new ResizeObserver(requestMasonryLayout);
+        var observedItems = feed.querySelectorAll('.ig-post');
+        for (var oi = 0; oi < observedItems.length; oi++) {
+          itemObserver.observe(observedItems[oi]);
+        }
       }
     }
   })();

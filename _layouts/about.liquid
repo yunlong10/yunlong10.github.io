@@ -141,7 +141,7 @@ layout: default
     var autoCycleIndex = 0;
     var pointerOffset = 1;
     var mascotRevealFallbackMs = 360;
-    var typingSpeedMs = 16;
+    var typingSpeedMs = 8;
     var autoCycleIntervalMs = 15000;
     var autoCycleMeowIntervalMs = 7000;
     var autoCycleInitialDelayMs = 10000;
@@ -340,7 +340,7 @@ layout: default
         caret.remove();
       }
 
-      window.setTimeout(typeNextCharacter, 180);
+      window.setTimeout(typeNextCharacter, 90);
     }
 
     typePromptText();
