@@ -1,5 +1,5 @@
 % $ biblatex auxiliary file $
-% $ biblatex bbl format version 3.2 $
+% $ biblatex bbl format version 3.3 $
 % Do not modify the above lines!
 %
 % This is an auxiliary file used by the 'biblatex' package.
@@ -18,8 +18,8 @@
 
 
 \refsection{0}
-  \datalist[entry]{none/global//global/global}
-    \entry{tang2025videor4}{inproceedings}{}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{tang2025videor4}{inproceedings}{}{}
       \name{author}{7}{}{%
         {{hash=889326e8920afc06a75b992128ec34e2}{%
            family={\textbf{Tang}},
@@ -59,10 +59,12 @@
       }
       \strng{namehash}{d32a824a3aadb7ebddfebb317448c47a}
       \strng{fullhash}{63e766c6b856e7e8ce1c235fd30fe236}
+      \strng{fullhashraw}{63e766c6b856e7e8ce1c235fd30fe236}
       \strng{bibnamehash}{63e766c6b856e7e8ce1c235fd30fe236}
       \strng{authorbibnamehash}{63e766c6b856e7e8ce1c235fd30fe236}
       \strng{authornamehash}{d32a824a3aadb7ebddfebb317448c47a}
       \strng{authorfullhash}{63e766c6b856e7e8ce1c235fd30fe236}
+      \strng{authorfullhashraw}{63e766c6b856e7e8ce1c235fd30fe236}
       \field{extraname}{1}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
@@ -80,7 +82,7 @@
       \endverb
       \keyw{conference}
     \endentry
-    \entry{tang2026takusen}{inproceedings}{}
+    \entry{tang2026takusen}{inproceedings}{}{}
       \name{author}{7}{}{%
         {{hash=889326e8920afc06a75b992128ec34e2}{%
            family={\textbf{Tang}},
@@ -120,10 +122,12 @@
       }
       \strng{namehash}{d32a824a3aadb7ebddfebb317448c47a}
       \strng{fullhash}{fc4c8f5aadf7fae738d609e321f7f550}
+      \strng{fullhashraw}{fc4c8f5aadf7fae738d609e321f7f550}
       \strng{bibnamehash}{fc4c8f5aadf7fae738d609e321f7f550}
       \strng{authorbibnamehash}{fc4c8f5aadf7fae738d609e321f7f550}
       \strng{authornamehash}{d32a824a3aadb7ebddfebb317448c47a}
       \strng{authorfullhash}{fc4c8f5aadf7fae738d609e321f7f550}
+      \strng{authorfullhashraw}{fc4c8f5aadf7fae738d609e321f7f550}
       \field{extraname}{2}
       \field{sortinit}{2}
       \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
@@ -135,13 +139,13 @@
       \true{nocite}
       \keyw{conference}
     \endentry
-    \entry{vidllmsurvey}{article}{}
+    \entry{vidllmsurvey}{article}{}{}
       \name{author}{20}{}{%
-        {{hash=a0752705aa3335ed768d4ddceb6b31c0}{%
+        {{hash=889326e8920afc06a75b992128ec34e2}{%
            family={\textbf{Tang}},
            familyi={T\bibinitperiod},
-           given={\textbf{Yunlong}},
-           giveni={Y\bibinitperiod}}}%
+           given={\textbf{Yolo\bibnamedelimb Y.}},
+           giveni={Y\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
         {{hash=50cc5c01544a1fa95324e7a12c638685}{%
            family={Bi},
            familyi={B\bibinitperiod},
@@ -238,12 +242,14 @@
            given={Chenliang},
            giveni={C\bibinitperiod}}}%
       }
-      \strng{namehash}{8c736be384c4454b0174c8ae4d14b06e}
-      \strng{fullhash}{71a0d5bf8ef2ead31d35ff7b02029036}
-      \strng{bibnamehash}{71a0d5bf8ef2ead31d35ff7b02029036}
-      \strng{authorbibnamehash}{71a0d5bf8ef2ead31d35ff7b02029036}
-      \strng{authornamehash}{8c736be384c4454b0174c8ae4d14b06e}
-      \strng{authorfullhash}{71a0d5bf8ef2ead31d35ff7b02029036}
+      \strng{namehash}{d32a824a3aadb7ebddfebb317448c47a}
+      \strng{fullhash}{ff3cddae7aa5574537897bbcf209a526}
+      \strng{fullhashraw}{ff3cddae7aa5574537897bbcf209a526}
+      \strng{bibnamehash}{ff3cddae7aa5574537897bbcf209a526}
+      \strng{authorbibnamehash}{ff3cddae7aa5574537897bbcf209a526}
+      \strng{authornamehash}{d32a824a3aadb7ebddfebb317448c47a}
+      \strng{authorfullhash}{ff3cddae7aa5574537897bbcf209a526}
+      \strng{authorfullhashraw}{ff3cddae7aa5574537897bbcf209a526}
       \field{extraname}{3}
       \field{sortinit}{3}
       \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
@@ -260,13 +266,13 @@
       \endverb
       \keyw{conference}
     \endentry
-    \entry{tang2025mmperspective}{inproceedings}{}
+    \entry{tang2025mmperspective}{inproceedings}{}{}
       \name{author}{14}{}{%
-        {{hash=2e52f47c5d5d5393c86cd8963d69da2c}{%
+        {{hash=c2350a635163e9c511c82c3ff8366a7e}{%
            family={\textbf{Tang*}},
            familyi={T\bibinitperiod},
-           given={\textbf{Yunlong}},
-           giveni={Y\bibinitperiod}}}%
+           given={\textbf{Yolo\bibnamedelimb Y.}},
+           giveni={Y\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
         {{hash=e6d6aa5b44fa73fad8e9319ca68ba939}{%
            family={Liu*},
            familyi={L\bibinitperiod},
@@ -333,12 +339,14 @@
            given={Chenliang},
            giveni={C\bibinitperiod}}}%
       }
-      \strng{namehash}{c367f4d93efdbfe6641a03c688c57168}
-      \strng{fullhash}{0445947d9d7bcc0a36f1051aad73d08e}
-      \strng{bibnamehash}{0445947d9d7bcc0a36f1051aad73d08e}
-      \strng{authorbibnamehash}{0445947d9d7bcc0a36f1051aad73d08e}
-      \strng{authornamehash}{c367f4d93efdbfe6641a03c688c57168}
-      \strng{authorfullhash}{0445947d9d7bcc0a36f1051aad73d08e}
+      \strng{namehash}{093a3ec1af78a4937377a0e7416e5f0a}
+      \strng{fullhash}{d9e702000617611987f24ec0974d80d1}
+      \strng{fullhashraw}{d9e702000617611987f24ec0974d80d1}
+      \strng{bibnamehash}{d9e702000617611987f24ec0974d80d1}
+      \strng{authorbibnamehash}{d9e702000617611987f24ec0974d80d1}
+      \strng{authornamehash}{093a3ec1af78a4937377a0e7416e5f0a}
+      \strng{authorfullhash}{d9e702000617611987f24ec0974d80d1}
+      \strng{authorfullhashraw}{d9e702000617611987f24ec0974d80d1}
       \field{extraname}{1}
       \field{sortinit}{4}
       \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
@@ -356,13 +364,13 @@
       \endverb
       \keyw{conference}
     \endentry
-    \entry{tang2024vidcompostion}{inproceedings}{}
+    \entry{tang2024vidcompostion}{inproceedings}{}{}
       \name{author}{12}{}{%
-        {{hash=2e52f47c5d5d5393c86cd8963d69da2c}{%
+        {{hash=c2350a635163e9c511c82c3ff8366a7e}{%
            family={\textbf{Tang*}},
            familyi={T\bibinitperiod},
-           given={\textbf{Yunlong}},
-           giveni={Y\bibinitperiod}}}%
+           given={\textbf{Yolo\bibnamedelimb Y.}},
+           giveni={Y\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
         {{hash=21f5c5e7590ea644886513de2547c3e7}{%
            family={Guo*},
            familyi={G\bibinitperiod},
@@ -419,12 +427,14 @@
            given={Chenliang},
            giveni={C\bibinitperiod}}}%
       }
-      \strng{namehash}{c367f4d93efdbfe6641a03c688c57168}
-      \strng{fullhash}{7ea42549f98f81078951271dcb49bfb4}
-      \strng{bibnamehash}{7ea42549f98f81078951271dcb49bfb4}
-      \strng{authorbibnamehash}{7ea42549f98f81078951271dcb49bfb4}
-      \strng{authornamehash}{c367f4d93efdbfe6641a03c688c57168}
-      \strng{authorfullhash}{7ea42549f98f81078951271dcb49bfb4}
+      \strng{namehash}{093a3ec1af78a4937377a0e7416e5f0a}
+      \strng{fullhash}{6e222d9444ca0f54ca45a778e73db68b}
+      \strng{fullhashraw}{6e222d9444ca0f54ca45a778e73db68b}
+      \strng{bibnamehash}{6e222d9444ca0f54ca45a778e73db68b}
+      \strng{authorbibnamehash}{6e222d9444ca0f54ca45a778e73db68b}
+      \strng{authornamehash}{093a3ec1af78a4937377a0e7416e5f0a}
+      \strng{authorfullhash}{6e222d9444ca0f54ca45a778e73db68b}
+      \strng{authorfullhashraw}{6e222d9444ca0f54ca45a778e73db68b}
       \field{extraname}{2}
       \field{sortinit}{5}
       \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
@@ -442,13 +452,13 @@
       \endverb
       \keyw{conference}
     \endentry
-    \entry{tang2025catv}{article}{}
+    \entry{tang2025catv}{article}{}{}
       \name{author}{19}{}{%
-        {{hash=a0752705aa3335ed768d4ddceb6b31c0}{%
+        {{hash=889326e8920afc06a75b992128ec34e2}{%
            family={\textbf{Tang}},
            familyi={T\bibinitperiod},
-           given={\textbf{Yunlong}},
-           giveni={Y\bibinitperiod}}}%
+           given={\textbf{Yolo\bibnamedelimb Y.}},
+           giveni={Y\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
         {{hash=50cc5c01544a1fa95324e7a12c638685}{%
            family={Bi},
            familyi={B\bibinitperiod},
@@ -540,12 +550,14 @@
            given={Chenliang},
            giveni={C\bibinitperiod}}}%
       }
-      \strng{namehash}{8c736be384c4454b0174c8ae4d14b06e}
-      \strng{fullhash}{a55aeb3426e697773721425c7e2269bc}
-      \strng{bibnamehash}{a55aeb3426e697773721425c7e2269bc}
-      \strng{authorbibnamehash}{a55aeb3426e697773721425c7e2269bc}
-      \strng{authornamehash}{8c736be384c4454b0174c8ae4d14b06e}
-      \strng{authorfullhash}{a55aeb3426e697773721425c7e2269bc}
+      \strng{namehash}{d32a824a3aadb7ebddfebb317448c47a}
+      \strng{fullhash}{53600519177fc4d2d0a825daab709243}
+      \strng{fullhashraw}{53600519177fc4d2d0a825daab709243}
+      \strng{bibnamehash}{53600519177fc4d2d0a825daab709243}
+      \strng{authorbibnamehash}{53600519177fc4d2d0a825daab709243}
+      \strng{authornamehash}{d32a824a3aadb7ebddfebb317448c47a}
+      \strng{authorfullhash}{53600519177fc4d2d0a825daab709243}
+      \strng{authorfullhashraw}{53600519177fc4d2d0a825daab709243}
       \field{extraname}{4}
       \field{sortinit}{6}
       \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
@@ -564,13 +576,13 @@
       \endverb
       \keyw{conference}
     \endentry
-    \entry{tang2024avicuna}{inproceedings}{}
+    \entry{tang2024avicuna}{inproceedings}{}{}
       \name{author}{6}{}{%
-        {{hash=a0752705aa3335ed768d4ddceb6b31c0}{%
+        {{hash=889326e8920afc06a75b992128ec34e2}{%
            family={\textbf{Tang}},
            familyi={T\bibinitperiod},
-           given={\textbf{Yunlong}},
-           giveni={Y\bibinitperiod}}}%
+           given={\textbf{Yolo\bibnamedelimb Y.}},
+           giveni={Y\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
         {{hash=692dc527cb0125548caf961239103213}{%
            family={Shimada},
            familyi={S\bibinitperiod},
@@ -597,12 +609,14 @@
            given={Chenliang},
            giveni={C\bibinitperiod}}}%
       }
-      \strng{namehash}{8c736be384c4454b0174c8ae4d14b06e}
-      \strng{fullhash}{d0be679cd8d4630fdef0632ebc846a92}
-      \strng{bibnamehash}{d0be679cd8d4630fdef0632ebc846a92}
-      \strng{authorbibnamehash}{d0be679cd8d4630fdef0632ebc846a92}
-      \strng{authornamehash}{8c736be384c4454b0174c8ae4d14b06e}
-      \strng{authorfullhash}{d0be679cd8d4630fdef0632ebc846a92}
+      \strng{namehash}{d32a824a3aadb7ebddfebb317448c47a}
+      \strng{fullhash}{9c87c870fa75844362562827e1fe510a}
+      \strng{fullhashraw}{9c87c870fa75844362562827e1fe510a}
+      \strng{bibnamehash}{9c87c870fa75844362562827e1fe510a}
+      \strng{authorbibnamehash}{9c87c870fa75844362562827e1fe510a}
+      \strng{authornamehash}{d32a824a3aadb7ebddfebb317448c47a}
+      \strng{authorfullhash}{9c87c870fa75844362562827e1fe510a}
+      \strng{authorfullhashraw}{9c87c870fa75844362562827e1fe510a}
       \field{extraname}{5}
       \field{sortinit}{7}
       \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
@@ -620,18 +634,18 @@
       \endverb
       \keyw{conference}
     \endentry
-    \entry{hua2024v2xum}{inproceedings}{}
+    \entry{hua2024v2xum}{inproceedings}{}{}
       \name{author}{4}{}{%
         {{hash=2f87723eb7539b6e3b8047f4a668b6ce}{%
            family={Hua*},
            familyi={H\bibinitperiod},
            given={Hang},
            giveni={H\bibinitperiod}}}%
-        {{hash=2e52f47c5d5d5393c86cd8963d69da2c}{%
+        {{hash=c2350a635163e9c511c82c3ff8366a7e}{%
            family={\textbf{Tang*}},
            familyi={T\bibinitperiod},
-           given={\textbf{Yunlong}},
-           giveni={Y\bibinitperiod}}}%
+           given={\textbf{Yolo\bibnamedelimb Y.}},
+           giveni={Y\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
         {{hash=72713df178c18b10a3339615b92e3887}{%
            family={Xu},
            familyi={X\bibinitperiod},
@@ -644,11 +658,13 @@
            giveni={J\bibinitperiod}}}%
       }
       \strng{namehash}{6ee00d11bc8c907fafa616ff0d0ba8f8}
-      \strng{fullhash}{183cca0debabb1bd2fbe2f8c430eac96}
-      \strng{bibnamehash}{183cca0debabb1bd2fbe2f8c430eac96}
-      \strng{authorbibnamehash}{183cca0debabb1bd2fbe2f8c430eac96}
+      \strng{fullhash}{eb86ed9cd324f4e03e0f342ed2394b53}
+      \strng{fullhashraw}{eb86ed9cd324f4e03e0f342ed2394b53}
+      \strng{bibnamehash}{eb86ed9cd324f4e03e0f342ed2394b53}
+      \strng{authorbibnamehash}{eb86ed9cd324f4e03e0f342ed2394b53}
       \strng{authornamehash}{6ee00d11bc8c907fafa616ff0d0ba8f8}
-      \strng{authorfullhash}{183cca0debabb1bd2fbe2f8c430eac96}
+      \strng{authorfullhash}{eb86ed9cd324f4e03e0f342ed2394b53}
+      \strng{authorfullhashraw}{eb86ed9cd324f4e03e0f342ed2394b53}
       \field{sortinit}{8}
       \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
       \field{labelnamesource}{author}
@@ -665,13 +681,13 @@
       \endverb
       \keyw{conference}
     \endentry
-    \entry{tang2024cardiff}{inproceedings}{}
+    \entry{tang2024cardiff}{inproceedings}{}{}
       \name{author}{5}{}{%
-        {{hash=a0752705aa3335ed768d4ddceb6b31c0}{%
+        {{hash=889326e8920afc06a75b992128ec34e2}{%
            family={\textbf{Tang}},
            familyi={T\bibinitperiod},
-           given={\textbf{Yunlong}},
-           giveni={Y\bibinitperiod}}}%
+           given={\textbf{Yolo\bibnamedelimb Y.}},
+           giveni={Y\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
         {{hash=a2647c483590ac28823ea9d28410ef07}{%
            family={Zhan},
            familyi={Z\bibinitperiod},
@@ -693,12 +709,14 @@
            given={Chenliang},
            giveni={C\bibinitperiod}}}%
       }
-      \strng{namehash}{8c736be384c4454b0174c8ae4d14b06e}
-      \strng{fullhash}{5f5b369e8fc3ea5885e983cc2932f944}
-      \strng{bibnamehash}{5f5b369e8fc3ea5885e983cc2932f944}
-      \strng{authorbibnamehash}{5f5b369e8fc3ea5885e983cc2932f944}
-      \strng{authornamehash}{8c736be384c4454b0174c8ae4d14b06e}
-      \strng{authorfullhash}{5f5b369e8fc3ea5885e983cc2932f944}
+      \strng{namehash}{d32a824a3aadb7ebddfebb317448c47a}
+      \strng{fullhash}{b3e09ab3e003be5dcd5218f137174387}
+      \strng{fullhashraw}{b3e09ab3e003be5dcd5218f137174387}
+      \strng{bibnamehash}{b3e09ab3e003be5dcd5218f137174387}
+      \strng{authorbibnamehash}{b3e09ab3e003be5dcd5218f137174387}
+      \strng{authornamehash}{d32a824a3aadb7ebddfebb317448c47a}
+      \strng{authorfullhash}{b3e09ab3e003be5dcd5218f137174387}
+      \strng{authorfullhashraw}{b3e09ab3e003be5dcd5218f137174387}
       \field{extraname}{6}
       \field{sortinit}{9}
       \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
@@ -716,7 +734,7 @@
       \endverb
       \keyw{conference}
     \endentry
-    \entry{tang2025videolmm_posttraining}{article}{}
+    \entry{tang2025videolmm_posttraining}{article}{}{}
       \name{author}{27}{}{%
         {{hash=889326e8920afc06a75b992128ec34e2}{%
            family={\textbf{Tang}},
@@ -856,10 +874,12 @@
       }
       \strng{namehash}{d32a824a3aadb7ebddfebb317448c47a}
       \strng{fullhash}{7ab840e9c278addf7fcc76c200186441}
+      \strng{fullhashraw}{7ab840e9c278addf7fcc76c200186441}
       \strng{bibnamehash}{7ab840e9c278addf7fcc76c200186441}
       \strng{authorbibnamehash}{7ab840e9c278addf7fcc76c200186441}
       \strng{authornamehash}{d32a824a3aadb7ebddfebb317448c47a}
       \strng{authorfullhash}{7ab840e9c278addf7fcc76c200186441}
+      \strng{authorfullhashraw}{7ab840e9c278addf7fcc76c200186441}
       \field{extraname}{7}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
@@ -877,7 +897,7 @@
       \endverb
       \keyw{conference}
     \endentry
-    \entry{bi2024unveiling}{inproceedings}{}
+    \entry{bi2024unveiling}{inproceedings}{}{}
       \name{author}{6}{}{%
         {{hash=50cc5c01544a1fa95324e7a12c638685}{%
            family={Bi},
@@ -912,10 +932,12 @@
       }
       \strng{namehash}{bd9944b5a0df36cfba3081f01f6c7d50}
       \strng{fullhash}{32a65b3d0762409941d264a6b774bbce}
+      \strng{fullhashraw}{32a65b3d0762409941d264a6b774bbce}
       \strng{bibnamehash}{32a65b3d0762409941d264a6b774bbce}
       \strng{authorbibnamehash}{32a65b3d0762409941d264a6b774bbce}
       \strng{authornamehash}{bd9944b5a0df36cfba3081f01f6c7d50}
       \strng{authorfullhash}{32a65b3d0762409941d264a6b774bbce}
+      \strng{authorfullhashraw}{32a65b3d0762409941d264a6b774bbce}
       \field{extraname}{1}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
@@ -933,18 +955,18 @@
       \endverb
       \keyw{conference}
     \endentry
-    \entry{bi2024eagle}{inproceedings}{}
+    \entry{bi2024eagle}{inproceedings}{}{}
       \name{author}{6}{}{%
         {{hash=50cc5c01544a1fa95324e7a12c638685}{%
            family={Bi},
            familyi={B\bibinitperiod},
            given={Jing},
            giveni={J\bibinitperiod}}}%
-        {{hash=a0752705aa3335ed768d4ddceb6b31c0}{%
+        {{hash=889326e8920afc06a75b992128ec34e2}{%
            family={\textbf{Tang}},
            familyi={T\bibinitperiod},
-           given={\textbf{Yunlong}},
-           giveni={Y\bibinitperiod}}}%
+           given={\textbf{Yolo\bibnamedelimb Y.}},
+           giveni={Y\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
         {{hash=b5d5dd426a9c72cb206ff2dc2edb91ee}{%
            family={Song},
            familyi={S\bibinitperiod},
@@ -967,11 +989,13 @@
            giveni={C\bibinitperiod}}}%
       }
       \strng{namehash}{bd9944b5a0df36cfba3081f01f6c7d50}
-      \strng{fullhash}{6cb67c27cbeed25c32626ec9f216f347}
-      \strng{bibnamehash}{6cb67c27cbeed25c32626ec9f216f347}
-      \strng{authorbibnamehash}{6cb67c27cbeed25c32626ec9f216f347}
+      \strng{fullhash}{fc80e3b26a16a6b16b01b280f138af85}
+      \strng{fullhashraw}{fc80e3b26a16a6b16b01b280f138af85}
+      \strng{bibnamehash}{fc80e3b26a16a6b16b01b280f138af85}
+      \strng{authorbibnamehash}{fc80e3b26a16a6b16b01b280f138af85}
       \strng{authornamehash}{bd9944b5a0df36cfba3081f01f6c7d50}
-      \strng{authorfullhash}{6cb67c27cbeed25c32626ec9f216f347}
+      \strng{authorfullhash}{fc80e3b26a16a6b16b01b280f138af85}
+      \strng{authorfullhashraw}{fc80e3b26a16a6b16b01b280f138af85}
       \field{extraname}{2}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
@@ -989,13 +1013,13 @@
       \endverb
       \keyw{conference}
     \endentry
-    \entry{tang2023llmva}{inproceedings}{}
+    \entry{tang2023llmva}{inproceedings}{}{}
       \name{author}{5}{}{%
-        {{hash=a0752705aa3335ed768d4ddceb6b31c0}{%
+        {{hash=889326e8920afc06a75b992128ec34e2}{%
            family={\textbf{Tang}},
            familyi={T\bibinitperiod},
-           given={\textbf{Yunlong}},
-           giveni={Y\bibinitperiod}}}%
+           given={\textbf{Yolo\bibnamedelimb Y.}},
+           giveni={Y\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
         {{hash=3d7fd96457e34c4ac2bb092bb7737ffc}{%
            family={Zhang},
            familyi={Z\bibinitperiod},
@@ -1017,12 +1041,14 @@
            given={Feng},
            giveni={F\bibinitperiod}}}%
       }
-      \strng{namehash}{8c736be384c4454b0174c8ae4d14b06e}
-      \strng{fullhash}{a208241a257bbbc63f84aae9d1351a20}
-      \strng{bibnamehash}{a208241a257bbbc63f84aae9d1351a20}
-      \strng{authorbibnamehash}{a208241a257bbbc63f84aae9d1351a20}
-      \strng{authornamehash}{8c736be384c4454b0174c8ae4d14b06e}
-      \strng{authorfullhash}{a208241a257bbbc63f84aae9d1351a20}
+      \strng{namehash}{d32a824a3aadb7ebddfebb317448c47a}
+      \strng{fullhash}{a396e1eabd7ec33c55c3d76ebf723ef5}
+      \strng{fullhashraw}{a396e1eabd7ec33c55c3d76ebf723ef5}
+      \strng{bibnamehash}{a396e1eabd7ec33c55c3d76ebf723ef5}
+      \strng{authorbibnamehash}{a396e1eabd7ec33c55c3d76ebf723ef5}
+      \strng{authornamehash}{d32a824a3aadb7ebddfebb317448c47a}
+      \strng{authorfullhash}{a396e1eabd7ec33c55c3d76ebf723ef5}
+      \strng{authorfullhashraw}{a396e1eabd7ec33c55c3d76ebf723ef5}
       \field{extraname}{8}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
@@ -1040,7 +1066,7 @@
       \endverb
       \keyw{conference}
     \endentry
-    \entry{wang2023caption}{article}{}
+    \entry{wang2023caption}{article}{}{}
       \name{author}{8}{}{%
         {{hash=18c39e90becae71b14f8589b5e8a0b50}{%
            family={Wang*},
@@ -1062,11 +1088,11 @@
            familyi={Z\bibinitperiod},
            given={Hao},
            giveni={H\bibinitperiod}}}%
-        {{hash=a0752705aa3335ed768d4ddceb6b31c0}{%
+        {{hash=889326e8920afc06a75b992128ec34e2}{%
            family={\textbf{Tang}},
            familyi={T\bibinitperiod},
-           given={\textbf{Yunlong}},
-           giveni={Y\bibinitperiod}}}%
+           given={\textbf{Yolo\bibnamedelimb Y.}},
+           giveni={Y\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
         {{hash=e24bcca01cf5890a6b9ac6ccb5b492f8}{%
            family={Li},
            familyi={L\bibinitperiod},
@@ -1084,11 +1110,13 @@
            giveni={S\bibinitperiod}}}%
       }
       \strng{namehash}{3b4b501b690fa625b323f025ea583b51}
-      \strng{fullhash}{927430e1f49dfd45f9d8685ed9bd4510}
-      \strng{bibnamehash}{927430e1f49dfd45f9d8685ed9bd4510}
-      \strng{authorbibnamehash}{927430e1f49dfd45f9d8685ed9bd4510}
+      \strng{fullhash}{a9563b262b077525afd1af682a2e3263}
+      \strng{fullhashraw}{a9563b262b077525afd1af682a2e3263}
+      \strng{bibnamehash}{a9563b262b077525afd1af682a2e3263}
+      \strng{authorbibnamehash}{a9563b262b077525afd1af682a2e3263}
       \strng{authornamehash}{3b4b501b690fa625b323f025ea583b51}
-      \strng{authorfullhash}{927430e1f49dfd45f9d8685ed9bd4510}
+      \strng{authorfullhash}{a9563b262b077525afd1af682a2e3263}
+      \strng{authorfullhashraw}{a9563b262b077525afd1af682a2e3263}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
@@ -1104,13 +1132,13 @@
       \endverb
       \keyw{conference}
     \endentry
-    \entry{tang2022msan}{inproceedings}{}
+    \entry{tang2022msan}{inproceedings}{}{}
       \name{author}{6}{}{%
-        {{hash=a0752705aa3335ed768d4ddceb6b31c0}{%
+        {{hash=889326e8920afc06a75b992128ec34e2}{%
            family={\textbf{Tang}},
            familyi={T\bibinitperiod},
-           given={\textbf{Yunlong}},
-           giveni={Y\bibinitperiod}}}%
+           given={\textbf{Yolo\bibnamedelimb Y.}},
+           giveni={Y\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
         {{hash=5f53abdaa325d24790591961ff99b5b9}{%
            family={Xu},
            familyi={X\bibinitperiod},
@@ -1137,12 +1165,14 @@
            given={Feng},
            giveni={F\bibinitperiod}}}%
       }
-      \strng{namehash}{8c736be384c4454b0174c8ae4d14b06e}
-      \strng{fullhash}{6d35456d863154340c520f98923c8c52}
-      \strng{bibnamehash}{6d35456d863154340c520f98923c8c52}
-      \strng{authorbibnamehash}{6d35456d863154340c520f98923c8c52}
-      \strng{authornamehash}{8c736be384c4454b0174c8ae4d14b06e}
-      \strng{authorfullhash}{6d35456d863154340c520f98923c8c52}
+      \strng{namehash}{d32a824a3aadb7ebddfebb317448c47a}
+      \strng{fullhash}{f0e401d89eae3ce1a38edaaec2f252af}
+      \strng{fullhashraw}{f0e401d89eae3ce1a38edaaec2f252af}
+      \strng{bibnamehash}{f0e401d89eae3ce1a38edaaec2f252af}
+      \strng{authorbibnamehash}{f0e401d89eae3ce1a38edaaec2f252af}
+      \strng{authornamehash}{d32a824a3aadb7ebddfebb317448c47a}
+      \strng{authorfullhash}{f0e401d89eae3ce1a38edaaec2f252af}
+      \strng{authorfullhashraw}{f0e401d89eae3ce1a38edaaec2f252af}
       \field{extraname}{9}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
