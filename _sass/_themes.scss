@@ -2,6 +2,8 @@
  * Themes
  ******************************************************************************/
 
+@use "sass:color";
+
 :root {
   --global-bg-color: #{$blush-white};
   --global-code-bg-color: #{$code-bg-color-light};
@@ -26,7 +28,11 @@
   --global-card-bg-color: #{$white-color};
   --global-highlight-color: #{$red-color-dark};
   // Softer pastel gradient (day); darker icon for contrast on lighter fill
-  --global-back-to-top-bg-color: linear-gradient(45deg, #{mix($theme-rose, $white-color, 38%)} 0%, #{mix($theme-sky-light, $white-color, 35%)} 100%);
+  --global-back-to-top-bg-color: linear-gradient(
+    45deg,
+    #{color.mix($theme-rose, $white-color, 38%)} 0%,
+    #{color.mix($theme-sky-light, $white-color, 35%)} 100%
+  );
   --global-back-to-top-text-color: #{$theme-sky};
   --global-newsletter-bg-color: #{$white-color};
   --global-newsletter-text-color: #{$black-color};

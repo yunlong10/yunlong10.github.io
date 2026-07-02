@@ -4,6 +4,8 @@
 {% assign ig_youtube = 'https://www.youtube.com/@yoloytang-art' %}
 {% assign ig_x = 'https://x.com/yoloytang_art' %}
 {% assign ig_discord = 'https://discord.com/users/1152784980167106662' %}
+<div class="research-map-hint gallery-note">All created in gaps while Yolo's coding agents are working.</div>
+
 {% assign ig_avatar = '' %}
 {% for file in site.static_files %}
   {% assign avatar_path = file.path | downcase %}
@@ -87,6 +89,8 @@
               {% assign yt_id = img | split: 'youtu.be/' | last | split: '?' | first | split: '&' | first %}
             {% elsif img contains 'youtube.com/watch?v=' %}
               {% assign yt_id = img | split: 'watch?v=' | last | split: '&' | first %}
+            {% elsif img contains 'youtube.com/shorts/' %}
+              {% assign yt_id = img | split: '/shorts/' | last | split: '?' | first | split: '&' | first %}
             {% elsif img contains 'youtube.com/embed/' %}
               {% assign yt_id = img | split: '/embed/' | last | split: '?' | first | split: '&' | first %}
             {% endif %}
@@ -152,6 +156,7 @@
           {% endfor %}
         </div>
         {% if images.size > 1 %}
+          <div class="ig-carousel-count" aria-hidden="true">1/{{ images.size }}</div>
           <button type="button" class="ig-carousel-nav ig-carousel-prev" aria-label="Previous">
             <svg
               viewBox="0 0 24 24"
@@ -188,15 +193,18 @@
         {% endif %}
       </div>
 
+      {% assign post_x_url = painting.x_url | default: painting.x | default: ig_x %}
+      {% assign post_instagram_url = painting.instagram_url | default: painting.ins_url | default: painting.ins | default: ig_url %}
+      {% assign post_youtube_url = painting.youtube_url | default: painting.youtube | default: ig_youtube %}
       <div class="ig-actions">
         <div class="ig-actions-left">
-          <a class="ig-icon" href="{{ ig_x }}" target="_blank" rel="noopener noreferrer" aria-label="X">
+          <a class="ig-icon" href="{{ post_x_url }}" target="_blank" rel="noopener noreferrer" aria-label="X">
             <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
           </a>
-          <a class="ig-icon" href="{{ ig_url }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <a class="ig-icon" href="{{ post_instagram_url }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
             <i class="fa-brands fa-instagram" aria-hidden="true"></i>
           </a>
-          <a class="ig-icon" href="{{ ig_youtube }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <a class="ig-icon" href="{{ post_youtube_url }}" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
             <i class="fa-brands fa-square-youtube" aria-hidden="true"></i>
           </a>
         </div>
@@ -482,9 +490,11 @@
         var dots = carousel.querySelectorAll('.ig-dot');
         var prev = carousel.querySelector('.ig-carousel-prev');
         var next = carousel.querySelector('.ig-carousel-next');
+        var count = carousel.querySelector('.ig-carousel-count');
         if (!track) return;
 
         function currentIndex() {
+          if (!track.clientWidth) return 0;
           return Math.round(track.scrollLeft / track.clientWidth);
         }
 
@@ -493,6 +503,7 @@
           for (var d = 0; d < dots.length; d++) {
             dots[d].classList.toggle('is-active', d === idx);
           }
+          if (count) count.textContent = idx + 1 + '/' + dots.length;
           if (prev) prev.style.visibility = idx <= 0 ? 'hidden' : 'visible';
           if (next) next.style.visibility = idx >= dots.length - 1 ? 'hidden' : 'visible';
         }
@@ -502,10 +513,13 @@
           track.scrollTo({ left: idx * track.clientWidth, behavior: 'smooth' });
         }
 
-        var scrollTimer;
+        var scrollFrame = 0;
         track.addEventListener('scroll', function () {
-          window.clearTimeout(scrollTimer);
-          scrollTimer = window.setTimeout(update, 60);
+          if (scrollFrame) return;
+          scrollFrame = window.requestAnimationFrame(function () {
+            scrollFrame = 0;
+            update();
+          });
         });
         if (prev)
           prev.addEventListener('click', function () {
@@ -523,6 +537,7 @@
           })(d);
         }
         update();
+        window.addEventListener('load', update);
       })(carousels[c]);
     }
 
