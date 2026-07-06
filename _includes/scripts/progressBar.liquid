@@ -7,31 +7,10 @@
        * Custom track + fill + leading-edge marker using site icon.
        */
       const readingProgress = $('#reading-progress');
-      const pageLoadProgress = $('#page-load-progress');
-      const pageLoadLabel = pageLoadProgress.find('.page-load-progress-label');
-      const pageLoadStartedAt = Date.now();
-      const pageLoadMinMs = 900;
-      let pageLoadPct = 0;
-      const pageLoadAlreadySeen = (function () {
-        try {
-          return sessionStorage.getItem('pageLoadProgressSeen') === '1';
-        } catch (e) {
-          return false;
-        }
-      })();
-      const pageLoadTimer = setInterval(function () {
-        if (pageLoadAlreadySeen || !pageLoadProgress.length || pageLoadProgress.hasClass('page-load-progress-done')) {
-          clearInterval(pageLoadTimer);
-          return;
-        }
-        pageLoadPct = Math.min(92, pageLoadPct + Math.max(1, Math.round((92 - pageLoadPct) * 0.14)));
-        setPageLoadPct(pageLoadPct);
-      }, 90);
 
       window.onload = function () {
         setTimeout(function () {
           initializeReadingProgress();
-          finishPageLoadProgress();
           $(document).on('scroll', updateReadingProgressFromScroll);
           $(window).on('resize', initializeReadingProgress);
           $('#navbarNav').on('shown.bs.collapse hidden.bs.collapse', initializeReadingProgress);
@@ -57,12 +36,6 @@
         readingProgress.css({ top: navbarHeight });
       }
 
-      function setPageLoadPct(pct) {
-        pageLoadPct = Math.max(0, Math.min(100, pct));
-        pageLoadProgress.css('--page-load-pct', pageLoadPct + '%');
-        pageLoadLabel.text(Math.round(pageLoadPct) + '%');
-      }
-
       function updateReadingProgressFromScroll() {
         if (!readingProgress.length) return;
         const max = getDistanceToScroll();
@@ -77,28 +50,6 @@
         if (!readingProgress.length) return;
         syncNavbarPaddingAndProgressTop();
         updateReadingProgressFromScroll();
-      }
-
-      function finishPageLoadProgress() {
-        if (pageLoadAlreadySeen) return;
-        if (!pageLoadProgress.length || pageLoadProgress.hasClass('page-load-progress-done')) return;
-        const elapsed = Date.now() - pageLoadStartedAt;
-        const remaining = Math.max(0, pageLoadMinMs - elapsed);
-        setTimeout(function () {
-          clearInterval(pageLoadTimer);
-          pageLoadProgress.addClass('page-load-progress-complete');
-          setPageLoadPct(100);
-          setTimeout(function () {
-            try {
-              sessionStorage.setItem('pageLoadProgressSeen', '1');
-            } catch (e) {}
-            pageLoadProgress.addClass('page-load-progress-finishing');
-            $('body').removeClass('page-is-loading').addClass('page-has-loaded');
-            setTimeout(function () {
-              pageLoadProgress.addClass('page-load-progress-done');
-            }, 650);
-          }, 500);
-        }, remaining);
       }
     </script>
   {% endunless %}

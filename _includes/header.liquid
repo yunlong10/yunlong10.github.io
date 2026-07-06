@@ -196,26 +196,6 @@
     })();
   </script>
   {% if site.enable_progressbar %}
-    <div id="page-load-progress" class="page-load-progress" aria-hidden="true">
-      <div class="page-load-progress-ring">
-        <div class="page-load-progress-ring-fill"></div>
-        <span class="page-load-progress-label">0%</span>
-      </div>
-    </div>
-    <script>
-      (function () {
-        var loader = document.getElementById('page-load-progress');
-        try {
-          if (sessionStorage.getItem('pageLoadProgressSeen') === '1') {
-            if (loader) loader.classList.add('page-load-progress-done');
-          } else {
-            document.body.classList.add('page-is-loading');
-          }
-        } catch (e) {
-          document.body.classList.add('page-is-loading');
-        }
-      })();
-    </script>
     {% unless page.progressbar == false %}
       <!-- Scroll reading indicator: rainbow fill -->
       <div

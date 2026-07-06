@@ -1,0 +1,433 @@
+/*******************************************************************************
+ * 二次元 — anime skin layer. Keeps the pink·white·blue palette and all rainbow
+ * elements; adds rounded type, manga screentone, springy motion, and gradient
+ * accents on top. To roll back: remove the "nijigen" import in
+ * assets/css/main.scss, delete this file, and revert the google_fonts line
+ * in _config.yml.
+ ******************************************************************************/
+
+// Springy easing shared by all hover motion.
+$niji-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+// ---- Manga screentone (网点) over the existing top gradient -----------------
+
+body {
+  background-image: radial-gradient(color-mix(in srgb, var(--global-theme-color) 6%, transparent) 1px, transparent 1.6px),
+    radial-gradient(color-mix(in srgb, var(--global-accent-blue) 6%, transparent) 1px, transparent 1.6px),
+    linear-gradient(180deg, var(--global-bg-gradient-top) 0%, var(--global-bg-color) 36%, var(--global-bg-color) 100%);
+  background-repeat: repeat, repeat, no-repeat;
+  background-size:
+    22px 22px,
+    22px 22px,
+    100% min(92vh, 960px);
+  background-position:
+    0 0,
+    11px 11px,
+    0 0;
+}
+
+// ---- Gradient hero title (魔法少女 style) ------------------------------------
+
+h1.post-title {
+  background-image: linear-gradient(105deg, #db2777 0%, #b83d7f 40%, #2f6fad 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+html[data-theme="dark"] h1.post-title {
+  background-image: linear-gradient(105deg, #f9a8d4 0%, #ff8fba 40%, #8ec8f5 100%);
+}
+
+// ---- Cards: soft, rounded, floaty -------------------------------------------
+
+.card {
+  border-radius: 16px;
+  overflow: hidden;
+  transition:
+    transform 0.28s $niji-spring,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--global-theme-color) 45%, transparent);
+    box-shadow:
+      0 10px 24px color-mix(in srgb, var(--global-theme-color) 10%, transparent),
+      0 4px 12px color-mix(in srgb, var(--global-accent-blue) 10%, transparent);
+  }
+}
+
+// ---- Q弹 hover: icons and action chips ---------------------------------------
+
+.social .contact-icons a,
+.about-prompt-action {
+  transition: transform 0.25s $niji-spring;
+
+  &:hover {
+    transform: translateY(-4px) scale(1.12) rotate(-5deg);
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.94);
+  }
+}
+
+.about-quick-links a {
+  transition: transform 0.25s $niji-spring;
+
+  &:hover {
+    transform: translateY(-3px) scale(1.06);
+  }
+}
+
+.navbar .nav-link {
+  transition:
+    transform 0.22s $niji-spring,
+    color 0.15s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+// ---- Sparkles on the hero title ----------------------------------------------
+
+@keyframes niji-twinkle {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(0.82) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12) rotate(18deg);
+  }
+}
+
+// Pseudo-elements would inherit the transparent text-fill from the gradient
+// title, so give the sparkles their own solid colors.
+h1.post-title::before,
+h1.post-title::after {
+  display: inline-block;
+  font-size: 0.42em;
+  line-height: 1;
+  animation: niji-twinkle 2.2s ease-in-out infinite;
+}
+
+h1.post-title::before {
+  content: "✦";
+  -webkit-text-fill-color: var(--global-theme-color);
+  animation-delay: 0.55s;
+}
+
+h1.post-title::after {
+  content: "✧";
+  -webkit-text-fill-color: var(--global-accent-blue);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  h1.post-title::before,
+  h1.post-title::after {
+    animation: none;
+  }
+}
+
+// ---- NEW A: 导航链接滑入渐变下划线 --------------------------------------------
+
+.navbar .nav-link {
+  background-image: linear-gradient(90deg, #db2777, #2f6fad);
+  background-repeat: no-repeat;
+  background-position: 50% calc(100% - 0.3rem);
+  background-size: 0% 2px;
+  transition:
+    transform 0.22s $niji-spring,
+    color 0.15s ease,
+    background-size 0.25s ease;
+
+  &:hover {
+    background-size: 60% 2px;
+  }
+}
+
+// ---- NEW B: 正文链接悬停渐变文字（与网站名 DD 同款） -------------------------------
+// 只作用于「p / li 的直接子链接且无类名」——markdown 正文链接必然是这种结构；
+// 组件链接（快捷按钮在 nav 里、社交图标在 div 里、论文按钮带 .btn 类）都匹配不到。
+// 组件链接常带 background-image: none !important 之类的规则，若被误伤，
+// 渐变画不出来而文字被设为透明，就会"悬停后文字消失"。
+// 重复的 :not([class]) 只为提升权重，压过 _base.scss 里滑入下划线的 (0,5,2) 规则。
+
+// 中和 _base 平时状态的下划线背景（尺寸 0 1px），避免悬停瞬间过渡闪烁。
+.post article p > a:not([class]):not([class]):not([class]):not([class]),
+.post article li > a:not([class]):not([class]):not([class]):not([class]),
+.post article .publications ol.bibliography .title > a,
+.publications ol.bibliography .title > a {
+  background-image: none;
+  background-size: 100% 100%;
+  transition: color 0.15s ease;
+}
+
+// 两层背景：第一层裁剪到文字（渐变文字），第二层裁剪到边框盒、
+// 高 2px 贴底（渐变下划线）——文字和下划线用同一条渐变，颜色完全统一。
+.post article p > a:not([class]):not([class]):not([class]):not([class]):hover,
+.post article li > a:not([class]):not([class]):not([class]):not([class]):hover,
+.post p > a:not([class]):hover,
+.post li > a:not([class]):hover,
+.post article .publications ol.bibliography .title > a:not([class]):not([class]):not([class]):hover,
+.publications ol.bibliography .title > a:hover {
+  background-image: linear-gradient(90deg, #db2777, #2f6fad), linear-gradient(90deg, #db2777, #2f6fad);
+  background-position:
+    0 0,
+    0 100%;
+  background-repeat: no-repeat, no-repeat;
+  background-size:
+    100% 100%,
+    100% 2px;
+  -webkit-background-clip: text, border-box;
+  background-clip: text, border-box;
+  -webkit-text-fill-color: transparent;
+  text-decoration: none !important; // 掐掉浏览器给透明文字画的残留下划线
+  // 多行链接时让每一行片段都克隆一份背景，否则渐变下划线只出现在最后一行
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+html[data-theme="dark"] {
+  .navbar .nav-link {
+    background-image: linear-gradient(90deg, #f9a8d4, #8ec8f5);
+  }
+
+  .post article p > a:not([class]):not([class]):not([class]):not([class]):hover,
+  .post article li > a:not([class]):not([class]):not([class]):not([class]):hover,
+  .post p > a:not([class]):hover,
+  .post li > a:not([class]):hover,
+  .post article .publications ol.bibliography .title > a:not([class]):not([class]):not([class]):hover,
+  .publications ol.bibliography .title > a:hover {
+    background-image: linear-gradient(90deg, #f9a8d4, #8ec8f5), linear-gradient(90deg, #f9a8d4, #8ec8f5);
+  }
+}
+
+// ---- NEW D: 卡片图片悬停微放大 --------------------------------------------------
+
+.card .card-img {
+  transition: transform 0.35s $niji-spring;
+}
+
+.card:hover .card-img {
+  transform: scale(1.04);
+}
+
+// ---- NEW E: 回到顶部按钮 Q弹 ----------------------------------------------------
+
+#back-to-top {
+  transition: transform 0.25s $niji-spring;
+
+  &:hover {
+    transform: translateY(-4px) scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.92);
+  }
+}
+
+// ---- G: 粉蓝列表符号 -------------------------------------------------------------
+
+.post article ul > li::marker {
+  color: #db2777;
+}
+
+.post article ol > li::marker {
+  color: #2f6fad;
+  font-weight: 600;
+}
+
+// ---- P: 渐变分隔线（hr 两端淡出的粉蓝细线） ---------------------------------------
+
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #f9a8d4 25%, #93c5fd 75%, transparent);
+  opacity: 1;
+}
+
+// ---- NEW Q: 阅读进度条 · 粉蓝离散色块（日夜统一） ----------------------------------
+// 深粉→粉→浅粉→淡粉→淡蓝→浅蓝→蓝→深蓝 的硬切色块，30px 一段、240px 一个周期，
+// 首尾相接保证流动动画无缝循环。最淡的两段仍是明确的粉/蓝，不接近纯白。
+
+$niji-progress-pwb: repeating-linear-gradient(
+  90deg,
+  #db2777 0 30px,
+  #f472b6 30px 60px,
+  #f9a8d4 60px 90px,
+  #fbcfe8 90px 120px,
+  #bfdbfe 120px 150px,
+  #93c5fd 150px 180px,
+  #60a5fa 180px 210px,
+  #2f6fad 210px 240px
+);
+
+@keyframes niji-rainbow-flow {
+  to {
+    background-position-x: 240px; // 一个完整周期，无缝衔接
+  }
+}
+
+.reading-progress .reading-progress-fill {
+  background-image: $niji-progress-pwb;
+  animation: niji-rainbow-flow 8s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reading-progress .reading-progress-fill {
+    animation: none;
+  }
+}
+
+// ---- R(改): 去掉导航栏底边线——进度条紧贴其下，不需要再叠一条线 --------------------
+
+.navbar {
+  border-bottom: 0;
+  border-image: none;
+}
+
+// ---- NEW Y: 点击星星特效（配合 assets/js/nijigen_sparkle.js） ---------------------
+
+@keyframes niji-star-burst {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(calc(-50% + var(--niji-dx, 0px)), calc(-50% + var(--niji-dy, -30px))) scale(1.1) rotate(90deg);
+  }
+}
+
+.niji-click-star {
+  position: fixed;
+  z-index: 2147483000;
+  pointer-events: none;
+  line-height: 1;
+  user-select: none;
+  animation: niji-star-burst 0.65s ease-out forwards;
+}
+
+// ---- NEW Z: 图片放大遮罩樱花色 ----------------------------------------------------
+
+.medium-zoom-overlay {
+  background: linear-gradient(160deg, rgba(255, 242, 249, 0.94), rgba(238, 246, 255, 0.94)) !important;
+}
+
+html[data-theme="dark"] .medium-zoom-overlay {
+  background: linear-gradient(160deg, rgba(38, 22, 32, 0.94), rgba(18, 26, 40, 0.94)) !important;
+}
+
+// ---- 修复：画廊卡片内 @提及 链接与用户名的悬停下划线 -------------------------------
+// _base 的 `article a:not(...)` 大范围规则把它们的 text-decoration 悬停也设为 none，
+// 且 .ig-caption-text a 自带 background-image: none !important（滑入下划线被杀掉），
+// 导致悬停毫无反馈。这里用 !important 恢复常规下划线（保持它们自己的颜色）。
+
+.post article .ig-caption-text a:hover,
+.post article .ig-username:hover {
+  text-decoration: underline !important;
+}
+
+// ---- CC: 导航栏头像 Q弹 ------------------------------------------------------------
+
+.navbar-menu-avatar {
+  transition:
+    transform 0.25s $niji-spring,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: scale(1.12) rotate(-6deg);
+  }
+
+  &:active {
+    transform: scale(0.94);
+  }
+}
+
+// ---- NEW DD: 网站名悬停渐变文字 ----------------------------------------------------
+
+.navbar-brand:hover {
+  background-image: linear-gradient(90deg, #db2777, #2f6fad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-decoration: none;
+}
+
+html[data-theme="dark"] .navbar-brand:hover {
+  background-image: linear-gradient(90deg, #f9a8d4, #8ec8f5);
+}
+
+// ---- KK: 放大图片圆角（配合 Z 的樱花遮罩） -----------------------------------------
+
+.medium-zoom-image--opened {
+  border-radius: 10px;
+}
+
+// ---- NEW PP: 深色模式卡片光晕增强（浅色模式不变） ----------------------------------
+
+html[data-theme="dark"] .card:hover {
+  border-color: color-mix(in srgb, #ff6ba3 55%, transparent);
+  box-shadow:
+    0 10px 26px rgba(255, 107, 163, 0.16),
+    0 4px 14px rgba(142, 200, 245, 0.14);
+}
+
+// ---- NEW QQ: 深色模式网点增强（浅色模式不变） --------------------------------------
+
+html[data-theme="dark"] body {
+  background-image: radial-gradient(color-mix(in srgb, var(--global-theme-color) 10%, transparent) 1px, transparent 1.6px),
+    radial-gradient(color-mix(in srgb, var(--global-accent-blue) 10%, transparent) 1px, transparent 1.6px),
+    linear-gradient(180deg, var(--global-bg-gradient-top) 0%, var(--global-bg-color) 36%, var(--global-bg-color) 100%);
+}
+
+// ---- NEW SS: 画廊作品图悬停微放大（和卡片 D 同款手感） -----------------------------
+
+.ig-post-media img {
+  transition: transform 0.35s $niji-spring;
+}
+
+.ig-post-media:hover img {
+  transform: scale(1.03);
+}
+
+// ---- Candy scrollbar -----------------------------------------------------------
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: linear-gradient(180deg, #f9a8d4, #93c5fd);
+
+  &:hover {
+    background: linear-gradient(180deg, #f472b6, #60a5fa);
+  }
+}
+
+// ---- 隐藏页面侧边滚动条（滚动功能不受影响；内部滚动区域仍显示糖果滚动条） ----------
+
+html {
+  scrollbar-width: none; // Firefox
+}
+
+html::-webkit-scrollbar {
+  display: none; // Chrome / Safari / Edge
+}
+
+// ---- Selection: sakura pink ----------------------------------------------------
+
+::selection {
+  background: color-mix(in srgb, var(--global-theme-color) 24%, transparent);
+}
