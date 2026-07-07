@@ -292,17 +292,8 @@ $niji-progress-pwb: repeating-linear-gradient(
 }
 
 // ---- NEW Y: 点击星星特效（配合 assets/js/nijigen_sparkle.js） ---------------------
-
-@keyframes niji-star-burst {
-  0% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(calc(-50% + var(--niji-dx, 0px)), calc(-50% + var(--niji-dy, -30px))) scale(1.1) rotate(90deg);
-  }
-}
+// 位移动画由 JS 的 Web Animations API 驱动——生产环境的 CSS 压缩器会删掉
+// calc() 里的空格（calc(-50%+var(...)) 是非法表达式），CSS keyframes 会被压坏。
 
 .niji-click-star {
   position: fixed;
@@ -310,7 +301,6 @@ $niji-progress-pwb: repeating-linear-gradient(
   pointer-events: none;
   line-height: 1;
   user-select: none;
-  animation: niji-star-burst 0.65s ease-out forwards;
 }
 
 // ---- NEW Z: 图片放大遮罩樱花色 ----------------------------------------------------
@@ -396,6 +386,213 @@ html[data-theme="dark"] body {
   transform: scale(1.03);
 }
 
+// ---- JE: 页脚与快捷链接余白 --------------------------------------------------------
+
+footer.sticky-bottom {
+  padding-top: 52px;
+  padding-bottom: 10px;
+}
+
+.about-jp .about-quick-links {
+  margin-top: 1.45rem;
+  gap: 0.6rem;
+}
+
+// ---- K2: 玻璃拟态（毛玻璃卡片） ----------------------------------------------------
+
+.about-jp .about-prompt {
+  background: color-mix(in srgb, var(--global-card-bg-color) 72%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  backdrop-filter: blur(14px) saturate(150%);
+}
+
+.about-jp .about-quick-links a {
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+// ---- NEW K4: 阅读进度条前端的星星骑士 ----------------------------------------------
+
+.reading-progress .reading-progress-fill {
+  overflow: visible;
+
+  &::after {
+    content: "✦";
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translate(55%, -50%);
+    font-size: 11px;
+    line-height: 1;
+    color: #db2777;
+    text-shadow: 0 0 5px rgba(219, 39, 119, 0.55);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+  }
+}
+
+.reading-progress.is-progressing .reading-progress-fill::after {
+  opacity: 1;
+}
+
+// ---- K5: 主题切换圆形揭幕（View Transitions，配合 theme.js） -----------------------
+// theme.js 在主题切换期间给 <html> 加 .niji-theme-vt，圆形揭幕只在此时接管；
+// 其余情况（L3 跨页面过渡）走下面的滑入动画。
+
+html.niji-theme-vt::view-transition-old(root),
+html.niji-theme-vt::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+// ---- NEW L3: 跨页面丝滑过渡（同源 MPA View Transitions） ---------------------------
+// 站内跳转时旧页淡出、新页轻轻上浮进入，像单页应用一样连贯。
+// 仅 Chrome/Edge 126+ 与 Safari 18.2+ 生效，其他浏览器保持普通跳转。
+
+@view-transition {
+  navigation: auto;
+}
+
+@keyframes niji-page-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes niji-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+html:not(.niji-theme-vt)::view-transition-old(root) {
+  animation: niji-page-out 0.18s ease-in both;
+}
+
+html:not(.niji-theme-vt)::view-transition-new(root) {
+  animation: niji-page-in 0.3s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:not(.niji-theme-vt)::view-transition-old(root),
+  html:not(.niji-theme-vt)::view-transition-new(root) {
+    animation: none;
+  }
+}
+
+// ---- NEW L1: 吉祥物连击冲击波（配合 assets/js/nijigen_motion.js） ------------------
+
+.niji-shockwave {
+  position: fixed;
+  z-index: 2147483000;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  border-radius: 50%;
+  border: 3px solid rgba(244, 114, 182, 0.65);
+  pointer-events: none;
+
+  &.is-blue {
+    border-color: rgba(96, 165, 250, 0.6);
+  }
+}
+
+// ---- NEW M1: 滚动渐显（配合 nijigen_motion.js 的 IntersectionObserver） -----------
+
+.niji-to-reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.5s ease,
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.niji-to-reveal.niji-revealed {
+  opacity: 1;
+  transform: none;
+}
+
+// ---- NEW N1: 吉祥物待机浮动 --------------------------------------------------------
+// 主页头像小幅上下漂浮，像角色的待机动画。动画加在 img 上（按钮本身的
+// transform 承担居中与弹出定位，不能动）。
+
+// 以静止位置（文本框边缘）为平衡点，上下对称震荡 ±2.5px
+@keyframes niji-mascot-bob {
+  0%,
+  100% {
+    transform: translateY(2.5px);
+  }
+  50% {
+    transform: translateY(-2.5px);
+  }
+}
+
+.post-title-avatar {
+  animation: niji-mascot-bob 3.4s ease-in-out infinite;
+}
+
+// 完全弹出（悬停 / 点击 / 说话）后停止震荡，稳稳站好
+.about-identity.is-hovered .post-title-avatar,
+.about-identity.is-click-pop .post-title-avatar,
+.about-identity.is-speaking .post-title-avatar {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .post-title-avatar {
+    animation: none;
+  }
+}
+
+// ---- NEW O1: 画廊灯箱毛玻璃（粉蓝夜色渐变 + 背景模糊） -----------------------------
+
+.ig-lightbox {
+  background: linear-gradient(160deg, rgba(46, 18, 36, 0.82), rgba(14, 26, 48, 0.82));
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+  backdrop-filter: blur(18px) saturate(130%);
+}
+
+// ---- NEW O3: 智能导航栏（下滑收起、上滑浮现，配合 nijigen_motion.js） --------------
+// 导航收起时，阅读进度条上移贴住视口顶端，成为唯一的页面头部元素。
+
+.navbar.fixed-top {
+  transition:
+    transform 0.28s ease,
+    background-color 0.15s ease;
+}
+
+.navbar.fixed-top.niji-nav-hidden {
+  transform: translateY(-100%);
+}
+
+.reading-progress {
+  transition: top 0.28s ease;
+}
+
+body.niji-nav-hidden .reading-progress {
+  top: 0 !important; // 压过 progressBar.liquid 写入的内联 top
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navbar.fixed-top,
+  .reading-progress {
+    transition: none;
+  }
+}
+
+// ---- NEW P2: 图片加载淡入（配合 nijigen_motion.js） --------------------------------
+
+img.niji-img-loading {
+  opacity: 0;
+}
+
+img.niji-img-loaded {
+  opacity: 1;
+  transition: opacity 0.45s ease;
+}
+
 // ---- Candy scrollbar -----------------------------------------------------------
 
 ::-webkit-scrollbar {
@@ -424,6 +621,16 @@ html {
 
 html::-webkit-scrollbar {
   display: none; // Chrome / Safari / Edge
+}
+
+// ---- NEW L5: 搜索面板（ninja-keys）粉蓝定制 ----------------------------------------
+
+ninja-keys {
+  --ninja-accent-color: #db2777;
+  --ninja-modal-background: color-mix(in srgb, var(--global-card-bg-color) 90%, transparent);
+  --ninja-overflow-background: color-mix(in srgb, var(--global-bg-color) 55%, transparent);
+  --ninja-selected-background: color-mix(in srgb, #db2777 8%, transparent);
+  --ninja-modal-shadow: 0 14px 40px rgba(219, 39, 119, 0.12), 0 6px 18px rgba(47, 111, 173, 0.12);
 }
 
 // ---- Selection: sakura pink ----------------------------------------------------

@@ -126,6 +126,35 @@ layout: default
         ],
       },
     };
+    // NEW O2: 按访问时段追加一句打头的问候（深夜 / 清晨 / 傍晚；白天保持原样）
+    (function () {
+      var hour = new Date().getHours();
+      var timeGreetings = null;
+      if (hour >= 23 || hour < 5) {
+        timeGreetings = {
+          Academic: 'Burning the midnight oil? Yolo appreciates the dedication.',
+          Creative: '🌙 夜更かしさん、いらっしゃい ~ Welcome, fellow night owl.',
+          Meow: '🐾 Meow?! It is nap time... but head pats are still accepted.',
+        };
+      } else if (hour < 11) {
+        timeGreetings = {
+          Academic: 'Good morning! Fresh papers pair well with fresh coffee.',
+          Creative: '🌅 おはよう！ A brand-new day for brand-new ideas.',
+          Meow: '🐱 Mrrp... early meow. Breakfast first, research second.',
+        };
+      } else if (hour >= 18) {
+        timeGreetings = {
+          Academic: 'Good evening! Thanks for dropping by after hours.',
+          Creative: '🌆 こんばんは！ The site glows a little softer at night.',
+          Meow: '😼 Evening patrol complete. The couch is secured.',
+        };
+      }
+      if (!timeGreetings) return;
+      Object.keys(timeGreetings).forEach(function (mode) {
+        if (speechModes[mode]) speechModes[mode].greetings.unshift(timeGreetings[mode]);
+      });
+    })();
+
     var currentSpeechMode = 'Academic';
     var names = speechModes[currentSpeechMode].greetings;
     var interactionMessages = speechModes[currentSpeechMode].interactions;

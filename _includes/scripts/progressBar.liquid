@@ -44,6 +44,8 @@
         pct = Math.max(0, Math.min(100, pct));
         readingProgress.css('--reading-progress-pct', pct + '%');
         readingProgress.attr('aria-valuenow', Math.round(pct));
+        // NEW K4: 进度 > 0.5% 时显示进度条前端的星星
+        readingProgress.toggleClass('is-progressing', pct > 0.5);
       }
 
       function initializeReadingProgress() {

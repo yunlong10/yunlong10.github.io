@@ -669,7 +669,9 @@ ul.task-list input[type="checkbox"] {
     .about-model-options {
       position: absolute;
       right: 0;
-      bottom: calc(100% + 0.55rem);
+      // 不用 calc(100% + …)：生产 CSS 压缩器会删掉 + 两侧空格使表达式失效
+      bottom: 100%;
+      margin-bottom: 0.55rem;
       z-index: 10;
       display: grid;
       min-width: 9.2rem;
