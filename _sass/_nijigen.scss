@@ -231,7 +231,7 @@ html[data-theme="dark"] {
   }
 }
 
-// ---- G: 粉蓝列表符号 -------------------------------------------------------------
+// ---- G: 粉蓝列表符号（夜间互换：蓝点粉号，呼应"夜间蓝为主"） ----------------------
 
 .post article ul > li::marker {
   color: #db2777;
@@ -240,6 +240,14 @@ html[data-theme="dark"] {
 .post article ol > li::marker {
   color: #2f6fad;
   font-weight: 600;
+}
+
+html[data-theme="dark"] .post article ul > li::marker {
+  color: #66c2ff;
+}
+
+html[data-theme="dark"] .post article ol > li::marker {
+  color: #ff8fba;
 }
 
 // ---- P: 渐变分隔线（hr 两端淡出的粉蓝细线） ---------------------------------------
@@ -514,6 +522,20 @@ html:not(.niji-theme-vt)::view-transition-new(root) {
   transform: none;
 }
 
+// ---- 修复：吉祥物不可被划选/拖拽（划选正文时不再出现难看的选中高光） ----------------
+
+.post-title-avatar-button,
+.post-title-avatar {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.post-title-avatar-button::selection,
+.post-title-avatar::selection {
+  background: transparent;
+}
+
 // ---- NEW N1: 吉祥物待机浮动 --------------------------------------------------------
 // 主页头像小幅上下漂浮，像角色的待机动画。动画加在 img 上（按钮本身的
 // transform 承担居中与弹出定位，不能动）。
@@ -627,6 +649,22 @@ img.niji-img-loaded {
   white-space: nowrap;
   pointer-events: none;
   animation: niji-toast 1.45s ease forwards;
+}
+
+// ---- NEW Q2: 夜间 venue 徽章：深宝蓝实底 + 白字 ------------------------------------
+// 和日间"深粉实底 + 白字"同款气质；不用亮蓝底（白字/深字都不好看）。
+// 只影响使用默认主题色的徽章（:not([style])——带自定义会场色的徽章保持原样）。
+
+html[data-theme="dark"] .publications ol.bibliography li .abbr abbr:not([style]) {
+  background-color: #3389ec; // Temporal Understanding 蓝，亮度再降一档（63% → 56%）
+}
+
+// ---- NEW Q3: 主题/搜索按钮悬停色跟随当日主导色 -------------------------------------
+// 日间粉为主 → 悬停粉；夜间蓝为主 → 悬停蓝（夜间走全局 hover 色已是蓝，无需另写）。
+
+html:not([data-theme="dark"]) #light-toggle:hover,
+html:not([data-theme="dark"]) #search-toggle:hover {
+  color: var(--global-theme-color);
 }
 
 // ---- Candy scrollbar -----------------------------------------------------------

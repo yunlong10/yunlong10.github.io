@@ -74,11 +74,12 @@ html[data-theme="dark"] {
   --global-text-color: #e4e9f4;
   --global-text-color-light: #9aa8c0;
   --global-subtitle-color: #a8b6d4;
-  --global-theme-color: #ff6ba3;
-  --global-hover-color: #ffa0c8;
+  // 夜间以蓝为主、粉为点缀（与日间"粉为主、蓝点缀"互为镜像）
+  --global-theme-color: #66c2ff;
+  --global-hover-color: #9fd4ff;
   --global-hover-text-color: #{$white-color};
-  --global-accent-blue: #ff6ba3;
-  --global-nav-active-color: #ff8fba;
+  --global-accent-blue: #66c2ff;
+  --global-nav-active-color: #66c2ff;
   --global-bg-gradient-top: #243a56;
   --global-heading-h3-color: #a8c8ec;
   --global-table-header-bg: rgba(126, 184, 232, 0.14);
@@ -90,7 +91,8 @@ html[data-theme="dark"] {
   --global-distill-app-color: #{$grey-color-light};
   --global-divider-color: rgba(142, 200, 245, 0.26);
   --global-card-bg-color: #232d42;
-  --global-back-to-top-bg-color: linear-gradient(45deg, #ff6ba3 0%, #8ec8f5 100%);
+  // 夜间蓝主导，只在角上留一点粉（与日间粉主导互为镜像）
+  --global-back-to-top-bg-color: linear-gradient(45deg, #2f7fd6 0%, #5ab2f7 62%, #ff8fba 100%);
   --global-back-to-top-text-color: #{$white-color};
   --global-newsletter-bg-color: #{$grey-color-light};
   --global-newsletter-text-color: #{$grey-color-dark};
