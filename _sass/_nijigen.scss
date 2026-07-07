@@ -593,6 +593,42 @@ img.niji-img-loaded {
   transition: opacity 0.45s ease;
 }
 
+// ---- NEW Q1: Cite 复制提示气泡（配合 common.js 的剪贴板逻辑） ----------------------
+
+@keyframes niji-toast {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 6px);
+  }
+  15%,
+  75% {
+    opacity: 1;
+    transform: translate(-50%, -4px);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -12px);
+  }
+}
+
+.niji-cite-toast {
+  position: fixed;
+  z-index: 2147483000;
+  padding: 0.32rem 0.75rem;
+  border: 1px solid color-mix(in srgb, #db2777 35%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--global-card-bg-color) 94%, transparent);
+  box-shadow:
+    0 6px 18px rgba(219, 39, 119, 0.14),
+    0 2px 8px rgba(47, 111, 173, 0.1);
+  color: var(--global-theme-color);
+  font-size: 0.78rem;
+  line-height: 1;
+  white-space: nowrap;
+  pointer-events: none;
+  animation: niji-toast 1.45s ease forwards;
+}
+
 // ---- Candy scrollbar -----------------------------------------------------------
 
 ::-webkit-scrollbar {
