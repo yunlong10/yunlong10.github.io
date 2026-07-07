@@ -275,6 +275,11 @@ defaults:
 
 sass:
   style: compressed
+  # 静默第三方库与 @import 的弃用警告刷屏（等 al-folio 上游迁移到 @use 再跟进）
+  quiet_deps: true
+  silence_deprecations:
+    - import
+    - global-builtin
 
 # -----------------------------------------------------------------------------
 # Jekyll Minifier

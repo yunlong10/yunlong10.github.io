@@ -20,7 +20,7 @@ math: false
 masonry: false
 medium_zoom: true
 table_enhance: false
-common_js: false
+# common.js 必须加载：主页 Research 面板的 Cite/Abs 按钮依赖它的展开逻辑
 copy_code: false
 jupyter: false
 ---
