@@ -73,43 +73,6 @@
     });
   });
 
-  // ---- NEW O3: 智能导航栏 -----------------------------------------------------------
-  // 向下滚动时导航栏收起（阅读进度条顶格），向上滚动或接近顶部时浮现。
-  // 移动端菜单展开时始终保持显示。
-
-  var lastScrollY = window.scrollY || 0;
-  var navTicking = false;
-
-  window.addEventListener(
-    "scroll",
-    function () {
-      if (navTicking) return;
-      navTicking = true;
-      requestAnimationFrame(function () {
-        navTicking = false;
-        var nav = document.querySelector(".navbar.fixed-top");
-        if (!nav) return;
-        var y = window.scrollY || 0;
-        var delta = y - lastScrollY;
-        lastScrollY = y;
-        var menuOpen = nav.querySelector(".navbar-collapse.show");
-        if (menuOpen || y < 120) {
-          nav.classList.remove("niji-nav-hidden");
-          document.body.classList.remove("niji-nav-hidden");
-          return;
-        }
-        if (delta > 6) {
-          nav.classList.add("niji-nav-hidden");
-          document.body.classList.add("niji-nav-hidden");
-        } else if (delta < -6) {
-          nav.classList.remove("niji-nav-hidden");
-          document.body.classList.remove("niji-nav-hidden");
-        }
-      });
-    },
-    { passive: true }
-  );
-
   // ---- NEW P1: 复制彩蛋 --------------------------------------------------------------
   // 复制页面文字时，在选区右上角迸出一小簇星星（通过 niji:burst 交给 sparkle 处理）。
 

@@ -576,34 +576,6 @@ html:not(.niji-theme-vt)::view-transition-new(root) {
   backdrop-filter: blur(18px) saturate(130%);
 }
 
-// ---- NEW O3: 智能导航栏（下滑收起、上滑浮现，配合 nijigen_motion.js） --------------
-// 导航收起时，阅读进度条上移贴住视口顶端，成为唯一的页面头部元素。
-
-.navbar.fixed-top {
-  transition:
-    transform 0.28s ease,
-    background-color 0.15s ease;
-}
-
-.navbar.fixed-top.niji-nav-hidden {
-  transform: translateY(-100%);
-}
-
-.reading-progress {
-  transition: top 0.28s ease;
-}
-
-body.niji-nav-hidden .reading-progress {
-  top: 0 !important; // 压过 progressBar.liquid 写入的内联 top
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .navbar.fixed-top,
-  .reading-progress {
-    transition: none;
-  }
-}
-
 // ---- NEW P2: 图片加载淡入（配合 nijigen_motion.js） --------------------------------
 
 img.niji-img-loading {
@@ -665,6 +637,32 @@ html[data-theme="dark"] .publications ol.bibliography li .abbr abbr:not([style])
 html:not([data-theme="dark"]) #light-toggle:hover,
 html:not([data-theme="dark"]) #search-toggle:hover {
   color: var(--global-theme-color);
+}
+
+// ---- NEW R1: 研究地图滚动条：更细，且仅悬停时显示 ----------------------------------
+
+.research-map {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+
+  &:hover,
+  &:focus-within {
+    scrollbar-color: color-mix(in srgb, var(--global-theme-color) 40%, transparent) transparent;
+  }
+
+  &::-webkit-scrollbar {
+    height: 4px; // 原 6px
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 999px;
+  }
+
+  &:hover::-webkit-scrollbar-thumb,
+  &:focus-within::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--global-theme-color) 40%, transparent);
+  }
 }
 
 // ---- Candy scrollbar -----------------------------------------------------------

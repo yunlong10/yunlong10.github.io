@@ -91,8 +91,8 @@ html[data-theme="dark"] {
   --global-distill-app-color: #{$grey-color-light};
   --global-divider-color: rgba(142, 200, 245, 0.26);
   --global-card-bg-color: #232d42;
-  // 夜间蓝主导，只在角上留一点粉（与日间粉主导互为镜像）
-  --global-back-to-top-bg-color: linear-gradient(45deg, #2f7fd6 0%, #5ab2f7 62%, #ff8fba 100%);
+  // 夜间蓝粉均衡渐变：蓝略主导，粉近半
+  --global-back-to-top-bg-color: linear-gradient(45deg, #2f7fd6 0%, #5ab2f7 32%, #ff8fba 82%);
   --global-back-to-top-text-color: #{$white-color};
   --global-newsletter-bg-color: #{$grey-color-light};
   --global-newsletter-text-color: #{$grey-color-dark};
