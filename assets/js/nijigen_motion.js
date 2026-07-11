@@ -112,7 +112,7 @@
   // ---- NEW P3: 标签页标题彩蛋 --------------------------------------------------------
   // 切走标签页时标题变成小表情挽留，切回来立刻恢复原标题。
 
-  var nijiAwayTitle = "(´･ω･`) Yolo misses you...";
+  var nijiAwayTitle = "(´･ω･`) Yolo is here...";
   var nijiOriginalTitle = null;
 
   document.addEventListener("visibilitychange", function () {
