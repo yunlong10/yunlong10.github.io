@@ -665,6 +665,15 @@ html:not([data-theme="dark"]) #search-toggle:hover {
   }
 }
 
+// ---- 修复：移动端 Chrome 开面板后无限下滑 ------------------------------------------
+// Chrome 的滚动锚定（scroll anchoring）会在瀑布流重排时不断补偿滚动位置，
+// 与懒加载图片的连锁重排形成反馈循环（Safari 无此机制故不复现）。整页关闭锚定。
+
+html,
+body {
+  overflow-anchor: none;
+}
+
 // ---- Candy scrollbar -----------------------------------------------------------
 
 ::-webkit-scrollbar {
