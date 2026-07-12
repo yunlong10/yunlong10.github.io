@@ -213,7 +213,7 @@ ul.task-list input[type="checkbox"] {
 .misc-jp {
   font-family: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
   margin-top: -0.75rem;
-  --about-creative-font: Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --about-creative-font: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
   --about-meow-font: "Chalkboard SE", "Comic Sans MS", "Marker Felt", Palatino, serif;
   --about-text-max-width: 960px;
   --about-kasumi-line: linear-gradient(
@@ -226,15 +226,13 @@ ul.task-list input[type="checkbox"] {
   );
 
   &.is-creative-mode {
-    .about-prompt p,
-    .about-hello-rotator {
+    .about-prompt p {
       font-family: var(--about-creative-font);
     }
   }
 
   &.is-meow-mode {
-    .about-prompt p,
-    .about-hello-rotator {
+    .about-prompt p {
       font-family: var(--about-meow-font);
     }
   }
@@ -486,7 +484,7 @@ ul.task-list input[type="checkbox"] {
 
     .about-hello {
       justify-content: center;
-      font-size: calc(clamp(1.55rem, 7.2vw, 1.95rem) * var(--speech-font-scale, 1));
+      font-size: 1rem;
     }
 
     .about-hello-rotator {
@@ -1920,27 +1918,27 @@ ul.task-list input[type="checkbox"] {
   }
 
   &.is-blog-panel-open {
-    padding-top: max(1.5rem, calc((100svh - 14rem - 23rem) / 2 - clamp(3rem, 5.5svh, 4.5rem)));
-    transform: translateY(clamp(-2.75rem, -4.5svh, -1.5rem));
+    padding-top: 1.375rem;
+    transform: translateY(-1rem);
   }
 
   &.is-research-panel-open,
   &.is-gallery-panel-open,
   &.is-misc-panel-open {
-    padding-top: max(1.5rem, calc((100svh - 14rem - 23rem) / 2 - clamp(3rem, 5.5svh, 4.5rem)));
-    transform: translateY(clamp(-2.75rem, -4.5svh, -1.5rem));
+    padding-top: 1.375rem;
+    transform: translateY(-1rem);
   }
 
   @media (max-width: 575px) {
     &.is-blog-panel-open {
-      padding-top: 2.5rem;
+      padding-top: 1.375rem;
       transform: translateY(-1rem);
     }
 
     &.is-research-panel-open,
     &.is-gallery-panel-open,
     &.is-misc-panel-open {
-      padding-top: 2.5rem;
+      padding-top: 1.375rem;
       transform: translateY(-1rem);
     }
   }
@@ -2030,7 +2028,7 @@ header {
 
 body.is-about-creative-mode,
 body.is-about-meow-mode {
-  --about-creative-font: Palatino, "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  --about-creative-font: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
   --about-meow-font: "Chalkboard SE", "Comic Sans MS", "Marker Felt", Palatino, serif;
 }
 

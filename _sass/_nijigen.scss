@@ -406,6 +406,84 @@ footer.sticky-bottom {
   gap: 0.6rem;
 }
 
+// ---- Panel focus mode ----------------------------------------------------------
+// 打开任一 inline panel 时，不再为吉祥物/气泡预留空间：隐藏 identity，折叠 header，
+// 让自我介绍卡片直接上移，面板成为页面焦点。
+
+.post.about-jp.is-inline-panel-open {
+  .post-header {
+    height: 0;
+    min-height: 0;
+    margin: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .about-identity,
+  .about-hello {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.post.about-jp.is-panel-hiding-mascot {
+  .about-identity {
+    animation: niji-mascot-hide 0.24s ease-in both;
+  }
+
+  .about-hello {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@keyframes niji-mascot-hide {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(0.7rem) scale(0.96);
+  }
+}
+
+.post.about-jp .post-header {
+  transition:
+    height 0.46s ease,
+    min-height 0.46s ease,
+    margin 0.46s ease,
+    opacity 0.28s ease;
+}
+
+.post.about-jp.is-panel-restoring {
+  .about-identity,
+  .about-hello {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+.post.about-jp.is-mascot-reappearing {
+  .about-identity {
+    animation: niji-mascot-reappear 0.46s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+@keyframes niji-mascot-reappear {
+  from {
+    opacity: 0;
+    transform: translateY(0.85rem) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 // ---- K2: 玻璃拟态（毛玻璃卡片） ----------------------------------------------------
 
 .about-jp .about-prompt {
@@ -536,6 +614,91 @@ html:not(.niji-theme-vt)::view-transition-new(root) {
   background: transparent;
 }
 
+// ---- Academic news ticker inside mascot speech bubble -------------------------
+
+.about-jp .about-identity .about-hello,
+.about-jp .about-identity .about-hello .about-hello-rotator,
+.about-jp.is-creative-mode .about-identity .about-hello,
+.about-jp.is-creative-mode .about-identity .about-hello .about-hello-rotator,
+.about-jp.is-meow-mode .about-identity .about-hello,
+.about-jp.is-meow-mode .about-identity .about-hello .about-hello-rotator {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif !important;
+  font-size: 0.94rem !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+}
+
+.about-hello .about-news-date {
+  display: inline-block;
+  margin-right: 0.42em;
+  padding: 0.08em 0.36em;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--global-theme-color) 8%, transparent);
+  color: color-mix(in srgb, var(--global-theme-color) 82%, var(--global-text-color));
+  font-size: 0.86em;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  vertical-align: 0.04em;
+}
+
+.about-hello.is-card-bubble {
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: max-content;
+  max-width: min(var(--speech-bubble-max-width, 760px), calc(100vw - 1.5rem));
+  padding: 0.72rem 0.95rem;
+  border-radius: 18px;
+  font-size: 1rem;
+  line-height: 1.55;
+  white-space: normal;
+  text-align: left;
+  box-shadow:
+    0 8px 26px color-mix(in srgb, var(--global-theme-color) 10%, transparent),
+    0 3px 10px rgba(31, 45, 76, 0.05);
+}
+
+.about-hello.is-card-bubble .about-hello-rotator {
+  display: block;
+  width: auto;
+  overflow: visible;
+  text-align: left;
+  overflow-wrap: normal;
+  opacity: 0.82;
+}
+
+@media (max-width: 575px) {
+  .about-hello.is-card-bubble .about-hello-rotator {
+    overflow-wrap: anywhere;
+  }
+}
+
+.about-hello a {
+  color: var(--global-theme-color);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.12em;
+
+  &:hover {
+    color: var(--global-hover-color);
+  }
+}
+
+.about-hello .about-news-archive {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.35em;
+  padding: 0.12em 0.42em;
+  border: 1px solid color-mix(in srgb, var(--global-theme-color) 45%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--global-card-bg-color) 74%, transparent);
+  font-size: 0.86em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
 // ---- NEW N1: 吉祥物待机浮动 --------------------------------------------------------
 // 主页头像小幅上下漂浮，像角色的待机动画。动画加在 img 上（按钮本身的
 // transform 承担居中与弹出定位，不能动）。
@@ -641,7 +804,17 @@ html:not([data-theme="dark"]) #search-toggle:hover {
 
 // ---- NEW R1: 研究地图滚动条：更细，且仅悬停时显示 ----------------------------------
 
+.research-map-shell {
+  padding: 0;
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(var(--global-bg-color), var(--global-bg-color)) padding-box,
+    linear-gradient(105deg, #db2777 0%, #f9a8d4 38%, #38bdf8 68%, #2563eb 100%) border-box;
+  overflow: visible;
+}
+
 .research-map {
+  border-radius: 10.5px;
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
 

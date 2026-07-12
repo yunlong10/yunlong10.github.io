@@ -87,15 +87,17 @@ layout: default
     var speechModes = {
       Academic: {
         greetings: [
-          'Hello, this is Yolo Y. Tang, a Ph.D. student at the University of Rochester.',
-          "Yolo's research centers on LMMs and agents for video understanding.",
-          'You can explore selected papers, projects, and recent updates from here.',
+          {% assign recent_news = site.news | sort: 'date' | reverse %}
+          {% for item in recent_news limit: 10 %}
+            {% capture news_message -%}<span class="about-news-date">{{ item.date | date: '%m/%d/%y' }}</span> {{ item.content | markdownify | remove: '<p>' | remove: '</p>' | strip }}{%- endcapture %}
+            {{ news_message | strip | jsonify }}{% unless forloop.last %},{% endunless %}
+          {% endfor %}
         ],
         interactions: [
-          "Thanks for visiting Yolo's website!",
-          "The Research panel below collects Yolo's selected papers and projects.",
-          "The research map offers a quick tour of Yolo's work at a glance.",
-          'Yolo is happy to point you toward the most relevant work.',
+          {% for item in recent_news limit: 10 %}
+            {% capture news_message -%}<span class="about-news-date">{{ item.date | date: '%m/%d/%y' }}</span> {{ item.content | markdownify | remove: '<p>' | remove: '</p>' | strip }}{%- endcapture %}
+            {{ news_message | strip | jsonify }}{% unless forloop.last %},{% endunless %}
+          {% endfor %}
         ],
       },
       Creative: {
@@ -110,6 +112,9 @@ layout: default
           '✨ Feel free to explore the research and projects.',
           '📚 New ideas are usually hiding one click away.',
           '🩵 Hope you enjoy the visit.',
+          '🎤 Yolo is really into J-pop, <a href="{{ \'/gallery/\' | relative_url }}">illustration</a>, and cosplay — maybe she’s just cosplaying as a researcher :)',
+          "🪪 Please don't deadname or misgender Yolo. She prefers Yolo (in English) or 芸珑 (in Mandarin).",
+          '🌙 Yolo also prefers <ruby>夜<rt>よる</rt></ruby> ("night" in Japanese), since Sonta pronounces Yolo like /ˈjoʊ lu/, close to よる.',
         ],
       },
       Meow: {
@@ -133,20 +138,17 @@ layout: default
       var timeGreetings = null;
       if (hour >= 23 || hour < 5) {
         timeGreetings = {
-          Academic: 'Burning the midnight oil? Yolo appreciates the dedication.',
-          Creative: '🌙 夜更かしさん、いらっしゃい ~ Welcome, fellow night owl.',
+          Creative: '🌙 Welcome, fellow night owl.',
           Meow: '🐾 Meow?! It is nap time... but head pats are still accepted.',
         };
       } else if (hour < 11) {
         timeGreetings = {
-          Academic: 'Good morning! Fresh papers pair well with fresh coffee.',
-          Creative: '🌅 おはよう！ A brand-new day for brand-new ideas.',
+          Creative: '🌅 Good morning! A brand-new day for brand-new ideas.',
           Meow: '🐱 Mrrp... early meow. Breakfast first, research second.',
         };
       } else if (hour >= 18) {
         timeGreetings = {
-          Academic: 'Good evening! Thanks for dropping by after hours.',
-          Creative: '🌆 こんばんは！ The site glows a little softer at night.',
+          Creative: '🌆 Good evening! The site glows a little softer at night.',
           Meow: '😼 Evening patrol complete. The couch is secured.',
         };
       }
@@ -157,6 +159,7 @@ layout: default
     })();
 
     var currentSpeechMode = 'Academic';
+    var newsArchiveUrl = "{{ '/news/' | relative_url }}";
     var names = speechModes[currentSpeechMode].greetings;
     var interactionMessages = speechModes[currentSpeechMode].interactions;
     var index = 0;
@@ -170,12 +173,14 @@ layout: default
     var autoCycleIndex = 0;
     var pointerOffset = 1;
     var mascotRevealFallbackMs = 360;
-    var typingSpeedMs = 8;
+    var typingSpeedMs = 5;
     var autoCycleIntervalMs = 15000;
     var autoCycleMeowIntervalMs = 7000;
     var autoCycleInitialDelayMs = 10000;
     var autoSpeechDurationMs = 5000;
     var autoCycleTimerId = null;
+    var panelRestoreTimer = null;
+    var panelHideTimer = null;
 
     function currentAutoCycleIntervalMs() {
       return currentSpeechMode === 'Meow' ? autoCycleMeowIntervalMs : autoCycleIntervalMs;
@@ -401,7 +406,30 @@ layout: default
         }, 420);
       }
 
+      function scheduleInlinePanelRestore() {
+        window.clearTimeout(panelRestoreTimer);
+        aboutRoot.classList.add('is-panel-restoring');
+        // Panel-specific classes are removed after 420ms. Release the collapsed
+        // header at the same point so the textbox and header return together;
+        // keep the mascot invisible until the motion is done.
+        panelRestoreTimer = window.setTimeout(function () {
+          aboutRoot.classList.remove('is-inline-panel-open');
+        }, 430);
+        window.setTimeout(function () {
+          aboutRoot.classList.remove('is-panel-restoring');
+          aboutRoot.classList.add('is-mascot-reappearing');
+          window.setTimeout(function () {
+            aboutRoot.classList.remove('is-mascot-reappearing');
+          }, 520);
+        }, 940);
+      }
+
       function openInlinePanel(panel, trigger) {
+        window.clearTimeout(panelRestoreTimer);
+        window.clearTimeout(panelHideTimer);
+        aboutRoot.classList.remove('is-panel-restoring');
+        aboutRoot.classList.remove('is-mascot-reappearing');
+        dismissSpeechBubble();
         inlinePanels.forEach(function (otherPanel) {
           if (otherPanel === panel) return;
           var otherTrigger = document.querySelector('[data-about-panel-trigger="' + otherPanel.getAttribute('data-about-panel') + '"]');
@@ -411,26 +439,32 @@ layout: default
         panel.hidden = false;
         trigger.setAttribute('aria-expanded', 'true');
         trigger.classList.add('is-active');
-        window.requestAnimationFrame(function () {
-          aboutRoot.classList.add('is-inline-panel-open');
-          aboutRoot.classList.toggle('is-blog-panel-open', panel.getAttribute('data-about-panel') === 'blog');
-          aboutRoot.classList.toggle('is-research-panel-open', panel.getAttribute('data-about-panel') === 'research');
-          aboutRoot.classList.toggle('is-gallery-panel-open', panel.getAttribute('data-about-panel') === 'gallery');
-          aboutRoot.classList.toggle('is-misc-panel-open', panel.getAttribute('data-about-panel') === 'misc');
-          panel.classList.add('is-visible');
-          if (['blog', 'gallery', 'misc'].indexOf(panel.getAttribute('data-about-panel')) !== -1) {
-            return;
-          }
-          panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        });
+        aboutRoot.classList.add('is-panel-hiding-mascot');
+        panelHideTimer = window.setTimeout(function () {
+          aboutRoot.classList.remove('is-panel-hiding-mascot');
+          window.requestAnimationFrame(function () {
+            aboutRoot.classList.add('is-inline-panel-open');
+            aboutRoot.classList.toggle('is-blog-panel-open', panel.getAttribute('data-about-panel') === 'blog');
+            aboutRoot.classList.toggle('is-research-panel-open', panel.getAttribute('data-about-panel') === 'research');
+            aboutRoot.classList.toggle('is-gallery-panel-open', panel.getAttribute('data-about-panel') === 'gallery');
+            aboutRoot.classList.toggle('is-misc-panel-open', panel.getAttribute('data-about-panel') === 'misc');
+            panel.classList.add('is-visible');
+            if (['blog', 'gallery', 'misc'].indexOf(panel.getAttribute('data-about-panel')) !== -1) {
+              return;
+            }
+            panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          });
+        }, 260);
       }
 
       function closeAllInlinePanels() {
+        window.clearTimeout(panelHideTimer);
+        aboutRoot.classList.remove('is-panel-hiding-mascot');
         inlinePanels.forEach(function (panel) {
           var trigger = document.querySelector('[data-about-panel-trigger="' + panel.getAttribute('data-about-panel') + '"]');
           closeInlinePanel(panel, trigger);
         });
-        aboutRoot.classList.remove('is-inline-panel-open');
+        scheduleInlinePanelRestore();
       }
 
       collapseInlinePanels = closeAllInlinePanels;
@@ -451,39 +485,20 @@ layout: default
 
     window.addEventListener('keydown', function (e) {
       if (e.key !== 'Escape' || !aboutRoot || !aboutRoot.classList.contains('is-inline-panel-open')) return;
-      inlinePanels.forEach(function (panel) {
-        var trigger = document.querySelector('[data-about-panel-trigger="' + panel.getAttribute('data-about-panel') + '"]');
-        if (panel.classList.contains('is-visible')) {
-          panel.classList.remove('is-visible');
-          if (trigger) {
-            trigger.setAttribute('aria-expanded', 'false');
-            trigger.classList.remove('is-active');
-            trigger.focus();
-          }
-          window.setTimeout(function () {
-            if (!panel.classList.contains('is-visible')) panel.hidden = true;
-            if (panel.getAttribute('data-about-panel') === 'blog') {
-              aboutRoot.classList.remove('is-blog-panel-open');
-            }
-            if (panel.getAttribute('data-about-panel') === 'research') {
-              aboutRoot.classList.remove('is-research-panel-open');
-            }
-            if (panel.getAttribute('data-about-panel') === 'gallery') {
-              aboutRoot.classList.remove('is-gallery-panel-open');
-            }
-            if (panel.getAttribute('data-about-panel') === 'misc') {
-              aboutRoot.classList.remove('is-misc-panel-open');
-            }
-          }, 420);
-          aboutRoot.classList.remove('is-inline-panel-open');
-          return;
-        }
-      });
+      closeAllInlinePanels();
     });
 
     function fitSpeechBubble() {
       bubble.style.setProperty('--speech-font-scale', '1');
       bubble.style.setProperty('--speech-bubble-width', 'fit-content');
+
+      if (bubble.classList.contains('is-card-bubble')) {
+        bubble.style.setProperty('--speech-bubble-width', 'max-content');
+        var viewportSafeWidth = Math.max(window.innerWidth - 24, 240);
+        var newsMaxWidth = Math.min(promptBox.getBoundingClientRect().width || 680, 760, viewportSafeWidth);
+        bubble.style.setProperty('--speech-bubble-max-width', newsMaxWidth + 'px');
+        return;
+      }
 
       var promptWidth = promptBox.getBoundingClientRect().width;
       var bubbleStyle = window.getComputedStyle(bubble);
@@ -508,27 +523,19 @@ layout: default
       var naturalWidth = textWidth + horizontalChrome;
       if (!promptWidth || !textWidth) return;
 
-      var availableTextWidth = Math.max(promptWidth - horizontalChrome - 12, 1);
-      var scale = Math.min(1, availableTextWidth / textWidth);
+      if (naturalWidth > promptWidth) {
+        bubble.classList.add('is-card-bubble');
+        bubble.style.setProperty('--speech-bubble-width', 'max-content');
+        var fallbackSafeWidth = Math.max(window.innerWidth - 24, 240);
+        var fallbackMaxWidth = Math.min(promptWidth, 760, fallbackSafeWidth);
+        bubble.style.setProperty('--speech-bubble-max-width', fallbackMaxWidth + 'px');
+        bubble.style.setProperty('--speech-font-scale', '1');
+        return;
+      }
+
       var fittedWidth = Math.min(naturalWidth, promptWidth);
       bubble.style.setProperty('--speech-bubble-width', fittedWidth + 'px');
-      bubble.style.setProperty('--speech-font-scale', scale.toFixed(3));
-
-      for (var i = 0; i < 4; i++) {
-        var currentStyle = window.getComputedStyle(bubble);
-        var currentAvailable =
-          bubble.getBoundingClientRect().width -
-          parseFloat(currentStyle.paddingLeft) -
-          parseFloat(currentStyle.paddingRight) -
-          parseFloat(currentStyle.borderLeftWidth) -
-          parseFloat(currentStyle.borderRightWidth);
-        var currentTextWidth = rotator.scrollWidth;
-
-        if (currentTextWidth <= currentAvailable) break;
-
-        scale = scale * (currentAvailable / currentTextWidth) * 0.985;
-        bubble.style.setProperty('--speech-font-scale', scale.toFixed(3));
-      }
+      bubble.style.setProperty('--speech-font-scale', '1');
     }
 
     function updateSpeechPointer(done) {
@@ -549,10 +556,16 @@ layout: default
           var minBubbleCenter = promptRect.left + bubbleRect.width / 2;
           var maxBubbleCenter = promptRect.right - bubbleRect.width / 2;
           var targetX = Math.min(Math.max(naturalTargetX, minBubbleCenter), maxBubbleCenter) - identityRect.left;
-          var targetY = avatarRect.top - pointerOffset - identityRect.top;
+          var targetTop = avatarRect.top - pointerOffset - tailHalfDiagonal - bubbleRect.height;
+
+          if (bubble.classList.contains('is-card-bubble')) {
+            var navbar = document.getElementById('navbar');
+            var navbarBottom = navbar ? navbar.getBoundingClientRect().bottom : 0;
+            targetTop = Math.max(targetTop, navbarBottom + 8);
+          }
 
           bubble.style.setProperty('--speech-bubble-left', targetX + 'px');
-          bubble.style.setProperty('--speech-bubble-top', targetY - tailHalfDiagonal - bubbleRect.height + 'px');
+          bubble.style.setProperty('--speech-bubble-top', targetTop - identityRect.top + 'px');
           if (done) done();
         });
       });
@@ -606,18 +619,35 @@ layout: default
       identity.classList.remove('is-speaking');
     }
 
+    function decorateSpeechMessage(message) {
+      if (currentSpeechMode !== 'Academic' || message.indexOf('about-news-date') === -1) return message;
+      return (
+        message +
+        ' <a class="about-news-archive" href="' +
+        newsArchiveUrl +
+        '" aria-label="Open full news archive">All News</a>'
+      );
+    }
+
+    function renderSpeechMessage(message) {
+      var isNewsBubble = currentSpeechMode === 'Academic' && message.indexOf('about-news-date') !== -1;
+      bubble.classList.add('is-card-bubble');
+      bubble.classList.toggle('is-news-bubble', isNewsBubble);
+      rotator.innerHTML = decorateSpeechMessage(message);
+    }
+
     function setGreeting(nextIndex) {
       identity.classList.add('is-preparing-speech');
       identity.classList.remove('is-speaking');
       index = nextIndex % names.length;
-      rotator.innerHTML = names[index];
+      renderSpeechMessage(names[index]);
       rotator.classList.remove('is-changing');
     }
 
     function setInteractionGreeting() {
       identity.classList.add('is-preparing-speech');
       identity.classList.remove('is-speaking');
-      rotator.innerHTML = interactionMessages[interactionIndex];
+      renderSpeechMessage(interactionMessages[interactionIndex]);
       rotator.classList.remove('is-changing');
       interactionIndex = (interactionIndex + 1) % interactionMessages.length;
     }
