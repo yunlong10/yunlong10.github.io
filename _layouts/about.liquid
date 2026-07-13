@@ -170,6 +170,7 @@ layout: default
     var speechRequestId = 0;
     var clickPopActive = false;
     var autoCycleActive = false;
+    var bubbleHoverActive = false;
     var autoCycleIndex = 0;
     var pointerOffset = 1;
     var mascotRevealFallbackMs = 360;
@@ -181,6 +182,16 @@ layout: default
     var autoCycleTimerId = null;
     var panelRestoreTimer = null;
     var panelHideTimer = null;
+
+    function isMascotSpeechPaused() {
+      if (!aboutRoot) return false;
+      return (
+        aboutRoot.classList.contains('is-inline-panel-open') ||
+        aboutRoot.classList.contains('is-panel-hiding-mascot') ||
+        aboutRoot.classList.contains('is-panel-restoring') ||
+        aboutRoot.classList.contains('is-mascot-reappearing')
+      );
+    }
 
     function currentAutoCycleIntervalMs() {
       return currentSpeechMode === 'Meow' ? autoCycleMeowIntervalMs : autoCycleIntervalMs;
@@ -460,6 +471,7 @@ layout: default
       function closeAllInlinePanels() {
         window.clearTimeout(panelHideTimer);
         aboutRoot.classList.remove('is-panel-hiding-mascot');
+        dismissSpeechBubble();
         inlinePanels.forEach(function (panel) {
           var trigger = document.querySelector('[data-about-panel-trigger="' + panel.getAttribute('data-about-panel') + '"]');
           closeInlinePanel(panel, trigger);
@@ -582,14 +594,14 @@ layout: default
         if (done) return;
         done = true;
         avatar.removeEventListener('transitionend', onTransitionEnd);
-        if (requestId !== speechRequestId || !shouldShow()) {
+        if (requestId !== speechRequestId || isMascotSpeechPaused() || !shouldShow()) {
           identity.classList.remove('is-preparing-speech');
           return;
         }
         updateSpeechPointer(function () {
           identity.classList.remove('is-preparing-speech');
           window.requestAnimationFrame(function () {
-            if (shouldShow()) identity.classList.add('is-speaking');
+            if (!isMascotSpeechPaused() && shouldShow()) identity.classList.add('is-speaking');
           });
         });
       }
@@ -613,6 +625,7 @@ layout: default
       window.clearTimeout(autoCycleStepTimer);
       clickPopActive = false;
       autoCycleActive = false;
+      bubbleHoverActive = false;
       identity.classList.remove('is-hovered');
       identity.classList.remove('is-click-pop');
       identity.classList.remove('is-preparing-speech');
@@ -660,15 +673,37 @@ layout: default
       identity.classList.remove('is-speaking');
     }
 
+    function scheduleAutoSpeechStop() {
+      window.clearTimeout(autoCycleStepTimer);
+      if (!bubbleHoverActive) autoCycleStepTimer = window.setTimeout(stopAutoSpeechCycle, autoSpeechDurationMs);
+    }
+
+    function stopClickSpeech() {
+      window.clearTimeout(speechTimer);
+      identity.classList.remove('is-click-pop');
+      identity.classList.remove('is-preparing-speech');
+      identity.classList.remove('is-speaking');
+      clickPopActive = false;
+    }
+
+    function scheduleClickSpeechStop() {
+      window.clearTimeout(clickTimer);
+      if (!bubbleHoverActive) clickTimer = window.setTimeout(stopClickSpeech, autoSpeechDurationMs);
+    }
+
     function extendAutoSpeechCycle() {
       if (!autoCycleActive) return false;
-      window.clearTimeout(autoCycleStepTimer);
-      autoCycleStepTimer = window.setTimeout(stopAutoSpeechCycle, autoSpeechDurationMs);
+      if (isMascotSpeechPaused()) {
+        stopAutoSpeechCycle();
+        return false;
+      }
+      scheduleAutoSpeechStop();
       return true;
     }
 
     function startAutoSpeechCycle() {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (isMascotSpeechPaused()) return;
       if (clickPopActive || autoCycleActive || identity.classList.contains('is-hovered')) return;
 
       autoCycleActive = true;
@@ -678,10 +713,11 @@ layout: default
         return autoCycleActive && identity.classList.contains('is-click-pop') && !clickPopActive;
       });
 
-      autoCycleStepTimer = window.setTimeout(stopAutoSpeechCycle, autoSpeechDurationMs);
+      scheduleAutoSpeechStop();
     }
 
     avatar.addEventListener('mouseenter', function () {
+      if (isMascotSpeechPaused()) return;
       if (extendAutoSpeechCycle()) return;
       if (!clickPopActive) {
         setInteractionGreeting();
@@ -691,7 +727,17 @@ layout: default
       }
     });
 
-    bubble.addEventListener('mouseenter', extendAutoSpeechCycle);
+    bubble.addEventListener('mouseenter', function () {
+      bubbleHoverActive = true;
+      if (autoCycleActive) window.clearTimeout(autoCycleStepTimer);
+      if (clickPopActive) window.clearTimeout(clickTimer);
+    });
+
+    bubble.addEventListener('mouseleave', function () {
+      bubbleHoverActive = false;
+      if (autoCycleActive) scheduleAutoSpeechStop();
+      if (clickPopActive) scheduleClickSpeechStop();
+    });
 
     identity.addEventListener('mouseleave', function () {
       window.clearTimeout(speechTimer);
@@ -703,6 +749,7 @@ layout: default
     });
 
     avatar.addEventListener('click', function () {
+      if (isMascotSpeechPaused()) return;
       window.clearTimeout(clickTimer);
       if (autoCycleActive) stopAutoSpeechCycle();
       clickPopActive = true;
@@ -713,13 +760,7 @@ layout: default
         return identity.classList.contains('is-click-pop');
       });
 
-      clickTimer = window.setTimeout(function () {
-        window.clearTimeout(speechTimer);
-        identity.classList.remove('is-click-pop');
-        identity.classList.remove('is-preparing-speech');
-        identity.classList.remove('is-speaking');
-        clickPopActive = false;
-      }, autoSpeechDurationMs);
+      scheduleClickSpeechStop();
     });
 
     window.addEventListener('resize', function () {
