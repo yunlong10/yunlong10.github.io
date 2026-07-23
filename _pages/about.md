@@ -7,7 +7,7 @@ nav_order: 1
 subtitle:
 profile:
   align: right
-  image: website/prof_pic_4_26_sq.jpg
+  image: website/prof_pic_7_21_sq.jpg
   hide: true
   image_circular: false # crops the image to make it cicular
   more_info:
