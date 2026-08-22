@@ -33,7 +33,6 @@
   x_url: https://x.com/yoloytang_art/status/2072263626984206741
   youtube_url: https://youtube.com/shorts/MtzwzrfjjpA
   instagram_url: https://www.instagram.com/p/DaPidvJm1nK/
-  pin: true
 
 - images:
     - https://youtube.com/shorts/MtzwzrfjjpA
@@ -43,3 +42,23 @@
   x_url: https://x.com/yoloytang_art/status/2072473501467111755
   youtube_url: https://youtube.com/shorts/MtzwzrfjjpA
   instagram_url: https://www.instagram.com/p/DaROjtsvTaJ/
+
+- images:
+    - evev-08-21-26.png
+  caption: "What about dangerous😜 Credit: commissioned by [@evev](https://x.com/EvelyneXSLi)."
+  date: 2026-08-21
+  tags: [Illustration, evev, sonta, yolo]
+  x_url: https://x.com/yoloytang_art/status/2090991119912083939
+  youtube_url: https://youtu.be/plpDce8WUV8
+  instagram_url: https://www.instagram.com/p/DcUyTOsRZ9f/
+  pin: true
+
+- images:
+    - https://youtu.be/plpDce8WUV8
+  caption: "Drawing Timelapse of <i>What about dangerous</i>."
+  date: 2026-08-22
+  tags: [Timelapse, Illustration, evev, sonta, yolo]
+  aspect_ratio: 9/16
+  x_url: https://x.com/yoloytang_art/status/2091030751060144134
+  youtube_url: https://youtu.be/plpDce8WUV8
+  instagram_url: https://www.instagram.com/reel/DcVAFhsR90_/

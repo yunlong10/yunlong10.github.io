@@ -201,6 +201,7 @@ GEM
 PLATFORMS
   aarch64-linux-gnu
   arm64-darwin-22
+  arm64-darwin-25
   x86_64-linux
 
 DEPENDENCIES

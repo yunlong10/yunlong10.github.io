@@ -101,13 +101,25 @@
             {% endif %}
             {% assign ext = img | split: '?' | first | split: '.' | last | downcase %}
             {% if yt_id != '' %}
-              <div class="ig-slide ig-slide-embed">
-                <div class="ig-embed ig-embed-yt" data-yt-id="{{ yt_id }}">
+              {% assign yt_vertical = false %}
+              {% if img contains '/shorts/' or painting.aspect_ratio == '9:16' or painting.aspect_ratio == '9/16' or painting.vertical == true %}
+                {% assign yt_vertical = true %}
+              {% endif %}
+              <div class="ig-slide ig-slide-embed{% if yt_vertical %} is-vertical{% endif %}">
+                <div class="ig-embed ig-embed-yt{% if yt_vertical %} is-vertical{% endif %}" data-yt-id="{{ yt_id }}">
+                  {% if painting.poster %}
+                    {% assign thumb_src = painting.poster | prepend: 'assets/img/painting/' | relative_url %}
+                  {% else %}
+                    {% assign thumb_src = 'https://i.ytimg.com/vi/' | append: yt_id | append: '/maxresdefault.jpg' %}
+                  {% endif %}
                   <img
                     class="ig-embed-thumb"
-                    src="https://img.youtube.com/vi/{{ yt_id }}/hqdefault.jpg"
+                    src="{{ thumb_src }}"
                     alt="{{ image_label | escape }}"
                     loading="lazy"
+                    {% unless painting.poster %}
+                    onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/{{ yt_id }}/sddefault.jpg';this.onerror=function(){this.onerror=null;this.src='https://i.ytimg.com/vi/{{ yt_id }}/hqdefault.jpg';};"
+                    {% endunless %}
                   >
                   <button type="button" class="ig-embed-play" aria-label="Play video">
                     <svg viewBox="0 0 68 48" width="60" height="42">
