@@ -118,7 +118,7 @@
                     alt="{{ image_label | escape }}"
                     loading="lazy"
                     {% unless painting.poster %}
-                    onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/{{ yt_id }}/sddefault.jpg';this.onerror=function(){this.onerror=null;this.src='https://i.ytimg.com/vi/{{ yt_id }}/hqdefault.jpg';};"
+                      onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/{{ yt_id }}/sddefault.jpg';this.onerror=function(){this.onerror=null;this.src='https://i.ytimg.com/vi/{{ yt_id }}/hqdefault.jpg';};"
                     {% endunless %}
                   >
                   <button type="button" class="ig-embed-play" aria-label="Play video">
