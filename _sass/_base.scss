@@ -965,6 +965,9 @@ ul.task-list input[type="checkbox"] {
   }
 
   .about-inline-panel-inner {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
     min-height: 0;
     overflow: hidden;
   }
@@ -974,11 +977,11 @@ ul.task-list input[type="checkbox"] {
       margin-top: 0;
     }
 
-    // After the open animation, stop clipping the map shell's bottom border.
-    // Keep overflow:hidden while collapsed (needed for 0fr → 1fr), and never
-    // loosen .research-map itself (that previously blew up the SVG).
-    &.is-visible .about-inline-panel-inner {
-      overflow: visible;
+    // Leave a couple px under the map shell so the gradient bottom border
+    // isn't clipped by this overflow:hidden during reopen / paper expand.
+    // Do NOT set overflow:visible here — that lets the SVG width explode.
+    .about-inline-panel-inner {
+      padding-bottom: 3px;
     }
   }
 
@@ -1074,6 +1077,12 @@ ul.task-list input[type="checkbox"] {
       margin-left: auto;
       margin-right: auto;
       text-align: left;
+
+      > li > .row {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+      }
 
       > li:not(:last-child) {
         margin-bottom: 1.25rem;
@@ -3595,6 +3604,9 @@ ninja-keys::part(ninja-input-wrapper) {
 // Research Map (subway-style visualization)
 .research-map-shell {
   position: relative;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   margin: 0.5rem 0 0;
   padding: 1px;
   overflow: hidden;
@@ -3603,6 +3615,9 @@ ninja-keys::part(ninja-input-wrapper) {
 }
 
 .research-map {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   margin: 0;
   overflow-x: auto;
   overflow-y: hidden;
@@ -3618,7 +3633,10 @@ ninja-keys::part(ninja-input-wrapper) {
   svg {
     display: block;
     width: max(100%, 900px);
+    max-width: none;
     height: auto;
+    aspect-ratio: 1005 / 282;
+    flex-shrink: 0;
   }
 
   &::-webkit-scrollbar {
