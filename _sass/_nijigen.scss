@@ -830,7 +830,7 @@ html:not([data-theme="dark"]) #search-toggle:hover {
   background:
     linear-gradient(var(--global-bg-color), var(--global-bg-color)) padding-box,
     linear-gradient(105deg, #db2777 0%, #f9a8d4 38%, #38bdf8 68%, #2563eb 100%) border-box;
-  overflow: visible;
+  overflow: hidden;
 }
 
 .research-map {

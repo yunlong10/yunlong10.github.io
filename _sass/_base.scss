@@ -964,10 +964,6 @@ ul.task-list input[type="checkbox"] {
     }
   }
 
-  .about-inline-research .about-inline-panel-inner {
-    overflow: visible;
-  }
-
   .about-inline-panel-inner {
     min-height: 0;
     overflow: hidden;
@@ -976,6 +972,13 @@ ul.task-list input[type="checkbox"] {
   .about-inline-research {
     .research-map-hint {
       margin-top: 0;
+    }
+
+    // After the open animation, stop clipping the map shell's bottom border.
+    // Keep overflow:hidden while collapsed (needed for 0fr → 1fr), and never
+    // loosen .research-map itself (that previously blew up the SVG).
+    &.is-visible .about-inline-panel-inner {
+      overflow: visible;
     }
   }
 
@@ -3592,9 +3595,9 @@ ninja-keys::part(ninja-input-wrapper) {
 // Research Map (subway-style visualization)
 .research-map-shell {
   position: relative;
-  margin: 0.5rem 0 0.35rem;
+  margin: 0.5rem 0 0;
   padding: 1px;
-  overflow: visible;
+  overflow: hidden;
   border-radius: 12px;
   background: linear-gradient(105deg, #db2777 0%, #f9a8d4 38%, #38bdf8 68%, #2563eb 100%);
 }
@@ -3602,14 +3605,14 @@ ninja-keys::part(ninja-input-wrapper) {
 .research-map {
   margin: 0;
   overflow-x: auto;
-  overflow-y: visible;
+  overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   scrollbar-color: color-mix(in srgb, var(--global-theme-color) 45%, transparent) transparent;
   scrollbar-width: thin;
   cursor: default;
   border: 0;
   border-radius: 10px;
-  padding-bottom: 0.65rem;
+  padding-bottom: 0.25rem;
   background: var(--global-bg-color);
 
   svg {
