@@ -1,0 +1,85 @@
+{% comment %}
+  Widget class names are injected after build, so production PurgeCSS
+  drops them from main.css. These page-level rules always ship with Misc.
+{% endcomment %}
+<style id="misc-map-force">
+  .misc-map {
+    --misc-map-ocean: #3aa7ce;
+    --misc-map-opacity: 0.88;
+  }
+  .misc-map a#mapmyvisitors-widget {
+    max-width: 100%;
+    color: #ffffff !important;
+    text-decoration: none;
+    box-shadow: none;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    opacity: var(--misc-map-opacity);
+  }
+  .misc-map .misc-map-filters {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+  .misc-map .mapmyvisitors-map-container,
+  .misc-map .mapmyvisitors-map {
+    background-color: var(--misc-map-ocean) !important;
+  }
+  .misc-map .mapmyvisitors-visitors,
+  .misc-map .mapmyvisitors-date {
+    color: #ffffff !important;
+    position: relative;
+    z-index: 2;
+  }
+  .misc-map .mapmyvisitors-map {
+    position: relative;
+    background-blend-mode: lighten;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+  .misc-map .jvectormap-container {
+    position: relative;
+    z-index: 1;
+    background-color: transparent !important;
+  }
+  .misc-map circle.jvectormap-marker[fill='#FF0000' i] {
+    fill: #c84dff !important;
+    stroke: #ffffff !important;
+  }
+  .misc-map circle.jvectormap-marker[fill='#F8A400' i] {
+    fill: #f4c4db !important;
+    stroke: #ffffff !important;
+  }
+  html[data-theme='dark'] .misc-map {
+    --misc-map-ocean: #1e5a7c;
+    --misc-map-opacity: 1;
+  }
+  html[data-theme='dark'] .misc-map .mapmyvisitors-map-container,
+  html[data-theme='dark'] .misc-map .mapmyvisitors-map {
+    background-color: var(--misc-map-ocean) !important;
+  }
+  html[data-theme='dark'] .misc-map .mapmyvisitors-map {
+    background-blend-mode: normal;
+  }
+  html[data-theme='dark'] .misc-map .mapmyvisitors-map::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: inherit;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+    filter: url('#misc-map-night');
+  }
+  html[data-theme='dark'] .misc-map circle.jvectormap-marker[fill='#c84dff' i],
+  html[data-theme='dark'] .misc-map circle.jvectormap-marker[fill='#FF0000' i] {
+    fill: #e9a6ff !important;
+  }
+  html[data-theme='dark'] .misc-map circle.jvectormap-marker[fill='#f4c4db' i],
+  html[data-theme='dark'] .misc-map circle.jvectormap-marker[fill='#F8A400' i] {
+    fill: #f8d5e8 !important;
+  }
+</style>

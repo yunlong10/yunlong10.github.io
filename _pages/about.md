@@ -194,6 +194,7 @@ Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://ww
     {% include misc_list.liquid %}
     <!-- <h4 class="misc-heading">Visitor Map</h4> -->
     <div class="misc-map">
+      {% include misc_map_force.liquid %}
       <svg class="misc-map-filters" width="0" height="0" aria-hidden="true" focusable="false">
         <filter id="misc-map-night" color-interpolation-filters="sRGB">
           <feColorMatrix type="matrix" in="SourceGraphic" result="landAlpha" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1 1 1 0 -2"/>

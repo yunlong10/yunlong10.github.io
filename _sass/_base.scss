@@ -1940,8 +1940,8 @@ ul.task-list input[type="checkbox"] {
       color: #ffffff;
       text-decoration: none;
       box-shadow: none;
-      border-radius: 18px;
-      overflow: hidden;
+      border-radius: 18px !important;
+      overflow: hidden !important;
       opacity: var(--misc-map-opacity);
     }
 
