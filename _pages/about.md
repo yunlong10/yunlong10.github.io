@@ -194,38 +194,49 @@ Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://ww
     {% include misc_list.liquid %}
     <!-- <h4 class="misc-heading">Visitor Map</h4> -->
     <div class="misc-map">
-      <script id="_waule0">var _wau_opt = { target: "_blank" }; var _wau = _wau || []; _wau.push(["map", "xarqno8oer", "le0", "600", "300", "dashmap", "heart-pink"]);</script>
-      <script async src="//waust.at/m.js"></script>
+      <svg class="misc-map-filters" width="0" height="0" aria-hidden="true" focusable="false">
+        <filter id="misc-map-night" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix" in="SourceGraphic" result="landAlpha" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1 1 1 0 -2"/>
+          <feComponentTransfer in="landAlpha" result="landMask">
+            <feFuncA type="discrete" tableValues="0 1"/>
+          </feComponentTransfer>
+          <feFlood flood-color="#ffffff" result="landColor"/>
+          <feComposite in="landColor" in2="landMask" operator="in" result="land"/>
+          <feFlood flood-color="#1e5a7c" result="oceanColor"/>
+          <feComposite in="oceanColor" in2="landMask" operator="out" result="ocean"/>
+          <feMerge>
+            <feMergeNode in="ocean"/>
+            <feMergeNode in="land"/>
+          </feMerge>
+        </filter>
+      </svg>
     </div>
     <script>
       (function () {
-        var NAT_W = 600,
-          NAT_H = 300;
-        function fit() {
-          var map = document.querySelector('.misc-map');
-          if (!map) return;
-          var span = map.querySelector(':scope > span');
-          if (!span) return;
-          var w = map.clientWidth;
-          if (!w) return; // panel still collapsed/hidden
-          var scale = Math.min(1, w / NAT_W);
-          var offset = Math.max(0, (w - NAT_W * scale) / 2);
-          span.style.transform = 'translateX(' + offset + 'px) scale(' + scale + ')';
-          map.style.height = NAT_H * scale + 'px';
-        }
         var map = document.querySelector('.misc-map');
         if (!map) return;
-        if ('ResizeObserver' in window) new ResizeObserver(fit).observe(map);
-        else window.addEventListener('resize', fit);
-        // The widget injects its <span> asynchronously after a network call;
-        // observe only until it appears, then disconnect to avoid perpetual
-        // fit() calls (and forced layouts) on every later widget DOM change.
-        var injectionObserver = new MutationObserver(function () {
-          fit();
-          if (map.querySelector(':scope > span')) injectionObserver.disconnect();
-        });
-        injectionObserver.observe(map, { childList: true, subtree: true });
-        fit();
+        var injected = false;
+        function inject() {
+          if (injected || document.getElementById('mapmyvisitors')) return;
+          if (!map.clientWidth) return;
+          injected = true;
+          var s = document.createElement('script');
+          s.type = 'text/javascript';
+          s.id = 'mapmyvisitors';
+          s.src = '//mapmyvisitors.com/map.js?d=TAPwpw2VymdQgi9bo8EmgjkZDaiNn4zs5ubsnRuy5sc&cl=ffffff&w=a';
+          map.appendChild(s);
+        }
+        if ('ResizeObserver' in window) {
+          var ro = new ResizeObserver(function () {
+            if (map.clientWidth) {
+              inject();
+              ro.disconnect();
+            }
+          });
+          ro.observe(map);
+        } else {
+          inject();
+        }
       })();
     </script>
   </div>

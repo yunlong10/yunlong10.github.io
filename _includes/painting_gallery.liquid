@@ -31,11 +31,17 @@
 {% endfor %}
 {% assign all_tags = all_tags | uniq | sort %}
 
+{% assign default_filter = 'illustration' %}
 {% if all_tags.size > 0 %}
   <div class="ig-filters" role="tablist" aria-label="Filter by tag">
-    <button type="button" class="ig-filter is-active" data-ig-filter="*" aria-selected="true">All</button>
+    <button type="button" class="ig-filter" data-ig-filter="*" aria-selected="false">All</button>
     {% for tag in all_tags %}
-      <button type="button" class="ig-filter" data-ig-filter="{{ tag | downcase }}" aria-selected="false">#{{ tag }}</button>
+      {% assign tag_key = tag | downcase %}
+      {% if tag_key == default_filter %}
+        <button type="button" class="ig-filter is-active" data-ig-filter="{{ tag_key }}" aria-selected="true">#{{ tag }}</button>
+      {% else %}
+        <button type="button" class="ig-filter" data-ig-filter="{{ tag_key }}" aria-selected="false">#{{ tag }}</button>
+      {% endif %}
     {% endfor %}
   </div>
 {% endif %}
@@ -53,6 +59,13 @@
     {% endif %}
     {% assign image_label = painting.caption | markdownify | strip_html | strip | default: images.first %}
     {% assign painting_tags = painting.tags | join: '|' | downcase %}
+    {% assign matches_default_filter = false %}
+    {% for tag in painting.tags %}
+      {% assign tag_key = tag | downcase %}
+      {% if tag_key == default_filter %}
+        {% assign matches_default_filter = true %}
+      {% endif %}
+    {% endfor %}
     {% if painting.plain_embed %}
       {% assign x_id = '' %}
       {% assign embed_src = images.first %}
@@ -64,7 +77,13 @@
       {% if x_id == '' and painting.x_url contains '/status/' %}
         {% assign x_id = painting.x_url | split: '/status/' | last | split: '?' | first | split: '/' | first %}
       {% endif %}
-      <article class="gallery-plain-embed" data-tags="{{ painting_tags }}">
+      <article
+        class="gallery-plain-embed"
+        data-tags="{{ painting_tags }}"
+        {% unless matches_default_filter %}
+          style="display: none"
+        {% endunless %}
+      >
         {% if x_id != '' %}
           <div class="gallery-x-embed">
             <iframe
@@ -86,7 +105,13 @@
         {% endif %}
       </article>
     {% else %}
-      <article class="ig-post" data-tags="{{ painting_tags }}">
+      <article
+        class="ig-post"
+        data-tags="{{ painting_tags }}"
+        {% unless matches_default_filter %}
+          style="display: none"
+        {% endunless %}
+      >
         <header class="ig-post-header">
           <button type="button" class="ig-avatar-button" aria-label="Show profile photo">
             <img class="ig-avatar" src="{{ ig_avatar }}" alt="{{ ig_handle }}" loading="lazy">
@@ -785,6 +810,8 @@
         layoutMasonry();
       });
     }
+
+    applyFilter('illustration');
 
     function layoutMasonry() {
       if (!feed) return;
