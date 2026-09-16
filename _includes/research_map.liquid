@@ -2,11 +2,25 @@
 <div class="research-map-shell">
   <button type="button" class="research-map-scroll research-map-scroll-left" aria-label="Scroll research map left">‹</button>
   <div class="research-map" id="research-map-trigger">
-    <svg viewBox="-35 -75 1005 282" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Research map organized as subway lines">
+    <svg viewBox="-35 -75 1125 282" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Research map organized as subway lines">
       <defs>
         <linearGradient id="grad-pink-blue" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stop-color="#DB2777"/>
           <stop offset="100%" stop-color="#2563EB"/>
+        </linearGradient>
+        <linearGradient id="grad-bvb-node" class="rm-grad-programmatic" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#2563EB"/>
+          <stop offset="25%" stop-color="#38BDF8"/>
+          <stop offset="50%" stop-color="#7C3AED"/>
+          <stop offset="75%" stop-color="#DB2777"/>
+          <stop offset="100%" stop-color="#F9A8D4"/>
+        </linearGradient>
+        <linearGradient id="grad-programmatic" class="rm-grad-programmatic" gradientUnits="userSpaceOnUse" x1="934" y1="85" x2="1045" y2="85">
+          <stop offset="0%" stop-color="#2563EB"/>
+          <stop offset="25%" stop-color="#38BDF8"/>
+          <stop offset="50%" stop-color="#7C3AED"/>
+          <stop offset="75%" stop-color="#DB2777"/>
+          <stop offset="100%" stop-color="#F9A8D4"/>
         </linearGradient>
       </defs>
 
@@ -32,23 +46,23 @@
       </g>
 
       <!-- Track labels -->
-      <g class="rm-topic" data-paper-keys="tang2024avicuna,hua2024v2xum,tang2026takusen,tang2025catv,vidllmsurvey" role="button" tabindex="0" aria-label="Show temporal understanding papers">
+      <g class="rm-topic" data-paper-keys="tang2024avicuna,hua2024v2xum,tang2026takusen,tang2025catv,tang2026bvb,vidllmsurvey" role="button" tabindex="0" aria-label="Show temporal understanding papers">
         <circle class="rm-dot rm-dot-blue" r="5" cx="179" cy="65" style="animation-delay:0s"/>
         <text x="190" y="70" class="rm-label rm-text-blue" fill="#2563EB">Temporal Understanding</text>
       </g>
-      <g class="rm-topic" data-paper-keys="tang2025videor4,tang2025videolmm_posttraining,vidllmsurvey" role="button" tabindex="0" aria-label="Show video reasoning papers">
+      <g class="rm-topic" data-paper-keys="tang2025videor4,tang2025videolmm_posttraining,tang2026bvb,vidllmsurvey" role="button" tabindex="0" aria-label="Show video reasoning papers">
         <circle class="rm-dot" r="5" cx="214" cy="-15" fill="#DB2777" style="color:#DB2777;animation-delay:.45s"/>
         <text x="225" y="-10" class="rm-label" fill="#DB2777">Video Reasoning</text>
       </g>
-      <g class="rm-topic" data-paper-keys="tang2024cardiff,tang2025catv,tang2025videor4,vidllmsurvey" role="button" tabindex="0" aria-label="Show spatiotemporal LMMs and agents papers">
+      <g class="rm-topic" data-paper-keys="tang2024cardiff,tang2025catv,tang2025videor4,tang2026bvb,vidllmsurvey" role="button" tabindex="0" aria-label="Show spatiotemporal LMMs and agents papers">
         <circle class="rm-dot rm-dot-purple" r="5" cx="548" cy="65" style="animation-delay:.9s"/>
         <text x="655" y="70" class="rm-label rm-text-purple" fill="#7C3AED" text-anchor="middle">Spatiotemporal LMMs/Agents</text>
       </g>
-      <g class="rm-topic" data-paper-keys="tang2024vidcompostion,tang2025mmperspective,vidllmsurvey" role="button" tabindex="0" aria-label="Show LMM evaluation papers">
+      <g class="rm-topic" data-paper-keys="tang2024vidcompostion,tang2025mmperspective,tang2026bvb,vidllmsurvey" role="button" tabindex="0" aria-label="Show LMM evaluation papers">
         <circle class="rm-dot" r="5" cx="412" cy="-15" fill="#38BDF8" style="color:#38BDF8;animation-delay:1.35s"/>
         <text x="535" y="-10" class="rm-label" fill="#38BDF8" text-anchor="end">LMM Evaluation</text>
       </g>
-      <g class="rm-topic" data-paper-keys="tang2025mmperspective,vidllmsurvey" role="button" tabindex="0" aria-label="Show spatial understanding papers">
+      <g class="rm-topic" data-paper-keys="tang2025mmperspective,tang2026bvb,vidllmsurvey" role="button" tabindex="0" aria-label="Show spatial understanding papers">
         <circle class="rm-dot rm-dot-spatial" r="5" cx="159" cy="145" style="animation-delay:.7s"/>
         <text x="170" y="150" class="rm-label rm-text-spatial" fill="#F9A8D4">Spatial Understanding</text>
       </g>
@@ -121,16 +135,29 @@
         <text x="830" y="68" class="rm-venue" text-anchor="middle">[CVPR Findings '26]</text>
       </a>
 
-      <!-- Dashed future lines -->
-      <path class="rm-line-purple" d="M838,82 L910,82" stroke="#7C3AED" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="6,5"/>
-      <path d="M838,88 L910,88" stroke="#DB2777" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="6,5"/>
-      <path d="M703,-2 C840,5 920,69 920,75" stroke="#38BDF8" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="6,5"/>
-      <path class="rm-line-spatial" d="M703,2 C790,0 920,69 920,75" stroke="#F9A8D4" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="6,5"/>
+      <!-- Lines into BVB -->
+      <path class="rm-line-purple" d="M838,82 L908,82" stroke="#7C3AED" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M838,88 L908,88" stroke="#DB2777" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M703,-2 C840,5 920,69 920,73" stroke="#38BDF8" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path class="rm-line-spatial" d="M703,2 C790,0 920,69 920,73" stroke="#F9A8D4" stroke-width="4" fill="none" stroke-linecap="round"/>
 
-      <!-- Future marker -->
-      <circle cx="920" cy="85" r="12" fill="var(--global-text-color)"/>
-      <circle cx="920" cy="85" r="10" class="rm-bg"/>
-      <text x="920" y="92" fill="var(--global-text-color)" font-size="18" font-weight="700" text-anchor="middle">?</text>
+      <a href="https://yoloytang.me/BVB/" target="_blank" class="rm-station" data-paper-key="tang2026bvb" aria-label="Show BVB paper">
+        <circle cx="920" cy="85" r="12" fill="url(#grad-bvb-node)"/>
+        <circle cx="920" cy="85" r="6" class="rm-bg"/>
+        <text x="920" y="107" class="rm-name" text-anchor="middle">BVB</text>
+      </a>
+
+      <path class="rm-line-programmatic" d="M934,85 L1045,85" stroke="url(#grad-programmatic)" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="6,5"/>
+      <g class="rm-topic" data-paper-keys="tang2026bvb" role="button" tabindex="0" aria-label="Show programmatic reconstruction papers">
+        <circle class="rm-dot rm-dot-programmatic" r="5" cx="978" cy="54" style="animation-delay:2.1s"/>
+        <text class="rm-label rm-text-programmatic" text-anchor="middle">
+          <tspan x="990" y="54">Programmatic</tspan>
+          <tspan x="990" y="70">Reconstruction</tspan>
+        </text>
+      </g>
+      <circle cx="1057" cy="85" r="12" fill="var(--global-text-color)"/>
+      <circle cx="1057" cy="85" r="10" class="rm-bg"/>
+      <text x="1057" y="92" fill="var(--global-text-color)" font-size="18" font-weight="700" text-anchor="middle">?</text>
 
       <!-- Others (bottom-right) -->
       <g class="rm-topic rm-topic-others" data-paper-keys="tang2025ai4anime,hua2024mmcomposition,wang2023caption" role="button" tabindex="0" aria-label="Show other work">

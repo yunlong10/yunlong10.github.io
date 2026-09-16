@@ -303,6 +303,67 @@
     showPapersForNode(node);
   }
 
+  var panState = null;
+  var PAN_THRESHOLD = 6;
+
+  function mapCanPan() {
+    return trigger.scrollWidth > trigger.clientWidth + 1;
+  }
+
+  function updateMapPanCursor() {
+    trigger.classList.toggle("is-pannable", mapCanPan());
+  }
+
+  function endMapPan(event) {
+    if (!panState) return;
+    if (event && event.pointerId !== panState.pointerId) return;
+    if (panState.pointerId != null) {
+      try {
+        trigger.releasePointerCapture(panState.pointerId);
+      } catch (err) {}
+    }
+    trigger._suppressClick = panState.moved;
+    trigger.classList.remove("is-panning");
+    panState = null;
+  }
+
+  trigger.addEventListener("pointerdown", function (e) {
+    if (e.pointerType !== "mouse" || e.button !== 0) return;
+    if (!mapCanPan()) return;
+    panState = {
+      pointerId: e.pointerId,
+      startX: e.clientX,
+      startScroll: trigger.scrollLeft,
+      moved: false,
+    };
+  });
+  trigger.addEventListener("pointermove", function (e) {
+    if (!panState || e.pointerId !== panState.pointerId) return;
+    var dx = e.clientX - panState.startX;
+    if (!panState.moved) {
+      if (Math.abs(dx) < PAN_THRESHOLD) return;
+      panState.moved = true;
+      trigger.classList.add("is-panning");
+      try {
+        trigger.setPointerCapture(e.pointerId);
+      } catch (err) {}
+    }
+    e.preventDefault();
+    trigger.scrollLeft = panState.startScroll - dx;
+  });
+  trigger.addEventListener("pointerup", endMapPan);
+  trigger.addEventListener("pointercancel", endMapPan);
+  trigger.addEventListener(
+    "click",
+    function (e) {
+      if (!trigger._suppressClick) return;
+      trigger._suppressClick = false;
+      e.preventDefault();
+      e.stopPropagation();
+    },
+    true
+  );
+
   trigger.addEventListener("click", function (e) {
     activateMapNode(e.target.closest(".rm-station, .rm-topic"), e);
   });
@@ -375,17 +436,28 @@
   }
 
   positionTopicDots();
-  window.addEventListener("load", positionTopicDots);
+  updateMapPanCursor();
+  window.addEventListener("load", function () {
+    positionTopicDots();
+    updateMapPanCursor();
+  });
   window.addEventListener("resize", positionTopicDotsDebounced, { passive: true });
+  window.addEventListener("resize", updateMapPanCursor, { passive: true });
   if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(positionTopicDots);
+    document.fonts.ready.then(function () {
+      positionTopicDots();
+      updateMapPanCursor();
+    });
   }
   // The map can live inside a panel that is hidden on load (getBBox fails while
   // hidden), so re-measure once it actually becomes visible.
   if ("IntersectionObserver" in window) {
     var dotObserver = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (entry.isIntersecting) positionTopicDots();
+        if (entry.isIntersecting) {
+          positionTopicDots();
+          updateMapPanCursor();
+        }
       });
     });
     dotObserver.observe(trigger);
