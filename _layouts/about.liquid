@@ -112,7 +112,7 @@ layout: default
           '✨ Feel free to explore the research and projects.',
           '📚 New ideas are usually hiding one click away.',
           '🩵 Hope you enjoy the visit.',
-          '🎤 Yolo is really into J-pop, <a href="{{ \'/gallery/\' | relative_url }}">illustration</a>, and cosplay — maybe she’s just cosplaying as a researcher :)',
+          '🎤 Yolo is really into J-pop, <a href="#about-gallery-panel" data-about-panel-trigger="gallery">illustration</a>, and cosplay — maybe she’s just cosplaying as a researcher :)',
           "🪪 Please don't deadname or misgender Yolo. She prefers Yolo (in English) or 芸珑 (in Mandarin).",
           '🌙 Yolo also prefers <ruby>夜<rt>よる</rt></ruby> ("night" in Japanese), since Sonta pronounces Yolo like /ˈjoʊ lu/, close to よる.',
         ],
@@ -481,17 +481,17 @@ layout: default
 
       collapseInlinePanels = closeAllInlinePanels;
 
-      panelTriggers.forEach(function (trigger) {
-        trigger.addEventListener('click', function (e) {
-          var panel = panelForTrigger(trigger);
-          if (!panel) return;
-          e.preventDefault();
-          if (panel.classList.contains('is-visible')) {
-            closeAllInlinePanels();
-            return;
-          }
-          openInlinePanel(panel, trigger);
-        });
+      aboutRoot.addEventListener('click', function (e) {
+        var trigger = e.target.closest('[data-about-panel-trigger]');
+        if (!trigger || !aboutRoot.contains(trigger)) return;
+        var panel = panelForTrigger(trigger);
+        if (!panel) return;
+        e.preventDefault();
+        if (panel.classList.contains('is-visible')) {
+          closeAllInlinePanels();
+          return;
+        }
+        openInlinePanel(panel, trigger);
       });
     }
 

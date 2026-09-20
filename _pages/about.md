@@ -122,11 +122,11 @@ Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://ww
 </div>
 
 <nav class="about-quick-links" aria-label="Quick links">
-  <a href="{{ '/research/' | relative_url }}" data-about-panel-trigger="research" aria-expanded="false" aria-controls="about-research-panel">
+  <a href="#about-research-panel" data-about-panel-trigger="research" aria-expanded="false" aria-controls="about-research-panel">
     <i class="fa-regular fa-compass" aria-hidden="true"></i>
     <span class="quick-link-title">Research</span>
   </a>
-  <a href="{{ '/gallery/' | relative_url }}" data-about-panel-trigger="gallery" aria-expanded="false" aria-controls="about-gallery-panel">
+  <a href="#about-gallery-panel" data-about-panel-trigger="gallery" aria-expanded="false" aria-controls="about-gallery-panel">
     <i class="fa-regular fa-images" aria-hidden="true"></i>
     <span class="quick-link-title">Gallery</span>
   </a>
