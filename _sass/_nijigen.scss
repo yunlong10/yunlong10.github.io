@@ -11,6 +11,7 @@ $niji-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
 // ---- Manga screentone (网点) over the existing top gradient -----------------
 
+html,
 body {
   background-image: radial-gradient(color-mix(in srgb, var(--global-theme-color) 6%, transparent) 1px, transparent 1.6px),
     radial-gradient(color-mix(in srgb, var(--global-accent-blue) 6%, transparent) 1px, transparent 1.6px),
@@ -24,6 +25,13 @@ body {
     0 0,
     11px 11px,
     0 0;
+  min-height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+footer.fixed-bottom {
+  background-color: transparent;
 }
 
 // ---- Gradient hero title (魔法少女 style) ------------------------------------
@@ -380,6 +388,7 @@ html[data-theme="dark"] .card:hover {
 
 // ---- NEW QQ: 深色模式网点增强（浅色模式不变） --------------------------------------
 
+html[data-theme="dark"],
 html[data-theme="dark"] body {
   background-image: radial-gradient(color-mix(in srgb, var(--global-theme-color) 10%, transparent) 1px, transparent 1.6px),
     radial-gradient(color-mix(in srgb, var(--global-accent-blue) 10%, transparent) 1px, transparent 1.6px),
