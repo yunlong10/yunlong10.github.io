@@ -270,12 +270,12 @@ layout: default
         xAction.href = useArtX ? xAction.dataset.xCreativeHref : xAction.dataset.xHref;
       }
       if (githubAction && githubIcon) {
-        var useYoutube = mode === 'Creative' || mode === 'Meow';
-        githubAction.href = useYoutube ? githubAction.dataset.youtubeHref : githubAction.dataset.githubHref;
-        var ghLabel = useYoutube ? githubAction.dataset.youtubeLabel : githubAction.dataset.githubLabel;
+        var usePixiv = mode === 'Creative' || mode === 'Meow';
+        githubAction.href = usePixiv ? githubAction.dataset.pixivHref : githubAction.dataset.githubHref;
+        var ghLabel = usePixiv ? githubAction.dataset.pixivLabel : githubAction.dataset.githubLabel;
         githubAction.title = ghLabel;
         githubAction.setAttribute('aria-label', ghLabel);
-        githubIcon.className = useYoutube ? githubAction.dataset.youtubeIcon : githubAction.dataset.githubIcon;
+        githubAction.classList.toggle('is-pixiv', usePixiv);
       }
       if (modelPicker) {
         modelPicker.classList.toggle('is-creative-mode', mode === 'Creative');

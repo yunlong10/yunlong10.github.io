@@ -829,6 +829,22 @@ ul.task-list input[type="checkbox"] {
     .fa-square-youtube {
       font-size: 1.19em;
     }
+
+    .about-prompt-pixiv-logo {
+      display: none;
+      width: 1.08em;
+      height: 1.08em;
+      flex-shrink: 0;
+      overflow: visible;
+    }
+
+    &.is-pixiv .fa-github {
+      display: none !important;
+    }
+
+    &.is-pixiv .about-prompt-pixiv-logo {
+      display: block;
+    }
   }
 
   .about-prompt-email {
