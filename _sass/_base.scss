@@ -1085,7 +1085,10 @@ ul.task-list input[type="checkbox"] {
     .publications {
       margin-top: 0.4rem;
     }
+  }
 
+  .research-map-paper-panel,
+  .research-pinned {
     ol.bibliography {
       width: 100%;
       max-width: 100%;
@@ -1140,6 +1143,29 @@ ul.task-list input[type="checkbox"] {
           object-fit: contain;
         }
       }
+    }
+  }
+
+  // Each pinned entry is its own one-item <ol> (one bibliography tag per key).
+  .research-pinned {
+    margin: 0.2rem 0 1.5rem;
+
+    ol.bibliography > li {
+      margin-bottom: 0;
+    }
+
+    ol.bibliography + ol.bibliography {
+      margin-top: 1.25rem;
+    }
+
+    .title::before {
+      content: "\f08d"; // Font Awesome thumbtack
+      display: inline-block;
+      margin-right: 0.4em;
+      color: var(--global-theme-color);
+      font: var(--fa-font-solid);
+      font-size: 0.8em;
+      transform: rotate(35deg);
     }
   }
 
