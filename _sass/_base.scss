@@ -1147,8 +1147,10 @@ ul.task-list input[type="checkbox"] {
   }
 
   // Each pinned entry is its own one-item <ol> (one bibliography tag per key).
+  // The pin badge overhangs the teaser's top-left corner, and .about-inline-panel-inner
+  // clips overflow, so keep room above the first teaser and beside it on phones.
   .research-pinned {
-    margin: 0.2rem 0 1.5rem;
+    margin: 1rem 0 1.5rem;
 
     ol.bibliography > li {
       margin-bottom: 0;
@@ -1158,14 +1160,46 @@ ul.task-list input[type="checkbox"] {
       margin-top: 1.25rem;
     }
 
-    .title::before {
+    ol.bibliography > li > .row > .abbr abbr {
+      margin-bottom: 1rem;
+    }
+
+    .abbr figure {
+      position: relative;
+    }
+
+    // Centred on the corner, so a quarter of the circle overlaps the teaser.
+    .abbr figure::after {
       content: "\f08d"; // Font Awesome thumbtack
-      display: inline-block;
-      margin-right: 0.4em;
-      color: var(--global-theme-color);
+      position: absolute;
+      top: -0.8rem;
+      left: -0.8rem;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.6rem;
+      height: 1.6rem;
+      border: 2px solid var(--global-card-bg-color);
+      border-radius: 50%;
+      background: var(--global-theme-color);
+      box-shadow: 0 0 4px rgba(31, 45, 76, 0.25);
+      color: #fff;
       font: var(--fa-font-solid);
-      font-size: 0.8em;
-      transform: rotate(35deg);
+      font-size: 0.7rem;
+      pointer-events: none;
+      transform: rotate(-35deg);
+
+      html[data-theme="dark"] & {
+        background: #3389ec;
+      }
+    }
+
+    @media (max-width: 575px) {
+      ol.bibliography > li > .row > .abbr {
+        padding-left: 0.9rem;
+        padding-right: 0.9rem;
+      }
     }
   }
 
