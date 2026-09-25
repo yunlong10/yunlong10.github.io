@@ -53,6 +53,46 @@
     return entry ? entry.closest("li") : null;
   }
 
+  function parseKeys(raw) {
+    return (raw || "")
+      .split(",")
+      .map(function (key) {
+        return key.trim();
+      })
+      .filter(Boolean);
+  }
+
+  var pinnedKeys = parseKeys(paperPanel && paperPanel.getAttribute("data-pinned-keys"));
+
+  function pinnedPaperItems() {
+    return pinnedKeys.map(paperItemForKey).filter(Boolean);
+  }
+
+  function withPinnedFirst(items) {
+    var pinned = pinnedPaperItems().filter(function (li) {
+      return items.indexOf(li) !== -1;
+    });
+    return pinned.concat(
+      items.filter(function (li) {
+        return pinned.indexOf(li) === -1;
+      })
+    );
+  }
+
+  // Shows only `items`. Without an explicit sort they are reordered with pinned
+  // papers first; an explicit sort owns the order (see selected_papers.liquid).
+  function showPaperItems(items) {
+    var itemSet = new Set(items);
+    allPaperItems().forEach(function (li) {
+      li.hidden = !itemSet.has(li);
+    });
+    var list = items[0] && items[0].parentElement;
+    if (!list || !isDefaultSort()) return;
+    withPinnedFirst(items).forEach(function (li) {
+      list.appendChild(li);
+    });
+  }
+
   // Papers that should only surface via the "Others" node, not in the hub
   // (LMMs/Agents x Video Understanding) "all papers" view.
   var OTHERS_ONLY_KEYS = ["tang2025ai4anime", "hua2024mmcomposition", "wang2023caption"];
@@ -70,13 +110,7 @@
 
   function paperKeysForNode(node) {
     if (!node) return [];
-    var raw = node.getAttribute("data-paper-keys") || node.getAttribute("data-paper-key") || "";
-    return raw
-      .split(",")
-      .map(function (key) {
-        return key.trim();
-      })
-      .filter(Boolean);
+    return parseKeys(node.getAttribute("data-paper-keys") || node.getAttribute("data-paper-key"));
   }
 
   function parseCount(val) {
@@ -167,6 +201,20 @@
     });
   }
 
+  // With nothing selected, the list shows just the pinned papers.
+  function showDefaultPapers() {
+    var pinned = pinnedPaperItems();
+    if (!pinned.length) {
+      hidePaperPanel();
+      return;
+    }
+    document.querySelectorAll(".rm-station.active, .rm-topic.active").forEach(function (node) {
+      node.classList.remove("active");
+    });
+    showPaperItems(pinned);
+    revealPaperPanel(false);
+  }
+
   function slowScrollToPanel() {
     if (!paperPanel) return;
     var startY = window.pageYOffset || document.documentElement.scrollTop || 0;
@@ -194,14 +242,12 @@
   function showPapersForSearch() {
     if (!paperPanel || !bibSearch) return;
     if (!bibSearch.value.trim()) {
-      hidePaperPanel();
+      showDefaultPapers();
       return;
     }
 
     setControlMode("search");
-    allPaperItems().forEach(function (li) {
-      li.hidden = false;
-    });
+    showPaperItems(allPaperItems());
     document.querySelectorAll(".rm-station.active, .rm-topic.active").forEach(function (node) {
       node.classList.remove("active");
     });
@@ -253,7 +299,7 @@
       sortSelect.value = "default";
       sortSelect.dispatchEvent(new Event("change"));
     }
-    hidePaperPanel();
+    showDefaultPapers();
     setControlMode(null);
   }
 
@@ -273,16 +319,7 @@
     var items = paperItemsForNode(node);
     if (!items.length) return false;
 
-    var itemSet = new Set(items);
-    allPaperItems().forEach(function (li) {
-      li.hidden = !itemSet.has(li);
-    });
-    if (items[0] && items[0].parentElement) {
-      var list = items[0].parentElement;
-      items.forEach(function (li) {
-        list.appendChild(li);
-      });
-    }
+    showPaperItems(items);
     document.querySelectorAll(".rm-station.active, .rm-topic.active").forEach(function (n) {
       n.classList.remove("active");
     });
@@ -463,5 +500,8 @@
     dotObserver.observe(trigger);
   }
 
-  hidePaperPanel();
+  pinnedPaperItems().forEach(function (li) {
+    li.classList.add("is-pinned");
+  });
+  showDefaultPapers();
 })();

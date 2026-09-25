@@ -15,8 +15,8 @@ profile:
 
 news: false # includes a list of news items
 social: true # includes social icons at the bottom of the page
-# Research panel: bib keys pinned above the research map, shown in this order
-pinned_research: [tang2026bvb, vidllmsurvey]
+# Research panel: selected papers (bib keys) shown under the map by default and listed first, in this order
+pinned_research: [tang2026bvb]
 # Skip heavy scripts not used on the landing page (see _includes/scripts/mathjax.liquid, masonry.liquid)
 math: false
 masonry: false
@@ -145,11 +145,10 @@ Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://ww
 
 <section id="about-research-panel" class="about-inline-panel about-inline-research research-jp" data-about-panel="research" aria-label="Research" hidden>
   <div class="about-inline-panel-inner">
-    {% include research_pinned.liquid %}
     {% include research_map.liquid %}
     {% include research_controls.liquid %}
 
-    <div id="research-map-paper-panel" class="research-map-paper-panel" hidden>
+    <div id="research-map-paper-panel" class="research-map-paper-panel" data-pinned-keys="{{ page.pinned_research | join: ',' }}" hidden>
       <p class="selected-research-note-row">* Equal Contribution | † Corresponding Author</p>
       {% include selected_papers.liquid %}
     </div>

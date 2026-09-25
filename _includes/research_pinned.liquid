@@ -1,7 +1,0 @@
-{% if page.pinned_research.size > 0 %}
-  <section class="publications research-pinned" aria-label="Pinned research">
-    {% for pinned_key in page.pinned_research %}
-      {% bibliography --group_by none --query @*[key={{ pinned_key }}] %}
-    {% endfor %}
-  </section>
-{% endif %}

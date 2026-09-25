@@ -1085,10 +1085,7 @@ ul.task-list input[type="checkbox"] {
     .publications {
       margin-top: 0.4rem;
     }
-  }
 
-  .research-map-paper-panel,
-  .research-pinned {
     ol.bibliography {
       width: 100%;
       max-width: 100%;
@@ -1144,61 +1141,43 @@ ul.task-list input[type="checkbox"] {
         }
       }
     }
-  }
 
-  // Each pinned entry is its own one-item <ol> (one bibliography tag per key).
-  // The pin badge overhangs the teaser's top-left corner, and .about-inline-panel-inner
-  // clips overflow, so keep room above the first teaser and beside it on phones.
-  .research-pinned {
-    margin: 1rem 0 1.5rem;
-
-    ol.bibliography > li {
-      margin-bottom: 0;
-    }
-
-    ol.bibliography + ol.bibliography {
-      margin-top: 1.25rem;
-    }
-
-    ol.bibliography > li > .row > .abbr abbr {
-      margin-bottom: 1rem;
-    }
-
-    .abbr figure {
+    // research.js marks pinned papers with .is-pinned. The badge covers the teaser's
+    // corner point only while its offset exceeds about 0.15 × its diameter.
+    li.is-pinned .abbr figure {
       position: relative;
     }
 
-    // Centred on the corner, so a quarter of the circle overlaps the teaser.
-    .abbr figure::after {
+    li.is-pinned .abbr figure::after {
       content: "\f08d"; // Font Awesome thumbtack
       position: absolute;
-      top: -0.8rem;
-      left: -0.8rem;
+      top: -0.26rem;
+      left: -0.26rem;
       z-index: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 1.6rem;
-      height: 1.6rem;
-      border: 2px solid var(--global-card-bg-color);
+      width: 1.4rem;
+      height: 1.4rem;
       border-radius: 50%;
-      background: var(--global-theme-color);
-      box-shadow: 0 0 4px rgba(31, 45, 76, 0.25);
+      background: color-mix(in srgb, var(--global-theme-color) 80%, transparent);
       color: #fff;
       font: var(--fa-font-solid);
-      font-size: 0.7rem;
+      font-size: 0.62rem;
       pointer-events: none;
       transform: rotate(-35deg);
 
       html[data-theme="dark"] & {
-        background: #3389ec;
+        background: color-mix(in srgb, #3389ec 80%, transparent);
       }
     }
 
+    // The badge pokes past the teaser, this panel clips overflow, and phone
+    // teasers would otherwise touch its left edge.
     @media (max-width: 575px) {
-      ol.bibliography > li > .row > .abbr {
-        padding-left: 0.9rem;
-        padding-right: 0.9rem;
+      ol.bibliography > li.is-pinned > .row > .abbr {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
       }
     }
   }
@@ -3933,19 +3912,19 @@ ninja-keys::part(ninja-input-wrapper) {
   color: #7c3aed;
 }
 
-.rm-line-spatial {
+.rm-line-eval {
   stroke: #f472b6;
 }
 
-.rm-fill-spatial {
+.rm-fill-eval {
   fill: #f472b6;
 }
 
-.rm-text-spatial {
+.rm-text-eval {
   fill: #f472b6;
 }
 
-.rm-dot-spatial {
+.rm-dot-eval {
   fill: #f472b6;
   color: #f472b6;
 }
@@ -3999,19 +3978,19 @@ html[data-theme="dark"] {
     color: #a78bfa;
   }
 
-  .rm-line-spatial {
+  .rm-line-eval {
     stroke: #f9a8d4;
   }
 
-  .rm-fill-spatial {
+  .rm-fill-eval {
     fill: #f9a8d4;
   }
 
-  .rm-text-spatial {
+  .rm-text-eval {
     fill: #f9a8d4;
   }
 
-  .rm-dot-spatial {
+  .rm-dot-eval {
     fill: #f9a8d4;
     color: #f9a8d4;
   }

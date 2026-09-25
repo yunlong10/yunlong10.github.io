@@ -27,9 +27,9 @@
       <!-- === Lines (back to front) === -->
       <path class="rm-line-blue" d="M100,85 L470,85" stroke="#2563EB" stroke-width="6" fill="none" stroke-linecap="round"/>
       <path class="rm-line-purple" d="M470,85 L830,85" stroke="#7C3AED" stroke-width="6" fill="none" stroke-linecap="round"/>
-      <path class="rm-line-spatial" d="M170,160 L295,160 C375,160 455,75 470,85 C525,50 605,0 695,0 L695,0"
-            stroke="#F9A8D4" stroke-width="6" fill="none" stroke-linecap="round"/>
-      <path d="M430,0 L695,0" stroke="#38BDF8" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <path d="M170,160 L295,160 C375,160 455,75 470,85 C525,50 605,0 695,0 L695,0"
+            stroke="#38BDF8" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <path class="rm-line-eval" d="M430,0 L695,0" stroke="#F9A8D4" stroke-width="6" fill="none" stroke-linecap="round"/>
       <path d="M100,85 C170,35 190,5 265,0 L295,0 C370,5 420,55 470,85"
             stroke="#DB2777" stroke-width="6" fill="none" stroke-linecap="round"/>
       <path d="M470,85 C520,120 550,150 625,160 L675,160 C750,155 770,135 830,85"
@@ -59,15 +59,15 @@
         <text x="655" y="70" class="rm-label rm-text-purple" fill="#7C3AED" text-anchor="middle">Spatiotemporal LMMs/Agents</text>
       </g>
       <g class="rm-topic" data-paper-keys="tang2024vidcompostion,tang2025mmperspective,tang2026bvb,vidllmsurvey" role="button" tabindex="0" aria-label="Show LMMs/Agents evaluation papers">
-        <circle class="rm-dot" r="5" cx="412" cy="-15" fill="#38BDF8" style="color:#38BDF8;animation-delay:1.35s"/>
-        <text class="rm-label" fill="#38BDF8">
+        <circle class="rm-dot rm-dot-eval" r="5" cx="412" cy="-15" style="animation-delay:1.35s"/>
+        <text class="rm-label rm-text-eval" fill="#F9A8D4">
           <tspan x="423" y="-24">LMMs/Agents</tspan>
           <tspan x="423" y="-10">Evaluation</tspan>
         </text>
       </g>
       <g class="rm-topic" data-paper-keys="tang2025mmperspective,tang2026bvb,vidllmsurvey" role="button" tabindex="0" aria-label="Show spatial understanding papers">
-        <circle class="rm-dot rm-dot-spatial" r="5" cx="159" cy="145" style="animation-delay:.7s"/>
-        <text x="170" y="150" class="rm-label rm-text-spatial" fill="#F9A8D4">Spatial Understanding</text>
+        <circle class="rm-dot" r="5" cx="159" cy="145" fill="#38BDF8" style="color:#38BDF8;animation-delay:.7s"/>
+        <text x="170" y="150" class="rm-label" fill="#38BDF8">Spatial Understanding</text>
       </g>
 
       <!-- === Stations === -->
@@ -86,15 +86,15 @@
       </a>
 
       <a href="https://yunlong10.github.io/VidComposition/" target="_blank" class="rm-station" data-paper-key="tang2024vidcompostion" aria-label="Show VidComposition paper">
-        <circle cx="590" cy="0" r="8" fill="#38BDF8"/>
+        <circle class="rm-fill-eval" cx="590" cy="0" r="8" fill="#F9A8D4"/>
         <circle cx="590" cy="0" r="5" class="rm-bg"/>
         <text x="590" y="-25" class="rm-name" text-anchor="middle">VidComposition</text>
         <text x="590" y="-12" class="rm-venue" text-anchor="middle">[CVPR '25]</text>
       </a>
 
       <a href="https://yunlong10.github.io/MMPerspective/" target="_blank" class="rm-station" data-paper-key="tang2025mmperspective" aria-label="Show MMPerspective paper">
-        <circle class="rm-fill-spatial" cx="695" cy="0" r="8" fill="#F9A8D4"/>
-        <path d="M687,0 A8,8 0 0,1 703,0 Z" fill="#38BDF8"/>
+        <circle cx="695" cy="0" r="8" fill="#38BDF8"/>
+        <path class="rm-fill-eval" d="M687,0 A8,8 0 0,1 703,0 Z" fill="#F9A8D4"/>
         <circle cx="695" cy="0" r="5" class="rm-bg"/>
         <text x="695" y="-23" class="rm-name" text-anchor="middle">MMPerspective</text>
         <text x="695" y="-12" class="rm-venue" text-anchor="middle">[NeurIPS D&B '25]</text>
@@ -141,8 +141,8 @@
       <!-- Lines into BVB -->
       <path class="rm-line-purple" d="M838,82 L908,82" stroke="#7C3AED" stroke-width="4" fill="none" stroke-linecap="round"/>
       <path d="M838,88 L908,88" stroke="#DB2777" stroke-width="4" fill="none" stroke-linecap="round"/>
-      <path d="M703,-2 C840,5 920,69 920,73" stroke="#38BDF8" stroke-width="4" fill="none" stroke-linecap="round"/>
-      <path class="rm-line-spatial" d="M703,2 C790,0 920,69 920,73" stroke="#F9A8D4" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path class="rm-line-eval" d="M703,-2 C840,5 920,69 920,73" stroke="#F9A8D4" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M703,2 C790,0 920,69 920,73" stroke="#38BDF8" stroke-width="4" fill="none" stroke-linecap="round"/>
 
       <a href="https://yoloytang.me/BVB/" target="_blank" class="rm-station" data-paper-key="tang2026bvb" aria-label="Show BVB paper">
         <circle cx="920" cy="85" r="12" fill="url(#grad-bvb-node)"/>
