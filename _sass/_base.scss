@@ -3784,6 +3784,25 @@ ninja-keys::part(ninja-input-wrapper) {
   }
 }
 
+// Lives on the shell rather than in the SVG so it stays put while the map scrolls.
+.research-map-title {
+  position: absolute;
+  top: 0.55rem;
+  left: 0.85rem;
+  z-index: 3;
+  background-image: linear-gradient(90deg, #db2777, #2563eb);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  pointer-events: none;
+  user-select: none;
+}
+
 // Replaces the native scrollbar; research.js sizes and positions the thumb.
 .research-map-rail {
   position: absolute;
@@ -4064,6 +4083,11 @@ html[data-theme="dark"] {
 
   .rm-grad-programmatic stop:nth-child(5) {
     stop-color: #f9a8d4;
+  }
+
+  // Blue-led at night, like the page title.
+  .research-map-title {
+    background-image: linear-gradient(90deg, #66c2ff, #ff8fba);
   }
 }
 
