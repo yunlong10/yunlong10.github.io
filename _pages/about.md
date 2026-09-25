@@ -16,7 +16,7 @@ profile:
 news: false # includes a list of news items
 social: true # includes social icons at the bottom of the page
 # Research panel: selected papers (bib keys) shown under the map by default and listed first, in this order
-pinned_research: [tang2026bvb]
+pinned_research: [tang2026bvb, vidllmsurvey]
 # Skip heavy scripts not used on the landing page (see _includes/scripts/mathjax.liquid, masonry.liquid)
 math: false
 masonry: false

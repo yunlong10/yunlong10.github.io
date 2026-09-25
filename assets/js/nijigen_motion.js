@@ -50,10 +50,11 @@
   // ---- NEW M1: 滚动渐显 -------------------------------------------------------------
   // 论文条目、博客列表项进入视口时淡入上浮（一次性，不重复播放）。
   // 画廊瀑布流的 .ig-post 用 transform 定位，跳过以免冲突。
+  // 置顶论文（research.js 标记 .is-pinned）直接显示，不等滚动。
 
   document.addEventListener("DOMContentLoaded", function () {
     if (!("IntersectionObserver" in window)) return;
-    var targets = document.querySelectorAll(".publications ol.bibliography > li, .post-list li");
+    var targets = document.querySelectorAll(".publications ol.bibliography > li:not(.is-pinned), .post-list li");
     if (!targets.length) return;
     var io = new IntersectionObserver(
       function (entries) {

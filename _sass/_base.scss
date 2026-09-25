@@ -3748,8 +3748,7 @@ ninja-keys::part(ninja-input-wrapper) {
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
-  scrollbar-color: color-mix(in srgb, var(--global-theme-color) 45%, transparent) transparent;
-  scrollbar-width: thin;
+  scrollbar-width: none;
   cursor: default;
   border: 0;
   border-radius: 10px;
@@ -3781,17 +3780,65 @@ ninja-keys::part(ninja-input-wrapper) {
   }
 
   &::-webkit-scrollbar {
-    height: 6px;
+    display: none;
   }
+}
 
-  &::-webkit-scrollbar-track {
-    margin: 0 12px;
-    background: transparent;
+// Replaces the native scrollbar; research.js sizes and positions the thumb.
+.research-map-rail {
+  position: absolute;
+  left: 50%;
+  bottom: 0.6rem;
+  z-index: 2;
+  width: clamp(7.5rem, 34%, 17.5rem);
+  height: 4px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--global-theme-color) 14%, transparent);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  touch-action: none;
+  transform: translateX(-50%);
+  transition:
+    opacity 0.3s ease,
+    height 0.2s ease;
+
+  // Easier to grab than the 4px bar itself.
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -8px -4px;
   }
+}
 
-  &::-webkit-scrollbar-thumb {
-    border-radius: 999px;
-    background: linear-gradient(90deg, #db2777, #38bdf8);
+.research-map.is-pannable ~ .research-map-rail {
+  opacity: 0.55;
+  pointer-events: auto;
+}
+
+.research-map-shell:hover .research-map.is-pannable ~ .research-map-rail,
+.research-map-rail.is-dragging {
+  opacity: 1;
+}
+
+.research-map-rail:hover,
+.research-map-rail.is-dragging {
+  height: 6px;
+}
+
+.research-map-rail-thumb {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #db2777 0%, #f9a8d4 38%, #38bdf8 68%, #2563eb 100%);
+  box-shadow: 0 0 6px color-mix(in srgb, #db2777 28%, transparent);
+  cursor: grab;
+
+  .research-map-rail.is-dragging & {
+    cursor: grabbing;
   }
 }
 
@@ -3912,19 +3959,19 @@ ninja-keys::part(ninja-input-wrapper) {
   color: #7c3aed;
 }
 
-.rm-line-eval {
+.rm-line-spatial {
   stroke: #f472b6;
 }
 
-.rm-fill-eval {
+.rm-fill-spatial {
   fill: #f472b6;
 }
 
-.rm-text-eval {
+.rm-text-spatial {
   fill: #f472b6;
 }
 
-.rm-dot-eval {
+.rm-dot-spatial {
   fill: #f472b6;
   color: #f472b6;
 }
@@ -3978,19 +4025,19 @@ html[data-theme="dark"] {
     color: #a78bfa;
   }
 
-  .rm-line-eval {
+  .rm-line-spatial {
     stroke: #f9a8d4;
   }
 
-  .rm-fill-eval {
+  .rm-fill-spatial {
     fill: #f9a8d4;
   }
 
-  .rm-text-eval {
+  .rm-text-spatial {
     fill: #f9a8d4;
   }
 
-  .rm-dot-eval {
+  .rm-dot-spatial {
     fill: #f9a8d4;
     color: #f9a8d4;
   }

@@ -5,6 +5,8 @@
   var mapShell = document.querySelector(".research-map-shell");
   var scrollLeft = mapShell ? mapShell.querySelector(".research-map-scroll-left") : null;
   var scrollRight = mapShell ? mapShell.querySelector(".research-map-scroll-right") : null;
+  var mapRail = mapShell ? mapShell.querySelector(".research-map-rail") : null;
+  var mapRailThumb = mapRail ? mapRail.querySelector(".research-map-rail-thumb") : null;
   var paperPanel = document.getElementById("research-map-paper-panel");
   var paperClose = paperPanel ? paperPanel.querySelector(".research-map-paper-close") : null;
   var selectedPubs = document.getElementById("selected-publications");
@@ -349,6 +351,58 @@
 
   function updateMapPanCursor() {
     trigger.classList.toggle("is-pannable", mapCanPan());
+    updateMapRail();
+  }
+
+  function mapRailMetrics() {
+    var railWidth = mapRail.clientWidth;
+    var thumbWidth = Math.max(railWidth * (trigger.clientWidth / trigger.scrollWidth), 24);
+    return {
+      travel: Math.max(railWidth - thumbWidth, 0),
+      thumbWidth: thumbWidth,
+      scrollable: trigger.scrollWidth - trigger.clientWidth,
+    };
+  }
+
+  function updateMapRail() {
+    if (!mapRailThumb || !mapCanPan()) return;
+    var metrics = mapRailMetrics();
+    mapRailThumb.style.width = metrics.thumbWidth + "px";
+    mapRailThumb.style.transform = "translateX(" + metrics.travel * (trigger.scrollLeft / metrics.scrollable) + "px)";
+  }
+
+  var railGrabOffset = 0;
+
+  function scrollMapFromRail(clientX) {
+    var metrics = mapRailMetrics();
+    if (!metrics.travel) return;
+    var x = clientX - mapRail.getBoundingClientRect().left - railGrabOffset;
+    trigger.scrollLeft = Math.min(Math.max(x / metrics.travel, 0), 1) * metrics.scrollable;
+  }
+
+  if (mapRail && mapRailThumb) {
+    trigger.addEventListener("scroll", updateMapRail, { passive: true });
+    mapRail.addEventListener("pointerdown", function (e) {
+      if (e.button !== 0) return;
+      e.preventDefault();
+      var thumbRect = mapRailThumb.getBoundingClientRect();
+      var onThumb = e.clientX >= thumbRect.left && e.clientX <= thumbRect.right;
+      // Grabbing the thumb keeps it under the pointer; clicking the track centres it there.
+      railGrabOffset = onThumb ? e.clientX - thumbRect.left : thumbRect.width / 2;
+      try {
+        mapRail.setPointerCapture(e.pointerId);
+      } catch (err) {}
+      mapRail.classList.add("is-dragging");
+      scrollMapFromRail(e.clientX);
+    });
+    mapRail.addEventListener("pointermove", function (e) {
+      if (mapRail.classList.contains("is-dragging")) scrollMapFromRail(e.clientX);
+    });
+    ["pointerup", "pointercancel", "lostpointercapture"].forEach(function (type) {
+      mapRail.addEventListener(type, function () {
+        mapRail.classList.remove("is-dragging");
+      });
+    });
   }
 
   function endMapPan(event) {
@@ -500,8 +554,13 @@
     dotObserver.observe(trigger);
   }
 
+  // Pinned teasers load up front instead of lazily; switching them to eager here, before
+  // DOMContentLoaded, also keeps nijigen_motion.js from giving them its lazy-image fade.
   pinnedPaperItems().forEach(function (li) {
     li.classList.add("is-pinned");
+    li.querySelectorAll('img[loading="lazy"]').forEach(function (img) {
+      img.loading = "eager";
+    });
   });
   showDefaultPapers();
 })();
