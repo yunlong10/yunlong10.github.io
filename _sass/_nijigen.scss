@@ -831,17 +831,20 @@ html:not([data-theme="dark"]) #search-toggle:hover {
 
 // ---- NEW R1: 研究地图外框：粉蓝渐变描边（滚动条见 _base.scss 的 .research-map-rail） ----
 
+// 外框不做 overflow 裁切、.research-map 不铺底色（底色由外框的 padding-box 层画）：
+// 可滚动的地图是合成层，外面再套圆角裁切或它自己带不透明底色时，个别浏览器会偶尔吃掉底边描边。
 .research-map-shell {
   padding: 0;
   border: 1.5px solid transparent;
   background:
     linear-gradient(var(--global-bg-color), var(--global-bg-color)) padding-box,
     linear-gradient(105deg, #db2777 0%, #f9a8d4 38%, #38bdf8 68%, #2563eb 100%) border-box;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .research-map {
   border-radius: 10.5px;
+  background: transparent;
 }
 
 // ---- 修复：移动端 Chrome 开面板后无限下滑 ------------------------------------------
