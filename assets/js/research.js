@@ -733,6 +733,29 @@
     dotObserver.observe(trigger);
   }
 
+  // data-sort-cites is baked in at build time, but the shown counts come live from the
+  // citation-badge JSON (scripts/scholar_cite_counts.liquid). Once that arrives, sort by
+  // the same numbers people see.
+  function applyCiteMap(map) {
+    if (!map || !selectedPubs) return;
+    var changed = false;
+    selectedPubs.querySelectorAll(".row[data-scholar-id]").forEach(function (row) {
+      var id = row.getAttribute("data-scholar-id");
+      if (!Object.prototype.hasOwnProperty.call(map, id)) return;
+      var value = String(parseCount(map[id]));
+      if (row.getAttribute("data-sort-cites") === value) return;
+      row.setAttribute("data-sort-cites", value);
+      changed = true;
+    });
+    if (!changed) return;
+    if (sortSelect && sortSelect.value === "cites") sortSelect.dispatchEvent(new Event("change"));
+    else if (!paperFilter && isPaperPanelVisible()) showDefaultPapers();
+  }
+
+  window.addEventListener("pubCiteMapReady", function (e) {
+    applyCiteMap(e.detail);
+  });
+
   // Pinned teasers load up front instead of lazily; switching them to eager here, before
   // DOMContentLoaded, also keeps nijigen_motion.js from giving them its lazy-image fade.
   pinnedPaperItems().forEach(function (li) {
@@ -742,4 +765,5 @@
     });
   });
   showDefaultPapers();
+  if (window.__PUB_CITE_MAP__) applyCiteMap(window.__PUB_CITE_MAP__);
 })();
