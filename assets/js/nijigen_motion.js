@@ -127,7 +127,7 @@
   });
 
   // ---- NEW L4: 磁性快捷按钮 -------------------------------------------------------
-  // 主页 Research / Yo'Log / Gallery / Misc. 按钮被鼠标"吸"向指针（最多 4px）。
+  // 主页 Research / Yo'Log / Gallery 按钮被鼠标"吸"向指针（最多 4px）。
   var MAGNET = 4;
 
   document.addEventListener(

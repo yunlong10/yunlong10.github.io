@@ -1,4 +1,3 @@
-<p class="research-map-mobile-hint">Swipe left or right to explore the full map.</p>
 <div class="research-controls">
   <div class="research-control-buttons" aria-label="Research controls">
     <div class="research-control-pill research-control-search" data-research-pill="search">
@@ -20,14 +19,24 @@
         <span>Sort</span>
       </button>
       <div class="research-control-expansion">
-        <select id="pub-sort-by" aria-label="Sort publications">
-          <option value="default" selected hidden></option>
+        <select id="pub-sort-by" aria-label="Sort publications" hidden>
+          <option value="default" selected></option>
           <option value="cites">Citations</option>
           <option value="year">Year</option>
           <option value="authorpos">Author position</option>
           <option value="stars">GitHub stars</option>
         </select>
+        <button type="button" class="research-sort-toggle" aria-haspopup="listbox" aria-expanded="false" aria-controls="research-sort-menu">
+          <span class="research-sort-current">Citations</span>
+          <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+        </button>
       </div>
     </div>
+  </div>
+  <div id="research-sort-menu" class="research-sort-menu" role="listbox" aria-label="Sort publications" hidden>
+    <button type="button" role="option" data-sort-value="cites" aria-selected="false">Citations</button>
+    <button type="button" role="option" data-sort-value="year" aria-selected="false">Year</button>
+    <button type="button" role="option" data-sort-value="authorpos" aria-selected="false">Author position</button>
+    <button type="button" role="option" data-sort-value="stars" aria-selected="false">GitHub stars</button>
   </div>
 </div>

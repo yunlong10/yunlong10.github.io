@@ -4,8 +4,6 @@
 {% assign ig_youtube = 'https://www.youtube.com/@yoloytang-art' %}
 {% assign ig_x = 'https://x.com/yoloytang_art' %}
 {% assign ig_discord = 'https://discord.com/users/1152784980167106662' %}
-<div class="research-map-hint gallery-note">All created in gaps while Yolo's coding agents are working.</div>
-
 {% assign ig_avatar = '' %}
 {% for file in site.static_files %}
   {% assign avatar_path = file.path | downcase %}
@@ -508,12 +506,11 @@
     syncGalleryAvatar();
     window.addEventListener('pageshow', syncGalleryAvatar);
 
-    var navbarAvatarButton = document.querySelector('.navbar-menu-avatar');
     var buttons = document.querySelectorAll('.ig-avatar-button');
     for (var i = 0; i < buttons.length; i++) {
       buttons[i].addEventListener('click', function () {
-        if (navbarAvatarButton) {
-          navbarAvatarButton.click();
+        if (window.showProfilePhoto) {
+          window.showProfilePhoto();
           window.setTimeout(syncGalleryAvatar, 0);
         }
       });

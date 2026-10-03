@@ -27,13 +27,6 @@
   --global-divider-color: rgba(47, 111, 173, 0.22);
   --global-card-bg-color: #{$white-color};
   --global-highlight-color: #{$red-color-dark};
-  // Softer pastel gradient (day); darker icon for contrast on lighter fill
-  --global-back-to-top-bg-color: linear-gradient(
-    45deg,
-    #{color.mix($theme-rose, $white-color, 38%)} 0%,
-    #{color.mix($theme-sky-light, $white-color, 35%)} 100%
-  );
-  --global-back-to-top-text-color: #{$theme-sky};
   --global-newsletter-bg-color: #{$white-color};
   --global-newsletter-text-color: #{$black-color};
 
@@ -55,16 +48,6 @@
   }
   .repo-img-dark {
     display: none;
-  }
-
-  #back-to-top {
-    color: var(--global-back-to-top-text-color);
-    background: var(--global-back-to-top-bg-color);
-    bottom: $back-to-top-bottom;
-    right: $back-to-top-right;
-    height: $back-to-top-height;
-    width: $back-to-top-width;
-    z-index: $back-to-top-z-index;
   }
 }
 
@@ -91,9 +74,6 @@ html[data-theme="dark"] {
   --global-distill-app-color: #{$grey-color-light};
   --global-divider-color: rgba(142, 200, 245, 0.26);
   --global-card-bg-color: #232d42;
-  // 夜间蓝粉均衡渐变：蓝略主导，粉近半
-  --global-back-to-top-bg-color: linear-gradient(45deg, #2f7fd6 0%, #5ab2f7 32%, #ff8fba 82%);
-  --global-back-to-top-text-color: #{$white-color};
   --global-newsletter-bg-color: #{$grey-color-light};
   --global-newsletter-text-color: #{$grey-color-dark};
 
@@ -115,13 +95,6 @@ html[data-theme="dark"] {
   }
   .repo-img-dark {
     display: block;
-  }
-}
-
-html[data-theme-setting="dark"] {
-  #back-to-top {
-    color: var(--global-back-to-top-text-color);
-    background: var(--global-back-to-top-bg-color);
   }
 }
 

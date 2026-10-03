@@ -112,7 +112,6 @@ layout: default
           '✨ Feel free to explore the research and projects.',
           '📚 New ideas are usually hiding one click away.',
           '🩵 Hope you enjoy the visit.',
-          '🎤 Yolo is really into J-pop, <a href="#about-gallery-panel" data-about-panel-trigger="gallery">illustration</a>, and cosplay — maybe she’s just cosplaying as a researcher :)',
           "🪪 Please don't deadname or misgender Yolo. She prefers Yolo (in English) or 芸珑 (in Mandarin).",
           '🌙 Yolo also prefers <ruby>夜<rt>よる</rt></ruby> ("night" in Japanese), since Sonta pronounces Yolo like /ˈjoʊ lu/, close to よる.',
         ],
@@ -175,6 +174,9 @@ layout: default
     var pointerOffset = 1;
     var mascotRevealFallbackMs = 360;
     var typingSpeedMs = 5;
+    // Browsers won't fire repeated timers much faster than every ~4ms, so speed comes from
+    // typing several characters per tick rather than from a shorter delay.
+    var typingCharsPerTick = 2;
     var autoCycleIntervalMs = 15000;
     var autoCycleMeowIntervalMs = 7000;
     var autoCycleInitialDelayMs = 10000;
@@ -205,10 +207,12 @@ layout: default
 
     function setSpeechMode(mode) {
       if (!speechModes[mode]) return;
+      var modeChanged = mode !== currentSpeechMode;
       dismissSpeechBubble();
       if (mode === 'Meow' && typeof collapseInlinePanels === 'function') {
         collapseInlinePanels();
       }
+      var promptGhosts = modeChanged ? capturePromptText() : [];
       currentSpeechMode = mode;
       names = speechModes[currentSpeechMode].greetings;
       interactionMessages = speechModes[currentSpeechMode].interactions;
@@ -270,12 +274,22 @@ layout: default
         xAction.href = useArtX ? xAction.dataset.xCreativeHref : xAction.dataset.xHref;
       }
       if (githubAction && githubIcon) {
-        var usePixiv = mode === 'Creative' || mode === 'Meow';
-        githubAction.href = usePixiv ? githubAction.dataset.pixivHref : githubAction.dataset.githubHref;
-        var ghLabel = usePixiv ? githubAction.dataset.pixivLabel : githubAction.dataset.githubLabel;
+        var usePixiv = mode === 'Creative';
+        var useYarn = mode === 'Meow';
+        githubAction.href = useYarn
+          ? githubAction.dataset.visitorsHref
+          : usePixiv
+            ? githubAction.dataset.pixivHref
+            : githubAction.dataset.githubHref;
+        var ghLabel = useYarn
+          ? githubAction.dataset.visitorsLabel
+          : usePixiv
+            ? githubAction.dataset.pixivLabel
+            : githubAction.dataset.githubLabel;
         githubAction.title = ghLabel;
         githubAction.setAttribute('aria-label', ghLabel);
         githubAction.classList.toggle('is-pixiv', usePixiv);
+        githubAction.classList.toggle('is-yarn', useYarn);
       }
       if (modelPicker) {
         modelPicker.classList.toggle('is-creative-mode', mode === 'Creative');
@@ -288,6 +302,8 @@ layout: default
       document.body.classList.toggle('is-about-creative-mode', mode === 'Creative');
       document.body.classList.toggle('is-about-meow-mode', mode === 'Meow');
       restartAutoCycleInterval();
+      fitQuickLinks();
+      if (modeChanged) typePromptText(promptGhosts);
     }
 
     setSpeechMode(currentSpeechMode);
@@ -327,26 +343,223 @@ layout: default
       });
     }
 
-    function typePromptText() {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // Quick links share the action row with the icons and mode picker. When their labels
+    // don't fit, they turn icon-only one at a time from the right end (never the mode's main
+    // panel); when even that doesn't fit, they move out under the card instead of wrapping.
+    // Measured rather than media-queried because the room left depends on the picker's label
+    // and on the fonts.
+    var quickActionRow = document.querySelector('.about-prompt-actions');
+    var quickLinks = quickActionRow ? quickActionRow.querySelector('.about-quick-links') : null;
+    var quickLinksSlot = quickLinks ? quickLinks.nextElementSibling : null;
+    var quickLinkWidths = null;
 
-      var walker = document.createTreeWalker(promptBox, NodeFilter.SHOW_TEXT, {
+    // 'row': in the action row. 'card': the docked card's last row. 'below': under the card.
+    function placeQuickLinks(where) {
+      if (where === 'row') {
+        if (quickLinks.parentNode !== quickActionRow) quickActionRow.insertBefore(quickLinks, quickLinksSlot);
+      } else if (where === 'card') {
+        if (quickLinks.parentNode !== promptBox) promptBox.appendChild(quickLinks);
+      } else if (quickLinks.previousElementSibling !== promptBox) {
+        promptBox.parentNode.insertBefore(quickLinks, promptBox.nextSibling);
+      }
+    }
+
+    function fitQuickLinks() {
+      if (!quickLinks || !quickLinks.offsetParent) return;
+      var links = Array.prototype.slice.call(quickLinks.querySelectorAll('a'));
+      if (!quickLinkWidths) {
+        // The row's sizing is what's being measured; this all happens before the next paint.
+        placeQuickLinks('row');
+        links.forEach(function (a) {
+          a.classList.remove('is-icon');
+        });
+        quickLinkWidths = links.map(function (a) {
+          return a.offsetWidth;
+        });
+      }
+      var gap = parseFloat(getComputedStyle(quickLinks).columnGap) || 0;
+      var iconWidth = links[0].offsetHeight;
+      var primary = currentSpeechMode === 'Creative' ? 'gallery' : 'research';
+      var full = gap * (links.length - 1);
+      quickLinkWidths.forEach(function (width) {
+        full += width;
+      });
+      // Right to left in display order (CSS order differs per mode), skipping the main panel.
+      var dropOrder = links
+        .map(function (a, i) {
+          return { a: a, i: i, order: parseFloat(getComputedStyle(a).order) || 0 };
+        })
+        .sort(function (x, y) {
+          return y.order - x.order || y.i - x.i;
+        })
+        .filter(function (item) {
+          return item.a.getAttribute('data-about-panel-trigger') !== primary;
+        });
+
+      // How many labels to drop to fit `room`, or -1 if even all of them isn't enough.
+      function iconsNeeded(room) {
+        var width = full;
+        for (var k = 0; ; k++) {
+          if (width <= room) return k;
+          if (k === dropOrder.length) return -1;
+          width -= quickLinkWidths[dropOrder[k].i] - iconWidth;
+        }
+      }
+
+      // Room the links would get in the row, wherever they are now: the row minus the other
+      // items and the two gaps beside the links. The one before the picker may shrink to 4px,
+      // since the picker's own left padding keeps its label clear. Only negative margins
+      // count: they hand space back, while the picker's auto margin is just slack.
+      var rowGap = parseFloat(getComputedStyle(quickActionRow).columnGap) || 0;
+      var room = quickActionRow.clientWidth - rowGap * 2 - 4;
+      Array.prototype.forEach.call(quickActionRow.children, function (child) {
+        if (child === quickLinks) return;
+        var style = getComputedStyle(child);
+        room -= child.offsetWidth + Math.min(0, parseFloat(style.marginLeft)) + Math.min(0, parseFloat(style.marginRight));
+      });
+
+      var icons = iconsNeeded(room);
+      // Under the card would be off in the page while the card floats, so a docked card keeps them.
+      placeQuickLinks(icons >= 0 ? 'row' : promptBox.classList.contains('is-docked') ? 'card' : 'below');
+      links.forEach(function (a) {
+        a.classList.remove('is-icon');
+      });
+      dropOrder.slice(0, Math.max(icons, 0)).forEach(function (item) {
+        item.a.classList.add('is-icon');
+      });
+    }
+
+    if (quickLinks) {
+      fitQuickLinks();
+      if ('ResizeObserver' in window) {
+        // Deferred a frame: fitting can change the row's height, which would otherwise
+        // re-trigger this observer within the same frame.
+        new ResizeObserver(function () {
+          window.requestAnimationFrame(fitQuickLinks);
+        }).observe(quickActionRow);
+      } else {
+        window.addEventListener('resize', fitQuickLinks, { passive: true });
+      }
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () {
+          quickLinkWidths = null;
+          fitQuickLinks();
+        });
+      }
+    }
+
+    // Whole days since the start date in the visitor's local calendar. Meow mode needs JS
+    // anyway, so there's no build-time fallback.
+    document.querySelectorAll('[data-cat-since]').forEach(function (el) {
+      var parts = el.getAttribute('data-cat-since').split('-');
+      var start = new Date(+parts[0], parts[1] - 1, +parts[2]);
+      var today = new Date();
+      today.setHours(0, 0, 0, 0);
+      el.textContent = Math.round((today - start) / 86400000);
+    });
+
+    var promptTyping = null;
+
+    // Restores whatever is still untyped and drops any text still being erased, so
+    // switching modes mid-typing never leaves the previous bio half-written.
+    function finishPromptTyping() {
+      if (!promptTyping) return;
+      window.clearTimeout(promptTyping.timer);
+      promptTyping.textNodes.forEach(function (item) {
+        item.node.nodeValue = item.text;
+      });
+      promptTyping.ghosts.forEach(function (ghost) {
+        ghost.remove();
+      });
+      promptTyping.caret.remove();
+      promptBox.classList.remove('is-typing');
+      promptBox.removeAttribute('aria-busy');
+      promptTyping = null;
+    }
+
+    function visiblePromptParagraphs() {
+      return Array.prototype.filter.call(promptBox.children, function (el) {
+        return el.tagName === 'P' && !el.classList.contains('about-prompt-ghost') && el.getClientRects().length;
+      });
+    }
+
+    // Call before changing which text the card shows: freezes the text on screen (as far
+    // as it has been typed) into copies that typePromptText backspaces away first.
+    function capturePromptText() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return [];
+      // Already backspacing: keep erasing what's left rather than the new, untyped text.
+      if (promptTyping && promptTyping.ghosts.length) {
+        var pending = promptTyping.ghosts;
+        promptTyping.ghosts = [];
+        pending.isErasing = true;
+        return pending;
+      }
+      return visiblePromptParagraphs().map(function (paragraph) {
+        var ghost = paragraph.cloneNode(true);
+        // The mode classes switch right after this, so pin the old mode's typography.
+        var style = window.getComputedStyle(paragraph);
+        ['fontFamily', 'fontSize', 'fontWeight', 'fontStyle', 'letterSpacing', 'wordSpacing', 'lineHeight', 'color'].forEach(function (prop) {
+          ghost.style[prop] = style[prop];
+        });
+        ghost.querySelectorAll('.about-prompt-caret').forEach(function (caret) {
+          caret.remove();
+        });
+        ghost.classList.add('about-prompt-ghost');
+        ghost.setAttribute('aria-hidden', 'true');
+        ghost.aboutSource = paragraph;
+        paragraph.parentNode.insertBefore(ghost, paragraph);
+        return ghost;
+      });
+    }
+
+    function promptTextNodes(root, visibleOnly) {
+      var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
         acceptNode: function (node) {
           var parent = node.parentElement;
-          if (!parent || parent.closest('.about-prompt-actions')) return NodeFilter.FILTER_REJECT;
+          if (!parent || parent.closest('.about-prompt-actions, .about-quick-links, .about-prompt-corner')) return NodeFilter.FILTER_REJECT;
           if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          if (visibleOnly) {
+            if (parent.closest('.about-prompt-ghost')) return NodeFilter.FILTER_REJECT;
+            // Other modes' bio text is in the DOM but not displayed.
+            if (!parent.getClientRects().length) return NodeFilter.FILTER_REJECT;
+          }
           return NodeFilter.FILTER_ACCEPT;
         },
       });
-      var textNodes = [];
+      var nodes = [];
       var node;
-      while ((node = walker.nextNode())) {
-        textNodes.push({
-          node: node,
-          text: node.nodeValue,
+      while ((node = walker.nextNode())) nodes.push(node);
+      return nodes;
+    }
+
+    function typePromptText(ghosts) {
+      ghosts = ghosts || [];
+      finishPromptTyping();
+
+      // Same paragraphs as before the change (e.g. switching modes behind a panel hint):
+      // nothing to retype.
+      var visible = visiblePromptParagraphs();
+      var unchanged =
+        !ghosts.isErasing &&
+        ghosts.length === visible.length &&
+        ghosts.every(function (ghost, i) {
+          return ghost.aboutSource === visible[i];
         });
+      if ((ghosts.length && unchanged) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        ghosts.forEach(function (ghost) {
+          ghost.remove();
+        });
+        return;
       }
-      if (!textNodes.length) return;
+
+      var textNodes = promptTextNodes(promptBox, true).map(function (node) {
+        return { node: node, text: node.nodeValue };
+      });
+      var eraseNodes = [];
+      ghosts.forEach(function (ghost) {
+        eraseNodes = eraseNodes.concat(promptTextNodes(ghost, false));
+      });
+      if (!textNodes.length && !eraseNodes.length) return;
 
       promptBox.setAttribute('aria-busy', 'true');
       promptBox.classList.add('is-typing');
@@ -356,6 +569,8 @@ layout: default
       var caret = document.createElement('span');
       caret.className = 'about-prompt-caret';
       caret.setAttribute('aria-hidden', 'true');
+      var typing = { textNodes: textNodes, ghosts: ghosts, caret: caret, timer: null };
+      promptTyping = typing;
 
       var nodeIndex = 0;
       var charIndex = 0;
@@ -364,35 +579,183 @@ layout: default
         targetNode.parentNode.insertBefore(caret, targetNode.nextSibling);
       }
 
-      function typeNextCharacter() {
-        var item = textNodes[nodeIndex];
-        moveCaretAfter(item.node);
-        item.node.nodeValue += item.text.charAt(charIndex);
-        charIndex += 1;
+      // Backspaces the old text from its end, at the typing speed.
+      var eraseIndex = eraseNodes.length - 1;
+      function eraseNextCharacter() {
+        for (var erased = 0; erased < typingCharsPerTick && eraseIndex >= 0; erased++) {
+          var target = eraseNodes[eraseIndex];
+          moveCaretAfter(target);
+          target.nodeValue = target.nodeValue.slice(0, -1);
+          if (!target.nodeValue.length) eraseIndex -= 1;
+        }
+        if (eraseIndex >= 0) {
+          typing.timer = window.setTimeout(eraseNextCharacter, typingSpeedMs);
+          return;
+        }
+        typing.ghosts.forEach(function (ghost) {
+          ghost.remove();
+        });
+        typing.ghosts = [];
+        if (!textNodes.length) {
+          finishPromptTyping();
+          return;
+        }
+        moveCaretAfter(textNodes[0].node);
+        typing.timer = window.setTimeout(typeNextCharacter, 90);
+      }
 
-        if (charIndex >= item.text.length) {
-          nodeIndex += 1;
-          charIndex = 0;
+      function typeNextCharacter() {
+        for (var typed = 0; typed < typingCharsPerTick && nodeIndex < textNodes.length; typed++) {
+          var item = textNodes[nodeIndex];
+          moveCaretAfter(item.node);
+          item.node.nodeValue += item.text.charAt(charIndex);
+          charIndex += 1;
+
+          if (charIndex >= item.text.length) {
+            nodeIndex += 1;
+            charIndex = 0;
+          }
         }
 
         if (nodeIndex < textNodes.length) {
-          window.setTimeout(typeNextCharacter, typingSpeedMs);
+          typing.timer = window.setTimeout(typeNextCharacter, typingSpeedMs);
           return;
         }
 
-        promptBox.classList.remove('is-typing');
-        promptBox.removeAttribute('aria-busy');
-        caret.remove();
+        finishPromptTyping();
       }
 
-      window.setTimeout(typeNextCharacter, 90);
+      if (eraseNodes.length) {
+        moveCaretAfter(eraseNodes[eraseNodes.length - 1]);
+        typing.timer = window.setTimeout(eraseNextCharacter, typingSpeedMs);
+      } else {
+        typing.timer = window.setTimeout(typeNextCharacter, 90);
+      }
     }
 
     typePromptText();
 
+    var topButton = promptBox.querySelector('.about-prompt-top');
+    if (topButton) {
+      var topButtonFrame = null;
+      var updateTopButton = function () {
+        topButtonFrame = null;
+        promptBox.classList.toggle('shows-top-button', window.scrollY > 160);
+      };
+      window.addEventListener('scroll', function () {
+        if (topButtonFrame === null) topButtonFrame = window.requestAnimationFrame(updateTopButton);
+      }, { passive: true });
+      updateTopButton();
+      topButton.addEventListener('click', function () {
+        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      });
+    }
+
     if (aboutRoot && panelTriggers.length && inlinePanels.length) {
       function panelForTrigger(trigger) {
         return document.querySelector('[data-about-panel="' + trigger.getAttribute('data-about-panel-trigger') + '"]');
+      }
+
+      // Any other link with data-about-panel-trigger can open a panel too, but the
+      // expanded/active state always belongs to the panel's quick-link button.
+      function panelButton(panel) {
+        return document.querySelector('.about-quick-links [data-about-panel-trigger="' + panel.getAttribute('data-about-panel') + '"]');
+      }
+
+      // While a panel is open, the card types out that panel's hint instead of the bio.
+      var panelHintClasses = { research: 'shows-research-hint', gallery: 'shows-gallery-hint', blog: 'shows-blog-hint' };
+      var promptPanel = null;
+
+      function setPromptPanel(name) {
+        if (promptPanel === name) return;
+        promptPanel = name;
+        if (name) {
+          showPromptText(name);
+          setPromptDocked(true);
+          return;
+        }
+        // Keep the short hint while gliding back; the bio types out once the card has landed.
+        setPromptDocked(false, function () {
+          showPromptText(null);
+        });
+      }
+
+      function showPromptText(name) {
+        var ghosts = capturePromptText();
+        promptBox.classList.toggle('has-panel-hint', !!name);
+        Object.keys(panelHintClasses).forEach(function (key) {
+          promptBox.classList.toggle(panelHintClasses[key], key === name);
+        });
+        typePromptText(ghosts);
+      }
+
+      // An open panel docks the card at the bottom of the screen.
+      function setPromptDocked(docked, onLanded) {
+        if (promptBox.classList.contains('is-docked') === docked) {
+          if (onLanded) onLanded();
+          return;
+        }
+        var from = promptBox.getBoundingClientRect();
+        promptBox.classList.toggle('is-docked', docked);
+        aboutRoot.classList.toggle('has-docked-prompt', docked);
+        fitQuickLinks();
+        updateDockSpace();
+        glidePrompt(from, onLanded);
+      }
+
+      // Glides the card from `from` to wherever it is laid out, re-reading that spot every
+      // frame: on the way back the page around it is still restoring, so the target moves.
+      // A newer glide cancels an older one (and its onLanded).
+      var promptGlideId = 0;
+
+      function glidePrompt(from, onLanded) {
+        var id = ++promptGlideId;
+        var duration = 620;
+        var start = null;
+
+        function place(progress) {
+          promptBox.style.transform = '';
+          var to = promptBox.getBoundingClientRect();
+          var rest = Math.pow(1 - progress, 3);
+          promptBox.style.transform = 'translate(' + (from.left - to.left) * rest + 'px, ' + (from.top - to.top) * rest + 'px)';
+        }
+
+        function finish() {
+          promptBox.style.transform = '';
+          promptBox.style.transition = '';
+          if (onLanded) onLanded();
+        }
+
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          finish();
+          return;
+        }
+        // .about-prompt transitions transform; per-frame updates must land immediately.
+        promptBox.style.transition = 'none';
+        place(0);
+        window.requestAnimationFrame(function frame(now) {
+          if (id !== promptGlideId) return;
+          if (start === null) start = now;
+          var progress = Math.min((now - start) / duration, 1);
+          if (progress >= 1) {
+            finish();
+            return;
+          }
+          place(progress);
+          window.requestAnimationFrame(frame);
+        });
+      }
+
+      function updateDockSpace() {
+        var docked = promptBox.classList.contains('is-docked');
+        var space = docked ? promptBox.offsetHeight + (parseFloat(getComputedStyle(promptBox).bottom) || 0) : 0;
+        aboutRoot.style.setProperty('--about-dock-space', space + 'px');
+      }
+
+      // The docked card grows and shrinks as its hint types out and as the screen resizes.
+      if ('ResizeObserver' in window) {
+        new ResizeObserver(updateDockSpace).observe(promptBox);
       }
 
       function closeInlinePanel(panel, trigger) {
@@ -411,31 +774,37 @@ layout: default
           if (aboutRoot && panel.getAttribute('data-about-panel') === 'gallery') {
             aboutRoot.classList.remove('is-gallery-panel-open');
           }
-          if (aboutRoot && panel.getAttribute('data-about-panel') === 'misc') {
-            aboutRoot.classList.remove('is-misc-panel-open');
-          }
         }, 420);
       }
 
       function scheduleInlinePanelRestore() {
         window.clearTimeout(panelRestoreTimer);
         aboutRoot.classList.add('is-panel-restoring');
-        // Panel-specific classes are removed after 420ms. Release the collapsed
-        // header at the same point so the textbox and header return together;
-        // keep the mascot invisible until the motion is done.
+        // The header returns right away, while the card glides back from the dock (~0.6s);
+        // keep the mascot hidden until both have settled.
+        aboutRoot.classList.remove('is-inline-panel-open');
         panelRestoreTimer = window.setTimeout(function () {
-          aboutRoot.classList.remove('is-inline-panel-open');
-        }, 430);
-        window.setTimeout(function () {
           aboutRoot.classList.remove('is-panel-restoring');
           aboutRoot.classList.add('is-mascot-reappearing');
-          window.setTimeout(function () {
+          panelRestoreTimer = window.setTimeout(function () {
             aboutRoot.classList.remove('is-mascot-reappearing');
           }, 520);
-        }, 940);
+        }, 520);
+      }
+
+      // How far the mascot has to sink for all of it to be behind the card's top edge.
+      function mascotDuckDistance() {
+        var avatar = document.querySelector('.post-title-avatar-button');
+        if (!avatar) return 0;
+        return Math.max(0, promptBox.getBoundingClientRect().top - avatar.getBoundingClientRect().top + 6);
       }
 
       function openInlinePanel(panel, trigger) {
+        var mascotShowing =
+          !aboutRoot.classList.contains('is-inline-panel-open') &&
+          !aboutRoot.classList.contains('is-panel-restoring') &&
+          !aboutRoot.classList.contains('is-panel-hiding-mascot') &&
+          !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         window.clearTimeout(panelRestoreTimer);
         window.clearTimeout(panelHideTimer);
         aboutRoot.classList.remove('is-panel-restoring');
@@ -443,29 +812,32 @@ layout: default
         dismissSpeechBubble();
         inlinePanels.forEach(function (otherPanel) {
           if (otherPanel === panel) return;
-          var otherTrigger = document.querySelector('[data-about-panel-trigger="' + otherPanel.getAttribute('data-about-panel') + '"]');
-          closeInlinePanel(otherPanel, otherTrigger);
+          closeInlinePanel(otherPanel, panelButton(otherPanel));
         });
 
         panel.hidden = false;
         trigger.setAttribute('aria-expanded', 'true');
         trigger.classList.add('is-active');
-        aboutRoot.classList.add('is-panel-hiding-mascot');
+        // The mascot ducks behind the card first; only then does the card leave for the dock.
+        if (mascotShowing) {
+          aboutRoot.style.setProperty('--mascot-duck-distance', mascotDuckDistance() + 'px');
+          aboutRoot.classList.add('is-panel-hiding-mascot');
+        }
         panelHideTimer = window.setTimeout(function () {
-          aboutRoot.classList.remove('is-panel-hiding-mascot');
+          setPromptPanel(panel.getAttribute('data-about-panel'));
           window.requestAnimationFrame(function () {
+            aboutRoot.classList.remove('is-panel-hiding-mascot');
             aboutRoot.classList.add('is-inline-panel-open');
             aboutRoot.classList.toggle('is-blog-panel-open', panel.getAttribute('data-about-panel') === 'blog');
             aboutRoot.classList.toggle('is-research-panel-open', panel.getAttribute('data-about-panel') === 'research');
             aboutRoot.classList.toggle('is-gallery-panel-open', panel.getAttribute('data-about-panel') === 'gallery');
-            aboutRoot.classList.toggle('is-misc-panel-open', panel.getAttribute('data-about-panel') === 'misc');
             panel.classList.add('is-visible');
-            if (['blog', 'gallery', 'misc'].indexOf(panel.getAttribute('data-about-panel')) !== -1) {
+            if (['blog', 'gallery'].indexOf(panel.getAttribute('data-about-panel')) !== -1) {
               return;
             }
             panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           });
-        }, 260);
+        }, mascotShowing ? 380 : 260);
       }
 
       function closeAllInlinePanels() {
@@ -473,10 +845,12 @@ layout: default
         aboutRoot.classList.remove('is-panel-hiding-mascot');
         dismissSpeechBubble();
         inlinePanels.forEach(function (panel) {
-          var trigger = document.querySelector('[data-about-panel-trigger="' + panel.getAttribute('data-about-panel') + '"]');
-          closeInlinePanel(panel, trigger);
+          closeInlinePanel(panel, panelButton(panel));
         });
+        // Restore the page layout first, so the card glides towards where it will settle.
+        aboutRoot.classList.remove('is-blog-panel-open', 'is-research-panel-open', 'is-gallery-panel-open');
         scheduleInlinePanelRestore();
+        setPromptPanel(null);
       }
 
       collapseInlinePanels = closeAllInlinePanels;
@@ -491,8 +865,18 @@ layout: default
           closeAllInlinePanels();
           return;
         }
-        openInlinePanel(panel, trigger);
+        openInlinePanel(panel, panelButton(panel) || trigger);
       });
+
+      // Links from other pages (the profile drawer) arrive as /?panel=research etc.
+      var params = new URLSearchParams(window.location.search);
+      var requestedPanel = document.querySelector('[data-about-panel="' + params.get('panel') + '"]');
+      if (requestedPanel && panelButton(requestedPanel)) {
+        params.delete('panel');
+        var query = params.toString();
+        history.replaceState(null, '', window.location.pathname + (query ? '?' + query : '') + window.location.hash);
+        openInlinePanel(requestedPanel, panelButton(requestedPanel));
+      }
     }
 
     window.addEventListener('keydown', function (e) {

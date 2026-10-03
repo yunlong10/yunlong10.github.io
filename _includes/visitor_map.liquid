@@ -1,0 +1,124 @@
+{% comment %}
+  MapMyVisitors widget for the bottom of the profile drawer. Its class names only exist
+  after the widget script runs, so production PurgeCSS would drop them from main.css;
+  these rules ship inline instead.
+{% endcomment %}
+<style id="visitor-map-force">
+  .visitor-map {
+    --visitor-map-ocean: #3aa7ce;
+    --visitor-map-opacity: 0.88;
+  }
+  .visitor-map a#mapmyvisitors-widget {
+    max-width: 100%;
+    color: #ffffff !important;
+    text-decoration: none;
+    box-shadow: none;
+    border-radius: 14px !important;
+    overflow: hidden !important;
+    opacity: var(--visitor-map-opacity);
+  }
+  .visitor-map .visitor-map-filters {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+  }
+  .visitor-map .mapmyvisitors-map-container,
+  .visitor-map .mapmyvisitors-map {
+    background-color: var(--visitor-map-ocean) !important;
+  }
+  .visitor-map .mapmyvisitors-visitors,
+  .visitor-map .mapmyvisitors-date {
+    color: #ffffff !important;
+    position: relative;
+    z-index: 2;
+  }
+  .visitor-map .mapmyvisitors-map {
+    position: relative;
+    background-blend-mode: lighten;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+  .visitor-map .jvectormap-container {
+    position: relative;
+    z-index: 1;
+    background-color: transparent !important;
+  }
+  .visitor-map circle.jvectormap-marker[fill='#FF0000' i] {
+    fill: #c84dff !important;
+    stroke: #ffffff !important;
+  }
+  .visitor-map circle.jvectormap-marker[fill='#F8A400' i] {
+    fill: #f4c4db !important;
+    stroke: #ffffff !important;
+  }
+  html[data-theme='dark'] .visitor-map {
+    --visitor-map-ocean: #1e5a7c;
+    --visitor-map-opacity: 1;
+  }
+  html[data-theme='dark'] .visitor-map .mapmyvisitors-map {
+    background-blend-mode: normal;
+  }
+  html[data-theme='dark'] .visitor-map .mapmyvisitors-map::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image: inherit;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: center;
+    filter: url('#visitor-map-night');
+  }
+  html[data-theme='dark'] .visitor-map circle.jvectormap-marker[fill='#c84dff' i],
+  html[data-theme='dark'] .visitor-map circle.jvectormap-marker[fill='#FF0000' i] {
+    fill: #e9a6ff !important;
+  }
+  html[data-theme='dark'] .visitor-map circle.jvectormap-marker[fill='#f4c4db' i],
+  html[data-theme='dark'] .visitor-map circle.jvectormap-marker[fill='#F8A400' i] {
+    fill: #f8d5e8 !important;
+  }
+</style>
+<div class="visitor-map">
+  <svg class="visitor-map-filters" width="0" height="0" aria-hidden="true" focusable="false">
+    <filter id="visitor-map-night" color-interpolation-filters="sRGB">
+      <feColorMatrix type="matrix" in="SourceGraphic" result="landAlpha" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1 1 1 0 -2"/>
+      <feComponentTransfer in="landAlpha" result="landMask">
+        <feFuncA type="discrete" tableValues="0 1"/>
+      </feComponentTransfer>
+      <feFlood flood-color="#ffffff" result="landColor"/>
+      <feComposite in="landColor" in2="landMask" operator="in" result="land"/>
+      <feFlood flood-color="#1e5a7c" result="oceanColor"/>
+      <feComposite in="oceanColor" in2="landMask" operator="out" result="ocean"/>
+      <feMerge>
+        <feMergeNode in="ocean"/>
+        <feMergeNode in="land"/>
+      </feMerge>
+    </filter>
+  </svg>
+</div>
+<script>
+  (function () {
+    var map = document.querySelector('.visitor-map');
+    if (!map) return;
+    // The widget sizes itself to its container, so wait until the drawer is first shown.
+    function inject() {
+      if (document.getElementById('mapmyvisitors') || !map.clientWidth) return false;
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.id = 'mapmyvisitors';
+      s.src = '//mapmyvisitors.com/map.js?d=TAPwpw2VymdQgi9bo8EmgjkZDaiNn4zs5ubsnRuy5sc&cl=ffffff&w=a';
+      map.appendChild(s);
+      return true;
+    }
+    if ('ResizeObserver' in window) {
+      var ro = new ResizeObserver(function () {
+        if (inject()) ro.disconnect();
+      });
+      ro.observe(map);
+    } else {
+      inject();
+    }
+  })();
+</script>

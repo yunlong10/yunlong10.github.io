@@ -18,7 +18,7 @@
           {% endif %}
         {% endif %}
       {% endfor %}
-      <button type="button" class="navbar-menu-avatar" aria-label="Show profile photo" aria-controls="navbar-avatar-modal">
+      <button type="button" class="navbar-menu-avatar" aria-label="Open links" aria-controls="profile-drawer" aria-expanded="false">
         <img
           {% if navbar_avatar_path != '' %}
             src="{{ navbar_avatar_path }}"
@@ -116,6 +116,85 @@
       {% endif %}
     </div>
   </nav>
+  <div class="profile-drawer-backdrop" hidden></div>
+  <aside id="profile-drawer" class="profile-drawer" role="dialog" aria-modal="true" aria-label="Yolo's links" hidden>
+    <div class="profile-drawer-head">
+      <button type="button" class="profile-drawer-photo" aria-label="Show profile photo">
+        <img
+          {% if navbar_avatar_path != '' %}
+            src="{{ navbar_avatar_path }}"
+          {% endif %}
+          alt=""
+        >
+      </button>
+      <div class="profile-drawer-name"><span>Yolo</span> Tang</div>
+      <button type="button" class="profile-drawer-close" aria-label="Close">
+        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+      </button>
+    </div>
+    <nav class="profile-drawer-links" aria-label="Links">
+      <section>
+        <h2>Explore</h2>
+        <a href="{{ '/?panel=research' | relative_url }}" data-drawer-panel="research">
+          <i class="fa-regular fa-compass" aria-hidden="true"></i><span>Research</span>
+        </a>
+        <a href="{{ '/?panel=blog' | relative_url }}" data-drawer-panel="blog">
+          <i class="fa-regular fa-pen-to-square" aria-hidden="true"></i><span>Yo'Log</span>
+        </a>
+        <a href="{{ '/?panel=gallery' | relative_url }}" data-drawer-panel="gallery">
+          <i class="fa-regular fa-images" aria-hidden="true"></i><span>Gallery</span>
+        </a>
+      </section>
+      <section>
+        <h2>Academic</h2>
+        <a href="{{ '/news/' | relative_url }}"> <i class="fa-regular fa-newspaper" aria-hidden="true"></i><span>News</span> </a>
+        <a href="https://scholar.google.com/citations?user={{ site.scholar_userid }}" target="_blank" rel="noopener noreferrer">
+          <i class="ai ai-google-scholar" aria-hidden="true"></i><span>Google Scholar</span>
+        </a>
+        <a href="https://github.com/{{ site.github_username }}" target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-github" aria-hidden="true"></i><span>GitHub</span><small>@{{ site.github_username }}</small>
+        </a>
+        <a href="https://x.com/{{ site.x_username }}" target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-x-twitter" aria-hidden="true"></i><span>X</span><small>@{{ site.x_username }}</small>
+        </a>
+        <a href="mailto:{{ site.email | encode_email }}"> <i class="fa-regular fa-envelope" aria-hidden="true"></i><span>Email</span> </a>
+      </section>
+      <section>
+        <h2>Creative</h2>
+        <a href="https://www.instagram.com/{{ site.instagram_id }}/" target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-instagram" aria-hidden="true"></i><span>Instagram</span><small>@{{ site.instagram_id }}</small>
+        </a>
+        <a href="https://pixiv.me/yoloytang" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path fill="#0096FA" d="M4.935 0A4.924 4.924 0 0 0 0 4.935v14.13A4.924 4.924 0 0 0 4.935 24h14.13A4.924 4.924 0 0 0 24 19.065V4.935A4.924 4.924 0 0 0 19.065 0zm7.81 4.547c2.181 0 4.058.676 5.399 1.847a6.118 6.118 0 0 1 2.116 4.66c.005 1.854-.88 3.476-2.257 4.563-1.375 1.092-3.225 1.697-5.258 1.697-2.314 0-4.46-.842-4.46-.842v2.718c.397.116 1.048.365.635.779H5.79c-.41-.41.19-.65.644-.779V7.666c-1.053.81-1.593 1.51-1.868 2.031.32 1.02-.284.969-.284.969l-1.09-1.73s3.868-4.39 9.553-4.39zm-.19.971c-1.423-.003-3.184.473-4.27 1.244v8.646c.988.487 2.484.832 4.26.832h.01c1.596 0 2.98-.593 3.93-1.533.952-.948 1.486-2.183 1.492-3.683-.005-1.54-.504-2.864-1.42-3.86-.918-.992-2.274-1.645-4.002-1.646Z"/>
+          </svg>
+          <span>Pixiv</span><small>@yoloytang</small>
+        </a>
+        <a href="https://x.com/yoloytang_art" target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-x-twitter" aria-hidden="true"></i><span>X</span><small>@yoloytang_art</small>
+        </a>
+        <a href="https://discord.com/users/1152784980167106662" target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-discord" aria-hidden="true"></i><span>Discord</span>
+        </a>
+      </section>
+      <section>
+        <h2>Meow</h2>
+        <a href="https://telegram.me/yoloytang" target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-telegram" aria-hidden="true"></i><span>Telegram</span><small>@yoloytang</small>
+        </a>
+      </section>
+    </nav>
+    {% include visitor_map.liquid %}
+    <p class="profile-drawer-copyright">
+      &copy; Copyright {{ site.time | date: '%Y' }} Yolo Tang. {{ site.footer_text }}
+      {% if site.impressum_path %}
+        <a href="{{ site.url }}{{ site.baseurl }}{{ site.impressum_path }}">Impressum</a>.
+      {% endif %}
+      {% if site.last_updated %}
+        Last updated: {{ 'now' | date: '%B %d, %Y' }}.
+      {% endif %}
+    </p>
+  </aside>
   <div id="navbar-avatar-modal" class="navbar-avatar-modal" aria-hidden="true">
     <img
       {% if navbar_avatar_path != '' %}
@@ -131,6 +210,10 @@
       if (!avatarButton || !avatarModal) return;
       var avatarImage = avatarButton.querySelector('img');
       var avatarModalImage = avatarModal.querySelector('img');
+      var drawer = document.getElementById('profile-drawer');
+      var drawerBackdrop = document.querySelector('.profile-drawer-backdrop');
+      var drawerPhoto = drawer ? drawer.querySelector('.profile-drawer-photo img') : null;
+      var drawerHideTimer = null;
       var avatarImages = [];
       var currentAvatar = '';
       {% for file in site.static_files %}
@@ -161,6 +244,7 @@
       function setAvatar(selectedAvatar) {
         currentAvatar = selectedAvatar;
         avatarImage.src = selectedAvatar;
+        if (drawerPhoto) drawerPhoto.src = selectedAvatar;
         rememberAvatar(selectedAvatar);
       }
 
@@ -179,19 +263,97 @@
         avatarModal.setAttribute('aria-hidden', 'true');
       }
 
-      avatarButton.addEventListener('click', function () {
+      // Shows the current photo, then rotates the navbar avatar for next time.
+      function showProfilePhoto() {
         if (currentAvatar && avatarModalImage) avatarModalImage.src = currentAvatar;
         avatarModal.classList.add('active');
         avatarModal.setAttribute('aria-hidden', 'false');
         if (avatarImages.length && avatarImage) setAvatar(pickAvatar(currentAvatar));
+      }
+      // The gallery's profile avatar opens the photo directly.
+      window.showProfilePhoto = showProfilePhoto;
+
+      function isDrawerOpen() {
+        return !!drawer && drawer.classList.contains('is-open');
+      }
+
+      function openDrawer() {
+        if (!drawer || isDrawerOpen()) return;
+        window.clearTimeout(drawerHideTimer);
+        drawer.hidden = false;
+        drawerBackdrop.hidden = false;
+        document.documentElement.classList.add('has-profile-drawer');
+        avatarButton.setAttribute('aria-expanded', 'true');
+        window.requestAnimationFrame(function () {
+          drawer.classList.add('is-open');
+          drawerBackdrop.classList.add('is-open');
+        });
+        drawer.querySelector('.profile-drawer-close').focus();
+      }
+
+      function closeDrawer() {
+        if (!isDrawerOpen()) return;
+        drawer.classList.remove('is-open');
+        drawerBackdrop.classList.remove('is-open');
+        document.documentElement.classList.remove('has-profile-drawer');
+        avatarButton.setAttribute('aria-expanded', 'false');
+        avatarButton.focus();
+        drawerHideTimer = window.setTimeout(function () {
+          drawer.hidden = true;
+          drawerBackdrop.hidden = true;
+        }, 320);
+      }
+
+      avatarButton.addEventListener('click', function () {
+        if (drawer) openDrawer();
+        else showProfilePhoto();
       });
+
+      if (drawer) {
+        drawer.querySelector('.profile-drawer-photo').addEventListener('click', showProfilePhoto);
+        drawer.querySelector('.profile-drawer-close').addEventListener('click', closeDrawer);
+        drawerBackdrop.addEventListener('click', closeDrawer);
+        // On the homepage these open the panel in place; elsewhere they follow ?panel=.
+        drawer.querySelectorAll('[data-drawer-panel]').forEach(function (link) {
+          link.addEventListener('click', function (e) {
+            var button = document.querySelector('.about-quick-links [data-about-panel-trigger="' + link.getAttribute('data-drawer-panel') + '"]');
+            if (!button) return;
+            e.preventDefault();
+            closeDrawer();
+            if (button.getAttribute('aria-expanded') !== 'true') button.click();
+          });
+        });
+        // Keep Tab inside the open drawer.
+        drawer.addEventListener('keydown', function (e) {
+          if (e.key !== 'Tab') return;
+          var focusables = drawer.querySelectorAll('a[href], button');
+          var first = focusables[0];
+          var last = focusables[focusables.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        });
+      }
 
       avatarModal.addEventListener('click', function (e) {
         if (e.target === avatarModal) closeAvatarModal();
       });
 
+      // Registered before the page's own Escape handlers (e.g. closing homepage panels),
+      // so an open photo or drawer takes the keypress and stops it there.
       window.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') closeAvatarModal();
+        if (e.key !== 'Escape') return;
+        if (avatarModal.classList.contains('active')) {
+          closeAvatarModal();
+          e.stopImmediatePropagation();
+        } else if (isDrawerOpen()) {
+          closeDrawer();
+          e.stopImmediatePropagation();
+        }
       });
     })();
   </script>

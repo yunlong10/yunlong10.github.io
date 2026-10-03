@@ -209,8 +209,7 @@ ul.task-list input[type="checkbox"] {
 
 .about-jp,
 .gallery-jp,
-.research-jp,
-.misc-jp {
+.research-jp {
   font-family: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
   margin-top: -0.75rem;
   --about-creative-font: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
@@ -225,15 +224,61 @@ ul.task-list input[type="checkbox"] {
     transparent 100%
   );
 
+  .about-bio-creative,
+  .about-bio-meow,
+  .about-bio-panel {
+    display: none;
+  }
+
+  // about.liquid sets these on the card while a panel is open; that panel's hint replaces the bio.
+  .about-prompt.has-panel-hint {
+    .about-bio-academic,
+    .about-bio-creative,
+    .about-bio-meow {
+      display: none;
+    }
+  }
+
+  .about-prompt.shows-research-hint .about-bio-research,
+  .about-prompt.shows-gallery-hint .about-bio-gallery,
+  .about-prompt.shows-blog-hint .about-bio-blog {
+    display: block;
+  }
+
+  // A frozen copy of the previous text, shown while it is backspaced away.
+  .about-prompt > .about-prompt-ghost {
+    display: block !important;
+  }
+
+  .about-cat-days {
+    color: var(--global-theme-color);
+  }
+
   &.is-creative-mode {
     .about-prompt p {
       font-family: var(--about-creative-font);
+    }
+
+    .about-bio-academic {
+      display: none;
+    }
+
+    .about-bio-creative {
+      display: block;
     }
   }
 
   &.is-meow-mode {
     .about-prompt p {
       font-family: var(--about-meow-font);
+    }
+
+    .about-bio-academic {
+      display: none;
+    }
+
+    .about-bio-meow {
+      display: block;
     }
   }
 
@@ -265,8 +310,7 @@ ul.task-list input[type="checkbox"] {
   }
 
   &.gallery-jp,
-  &.research-jp,
-  &.misc-jp {
+  &.research-jp {
     .post-header {
       height: auto;
       margin-bottom: 1.25rem;
@@ -475,8 +519,7 @@ ul.task-list input[type="checkbox"] {
     }
 
     &.gallery-jp,
-    &.research-jp,
-    &.misc-jp {
+    &.research-jp {
       .post-header {
         height: auto;
       }
@@ -565,6 +608,69 @@ ul.task-list input[type="checkbox"] {
     }
   }
 
+  // Back-to-top: a quarter disc tucked into the card's top-right corner, shown once the page
+  // has scrolled. Its top-right radius is the card's 18px minus the 1px border.
+  // The corner wrapper is out of flow so it adds no row gap to the card.
+  .about-prompt-corner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .about-prompt-top {
+    position: relative;
+    display: block;
+    width: 2.6rem;
+    height: 2.6rem;
+    padding: 0;
+    border: 0;
+    border-radius: 0 17px 0 100%;
+    background: color-mix(in srgb, var(--global-theme-color) 13%, var(--global-card-bg-color));
+    color: var(--global-theme-color);
+    font-size: 0.85rem;
+    line-height: 1;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.4);
+    transform-origin: top right;
+    transition:
+      opacity 0.22s ease,
+      transform 0.28s cubic-bezier(0.34, 1.4, 0.64, 1),
+      visibility 0s linear 0.28s,
+      background-color 0.2s ease;
+
+    // The shape's visual center (its centroid) is 44% in from the top and right edges.
+    i {
+      position: absolute;
+      top: 44%;
+      right: 44%;
+      transform: translate(50%, -50%);
+    }
+
+    &:hover {
+      background: color-mix(in srgb, var(--global-theme-color) 22%, var(--global-card-bg-color));
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--global-theme-color);
+      outline-offset: -3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      transition: none;
+    }
+  }
+
+  .about-prompt.shows-top-button .about-prompt-top {
+    pointer-events: auto;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+  }
   @keyframes about-prompt-caret {
     50% {
       opacity: 0;
@@ -662,6 +768,13 @@ ul.task-list input[type="checkbox"] {
       font-weight: 400;
       letter-spacing: 0.005em;
       transform: translateY(0.05em);
+    }
+
+    // Below ~390px "Academic Yolo" no longer fits beside the icons and contact button.
+    @media (max-width: 389px) {
+      summary .about-model-brand {
+        display: none;
+      }
     }
 
     .about-model-options {
@@ -845,6 +958,48 @@ ul.task-list input[type="checkbox"] {
     &.is-pixiv .about-prompt-pixiv-logo {
       display: block;
     }
+
+    .about-prompt-yarn-logo {
+      display: none;
+      width: 1.2em;
+      height: 1.2em;
+      flex-shrink: 0;
+      overflow: visible;
+      color: var(--global-theme-color);
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+
+      circle {
+        fill: color-mix(in srgb, currentColor 14%, transparent);
+      }
+    }
+
+    .about-prompt-yarn-ball {
+      transform-box: view-box;
+      transform-origin: 12px 12px;
+      animation: about-yarn-spin 6s linear infinite;
+
+      @media (prefers-reduced-motion: reduce) {
+        animation: none;
+      }
+    }
+
+    &.is-yarn .fa-github {
+      display: none !important;
+    }
+
+    &.is-yarn .about-prompt-yarn-logo {
+      display: block;
+    }
+  }
+
+  @keyframes about-yarn-spin {
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   .about-prompt-email {
@@ -887,21 +1042,13 @@ ul.task-list input[type="checkbox"] {
     }
   }
 
+  // about.liquid keeps these in the bio card's action row while they fit there and moves them
+  // under the card when they would otherwise have to wrap; both placements are styled below.
   .about-quick-links {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.5rem;
-    max-width: min(100%, 520px);
-    margin: 1.15rem auto 0;
-
     a {
-      display: flex;
-      flex-direction: row;
       align-items: center;
       justify-content: center;
       gap: 0.38rem;
-      min-height: 2.05rem;
-      padding: 0.34rem 0.7rem;
       border: 1px solid var(--global-card-border-color);
       border-radius: 10px;
       background: color-mix(in srgb, var(--global-card-bg-color) 86%, transparent);
@@ -944,17 +1091,87 @@ ul.task-list input[type="checkbox"] {
       letter-spacing: 0.01em;
       font-size: 0.9rem;
       font-family: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif !important;
+      white-space: nowrap;
+    }
+  }
+
+  // In the action row, right after the social icons.
+  .about-prompt-actions .about-quick-links {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+
+    a {
+      position: relative;
+      display: inline-flex;
+      flex-shrink: 0;
+      min-width: 2.05rem;
+      height: 2.05rem;
+      padding: 0 0.7rem;
+    }
+
+    // Set one at a time from the right when the labels don't fit; never on the mode's main panel.
+    a.is-icon {
+      width: 2.05rem;
+      padding: 0;
+
+      .quick-link-title {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
+    }
+  }
+
+  // While a panel is open the card floats at the bottom of the screen.
+  .about-prompt.is-docked {
+    position: fixed;
+    right: 0;
+    bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+    left: 0;
+    z-index: 1020;
+    width: min(calc(100% - 30px), 900px);
+    max-width: none;
+    margin: 0 auto;
+    box-shadow:
+      0 14px 36px rgba(31, 45, 76, 0.16),
+      0 4px 12px rgba(31, 45, 76, 0.08);
+  }
+
+  // Under the card once the row can't hold them even icon-only, or inside a docked card as its
+  // last row. Same width as the card, so the row lines up with both of its edges.
+  .about-prompt > .about-quick-links,
+  .about-prompt + .about-quick-links {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.6rem;
+    max-width: min(100%, 960px);
+    margin: 0.75rem auto 0;
+
+    a {
+      display: flex;
+      min-height: 2.05rem;
+      padding: 0.34rem 0.7rem;
     }
 
     @media (max-width: 575px) {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.55rem;
-      margin-top: 1.1rem;
-
+      // Narrower side padding keeps "Research" inside its third of a 360px screen.
       a {
         min-height: 2.1rem;
+        padding-left: 0.4rem;
+        padding-right: 0.4rem;
       }
     }
+  }
+
+  .about-prompt > .about-quick-links {
+    width: 100%;
+    margin-top: 0.15rem;
   }
 
   .about-inline-panel {
@@ -1212,7 +1429,85 @@ ul.task-list input[type="checkbox"] {
     font-size: 0.875rem;
   }
 
+  // Empty until research.js reports a map-node or search filter. Inline flow (not flex)
+  // plus balanced wrapping keeps the clear button beside text when a long label wraps.
+  .research-paper-status {
+    font-size: 0.9rem;
+    text-align: center;
+    text-wrap: balance;
+
+    &.is-active {
+      margin: 0.1rem 0 0.15rem;
+    }
+
+    &.is-empty {
+      margin: 0.6rem 0 1.1rem;
+    }
+  }
+
+  .research-paper-status-text {
+    display: inline;
+    margin: 0;
+    color: var(--global-text-color);
+  }
+
+  .research-paper-status-label {
+    color: var(--global-theme-color);
+    font-weight: 600;
+  }
+
+  .research-paper-status-count {
+    color: var(--global-text-color-light);
+  }
+
+  .research-paper-status-clear {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.75rem;
+    height: 1.75rem;
+    margin-left: 0.5rem;
+    padding: 0;
+    vertical-align: middle;
+    border: 1px solid var(--global-divider-color);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--global-text-color-light);
+    font: inherit;
+    font-size: 0.8rem;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--global-theme-color);
+      color: var(--global-theme-color);
+    }
+
+    span {
+      display: none;
+    }
+  }
+
+  .research-paper-status.is-empty .research-paper-status-clear {
+    padding: 0 0.85rem;
+    font-size: 0.85rem;
+
+    i {
+      display: none;
+    }
+
+    span {
+      display: inline;
+    }
+  }
+
   .research-controls {
+    --research-control-size: 2rem;
+    --research-control-wide: 2.3rem;
     width: min(100%, 860px);
     max-width: 100%;
     margin: 0.9rem auto 0;
@@ -1231,7 +1526,7 @@ ul.task-list input[type="checkbox"] {
     align-items: center;
     min-width: 7.2rem;
     max-width: 100%;
-    min-height: 2.35rem;
+    height: var(--research-control-size);
     overflow: hidden;
     border: 1px solid var(--global-card-border-color);
     border-radius: 999px;
@@ -1255,8 +1550,8 @@ ul.task-list input[type="checkbox"] {
     justify-content: center;
     gap: 0.42rem;
     min-width: 7.2rem;
-    min-height: 2.35rem;
-    padding: 0.42rem 0.8rem;
+    min-height: var(--research-control-size);
+    padding: 0.2rem 0.8rem;
     border: 1px solid var(--global-card-border-color);
     border-radius: 999px;
     background: var(--global-card-bg-color);
@@ -1281,8 +1576,11 @@ ul.task-list input[type="checkbox"] {
     }
   }
 
+  // Inside a pill everything fills the pill's height, so pills match the bare Reset button.
   .research-control-pill .research-control-button {
     flex: 0 0 auto;
+    min-height: 0;
+    height: 100%;
     min-width: 7.2rem;
     border: 0;
     background: transparent;
@@ -1298,8 +1596,8 @@ ul.task-list input[type="checkbox"] {
   .research-controls.mode-search > .research-control-buttons > .research-control-button,
   .research-controls.mode-sort .research-control-search,
   .research-controls.mode-sort > .research-control-buttons > .research-control-button {
-    min-width: 2.35rem;
-    width: 2.35rem;
+    min-width: var(--research-control-size);
+    width: var(--research-control-size);
     padding-left: 0;
     padding-right: 0;
   }
@@ -1313,15 +1611,15 @@ ul.task-list input[type="checkbox"] {
 
   .research-controls.mode-search .research-control-sort > .research-control-button,
   .research-controls.mode-sort .research-control-search > .research-control-button {
-    min-width: 2.35rem;
-    width: 2.35rem;
+    min-width: var(--research-control-size);
+    width: var(--research-control-size);
     padding-left: 0;
     padding-right: 0;
   }
 
   .research-controls.mode-search .research-control-search > .research-control-button {
-    min-width: 2.65rem;
-    width: 2.65rem;
+    min-width: var(--research-control-wide);
+    width: var(--research-control-wide);
     padding-left: 0;
     padding-right: 0;
   }
@@ -1332,6 +1630,7 @@ ul.task-list input[type="checkbox"] {
 
   .research-control-expansion {
     flex: 1 1 auto;
+    align-self: stretch;
     width: 0;
     min-width: 0;
     overflow: hidden;
@@ -1350,10 +1649,10 @@ ul.task-list input[type="checkbox"] {
   .research-control-expansion .bibsearch-form-input {
     display: block;
     width: 100%;
-    height: 2.35rem;
+    height: 100%;
     margin: 0;
-    padding-top: 0.45rem;
-    padding-bottom: 0.45rem;
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem;
     border: 0;
     box-shadow: none;
     background: transparent;
@@ -1365,23 +1664,114 @@ ul.task-list input[type="checkbox"] {
     }
   }
 
-  .research-control-expansion select {
-    box-sizing: border-box;
+  .research-sort-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
     width: 100%;
-    height: 2.35rem;
-    padding: 0.45rem 0.65rem 0.45rem 0.1rem;
+    height: 100%;
+    padding: 0 0.9rem 0 0.1rem;
     border: 0;
     background: transparent;
-    color: var(--global-text-color);
-    outline: none;
+    color: var(--global-theme-color);
+    cursor: pointer;
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
+    font-size: 0.92rem;
+    white-space: nowrap;
 
-    option {
-      background: var(--global-card-bg-color);
-      color: var(--global-text-color);
+    i {
+      font-size: 0.68rem;
+      transition: transform 0.2s ease;
+    }
+
+    &[aria-expanded="true"] i {
+      transform: rotate(180deg);
     }
 
     &:focus {
-      color: var(--global-theme-color);
+      outline: none;
+    }
+
+    &:focus-visible .research-sort-current {
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+  }
+
+  // Lives outside the pill (which clips for its width animation); JS lines its right edge
+  // up with the pill's.
+  .research-controls {
+    position: relative;
+  }
+
+  .research-sort-menu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 20;
+    display: grid;
+    min-width: 10.5rem;
+    margin-top: 0.45rem;
+    padding: 0.36rem;
+    border: 1px solid color-mix(in srgb, var(--global-card-border-color) 82%, transparent);
+    border-radius: 16px;
+    background: color-mix(in srgb, var(--global-card-bg-color) 96%, white);
+    box-shadow:
+      0 18px 44px rgba(31, 45, 76, 0.16),
+      0 4px 12px rgba(31, 45, 76, 0.08);
+    backdrop-filter: blur(14px);
+
+    button {
+      position: relative;
+      display: flex;
+      align-items: center;
+      min-height: 2.1rem;
+      padding: 0.4rem 1.9rem 0.4rem 0.68rem;
+      border: 0;
+      border-radius: 10px;
+      background: transparent;
+      color: color-mix(in srgb, var(--global-text-color) 78%, var(--global-subtitle-color));
+      cursor: pointer;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
+      font-size: 0.92rem;
+      line-height: 1.1;
+      text-align: left;
+      white-space: nowrap;
+      transition:
+        background-color 0.18s ease,
+        color 0.18s ease;
+
+      &::after {
+        content: "";
+        position: absolute;
+        right: 0.68rem;
+        width: 0.64rem;
+        height: 0.36rem;
+        border-left: 2px solid var(--global-theme-color);
+        border-bottom: 2px solid var(--global-theme-color);
+        opacity: 0;
+        transform: translateY(-0.08rem) rotate(-45deg);
+      }
+
+      + button {
+        margin-top: 0.12rem;
+      }
+
+      &:hover,
+      &:focus {
+        background-color: color-mix(in srgb, var(--global-theme-color) 8%, transparent);
+        outline: none;
+      }
+
+      &[aria-selected="true"] {
+        background-color: color-mix(in srgb, var(--global-theme-color) 11%, transparent);
+        color: var(--global-theme-color);
+
+        &::after {
+          opacity: 1;
+        }
+      }
     }
   }
 
@@ -1942,149 +2332,6 @@ ul.task-list input[type="checkbox"] {
     color: color-mix(in srgb, var(--global-text-color) 50%, var(--global-bg-color));
   }
 
-  .misc-heading {
-    margin: 1.6rem 0 0.9rem;
-    text-align: center;
-    font-size: 1.05rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-    color: color-mix(in srgb, var(--global-text-color) 70%, var(--global-bg-color));
-
-    &:first-child {
-      margin-top: 0;
-    }
-  }
-
-  .misc-facts {
-    width: fit-content;
-    max-width: min(100%, var(--about-text-max-width));
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-  }
-
-  .misc-facts-title {
-    margin-bottom: 0.75rem;
-  }
-
-  .misc-list {
-    list-style: disc;
-    width: fit-content;
-    max-width: min(100%, var(--about-text-max-width));
-    margin-left: auto;
-    margin-right: auto;
-    padding-left: 1.35rem;
-    text-align: left;
-
-    li {
-      display: list-item;
-      list-style: disc;
-      margin-bottom: 0.75rem;
-    }
-  }
-
-  .misc-map {
-    display: block;
-    width: 100%;
-    margin: 2rem auto 0;
-    text-align: center;
-
-    a#mapmyvisitors-widget {
-      max-width: 100%;
-      color: #ffffff;
-      text-decoration: none;
-      box-shadow: none;
-      border-radius: 18px !important;
-      overflow: hidden !important;
-      opacity: var(--misc-map-opacity);
-    }
-
-    // Soft trans-sky: same hue as #5BCEFA, less neon.
-    --misc-map-ocean: #3aa7ce;
-    --misc-map-opacity: 0.88;
-
-    .misc-map-filters {
-      position: absolute;
-      width: 0;
-      height: 0;
-      overflow: hidden;
-    }
-
-    .mapmyvisitors-map-container {
-      background-color: var(--misc-map-ocean) !important;
-    }
-
-    .mapmyvisitors-visitors,
-    .mapmyvisitors-date {
-      color: #ffffff !important;
-      position: relative;
-      z-index: 2;
-    }
-
-    .mapmyvisitors-map {
-      position: relative;
-      background-color: var(--misc-map-ocean) !important;
-      background-blend-mode: lighten;
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-    }
-
-    .jvectormap-container {
-      position: relative;
-      z-index: 1;
-      background-color: transparent !important;
-    }
-
-    circle.jvectormap-marker[fill="#FF0000" i] {
-      fill: #c84dff !important;
-      stroke: #ffffff !important;
-    }
-
-    circle.jvectormap-marker[fill="#F8A400" i] {
-      fill: #f4c4db !important;
-      stroke: #ffffff !important;
-    }
-
-    html[data-theme="dark"] & {
-      // Night ocean, bright land. Don't fade the whole widget or land turns gray.
-      --misc-map-ocean: #1e5a7c;
-      --misc-map-opacity: 1;
-
-      .mapmyvisitors-map-container {
-        background-color: var(--misc-map-ocean) !important;
-      }
-
-      .mapmyvisitors-map {
-        background-color: var(--misc-map-ocean) !important;
-        background-blend-mode: normal;
-
-        &::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          z-index: 0;
-          pointer-events: none;
-          background-image: inherit;
-          background-repeat: no-repeat;
-          background-size: 100% 100%;
-          background-position: center;
-          filter: url("#misc-map-night");
-        }
-      }
-
-      circle.jvectormap-marker[fill="#c84dff" i],
-      circle.jvectormap-marker[fill="#FF0000" i] {
-        fill: #e9a6ff !important;
-      }
-
-      circle.jvectormap-marker[fill="#f4c4db" i],
-      circle.jvectormap-marker[fill="#F8A400" i] {
-        fill: #f8d5e8 !important;
-      }
-    }
-  }
-
   article::after {
     content: "";
     display: block;
@@ -2103,10 +2350,11 @@ ul.task-list input[type="checkbox"] {
   margin-top: -2.25rem;
   padding-top: max(1rem, calc((100svh - 14rem - 23rem) / 2));
   padding-bottom: 3rem;
-  transform: translateY(0);
+  // No transform here, not even translateY(0): it would pin the docked .about-prompt
+  // (position: fixed) to this element instead of the screen.
   transition:
     padding-top 0.46s ease,
-    transform 0.46s ease;
+    margin-top 0.46s ease;
 
   .post-header {
     margin-bottom: 0;
@@ -2137,28 +2385,41 @@ ul.task-list input[type="checkbox"] {
   }
 
   &.is-blog-panel-open {
+    margin-top: -3.25rem;
     padding-top: 1.375rem;
-    transform: translateY(-1rem);
   }
 
   &.is-research-panel-open,
-  &.is-gallery-panel-open,
-  &.is-misc-panel-open {
+  &.is-gallery-panel-open {
+    margin-top: -3.25rem;
     padding-top: 1.375rem;
-    transform: translateY(-1rem);
   }
 
   @media (max-width: 575px) {
     &.is-blog-panel-open {
+      margin-top: -3.25rem;
       padding-top: 1.375rem;
-      transform: translateY(-1rem);
     }
 
     &.is-research-panel-open,
-    &.is-gallery-panel-open,
-    &.is-misc-panel-open {
+    &.is-gallery-panel-open {
+      margin-top: -3.25rem;
       padding-top: 1.375rem;
-      transform: translateY(-1rem);
+    }
+  }
+
+  // The docked card has left the top of the page, so the open panel starts right under the
+  // navbar (no divider, little padding), and the bottom makes room for the card instead.
+  &.has-docked-prompt {
+    padding-top: 0.75rem;
+    padding-bottom: calc(3rem + var(--about-dock-space, 0px));
+
+    .about-panel-divider {
+      display: none;
+    }
+
+    .about-inline-panel {
+      margin-top: 0;
     }
   }
 
@@ -2269,22 +2530,13 @@ body.is-about-creative-mode {
   .about-quick-links a[data-about-panel-trigger="research"] {
     order: 1;
   }
-
-  .about-quick-links a[data-about-panel-trigger="misc"] {
-    order: 2;
-  }
 }
 
 body:not(.is-about-creative-mode):not(.is-about-meow-mode) {
   .about-quick-links a[data-about-panel-trigger="gallery"] {
     order: 1;
   }
-
-  .about-quick-links a[data-about-panel-trigger="misc"] {
-    order: 2;
-  }
 }
-
 .navbar-menu-avatar {
   display: inline-flex;
   align-items: center;
@@ -2336,6 +2588,179 @@ body:not(.is-about-creative-mode):not(.is-about-meow-mode) {
     border-radius: 12px;
     object-fit: contain;
     box-shadow: 0 12px 36px rgba(0, 0, 0, 0.32);
+  }
+}
+
+// Opened from the navbar avatar: every mode's links at once. Sits under the photo modal (1060).
+html.has-profile-drawer {
+  overflow: hidden;
+}
+
+.profile-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1049;
+  background: rgba(15, 20, 35, 0.32);
+  opacity: 0;
+  transition: opacity 0.28s ease;
+
+  &.is-open {
+    opacity: 1;
+  }
+}
+
+.profile-drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  width: min(20rem, 86vw);
+  padding: 1.1rem 1rem 1.5rem;
+  overflow-y: auto;
+  border-right: 1px solid var(--global-divider-color);
+  background: var(--global-card-bg-color);
+  box-shadow: 12px 0 36px rgba(31, 45, 76, 0.16);
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
+  transform: translateX(-100%);
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &.is-open {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .profile-drawer,
+  .profile-drawer-backdrop {
+    transition: none;
+  }
+}
+
+.profile-drawer-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.profile-drawer-photo {
+  flex-shrink: 0;
+  width: 3.25rem;
+  height: 3.25rem;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 50%;
+  background: var(--global-card-bg-color);
+  box-shadow: 0 0 0 1px var(--global-card-border-color);
+  cursor: zoom-in;
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.profile-drawer-name {
+  flex: 1;
+  color: var(--global-text-color);
+  font-size: 1.15rem;
+
+  span {
+    font-weight: 700;
+  }
+}
+
+.profile-drawer-close {
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--global-text-color-light);
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    background: color-mix(in srgb, var(--global-theme-color) 10%, transparent);
+    color: var(--global-theme-color);
+  }
+}
+
+.profile-drawer-links {
+  h2 {
+    margin: 1.1rem 0 0.35rem;
+    padding: 0 0.6rem;
+    color: var(--global-text-color-light);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  section:first-child h2 {
+    margin-top: 0;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.5rem 0.6rem;
+    border-radius: 10px;
+    color: var(--global-text-color);
+    text-decoration: none;
+
+    &:hover,
+    &:focus-visible {
+      background: color-mix(in srgb, var(--global-theme-color) 9%, transparent);
+      color: var(--global-theme-color);
+      text-decoration: none;
+    }
+
+    i,
+    svg {
+      flex-shrink: 0;
+      width: 1.25rem;
+      font-size: 1.15rem;
+      text-align: center;
+    }
+
+    svg {
+      height: 1.25rem;
+    }
+
+    small {
+      margin-left: auto;
+      color: var(--global-text-color-light);
+      font-size: 0.8rem;
+    }
+  }
+}
+
+// The visitor map and the copyright (the site has no footer) sit at the bottom of the drawer.
+.profile-drawer .visitor-map {
+  flex-shrink: 0;
+  margin-top: auto;
+  padding: 1.5rem 0 0;
+  text-align: center;
+}
+
+.profile-drawer-copyright {
+  margin: 0;
+  padding: 0.9rem 0.6rem 0;
+  color: var(--global-text-color-light);
+  font-size: 0.75rem;
+
+  a {
+    color: inherit;
+    text-decoration: underline;
   }
 }
 
@@ -2695,51 +3120,6 @@ body:not(.is-about-creative-mode):not(.is-about-meow-mode) {
     &.ig-lightbox-next {
       right: 0.6rem;
     }
-  }
-}
-
-// Footer
-footer.fixed-bottom {
-  font-family: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
-  background-color: var(--global-footer-bg-color);
-  font-size: 0.75rem;
-  transition:
-    opacity 0.2s ease,
-    transform 0.2s ease;
-  will-change: opacity, transform;
-
-  .container {
-    color: var(--global-footer-text-color);
-    padding-top: 9px;
-    padding-bottom: 8px;
-    text-align: center;
-  }
-
-  a {
-    color: var(--global-footer-link-color);
-
-    &:hover {
-      color: var(--global-theme-color);
-      text-decoration: none;
-    }
-  }
-}
-
-body.footer-hidden-while-scrolling footer.fixed-bottom {
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(100%);
-}
-
-footer.sticky-bottom {
-  font-family: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
-  border-top: 1px solid var(--global-divider-color);
-  padding-top: 40px;
-  padding-bottom: 40px;
-  font-size: 0.9rem;
-
-  .container {
-    text-align: center;
   }
 }
 

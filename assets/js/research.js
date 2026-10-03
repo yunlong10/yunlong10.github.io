@@ -9,9 +9,17 @@
   var mapRailThumb = mapRail ? mapRail.querySelector(".research-map-rail-thumb") : null;
   var paperPanel = document.getElementById("research-map-paper-panel");
   var paperClose = paperPanel ? paperPanel.querySelector(".research-map-paper-close") : null;
+  var paperStatus = paperPanel ? paperPanel.querySelector(".research-paper-status") : null;
+  var paperStatusText = paperStatus ? paperStatus.querySelector(".research-paper-status-text") : null;
+  var paperStatusClear = paperStatus ? paperStatus.querySelector(".research-paper-status-clear") : null;
+  var paperNote = paperPanel ? paperPanel.querySelector(".selected-research-note-row") : null;
   var selectedPubs = document.getElementById("selected-publications");
   var bibSearch = document.getElementById("bibsearch");
   var sortSelect = document.getElementById("pub-sort-by");
+  var sortToggle = document.querySelector(".research-sort-toggle");
+  var sortCurrent = sortToggle ? sortToggle.querySelector(".research-sort-current") : null;
+  var sortMenu = document.getElementById("research-sort-menu");
+  var sortOptions = sortMenu ? Array.prototype.slice.call(sortMenu.querySelectorAll("[data-sort-value]")) : [];
   var controls = document.querySelector(".research-controls");
   var controlButtons = Array.prototype.slice.call(document.querySelectorAll(".research-control-button[data-research-control]"));
   var sortButtonLabel = document.querySelector('.research-control-button[data-research-control="sort"] span');
@@ -95,6 +103,64 @@
     });
   }
 
+  // What narrows the list right now: { label, singlePaper } for a map node, { query } for a search.
+  var paperFilter = null;
+  var paperStatusKey = "";
+
+  function visiblePaperCount() {
+    return allPaperItems().filter(function (li) {
+      return !li.hidden && !li.classList.contains("unloaded");
+    }).length;
+  }
+
+  function nodeLabel(node) {
+    return Array.prototype.map
+      .call(node.querySelectorAll(".rm-name, .rm-label"), function (el) {
+        return el.textContent.replace(/\s+/g, " ").trim();
+      })
+      .filter(Boolean)
+      .join(" ");
+  }
+
+  function renderPaperStatus() {
+    if (!paperStatus || !paperStatusText) return;
+    var count = paperFilter ? visiblePaperCount() : 0;
+    var label = !paperFilter ? "" : paperFilter.query ? "\u201c" + paperFilter.query + "\u201d" : paperFilter.label;
+    var isEmpty = !!(paperFilter && paperFilter.query && !count);
+    // Unchanged text is left alone so the role="status" region isn't re-announced.
+    var key = paperFilter ? label + "|" + count + "|" + !!paperFilter.singlePaper : "";
+    if (key === paperStatusKey) return;
+    paperStatusKey = key;
+
+    paperStatus.classList.toggle("is-active", !!paperFilter);
+    paperStatus.classList.toggle("is-empty", isEmpty);
+    if (paperNote) paperNote.hidden = isEmpty;
+    if (paperStatusClear) {
+      paperStatusClear.hidden = !paperFilter;
+      paperStatusClear.setAttribute("aria-label", paperFilter && paperFilter.query ? "Clear search" : "Clear filter");
+    }
+    paperStatusText.textContent = "";
+    if (!paperFilter) return;
+    if (isEmpty) {
+      paperStatusText.textContent = "No papers match " + label + ".";
+      return;
+    }
+    var labelEl = document.createElement("span");
+    labelEl.className = "research-paper-status-label";
+    labelEl.textContent = label;
+    paperStatusText.appendChild(labelEl);
+    if (paperFilter.singlePaper) return;
+    var countEl = document.createElement("span");
+    countEl.className = "research-paper-status-count";
+    countEl.textContent = " \u00b7 " + (count === 1 ? "1 paper" : count + " papers");
+    paperStatusText.appendChild(countEl);
+  }
+
+  function setPaperFilter(filter) {
+    paperFilter = filter;
+    renderPaperStatus();
+  }
+
   // Papers that should only surface via the "Others" node, not in the hub
   // (LMMs/Agents x Video Understanding) "all papers" view.
   var OTHERS_ONLY_KEYS = ["tang2025ai4anime", "hua2024mmcomposition", "wang2023caption"];
@@ -157,6 +223,7 @@
 
   function hidePaperPanel() {
     if (!paperPanel) return;
+    setPaperFilter(null);
     window.clearTimeout(paperPanelTimer);
     window.clearTimeout(paperPanelHeightTimer);
     if (!paperPanel.hidden) {
@@ -203,17 +270,34 @@
     });
   }
 
-  // With nothing selected, the list shows just the pinned papers.
+  // Most cited first; ties go to the better author position, then the newer paper.
+  function byCitations(items) {
+    function sortValue(li, name) {
+      var row = li.querySelector(".row");
+      return parseCount(row && row.getAttribute(name));
+    }
+    return items.slice().sort(function (a, b) {
+      return (
+        sortValue(b, "data-sort-cites") - sortValue(a, "data-sort-cites") ||
+        (sortValue(a, "data-sort-author-pos") || 999) - (sortValue(b, "data-sort-author-pos") || 999) ||
+        sortValue(b, "data-sort-year") - sortValue(a, "data-sort-year")
+      );
+    });
+  }
+
+  // With nothing selected, the list shows every paper on the map (the hub's and the
+  // Others'), by citations, with pinned papers kept on top.
   function showDefaultPapers() {
-    var pinned = pinnedPaperItems();
-    if (!pinned.length) {
+    var items = allPaperItems();
+    if (!items.length) {
       hidePaperPanel();
       return;
     }
     document.querySelectorAll(".rm-station.active, .rm-topic.active").forEach(function (node) {
       node.classList.remove("active");
     });
-    showPaperItems(pinned);
+    showPaperItems(byCitations(items));
+    setPaperFilter(null);
     revealPaperPanel(false);
   }
 
@@ -253,6 +337,7 @@
     document.querySelectorAll(".rm-station.active, .rm-topic.active").forEach(function (node) {
       node.classList.remove("active");
     });
+    setPaperFilter({ query: bibSearch.value.trim() });
     revealPaperPanel(false);
   }
 
@@ -279,6 +364,7 @@
       button.classList.toggle("active", control === mode);
     });
     if (sortButtonLabel) sortButtonLabel.textContent = mode === "sort" ? "Sort by" : "Sort";
+    if (mode !== "sort") closeSortMenu(false);
     if (mode === "search" && bibSearch) {
       window.setTimeout(function () {
         bibSearch.focus();
@@ -286,7 +372,7 @@
     }
     if (mode === "sort" && sortSelect) {
       window.setTimeout(function () {
-        sortSelect.focus();
+        (sortToggle || sortSelect).focus();
       }, 0);
       if (!wasSortActive) {
         if (sortSelect.value === "default") sortSelect.value = "cites";
@@ -317,6 +403,7 @@
       button.classList.remove("active");
     });
     if (sortButtonLabel) sortButtonLabel.textContent = "Sort";
+    closeSortMenu(false);
     var keys = paperKeysForNode(node);
     var items = paperItemsForNode(node);
     if (!items.length) return false;
@@ -332,6 +419,7 @@
     });
     node.classList.add("active");
     if (sortSelect && !isDefaultSort()) sortSelect.dispatchEvent(new Event("change"));
+    setPaperFilter({ label: nodeLabel(node), singlePaper: node.classList.contains("rm-station") });
     revealPaperPanel(true);
     return true;
   }
@@ -477,6 +565,30 @@
     });
   }
   if (paperClose) paperClose.addEventListener("click", hidePaperPanel);
+  if (paperStatusClear) {
+    paperStatusClear.addEventListener("click", function () {
+      if (paperFilter && paperFilter.query && bibSearch) {
+        clearBibSearch();
+        // Same path as deleting the text by hand, so bibsearch.js also drops its filter.
+        bibSearch.dispatchEvent(new Event("input"));
+        bibSearch.focus();
+        return;
+      }
+      showDefaultPapers();
+    });
+  }
+  // bibsearch.js hides non-matching papers after its own debounce, so recount
+  // whenever visibility in the list changes rather than right after our updates.
+  if (selectedPubs && paperStatus && "MutationObserver" in window) {
+    var paperStatusFrame = 0;
+    new MutationObserver(function () {
+      if (!paperFilter || paperStatusFrame) return;
+      paperStatusFrame = window.requestAnimationFrame(function () {
+        paperStatusFrame = 0;
+        renderPaperStatus();
+      });
+    }).observe(selectedPubs, { subtree: true, attributes: true, attributeFilter: ["class", "hidden"] });
+  }
   controlButtons.forEach(function (button) {
     button.addEventListener("click", function () {
       var control = button.getAttribute("data-research-control");
@@ -487,6 +599,73 @@
       setControlMode(button.classList.contains("active") ? null : control);
     });
   });
+  // The sort menu is our own listbox; the hidden <select> stays the source of truth that
+  // the sorting code listens to. (A native select's menu is drawn by the OS and lands in
+  // the wrong place in scaled previews.)
+  function syncSortMenu() {
+    if (!sortSelect) return;
+    var value = sortSelect.value;
+    sortOptions.forEach(function (option) {
+      option.setAttribute("aria-selected", option.getAttribute("data-sort-value") === value ? "true" : "false");
+    });
+    var selected = sortSelect.options[sortSelect.selectedIndex];
+    if (sortCurrent && value !== "default" && selected) sortCurrent.textContent = selected.textContent;
+  }
+
+  function openSortMenu() {
+    if (!sortMenu || !sortToggle) return;
+    syncSortMenu();
+    var pill = sortToggle.closest(".research-control-pill");
+    if (pill && controls) {
+      sortMenu.style.right = Math.max(0, controls.getBoundingClientRect().right - pill.getBoundingClientRect().right) + "px";
+    }
+    sortMenu.hidden = false;
+    sortToggle.setAttribute("aria-expanded", "true");
+    (sortMenu.querySelector('[aria-selected="true"]') || sortOptions[0]).focus();
+  }
+
+  function closeSortMenu(returnFocus) {
+    if (!sortMenu || sortMenu.hidden) return;
+    sortMenu.hidden = true;
+    sortToggle.setAttribute("aria-expanded", "false");
+    if (returnFocus) sortToggle.focus();
+  }
+
+  if (sortSelect && sortToggle && sortMenu) {
+    sortSelect.addEventListener("change", syncSortMenu);
+    sortToggle.addEventListener("click", function () {
+      if (sortMenu.hidden) openSortMenu();
+      else closeSortMenu(true);
+    });
+    sortOptions.forEach(function (option) {
+      option.addEventListener("click", function () {
+        sortSelect.value = option.getAttribute("data-sort-value");
+        sortSelect.dispatchEvent(new Event("change"));
+        closeSortMenu(true);
+      });
+    });
+    sortMenu.addEventListener("keydown", function (e) {
+      var index = sortOptions.indexOf(document.activeElement);
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        e.preventDefault();
+        var step = e.key === "ArrowDown" ? 1 : -1;
+        sortOptions[(index + step + sortOptions.length) % sortOptions.length].focus();
+      } else if (e.key === "Home" || e.key === "End") {
+        e.preventDefault();
+        sortOptions[e.key === "Home" ? 0 : sortOptions.length - 1].focus();
+      } else if (e.key === "Escape") {
+        // Keep Escape from also closing the homepage panel.
+        e.stopPropagation();
+        closeSortMenu(true);
+      } else if (e.key === "Tab") {
+        closeSortMenu(false);
+      }
+    });
+    document.addEventListener("pointerdown", function (e) {
+      if (!sortMenu.hidden && !sortMenu.contains(e.target) && !sortToggle.contains(e.target)) closeSortMenu(false);
+    });
+  }
+
   if (bibSearch) {
     bibSearch.addEventListener("input", showPapersForSearch);
     window.addEventListener("hashchange", function () {

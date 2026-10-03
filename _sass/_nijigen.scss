@@ -223,20 +223,6 @@ html[data-theme="dark"] {
   transform: scale(1.04);
 }
 
-// ---- NEW E: 回到顶部按钮 Q弹 ----------------------------------------------------
-
-#back-to-top {
-  transition: transform 0.25s $niji-spring;
-
-  &:hover {
-    transform: translateY(-4px) scale(1.1);
-  }
-
-  &:active {
-    transform: scale(0.92);
-  }
-}
-
 // ---- G: 粉蓝列表符号（夜间互换：蓝点粉号，呼应"夜间蓝为主"） ----------------------
 
 .post article ul > li::marker {
@@ -401,18 +387,6 @@ html[data-theme="dark"] body {
   transform: scale(1.03);
 }
 
-// ---- JE: 页脚与快捷链接余白 --------------------------------------------------------
-
-footer.sticky-bottom {
-  padding-top: 52px;
-  padding-bottom: 10px;
-}
-
-.about-jp .about-quick-links {
-  margin-top: 1.45rem;
-  gap: 0.6rem;
-}
-
 // ---- Panel focus mode ----------------------------------------------------------
 // 打开任一 inline panel 时，不再为吉祥物/气泡预留空间：隐藏 identity，折叠 header，
 // 让自我介绍卡片直接上移，面板成为页面焦点。
@@ -435,9 +409,11 @@ footer.sticky-bottom {
   }
 }
 
+// 吉祥物先缩回文本框后面（文本框层级更高），再让文本框滑到底部。
+// --mascot-duck-distance 由 JS 量出：刚好让头像整个沉到文本框上沿以下。
 .post.about-jp.is-panel-hiding-mascot {
   .about-identity {
-    animation: niji-mascot-hide 0.24s ease-in both;
+    animation: niji-mascot-hide 0.34s ease-in both;
   }
 
   .about-hello {
@@ -447,13 +423,16 @@ footer.sticky-bottom {
 }
 
 @keyframes niji-mascot-hide {
-  from {
+  0% {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
-  to {
+  80% {
+    opacity: 1;
+  }
+  100% {
     opacity: 0;
-    transform: translateY(0.7rem) scale(0.96);
+    transform: translateY(var(--mascot-duck-distance, 3.5rem));
   }
 }
 
