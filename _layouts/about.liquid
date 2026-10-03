@@ -697,6 +697,7 @@ layout: default
           return;
         }
         var from = promptBox.getBoundingClientRect();
+        if (!docked) resetPromptCollapse();
         promptBox.classList.toggle('is-docked', docked);
         aboutRoot.classList.toggle('has-docked-prompt', docked);
         fitQuickLinks();
@@ -764,6 +765,37 @@ layout: default
       if ('ResizeObserver' in window) {
         new ResizeObserver(updateDockSpace).observe(promptBox);
       }
+
+      // Scrolling either way slides the docked card off the bottom of the screen; it comes back
+      // once scrolling stops (or when tabbed into).
+      var lastScrollY = window.scrollY;
+      var promptReturnTimer = null;
+
+      function setPromptTucked(tucked) {
+        if (tucked && !promptBox.classList.contains('is-docked')) return;
+        promptBox.classList.toggle('is-tucked', tucked);
+      }
+
+      function resetPromptCollapse() {
+        window.clearTimeout(promptReturnTimer);
+        promptBox.classList.remove('is-tucked');
+      }
+
+      window.addEventListener('scroll', function () {
+        if (!promptBox.classList.contains('is-docked')) return;
+        var y = window.scrollY;
+        if (Math.abs(y - lastScrollY) < 8) return;
+        lastScrollY = y;
+        setPromptTucked(true);
+        window.clearTimeout(promptReturnTimer);
+        promptReturnTimer = window.setTimeout(function () {
+          setPromptTucked(false);
+        }, 600);
+      }, { passive: true });
+
+      promptBox.addEventListener('focusin', function () {
+        setPromptTucked(false);
+      });
 
       function closeInlinePanel(panel, trigger) {
         if (!panel || !trigger) return;

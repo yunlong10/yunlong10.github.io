@@ -1144,6 +1144,17 @@ ul.task-list input[type="checkbox"] {
     box-shadow:
       0 14px 36px rgba(31, 45, 76, 0.16),
       0 4px 12px rgba(31, 45, 76, 0.08);
+    transition:
+      transform 0.36s cubic-bezier(0.4, 0, 0.2, 1),
+      translate 0.36s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  // Scrolling down slides the docked card fully off screen: its own height (transform) plus
+  // its bottom offset and shadow (translate). Two properties instead of calc(100% + 4rem),
+  // which the production minifier would break.
+  .about-prompt.is-docked.is-tucked {
+    transform: translateY(100%);
+    translate: 0 4rem;
   }
 
   // Under the card once the row can't hold them even icon-only, or inside a docked card as its
@@ -2345,14 +2356,40 @@ ul.task-list input[type="checkbox"] {
   }
 }
 
+// Reaches from just under the navbar to the bottom of the screen: 3.75rem is what sits above
+// it (body padding-top = the 3rem navbar + .container mt-5 3rem - the -2.25rem margin below;
+// the homepage body has no bottom padding). The box starts 0.75rem below the navbar, so the
+// bottom padding is 0.75rem larger to center on the visible area rather than this box.
 .post.about-jp {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  min-height: calc(100svh - 14rem);
+  min-height: calc(100svh - 3.75rem);
   margin-top: -2.25rem;
-  padding-top: max(1rem, calc((100svh - 14rem - 23rem) / 2));
-  padding-bottom: 3rem;
+  padding-top: 0.75rem;
+  padding-bottom: 1.5rem;
+
+  // With no panel open, center what is actually visible: the mascot's head down to the card.
+  // The header reserves room above the mascot for the speech bubble (header height minus the
+  // ~3rem of mascot showing), so that empty band is added to the bottom padding too.
+  &:not(.is-inline-panel-open):not(.has-docked-prompt) {
+    justify-content: center;
+    padding-bottom: calc(clamp(5.7rem, 10vw, 7rem) - 1.5rem);
+
+    @media (max-width: 575px) {
+      // Header 5rem, about 2rem of mascot showing: a 3rem band, plus the 1.5rem above.
+      padding-bottom: 4.5rem;
+    }
+
+    // Center on the whole screen, navbar included: padding-bottom as tall as the navbar (3rem)
+    // lifts the group by half of it. The margin then lifts it by another ~4% of the screen
+    // height, since dead center reads as low. Two properties, not calc(a + b), which the
+    // production minifier breaks.
+    article {
+      padding-bottom: 3rem;
+      margin-bottom: 8svh;
+    }
+  }
   // No transform here, not even translateY(0): it would pin the docked .about-prompt
   // (position: fixed) to this element instead of the screen.
   transition:
@@ -2495,10 +2532,13 @@ header {
   -webkit-backdrop-filter: saturate(160%) blur(10px);
   backdrop-filter: saturate(160%) blur(10px);
   opacity: 1;
+  // 3rem tall in all: the homepage centering (.post.about-jp) assumes this height.
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
 
   > .container {
     position: relative;
-    min-height: 3rem;
+    min-height: 2.5rem;
   }
 }
 
@@ -2630,6 +2670,15 @@ html.has-profile-drawer {
   font-family: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
   transform: translateX(-100%);
   transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  // Thinner than the site's 10px candy scrollbar (_nijigen.scss), same colors.
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  // Firefox only: Chrome ignores ::-webkit-scrollbar once scrollbar-width is set.
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-width: thin;
+  }
 
   &.is-open {
     transform: none;

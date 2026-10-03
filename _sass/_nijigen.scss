@@ -473,7 +473,7 @@ html[data-theme="dark"] body {
 // ---- K2: 玻璃拟态（毛玻璃卡片） ----------------------------------------------------
 
 .about-jp .about-prompt {
-  background: color-mix(in srgb, var(--global-card-bg-color) 72%, transparent);
+  background: color-mix(in srgb, var(--global-card-bg-color) 88%, transparent);
   -webkit-backdrop-filter: blur(14px) saturate(150%);
   backdrop-filter: blur(14px) saturate(150%);
 }
