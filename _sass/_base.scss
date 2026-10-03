@@ -1129,15 +1129,18 @@ ul.task-list input[type="checkbox"] {
   }
 
   // While a panel is open the card floats at the bottom of the screen.
+  // No calc(a + b) here: the production minifier strips the spaces around "+", which
+  // invalidates the declaration (the card then stays put at the top). The safe-area
+  // inset goes in margin-bottom instead.
   .about-prompt.is-docked {
     position: fixed;
     right: 0;
-    bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+    bottom: 0.75rem;
     left: 0;
     z-index: 1020;
     width: min(calc(100% - 30px), 900px);
     max-width: none;
-    margin: 0 auto;
+    margin: 0 auto env(safe-area-inset-bottom, 0px);
     box-shadow:
       0 14px 36px rgba(31, 45, 76, 0.16),
       0 4px 12px rgba(31, 45, 76, 0.08);
@@ -2412,7 +2415,8 @@ ul.task-list input[type="checkbox"] {
   // navbar (no divider, little padding), and the bottom makes room for the card instead.
   &.has-docked-prompt {
     padding-top: 0.75rem;
-    padding-bottom: calc(3rem + var(--about-dock-space, 0px));
+    // Card height + its offset + 3rem, summed in JS (see updateDockSpace in about.liquid).
+    padding-bottom: var(--about-dock-space, 12rem);
 
     .about-panel-divider {
       display: none;

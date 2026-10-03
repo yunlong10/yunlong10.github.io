@@ -747,9 +747,16 @@ layout: default
         });
       }
 
+      // Room under the page for the docked card: its height and offset plus 3rem. Summed
+      // here because the production CSS minifier breaks calc(a + b).
       function updateDockSpace() {
-        var docked = promptBox.classList.contains('is-docked');
-        var space = docked ? promptBox.offsetHeight + (parseFloat(getComputedStyle(promptBox).bottom) || 0) : 0;
+        if (!promptBox.classList.contains('is-docked')) {
+          aboutRoot.style.removeProperty('--about-dock-space');
+          return;
+        }
+        var style = getComputedStyle(promptBox);
+        var rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+        var space = promptBox.offsetHeight + (parseFloat(style.bottom) || 0) + (parseFloat(style.marginBottom) || 0) + 3 * rem;
         aboutRoot.style.setProperty('--about-dock-space', space + 'px');
       }
 
