@@ -25,6 +25,9 @@ layout: default
       {% endif %}
       <p class="about-hello">
         <span class="about-hello-rotator" aria-live="polite">Hi there / 你好 / こんにちは / 안녕 / Ciallo ～(∠・ω&lt; )⌒★</span>
+        <button type="button" class="about-hello-close" aria-label="Close news" title="Close">
+          <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
       </p>
     </div>
     {% if page.subtitle %}
@@ -176,7 +179,7 @@ layout: default
     var typingSpeedMs = 5;
     // Browsers won't fire repeated timers much faster than every ~4ms, so speed comes from
     // typing several characters per tick rather than from a shorter delay.
-    var typingCharsPerTick = 2;
+    var typingCharsPerTick = 3;
     var autoCycleIntervalMs = 15000;
     var autoCycleMeowIntervalMs = 7000;
     var autoCycleInitialDelayMs = 10000;
@@ -212,7 +215,9 @@ layout: default
       if (mode === 'Meow' && typeof collapseInlinePanels === 'function') {
         collapseInlinePanels();
       }
-      var promptGhosts = modeChanged ? capturePromptText() : [];
+      // In search mode the card shows the search field; the new bio types in on leaving it.
+      var retypePrompt = modeChanged && !isPromptSearching();
+      var promptGhosts = retypePrompt ? capturePromptText() : [];
       currentSpeechMode = mode;
       names = speechModes[currentSpeechMode].greetings;
       interactionMessages = speechModes[currentSpeechMode].interactions;
@@ -229,29 +234,17 @@ layout: default
         }
       }
       if (contactAction && contactIcon) {
+        // Meow mode swaps the email for Telegram (Creative mode's Discord is a separate button).
         var useTelegram = mode === 'Meow' && contactAction.dataset.telegramHref;
-        var useDiscord = mode === 'Creative' && contactAction.dataset.discordHref;
-        var href = useTelegram
-          ? contactAction.dataset.telegramHref
-          : useDiscord
-            ? contactAction.dataset.discordHref
-            : contactAction.dataset.emailHref;
-        var label = useTelegram
-          ? contactAction.dataset.telegramLabel
-          : useDiscord
-            ? contactAction.dataset.discordLabel
-            : contactAction.dataset.emailLabel;
-        var icon = useTelegram
-          ? contactAction.dataset.telegramIcon
-          : useDiscord
-            ? contactAction.dataset.discordIcon
-            : contactAction.dataset.emailIcon;
+        var href = useTelegram ? contactAction.dataset.telegramHref : contactAction.dataset.emailHref;
+        var label = useTelegram ? contactAction.dataset.telegramLabel : contactAction.dataset.emailLabel;
+        var icon = useTelegram ? contactAction.dataset.telegramIcon : contactAction.dataset.emailIcon;
         contactAction.href = href;
         contactAction.title = label;
-        contactAction.dataset.contactMode = useDiscord ? 'discord' : useTelegram ? 'telegram' : 'email';
+        contactAction.dataset.contactMode = useTelegram ? 'telegram' : 'email';
         contactAction.setAttribute('aria-label', label);
         contactIcon.className = icon;
-        if (useDiscord || useTelegram) {
+        if (useTelegram) {
           contactAction.target = '_blank';
           contactAction.rel = 'noopener noreferrer';
         } else {
@@ -303,7 +296,7 @@ layout: default
       document.body.classList.toggle('is-about-meow-mode', mode === 'Meow');
       restartAutoCycleInterval();
       fitQuickLinks();
-      if (modeChanged) typePromptText(promptGhosts);
+      if (retypePrompt) typePromptText(promptGhosts);
     }
 
     setSpeechMode(currentSpeechMode);
@@ -343,15 +336,61 @@ layout: default
       });
     }
 
-    // Quick links share the action row with the icons and mode picker. When their labels
-    // don't fit, they turn icon-only one at a time from the right end (never the mode's main
-    // panel); when even that doesn't fit, they move out under the card instead of wrapping.
-    // Measured rather than media-queried because the room left depends on the picker's label
-    // and on the fonts.
+    // Quick links share the action row with the icons, mode picker and search button. When
+    // their labels don't fit, they turn icon-only one at a time from the right end (never the
+    // mode's main panel); then the icons on the left fold into a "+"; when even that doesn't
+    // fit, the links move out under the card instead of wrapping (and the icons unfold again
+    // if there's room for them then). Measured rather than media-queried because the room
+    // left depends on the picker's label and on the fonts.
     var quickActionRow = document.querySelector('.about-prompt-actions');
     var quickLinks = quickActionRow ? quickActionRow.querySelector('.about-quick-links') : null;
     var quickLinksSlot = quickLinks ? quickLinks.nextElementSibling : null;
     var quickLinkWidths = null;
+    var actionGroup = quickActionRow ? quickActionRow.querySelector('.about-prompt-action-group') : null;
+    var actionMore = actionGroup ? actionGroup.querySelector('.about-prompt-more') : null;
+
+    function setActionTray(open) {
+      if (!actionGroup) return;
+      actionGroup.classList.toggle('is-open', open);
+      actionMore.setAttribute('aria-expanded', String(open));
+    }
+
+    function setActionsCollapsed(collapsed) {
+      if (!actionGroup) return;
+      actionGroup.classList.toggle('is-collapsed', collapsed);
+      if (!collapsed) setActionTray(false);
+    }
+
+    // Whether the row's items, other than the quick links, overflow it.
+    function actionRowOverflows() {
+      var width = 0;
+      var count = 0;
+      Array.prototype.forEach.call(quickActionRow.children, function (child) {
+        if (child === quickLinks || !child.getClientRects().length) return;
+        var style = getComputedStyle(child);
+        width += child.offsetWidth + Math.min(0, parseFloat(style.marginLeft)) + Math.min(0, parseFloat(style.marginRight));
+        count += 1;
+      });
+      var rowGap = parseFloat(getComputedStyle(quickActionRow).columnGap) || 0;
+      return width + rowGap * Math.max(count - 1, 0) > quickActionRow.clientWidth;
+    }
+
+    if (actionMore) {
+      actionMore.addEventListener('click', function () {
+        setActionTray(!actionGroup.classList.contains('is-open'));
+      });
+      actionGroup.querySelector('.about-prompt-action-list').addEventListener('click', function (event) {
+        if (event.target.closest('a')) setActionTray(false);
+      });
+      document.addEventListener('click', function (event) {
+        if (!actionGroup.contains(event.target)) setActionTray(false);
+      });
+      actionGroup.addEventListener('keydown', function (event) {
+        if (event.key !== 'Escape' || !actionGroup.classList.contains('is-open')) return;
+        setActionTray(false);
+        actionMore.focus();
+      });
+    }
 
     // 'row': in the action row. 'card': the docked card's last row. 'below': under the card.
     function placeQuickLinks(where) {
@@ -365,7 +404,13 @@ layout: default
     }
 
     function fitQuickLinks() {
-      if (!quickLinks || !quickLinks.offsetParent) return;
+      if (!quickLinks) return;
+      if (!quickLinks.offsetParent) {
+        // No quick links in this mode (Meow): just the icons, picker and search button.
+        setActionsCollapsed(false);
+        setActionsCollapsed(actionRowOverflows());
+        return;
+      }
       var links = Array.prototype.slice.call(quickLinks.querySelectorAll('a'));
       if (!quickLinkWidths) {
         // The row's sizing is what's being measured; this all happens before the next paint.
@@ -410,17 +455,29 @@ layout: default
       // items and the two gaps beside the links. The one before the picker may shrink to 4px,
       // since the picker's own left padding keeps its label clear. Only negative margins
       // count: they hand space back, while the picker's auto margin is just slack.
-      var rowGap = parseFloat(getComputedStyle(quickActionRow).columnGap) || 0;
-      var room = quickActionRow.clientWidth - rowGap * 2 - 4;
-      Array.prototype.forEach.call(quickActionRow.children, function (child) {
-        if (child === quickLinks) return;
-        var style = getComputedStyle(child);
-        room -= child.offsetWidth + Math.min(0, parseFloat(style.marginLeft)) + Math.min(0, parseFloat(style.marginRight));
-      });
+      function rowRoom() {
+        var rowGap = parseFloat(getComputedStyle(quickActionRow).columnGap) || 0;
+        var room = quickActionRow.clientWidth - rowGap * 2 - 4;
+        Array.prototype.forEach.call(quickActionRow.children, function (child) {
+          if (child === quickLinks) return;
+          var style = getComputedStyle(child);
+          room -= child.offsetWidth + Math.min(0, parseFloat(style.marginLeft)) + Math.min(0, parseFloat(style.marginRight));
+        });
+        return room;
+      }
 
-      var icons = iconsNeeded(room);
+      setActionsCollapsed(false);
+      var icons = iconsNeeded(rowRoom());
+      if (icons < 0) {
+        setActionsCollapsed(true);
+        icons = iconsNeeded(rowRoom());
+      }
       // Under the card would be off in the page while the card floats, so a docked card keeps them.
       placeQuickLinks(icons >= 0 ? 'row' : promptBox.classList.contains('is-docked') ? 'card' : 'below');
+      if (icons < 0) {
+        setActionsCollapsed(false);
+        setActionsCollapsed(actionRowOverflows());
+      }
       links.forEach(function (a) {
         a.classList.remove('is-icon');
       });
@@ -474,12 +531,20 @@ layout: default
       promptTyping.caret.remove();
       promptBox.classList.remove('is-typing');
       promptBox.removeAttribute('aria-busy');
+      // Also runs when a newer typing cuts this one short; callers re-check their state.
+      var onDone = promptTyping.onDone;
       promptTyping = null;
+      if (onDone) onDone();
     }
 
     function visiblePromptParagraphs() {
       return Array.prototype.filter.call(promptBox.children, function (el) {
-        return el.tagName === 'P' && !el.classList.contains('about-prompt-ghost') && el.getClientRects().length;
+        return (
+          el.tagName === 'P' &&
+          !el.classList.contains('about-prompt-ghost') &&
+          !el.classList.contains('about-bio-search') &&
+          el.getClientRects().length
+        );
       });
     }
 
@@ -516,7 +581,7 @@ layout: default
       var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
         acceptNode: function (node) {
           var parent = node.parentElement;
-          if (!parent || parent.closest('.about-prompt-actions, .about-quick-links, .about-prompt-corner')) return NodeFilter.FILTER_REJECT;
+          if (!parent || parent.closest('.about-prompt-actions, .about-quick-links')) return NodeFilter.FILTER_REJECT;
           if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
           if (visibleOnly) {
             if (parent.closest('.about-prompt-ghost')) return NodeFilter.FILTER_REJECT;
@@ -532,7 +597,8 @@ layout: default
       return nodes;
     }
 
-    function typePromptText(ghosts) {
+    // onDone runs once the old text is erased and the new text fully typed.
+    function typePromptText(ghosts, onDone) {
       ghosts = ghosts || [];
       finishPromptTyping();
 
@@ -549,6 +615,7 @@ layout: default
         ghosts.forEach(function (ghost) {
           ghost.remove();
         });
+        if (onDone) onDone();
         return;
       }
 
@@ -559,7 +626,10 @@ layout: default
       ghosts.forEach(function (ghost) {
         eraseNodes = eraseNodes.concat(promptTextNodes(ghost, false));
       });
-      if (!textNodes.length && !eraseNodes.length) return;
+      if (!textNodes.length && !eraseNodes.length) {
+        if (onDone) onDone();
+        return;
+      }
 
       promptBox.setAttribute('aria-busy', 'true');
       promptBox.classList.add('is-typing');
@@ -569,7 +639,7 @@ layout: default
       var caret = document.createElement('span');
       caret.className = 'about-prompt-caret';
       caret.setAttribute('aria-hidden', 'true');
-      var typing = { textNodes: textNodes, ghosts: ghosts, caret: caret, timer: null };
+      var typing = { textNodes: textNodes, ghosts: ghosts, caret: caret, timer: null, onDone: onDone };
       promptTyping = typing;
 
       var nodeIndex = 0;
@@ -629,27 +699,109 @@ layout: default
         moveCaretAfter(eraseNodes[eraseNodes.length - 1]);
         typing.timer = window.setTimeout(eraseNextCharacter, typingSpeedMs);
       } else {
+        moveCaretAfter(textNodes[0].node);
         typing.timer = window.setTimeout(typeNextCharacter, 90);
       }
     }
 
     typePromptText();
 
-    var topButton = promptBox.querySelector('.about-prompt-top');
-    if (topButton) {
-      var topButtonFrame = null;
-      var updateTopButton = function () {
-        topButtonFrame = null;
-        promptBox.classList.toggle('shows-top-button', window.scrollY > 160);
+    // Search mode: the magnifier at the right of the card backspaces the text away and
+    // leaves a search field (results drop down under the card as you type). Meanwhile
+    // the magnifier is an ×, which backspaces the query and types the card's text back in.
+    function isPromptSearching() {
+      return promptBox.classList.contains('is-searching');
+    }
+
+    var searchToggle = promptBox.querySelector('.about-prompt-search');
+    var searchInput = promptBox.querySelector('.about-prompt-search-input');
+    var searchResultsEl = document.getElementById('about-search-results');
+    if (searchToggle && searchInput && searchResultsEl && window.siteSearch) {
+        var promptSearch = window.siteSearch.attach(searchInput, searchResultsEl, {
+          live: true,
+          // Gallery results open in place below the card; put the list away for them.
+          onChoose: function () {
+            promptSearch.hide();
+          },
+        });
+      var searchEraseTimer = null;
+
+      var setSearchToggle = function (searching) {
+        searchToggle.setAttribute('aria-pressed', String(searching));
+        searchToggle.setAttribute('aria-label', searching ? 'Close search' : 'Search');
+        searchToggle.title = searching ? 'Close search' : 'Search';
+        searchToggle.querySelector('i').className = searching ? 'fa-solid fa-circle-stop' : 'fa-solid fa-magnifying-glass';
       };
-      window.addEventListener('scroll', function () {
-        if (topButtonFrame === null) topButtonFrame = window.requestAnimationFrame(updateTopButton);
-      }, { passive: true });
-      updateTopButton();
-      topButton.addEventListener('click', function () {
-        var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+
+      var enterSearch = function () {
+        if (isPromptSearching()) return;
+        window.clearTimeout(searchEraseTimer);
+        var ghosts = capturePromptText();
+        promptBox.classList.add('is-searching');
+        setSearchToggle(true);
+        promptSearch.load();
+        typePromptText(ghosts, function () {
+          if (!isPromptSearching()) return;
+          promptBox.classList.add('is-search-ready');
+          searchInput.focus();
+        });
+      };
+
+      // Backspaces the query at the typing speed, then calls done.
+      var eraseQuery = function (done) {
+        window.clearTimeout(searchEraseTimer);
+        if (!searchInput.value || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          searchInput.value = '';
+          done();
+          return;
+        }
+        (function eraseNext() {
+          searchInput.value = searchInput.value.slice(0, -typingCharsPerTick);
+          if (searchInput.value) searchEraseTimer = window.setTimeout(eraseNext, typingSpeedMs);
+          else done();
+        })();
+      };
+
+      var exitSearch = function () {
+        if (!isPromptSearching()) return;
+        promptSearch.hide();
+        setSearchToggle(false);
+        eraseQuery(function () {
+          promptBox.classList.remove('is-searching', 'is-search-ready');
+          typePromptText();
+        });
+      };
+
+      searchToggle.addEventListener('click', function () {
+        if (searchToggle.getAttribute('aria-pressed') === 'true') exitSearch();
+        else enterSearch();
       });
+
+      searchInput.addEventListener('keydown', function (e) {
+        if (e.key !== 'Escape') return;
+        // Keeps the homepage's Escape (closing panels) out of it.
+        e.stopPropagation();
+        exitSearch();
+      });
+
+      // Clicking elsewhere puts the results away; the query stays.
+      document.addEventListener('pointerdown', function (e) {
+        if (!searchResultsEl.hidden && !promptBox.contains(e.target)) promptSearch.hide();
+      });
+
+      // The drawer's search box and Cmd/Ctrl+K (header.liquid) land here; from other pages
+      // they arrive as /?search.
+      window.openPromptSearch = function () {
+        if (isPromptSearching()) searchInput.focus();
+        else enterSearch();
+      };
+      var searchParams = new URLSearchParams(window.location.search);
+      if (searchParams.has('search')) {
+        searchParams.delete('search');
+        var remainingQuery = searchParams.toString();
+        history.replaceState(null, '', window.location.pathname + (remainingQuery ? '?' + remainingQuery : '') + window.location.hash);
+        enterSearch();
+      }
     }
 
     if (aboutRoot && panelTriggers.length && inlinePanels.length) {
@@ -682,12 +834,14 @@ layout: default
       }
 
       function showPromptText(name) {
-        var ghosts = capturePromptText();
+        var searching = isPromptSearching();
+        var ghosts = searching ? [] : capturePromptText();
         promptBox.classList.toggle('has-panel-hint', !!name);
         Object.keys(panelHintClasses).forEach(function (key) {
           promptBox.classList.toggle(panelHintClasses[key], key === name);
         });
-        typePromptText(ghosts);
+        // In search mode the hint types in on leaving it.
+        if (!searching) typePromptText(ghosts);
       }
 
       // An open panel docks the card at the bottom of the screen.
@@ -697,7 +851,6 @@ layout: default
           return;
         }
         var from = promptBox.getBoundingClientRect();
-        if (!docked) resetPromptCollapse();
         promptBox.classList.toggle('is-docked', docked);
         aboutRoot.classList.toggle('has-docked-prompt', docked);
         fitQuickLinks();
@@ -748,54 +901,50 @@ layout: default
         });
       }
 
-      // Room under the page for the docked card: its height and offset plus 3rem. Summed
-      // here because the production CSS minifier breaks calc(a + b).
+      // Sized here because the production CSS minifier breaks calc(a + b).
       function updateDockSpace() {
         if (!promptBox.classList.contains('is-docked')) {
-          aboutRoot.style.removeProperty('--about-dock-space');
+          aboutRoot.style.removeProperty('--about-dock-curtain');
           return;
         }
-        var style = getComputedStyle(promptBox);
-        var rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
-        var space = promptBox.offsetHeight + (parseFloat(style.bottom) || 0) + (parseFloat(style.marginBottom) || 0) + 3 * rem;
-        aboutRoot.style.setProperty('--about-dock-space', space + 'px');
+        // From the top of the screen to the card's middle (its sticky offset + half its
+        // height): the opaque card covers the rest within its width.
+        var stickyTop = parseFloat(getComputedStyle(promptBox).top) || 0;
+        aboutRoot.style.setProperty('--about-dock-curtain', Math.ceil(stickyTop + promptBox.offsetHeight / 2) + 'px');
+        alignDockCurtain();
       }
+
+      // While the card is docked, a curtain covers the screen from the top down to the card's
+      // middle: the page scrolls away under it rather than showing around and above the card.
+      // It draws the page's own background, with the screentone dots lined up to the page's,
+      // so the strip looks empty instead of like a panel.
+      var dockCurtain = document.createElement('div');
+      dockCurtain.className = 'about-dock-curtain';
+      dockCurtain.setAttribute('aria-hidden', 'true');
+      aboutRoot.appendChild(dockCurtain);
+      var dockCurtainFrame = null;
+
+      function alignDockCurtain() {
+        dockCurtainFrame = null;
+        if (!promptBox.classList.contains('is-docked')) return;
+        // Like the page's (_nijigen.scss): dots every 22px from the top of the page, the second
+        // layer 11px further in, and the top-of-page gradient pinned to the page's top.
+        var top = window.scrollY + dockCurtain.getBoundingClientRect().top;
+        var offset = -(((top % 22) + 22) % 22);
+        dockCurtain.style.backgroundPosition = '0 ' + offset + 'px, 11px ' + (offset + 11) + 'px, 0 ' + -top + 'px';
+      }
+
+      window.addEventListener('scroll', function () {
+        if (dockCurtainFrame === null) dockCurtainFrame = window.requestAnimationFrame(alignDockCurtain);
+      }, { passive: true });
+      window.addEventListener('resize', function () {
+        if (dockCurtainFrame === null) dockCurtainFrame = window.requestAnimationFrame(alignDockCurtain);
+      }, { passive: true });
 
       // The docked card grows and shrinks as its hint types out and as the screen resizes.
       if ('ResizeObserver' in window) {
         new ResizeObserver(updateDockSpace).observe(promptBox);
       }
-
-      // Scrolling either way slides the docked card off the bottom of the screen; it comes back
-      // once scrolling stops (or when tabbed into).
-      var lastScrollY = window.scrollY;
-      var promptReturnTimer = null;
-
-      function setPromptTucked(tucked) {
-        if (tucked && !promptBox.classList.contains('is-docked')) return;
-        promptBox.classList.toggle('is-tucked', tucked);
-      }
-
-      function resetPromptCollapse() {
-        window.clearTimeout(promptReturnTimer);
-        promptBox.classList.remove('is-tucked');
-      }
-
-      window.addEventListener('scroll', function () {
-        if (!promptBox.classList.contains('is-docked')) return;
-        var y = window.scrollY;
-        if (Math.abs(y - lastScrollY) < 8) return;
-        lastScrollY = y;
-        setPromptTucked(true);
-        window.clearTimeout(promptReturnTimer);
-        promptReturnTimer = window.setTimeout(function () {
-          setPromptTucked(false);
-        }, 600);
-      }, { passive: true });
-
-      promptBox.addEventListener('focusin', function () {
-        setPromptTucked(false);
-      });
 
       function closeInlinePanel(panel, trigger) {
         if (!panel || !trigger) return;
@@ -838,7 +987,7 @@ layout: default
         return Math.max(0, promptBox.getBoundingClientRect().top - avatar.getBoundingClientRect().top + 6);
       }
 
-      function openInlinePanel(panel, trigger) {
+      function openInlinePanel(panel, trigger, onShown) {
         var mascotShowing =
           !aboutRoot.classList.contains('is-inline-panel-open') &&
           !aboutRoot.classList.contains('is-panel-restoring') &&
@@ -871,6 +1020,10 @@ layout: default
             aboutRoot.classList.toggle('is-research-panel-open', panel.getAttribute('data-about-panel') === 'research');
             aboutRoot.classList.toggle('is-gallery-panel-open', panel.getAttribute('data-about-panel') === 'gallery');
             panel.classList.add('is-visible');
+            if (onShown) {
+              onShown();
+              return;
+            }
             if (['blog', 'gallery'].indexOf(panel.getAttribute('data-about-panel')) !== -1) {
               return;
             }
@@ -907,14 +1060,33 @@ layout: default
         openInlinePanel(panel, panelButton(panel) || trigger);
       });
 
-      // Links from other pages (the profile drawer) arrive as /?panel=research etc.
+      // Gallery results from site search: open the Gallery panel and go to the post.
+      var galleryPanel = document.querySelector('[data-about-panel="gallery"]');
+      window.showGalleryPainting = function (id) {
+        if (!galleryPanel) return;
+        function reveal() {
+          if (window.revealGalleryPainting) window.revealGalleryPainting(id);
+        }
+        if (galleryPanel.classList.contains('is-visible')) reveal();
+        else
+          openInlinePanel(galleryPanel, panelButton(galleryPanel), function () {
+            // The panel unfolds over 0.58s (grid-template-rows); positions settle after that.
+            window.setTimeout(reveal, 620);
+          });
+      };
+
+      // Links from other pages (the profile drawer, site search) arrive as /?panel=research
+      // etc.; a gallery search result adds &painting=<id>.
       var params = new URLSearchParams(window.location.search);
       var requestedPanel = document.querySelector('[data-about-panel="' + params.get('panel') + '"]');
+      var requestedPainting = params.get('painting');
       if (requestedPanel && panelButton(requestedPanel)) {
         params.delete('panel');
+        params.delete('painting');
         var query = params.toString();
         history.replaceState(null, '', window.location.pathname + (query ? '?' + query : '') + window.location.hash);
-        openInlinePanel(requestedPanel, panelButton(requestedPanel));
+        if (requestedPainting && requestedPanel === galleryPanel) window.showGalleryPainting(requestedPainting);
+        else openInlinePanel(requestedPanel, panelButton(requestedPanel));
       }
     }
 
@@ -1127,6 +1299,7 @@ layout: default
     function startAutoSpeechCycle() {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       if (isMascotSpeechPaused()) return;
+      if (newsClosed && currentSpeechMode === 'Academic') return;
       if (clickPopActive || autoCycleActive || identity.classList.contains('is-hovered')) return;
 
       autoCycleActive = true;
@@ -1149,6 +1322,24 @@ layout: default
         });
       }
     });
+
+    // The news bubble's ✕ puts it away and stops the news popping up again for this visit;
+    // the mascot still talks when hovered or clicked.
+    var newsClosed = false;
+    try {
+      newsClosed = window.sessionStorage.getItem('aboutNewsClosed') === '1';
+    } catch (e) {}
+    var newsClose = bubble.querySelector('.about-hello-close');
+    if (newsClose) {
+      newsClose.addEventListener('click', function (e) {
+        e.stopPropagation();
+        newsClosed = true;
+        try {
+          window.sessionStorage.setItem('aboutNewsClosed', '1');
+        } catch (err) {}
+        dismissSpeechBubble();
+      });
+    }
 
     bubble.addEventListener('mouseenter', function () {
       bubbleHoverActive = true;

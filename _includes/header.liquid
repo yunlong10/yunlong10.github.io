@@ -94,14 +94,6 @@
               {% endif %}
             {% endif %}
           {% endfor %}
-          {% if site.search_enabled %}
-            <!-- Search -->
-            <li class="nav-item">
-              <button id="search-toggle" title="Search" onclick="openSearchModal()">
-                <span class="nav-link">ctrl k <i class="ti ti-search"></i></span>
-              </button>
-            </li>
-          {% endif %}
         </ul>
       </div>
       {% if site.enable_darkmode %}
@@ -132,6 +124,20 @@
         <i class="fa-solid fa-xmark" aria-hidden="true"></i>
       </button>
     </div>
+    {% if site.search_enabled %}
+      <button
+        type="button"
+        class="profile-drawer-search"
+        aria-label="Search the site"
+        data-papers-url="{{ '/assets/json/search-papers.json' | relative_url }}"
+        data-gallery-url="{{ '/assets/json/search-gallery.json' | relative_url }}"
+        data-home-url="{{ '/' | relative_url }}"
+      >
+        <i class="ti ti-search" aria-hidden="true"></i>
+        <span>Search papers, illustrations…</span>
+        <kbd aria-hidden="true">Ctrl K</kbd>
+      </button>
+    {% endif %}
     <nav class="profile-drawer-links" aria-label="Links">
       <section>
         <h2>Explore</h2>
@@ -309,10 +315,284 @@
         else showProfilePhoto();
       });
 
+      // Site search behind the homepage card's search mode (about.liquid):
+      // window.siteSearch.attach(input, resultsEl, options). Covers what the
+      // Cmd/Ctrl+K palette indexes (pages, posts, news, socials; scripts/search.liquid) plus
+      // every paper in papers.bib and every gallery post (assets/json/search-papers.json and
+      // search-gallery.json, fetched on first use).
+      var searchConfig = document.querySelector('.profile-drawer-search');
+      if (searchConfig) window.siteSearch = createSiteSearch(searchConfig);
+
+      function createSiteSearch(config) {
+        var sectionOrder = ['Papers', 'Navigation', 'Posts', 'Gallery', 'News'];
+        var home = config.getAttribute('data-home-url');
+        var papers = null;
+        var paintings = [];
+        var indexRequested = false;
+        var waiting = [];
+
+        function plainText(html) {
+          var el = document.createElement('div');
+          el.innerHTML = html || '';
+          var text = el.textContent || '';
+          // Some palette entries are escaped twice (e.g. "&amp;amp;").
+          if (/&(#\d+|#x[0-9a-f]+|[a-z]+);/i.test(text)) {
+            el.innerHTML = text;
+            text = el.textContent || '';
+          }
+          return text.replace(/\s+/g, ' ').trim();
+        }
+
+        function fetchList(url) {
+          return fetch(url)
+            .then(function (response) {
+              return response.json();
+            })
+            .catch(function () {
+              return [];
+            });
+        }
+
+        function loadIndex() {
+          if (indexRequested) return;
+          indexRequested = true;
+          Promise.all([fetchList(config.getAttribute('data-papers-url')), fetchList(config.getAttribute('data-gallery-url'))]).then(
+            function (lists) {
+              papers = lists[0];
+              paintings = lists[1];
+              waiting.forEach(function (refresh) {
+                refresh();
+              });
+            }
+          );
+        }
+
+        function allItems() {
+          var ninja = document.querySelector('ninja-keys');
+          var site = ((ninja && ninja.data) || [])
+            .filter(function (item) {
+              // Inline news items have no page of their own; they open the news list.
+              return item.section !== 'Theme' && (item.handler || item.section === 'News');
+            })
+            .map(function (item) {
+              return {
+                section: item.section,
+                title: plainText(item.title),
+                meta: plainText(item.description),
+                run: item.handler,
+                href: item.handler ? null : home + 'news/',
+              };
+            });
+          var paperItems = (papers || []).map(function (paper) {
+            var venue = [paper.venue, paper.year].filter(Boolean).join(' ');
+            return {
+              section: 'Papers',
+              title: paper.title,
+              meta: [venue, paper.authors].filter(Boolean).join(' \u00b7 '),
+              // Selected papers are on the homepage: open its Research panel filtered to this one.
+              href: paper.selected ? home + '?panel=research#' + encodeURIComponent(paper.title) : paper.url,
+              external: !paper.selected,
+            };
+          });
+          var galleryItems = paintings.map(function (painting) {
+            return {
+              section: 'Gallery',
+              title: painting.title,
+              meta: [painting.tags, painting.date].filter(Boolean).join(' \u00b7 '),
+              // On the homepage the post opens in place; elsewhere via /?panel=gallery&painting=.
+              run: window.showGalleryPainting
+                ? function () {
+                    window.showGalleryPainting(painting.id);
+                  }
+                : null,
+              href: home + '?panel=gallery&painting=' + encodeURIComponent(painting.id),
+            };
+          });
+          return paperItems.concat(site, galleryItems);
+        }
+
+        function search(query) {
+          var words = query.toLowerCase().split(/\s+/).filter(Boolean);
+          var matches = [];
+          allItems().forEach(function (item, order) {
+            var title = item.title.toLowerCase();
+            var text = title + ' ' + item.meta.toLowerCase() + ' ' + item.section.toLowerCase();
+            for (var w = 0; w < words.length; w++) {
+              if (text.indexOf(words[w]) === -1) return;
+            }
+            var whole = query.toLowerCase();
+            item.score = title.indexOf(whole) === 0 ? 0 : title.indexOf(whole) !== -1 ? 1 : 2;
+            item.order = order;
+            matches.push(item);
+          });
+          function rank(section) {
+            var i = sectionOrder.indexOf(section);
+            return i === -1 ? sectionOrder.length : i;
+          }
+          return matches
+            .sort(function (a, b) {
+              // News is indexed oldest first; show the latest first.
+              var order = a.section === 'News' ? b.order - a.order : a.order - b.order;
+              return rank(a.section) - rank(b.section) || a.score - b.score || order;
+            })
+            .slice(0, 40);
+        }
+
+        function open(item) {
+          if (item.run) item.run(item);
+          else if (item.external) window.open(item.href, '_blank', 'noopener');
+          else if (item.href) window.location.href = item.href;
+        }
+
+        // Wires an input to a results element. options.live: re-search on every keystroke
+        // (otherwise on Enter); options.onChoose: runs before a result is opened.
+        function attach(input, results, options) {
+          options = options || {};
+          var idPrefix = (results.id || 'site-search') + '-option-';
+          var shown = [];
+          var active = -1;
+          var lastQuery = '';
+
+          function setActive(index) {
+            var optionEls = results.querySelectorAll('[role="option"]');
+            if (active >= 0 && optionEls[active]) optionEls[active].classList.remove('is-active');
+            active = index;
+            if (active >= 0 && optionEls[active]) {
+              optionEls[active].classList.add('is-active');
+              optionEls[active].scrollIntoView({ block: 'nearest' });
+              input.setAttribute('aria-activedescendant', optionEls[active].id);
+            } else {
+              input.removeAttribute('aria-activedescendant');
+            }
+          }
+
+          function hide() {
+            results.hidden = true;
+            results.innerHTML = '';
+            input.setAttribute('aria-expanded', 'false');
+            input.removeAttribute('aria-activedescendant');
+            shown = [];
+            active = -1;
+            lastQuery = '';
+          }
+
+          function choose(item) {
+            if (options.onChoose) options.onChoose(item);
+            open(item);
+          }
+
+          function render() {
+            var query = input.value.trim();
+            if (!query) {
+              hide();
+              return;
+            }
+            loadIndex();
+            lastQuery = query;
+            shown = search(query);
+            active = -1;
+            results.innerHTML = '';
+            if (!shown.length) {
+              var empty = document.createElement('p');
+              empty.className = 'site-search-empty';
+              empty.textContent = papers ? 'No results for \u201c' + query + '\u201d' : 'Searching\u2026';
+              results.appendChild(empty);
+            }
+            var lastSection = null;
+            shown.forEach(function (item, i) {
+              if (item.section !== lastSection) {
+                lastSection = item.section;
+                var heading = document.createElement('div');
+                heading.className = 'site-search-group';
+                heading.textContent = item.section;
+                results.appendChild(heading);
+              }
+              var option = document.createElement('div');
+              option.className = 'site-search-result';
+              option.id = idPrefix + i;
+              option.setAttribute('role', 'option');
+              var title = document.createElement('span');
+              title.className = 'site-search-result-title';
+              title.textContent = item.title;
+              option.appendChild(title);
+              if (item.meta) {
+                var meta = document.createElement('span');
+                meta.className = 'site-search-result-meta';
+                meta.textContent = item.meta;
+                option.appendChild(meta);
+              }
+              option.addEventListener('mousemove', function () {
+                if (active !== i) setActive(i);
+              });
+              option.addEventListener('mousedown', function (e) {
+                e.preventDefault();
+              });
+              option.addEventListener('click', function () {
+                choose(item);
+              });
+              results.appendChild(option);
+            });
+            results.hidden = false;
+            input.setAttribute('aria-expanded', 'true');
+          }
+
+          // The paper index arrives later: refresh whatever is showing.
+          waiting.push(function () {
+            if (!results.hidden && lastQuery) render();
+          });
+
+          input.addEventListener('focus', loadIndex);
+          if (options.live) input.addEventListener('input', render);
+          input.addEventListener('keydown', function (e) {
+            if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+              if (!shown.length) return;
+              e.preventDefault();
+              var step = e.key === 'ArrowDown' ? 1 : -1;
+              setActive((active + step + shown.length) % shown.length);
+            } else if (e.key === 'Enter') {
+              e.preventDefault();
+              // Enter opens the highlighted result; otherwise it searches (or, with fresh
+              // live results, opens the first).
+              var query = input.value.trim();
+              if (active >= 0 && shown[active]) choose(shown[active]);
+              else if (shown.length && query === lastQuery && options.live) choose(shown[0]);
+              else render();
+            }
+          });
+
+          return { render: render, hide: hide, load: loadIndex };
+        }
+
+        return { attach: attach, load: loadIndex };
+      }
+
+      // The drawer's box only launches search: it closes the drawer and puts the homepage
+      // card into search mode (window.openPromptSearch, about.liquid), as its magnifier does.
+      // Elsewhere it goes to the homepage with ?search to do the same. So does Cmd/Ctrl+K.
+      function setupDrawerSearch() {
+        var box = drawer.querySelector('.profile-drawer-search');
+        if (!box) return;
+        if (/mac/i.test(navigator.platform)) box.querySelector('kbd').textContent = '\u2318K';
+
+        function launchSearch() {
+          closeDrawer();
+          if (typeof window.openPromptSearch === 'function') window.openPromptSearch();
+          else window.location.href = box.getAttribute('data-home-url') + '?search';
+        }
+
+        box.addEventListener('click', launchSearch);
+        document.addEventListener('keydown', function (e) {
+          if (!(e.metaKey || e.ctrlKey) || e.key.toLowerCase() !== 'k') return;
+          e.preventDefault();
+          launchSearch();
+        });
+      }
+
       if (drawer) {
         drawer.querySelector('.profile-drawer-photo').addEventListener('click', showProfilePhoto);
         drawer.querySelector('.profile-drawer-close').addEventListener('click', closeDrawer);
         drawerBackdrop.addEventListener('click', closeDrawer);
+        setupDrawerSearch();
         // On the homepage these open the panel in place; elsewhere they follow ?panel=.
         drawer.querySelectorAll('[data-drawer-panel]').forEach(function (link) {
           link.addEventListener('click', function (e) {

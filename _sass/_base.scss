@@ -608,69 +608,6 @@ ul.task-list input[type="checkbox"] {
     }
   }
 
-  // Back-to-top: a quarter disc tucked into the card's top-right corner, shown once the page
-  // has scrolled. Its top-right radius is the card's 18px minus the 1px border.
-  // The corner wrapper is out of flow so it adds no row gap to the card.
-  .about-prompt-corner {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  .about-prompt-top {
-    position: relative;
-    display: block;
-    width: 2.6rem;
-    height: 2.6rem;
-    padding: 0;
-    border: 0;
-    border-radius: 0 17px 0 100%;
-    background: color-mix(in srgb, var(--global-theme-color) 13%, var(--global-card-bg-color));
-    color: var(--global-theme-color);
-    font-size: 0.85rem;
-    line-height: 1;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transform: scale(0.4);
-    transform-origin: top right;
-    transition:
-      opacity 0.22s ease,
-      transform 0.28s cubic-bezier(0.34, 1.4, 0.64, 1),
-      visibility 0s linear 0.28s,
-      background-color 0.2s ease;
-
-    // The shape's visual center (its centroid) is 44% in from the top and right edges.
-    i {
-      position: absolute;
-      top: 44%;
-      right: 44%;
-      transform: translate(50%, -50%);
-    }
-
-    &:hover {
-      background: color-mix(in srgb, var(--global-theme-color) 22%, var(--global-card-bg-color));
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--global-theme-color);
-      outline-offset: -3px;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-    }
-  }
-
-  .about-prompt.shows-top-button .about-prompt-top {
-    pointer-events: auto;
-    opacity: 1;
-    visibility: visible;
-    transform: none;
-    transition-delay: 0s;
-  }
   @keyframes about-prompt-caret {
     50% {
       opacity: 0;
@@ -688,15 +625,81 @@ ul.task-list input[type="checkbox"] {
   }
 
   .about-prompt-action-group {
+    position: relative;
     display: flex;
+    flex-shrink: 0;
     align-items: center;
-    gap: 0.42rem;
     margin-left: -0.45rem;
   }
 
-  &.is-creative-mode .about-prompt-action-group .about-prompt-x,
-  &.is-meow-mode .about-prompt-action-group .about-prompt-x {
+  .about-prompt-action-list {
+    display: flex;
+    align-items: center;
+    gap: 0.42rem;
+  }
+
+  // When the row runs out of room (about.liquid), the icons fold into a "+" that drops
+  // them down in a small tray.
+  .about-prompt-action-group .about-prompt-more {
+    display: none;
+
+    i {
+      font-size: 0.9em;
+      transition: transform 0.2s ease;
+    }
+
+    &[aria-expanded="true"] i {
+      transform: rotate(45deg);
+    }
+  }
+
+  .about-prompt-action-group.is-collapsed {
+    .about-prompt-more {
+      display: inline-flex;
+    }
+
+    .about-prompt-action-list {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 6;
+      margin-top: 0.35rem;
+      padding: 0.2rem 0.3rem;
+      border: 1px solid var(--global-card-border-color);
+      border-radius: 999px;
+      background: var(--global-card-bg-color);
+      box-shadow:
+        0 10px 28px rgba(31, 45, 76, 0.14),
+        0 3px 8px rgba(31, 45, 76, 0.06);
+    }
+
+    &.is-open .about-prompt-action-list {
+      display: flex;
+    }
+  }
+
+  &.is-creative-mode .about-prompt-action-group .about-prompt-x {
     order: -1;
+  }
+
+  // Creative mode swaps the email for Discord.
+  .about-prompt-action-list .about-prompt-discord,
+  &.is-creative-mode .about-prompt-action-list .about-prompt-email {
+    display: none;
+  }
+
+  &.is-creative-mode .about-prompt-action-list .about-prompt-discord {
+    display: inline-flex;
+  }
+
+  // Meow mode keeps only the yarn ball (visitor map), Telegram and the mode picker.
+  &.is-meow-mode {
+    .about-prompt-x,
+    [data-about-scholar-action],
+    .about-quick-links {
+      display: none !important;
+    }
   }
 
   .about-model-select {
@@ -781,8 +784,8 @@ ul.task-list input[type="checkbox"] {
       position: absolute;
       right: 0;
       // 不用 calc(100% + …)：生产 CSS 压缩器会删掉 + 两侧空格使表达式失效
-      bottom: 100%;
-      margin-bottom: 0.55rem;
+      top: 100%;
+      margin-top: 0.55rem;
       z-index: 10;
       display: grid;
       min-width: 9.2rem;
@@ -927,7 +930,7 @@ ul.task-list input[type="checkbox"] {
       display: inline-block;
       font-size: 1.26em;
       line-height: 1;
-      transform: translate(-0.04em, 0.02325em);
+      transform: translate(-0.04em, -0.0135em);
     }
 
     .fa-github,
@@ -1002,24 +1005,134 @@ ul.task-list input[type="checkbox"] {
     }
   }
 
-  .about-prompt-email {
+  // Search mode (about.liquid): the card's text gives way to a search field.
+  .about-bio-search {
+    display: none;
+  }
+
+  .about-prompt.is-search-ready .about-bio-search {
+    display: block;
+  }
+
+  .about-prompt.is-searching > p:not(.about-bio-search):not(.about-prompt-ghost) {
+    display: none !important;
+  }
+
+  .about-prompt-search-input {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--global-text-color);
+    font: inherit;
+    line-height: inherit;
+    outline: none;
+
+    &::placeholder {
+      color: var(--global-text-color-light);
+      opacity: 1;
+    }
+  }
+
+  // The row's last button: a stop sign while searching.
+  .about-prompt-search {
+    flex-shrink: 0;
     margin-right: -0.18rem;
+    font-size: 1.22rem;
+    transform: translateY(0.15rem);
+
+    // A white magnifier on a solid disc, the same size as the stop sign (about 28px).
+    &:not([aria-pressed="true"]) i {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 1.69em;
+      height: 1.69em;
+      border-radius: 50%;
+      background: color-mix(in srgb, var(--global-text-color) 68%, var(--global-subtitle-color));
+      color: var(--global-card-bg-color);
+      font-size: 0.86em;
+      transition: background-color 0.18s ease;
+    }
+
+    &:not([aria-pressed="true"]):hover i {
+      background: var(--global-theme-color);
+    }
+
+    &[aria-pressed="true"] {
+      color: var(--global-theme-color);
+
+      i {
+        font-size: 1.45em;
+      }
+    }
+  }
+
+  .about-search-results {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    z-index: 5;
+    max-height: min(60vh, 28rem);
+    margin-top: 0.5rem;
+    padding: 0.4rem;
+    overflow-y: auto;
+    border: 1px solid var(--global-card-border-color);
+    border-radius: 14px;
+    background: var(--global-card-bg-color);
+    box-shadow:
+      0 18px 44px rgba(31, 45, 76, 0.16),
+      0 4px 12px rgba(31, 45, 76, 0.08);
+    text-align: left;
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+  }
+
+  // A gallery post opened from search flashes once.
+  .ig-feed .is-search-hit {
+    animation: gallery-search-hit 1.8s ease-out;
+  }
+
+  @keyframes gallery-search-hit {
+    0%,
+    45% {
+      outline: 2px solid var(--global-theme-color);
+      outline-offset: 4px;
+    }
+
+    100% {
+      outline: 2px solid transparent;
+      outline-offset: 4px;
+    }
+  }
+
+  .about-prompt-email {
     transform: translateY(0.1rem);
 
     i {
       font-size: 1.08em;
-      transform: translateY(0.02em);
+      transform: translateY(-0.0657em);
+    }
+
+    // Telegram (Meow mode) sits level with the yarn ball and Discord, at the yarn ball's width.
+    &[data-contact-mode="telegram"] {
+      transform: none;
     }
 
     .fa-telegram {
-      font-size: 1.12em;
-      transform: translateY(0);
+      font-size: 1.2em;
+      transform: none;
     }
+  }
 
-    .fa-discord {
-      font-size: 0.96em;
-      transform: translateY(0);
-    }
+  // Discord's glyph is wide and short, so it needs a larger size than the round icons.
+  .about-prompt-discord i {
+    font-size: 1.04em;
   }
 
   .about-prompt-action-plus {
@@ -1128,33 +1241,48 @@ ul.task-list input[type="checkbox"] {
     }
   }
 
-  // While a panel is open the card floats at the bottom of the screen.
-  // No calc(a + b) here: the production minifier strips the spaces around "+", which
-  // invalidates the declaration (the card then stays put at the top). The safe-area
-  // inset goes in margin-bottom instead.
+  // While a panel is open the card sticks to the top of the screen, just under the 3rem
+  // navbar; it stays in the flow, so the open panel simply follows it. (A single value, not
+  // calc(3rem + 0.75rem): the production minifier breaks calc(a + b).)
   .about-prompt.is-docked {
-    position: fixed;
-    right: 0;
-    bottom: 0.75rem;
-    left: 0;
+    position: sticky;
+    top: 3.75rem;
     z-index: 1020;
-    width: min(calc(100% - 30px), 900px);
-    max-width: none;
-    margin: 0 auto env(safe-area-inset-bottom, 0px);
     box-shadow:
       0 14px 36px rgba(31, 45, 76, 0.16),
       0 4px 12px rgba(31, 45, 76, 0.08);
-    transition:
-      transform 0.36s cubic-bezier(0.4, 0, 0.2, 1),
-      translate 0.36s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  // Scrolling down slides the docked card fully off screen: its own height (transform) plus
-  // its bottom offset and shadow (translate). Two properties instead of calc(100% + 4rem),
-  // which the production minifier would break.
-  .about-prompt.is-docked.is-tucked {
-    transform: translateY(100%);
-    translate: 0 4rem;
+  // Behind the docked card, from the top of the screen down to the card's middle (height
+  // set in about.liquid): hides the page scrolling up past it. Same background as html/body
+  // in _nijigen.scss; JS keeps background-position in step with the page's dots.
+  .about-dock-curtain {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1019;
+    height: var(--about-dock-curtain, 0px);
+    background-color: var(--global-bg-color);
+    background-image: radial-gradient(color-mix(in srgb, var(--global-theme-color) 6%, transparent) 1px, transparent 1.6px),
+      radial-gradient(color-mix(in srgb, var(--global-accent-blue) 6%, transparent) 1px, transparent 1.6px),
+      linear-gradient(180deg, var(--global-bg-gradient-top) 0%, var(--global-bg-color) 36%, var(--global-bg-color) 100%);
+    background-repeat: repeat, repeat, no-repeat;
+    background-size:
+      22px 22px,
+      22px 22px,
+      100% min(92vh, 960px);
+
+    html[data-theme="dark"] & {
+      background-image: radial-gradient(color-mix(in srgb, var(--global-theme-color) 10%, transparent) 1px, transparent 1.6px),
+        radial-gradient(color-mix(in srgb, var(--global-accent-blue) 10%, transparent) 1px, transparent 1.6px),
+        linear-gradient(180deg, var(--global-bg-gradient-top) 0%, var(--global-bg-color) 36%, var(--global-bg-color) 100%);
+    }
+  }
+
+  &.has-docked-prompt .about-dock-curtain {
+    display: block;
   }
 
   // Under the card once the row can't hold them even icon-only, or inside a docked card as its
@@ -1430,17 +1558,6 @@ ul.task-list input[type="checkbox"] {
     letter-spacing: 0.025em;
     opacity: 0.78;
     text-align: center;
-  }
-
-  .selected-research-note-row {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    gap: 0.35rem 0.65rem;
-    margin: 0.55rem 0 0.75rem;
-    color: var(--global-text-color-light);
-    font-size: 0.875rem;
   }
 
   // Empty until research.js reports a map-node or search filter. Inline flow (not flex)
@@ -1814,38 +1931,32 @@ ul.task-list input[type="checkbox"] {
     text-align: center;
   }
 
-  .ig-filters {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
-    width: min(100%, var(--about-text-max-width));
-    margin: 0 auto 1.4rem;
-  }
-
+  // Gallery tag filters, written inline in the card's Gallery hint as plain text.
   .ig-filter {
-    padding: 0.32rem 0.95rem;
-    border: 1px solid var(--global-card-border-color);
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--global-card-bg-color) 86%, transparent);
-    color: color-mix(in srgb, var(--global-text-color) 72%, var(--global-bg-color));
-    font-size: 0.8rem;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    display: inline;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: color-mix(in srgb, var(--global-theme-color) 62%, var(--global-text-color));
+    font: inherit;
+    line-height: inherit;
     cursor: pointer;
-    transition:
-      border-color 0.18s ease,
-      background 0.18s ease,
-      color 0.18s ease;
+    transition: color 0.18s ease;
 
     &:hover {
-      border-color: color-mix(in srgb, var(--global-theme-color) 55%, var(--global-card-border-color));
-      color: var(--global-text-color);
+      color: var(--global-theme-color);
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--global-theme-color);
+      outline-offset: 2px;
+      border-radius: 3px;
     }
 
     &.is-active {
-      border-color: color-mix(in srgb, var(--global-theme-color) 78%, var(--global-card-border-color));
-      background: color-mix(in srgb, var(--global-theme-color) 14%, var(--global-card-bg-color));
-      color: var(--global-text-color);
+      color: var(--global-theme-color);
       font-weight: 600;
     }
   }
@@ -2008,6 +2119,9 @@ ul.task-list input[type="checkbox"] {
   .ig-carousel-track {
     display: flex;
     overflow-x: auto;
+    // Otherwise overflow-y computes to auto too, and the track holds on to the mouse wheel
+    // instead of letting the page scroll.
+    overflow-y: hidden;
     scroll-snap-type: x mandatory;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -2270,12 +2384,17 @@ ul.task-list input[type="checkbox"] {
       transform: translateX(-0.04em);
     }
 
-    .fa-circle-play {
+    .fa-youtube {
       font-size: 1.1em;
+      color: #ff0000;
     }
 
-    .fa-discord {
-      font-size: 1em;
+    // In Pixiv's blue, as in the profile drawer; a solid square, so a little under the
+    // outline icons' size reads the same.
+    .ig-pixiv {
+      width: 1.08em;
+      height: 1.08em;
+      fill: #0096fa;
     }
 
     &:hover {
@@ -2384,8 +2503,8 @@ ul.task-list input[type="checkbox"] {
     // Center on the whole screen, navbar included: padding-bottom as tall as the navbar (3rem)
     // lifts the group by half of it. The margin then lifts it by another ~4% of the screen
     // height, since dead center reads as low. Two properties, not calc(a + b), which the
-    // production minifier breaks.
-    article {
+    // production minifier breaks. Only the page's own article: gallery posts are <article>s too.
+    > article {
       padding-bottom: 3rem;
       margin-bottom: 8svh;
     }
@@ -2448,19 +2567,18 @@ ul.task-list input[type="checkbox"] {
     }
   }
 
-  // The docked card has left the top of the page, so the open panel starts right under the
-  // navbar (no divider, little padding), and the bottom makes room for the card instead.
+  // The docked card sits at the top, just under the navbar, with the open panel right below
+  // it (no divider).
   &.has-docked-prompt {
     padding-top: 0.75rem;
-    // Card height + its offset + 3rem, summed in JS (see updateDockSpace in about.liquid).
-    padding-bottom: var(--about-dock-space, 12rem);
+    padding-bottom: 3rem;
 
     .about-panel-divider {
       display: none;
     }
 
     .about-inline-panel {
-      margin-top: 0;
+      margin-top: 1rem;
     }
   }
 
@@ -2746,6 +2864,111 @@ html.has-profile-drawer {
   }
 }
 
+// Looks like a search field; launches the homepage card's search mode (header.liquid).
+.profile-drawer-search {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  margin: 0 0 1.1rem;
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--global-card-border-color);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--global-text-color) 3%, var(--global-card-bg-color));
+  color: var(--global-text-color-light);
+  font: inherit;
+  font-size: 0.92rem;
+  text-align: left;
+  cursor: text;
+  transition: border-color 0.18s ease;
+
+  > i {
+    font-size: 1rem;
+  }
+
+  span {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  kbd {
+    flex-shrink: 0;
+    padding: 0.1rem 0.4rem;
+    border: 1px solid var(--global-card-border-color);
+    border-radius: 6px;
+    background: transparent;
+    box-shadow: none;
+    color: var(--global-text-color-light);
+    font-family: inherit;
+    font-size: 0.72rem;
+  }
+
+  &:hover,
+  &:focus-visible {
+    border-color: color-mix(in srgb, var(--global-theme-color) 55%, var(--global-card-border-color));
+    outline: none;
+  }
+}
+
+.site-search-group {
+  margin: 0.45rem 0.5rem 0.2rem;
+  color: var(--global-text-color-light);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  &:first-child {
+    margin-top: 0.15rem;
+  }
+}
+
+.site-search-result {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.42rem 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &.is-active {
+    background: color-mix(in srgb, var(--global-theme-color) 10%, transparent);
+
+    .site-search-result-title {
+      color: var(--global-theme-color);
+    }
+  }
+}
+
+.site-search-result-title {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--global-text-color);
+  font-size: 0.86rem;
+  line-height: 1.35;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.site-search-result-meta {
+  overflow: hidden;
+  color: var(--global-text-color-light);
+  font-size: 0.72rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.site-search-empty {
+  margin: 0;
+  padding: 0.6rem 0.5rem;
+  color: var(--global-text-color-light);
+  font-size: 0.82rem;
+}
+
 .profile-drawer-links {
   h2 {
     margin: 1.1rem 0 0.35rem;
@@ -2795,6 +3018,27 @@ html.has-profile-drawer {
       font-size: 0.8rem;
     }
   }
+}
+
+// Instagram, Discord and Telegram in their brand colours, like the Pixiv logo beside them
+// (homepage card, profile drawer, gallery posts).
+.about-prompt-action .fa-instagram,
+.profile-drawer-links .fa-instagram,
+.ig-icon .fa-instagram {
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.about-prompt-discord .fa-discord,
+.profile-drawer-links .fa-discord {
+  color: #5865f2;
+}
+
+.about-prompt-email .fa-telegram,
+.profile-drawer-links .fa-telegram {
+  color: #26a5e4;
 }
 
 // The visitor map and the copyright (the site has no footer) sit at the bottom of the drawer.

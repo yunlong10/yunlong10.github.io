@@ -53,7 +53,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const updateInputField = () => {
     const hashValue = decodeURIComponent(window.location.hash.substring(1)); // Remove the '#' character
     document.getElementById("bibsearch").value = hashValue;
-    filterItems(hashValue);
+    // Lowercased like typed input below; the matcher compares against lowercased text.
+    filterItems(hashValue.toLowerCase());
   };
 
   // Sensitive search. Only start searching if there's been no input for 300 ms

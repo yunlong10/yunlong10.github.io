@@ -12,7 +12,6 @@
   var paperStatus = paperPanel ? paperPanel.querySelector(".research-paper-status") : null;
   var paperStatusText = paperStatus ? paperStatus.querySelector(".research-paper-status-text") : null;
   var paperStatusClear = paperStatus ? paperStatus.querySelector(".research-paper-status-clear") : null;
-  var paperNote = paperPanel ? paperPanel.querySelector(".selected-research-note-row") : null;
   var selectedPubs = document.getElementById("selected-publications");
   var bibSearch = document.getElementById("bibsearch");
   var sortSelect = document.getElementById("pub-sort-by");
@@ -134,7 +133,6 @@
 
     paperStatus.classList.toggle("is-active", !!paperFilter);
     paperStatus.classList.toggle("is-empty", isEmpty);
-    if (paperNote) paperNote.hidden = isEmpty;
     if (paperStatusClear) {
       paperStatusClear.hidden = !paperFilter;
       paperStatusClear.setAttribute("aria-label", paperFilter && paperFilter.query ? "Clear search" : "Clear filter");

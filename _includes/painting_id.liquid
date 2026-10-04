@@ -1,0 +1,11 @@
+{%- comment -%}
+  Sets painting_label and painting_id for `painting` (an entry of _data/paintings.yml).
+  The gallery uses the id as the post's anchor; the search index links to it.
+{%- endcomment -%}
+{%- if painting.images -%}
+  {%- assign painting_first_image = painting.images.first -%}
+{%- else -%}
+  {%- assign painting_first_image = painting.file | split: '~~~' | first -%}
+{%- endif -%}
+{%- assign painting_label = painting.caption | markdownify | strip_html | strip | default: painting_first_image -%}
+{%- capture painting_id -%}painting-{{ painting.date | date: '%Y%m%d' }}-{{ painting_label | slugify | truncate: 40, '' }}{%- endcapture -%}

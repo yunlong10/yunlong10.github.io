@@ -1,0 +1,16 @@
+{%- comment -%}
+  One paper of assets/json/search-papers.json (the sidebar search index), rendered by
+  jekyll-scholar's bibliography tag. Each entry starts with a comma; the page drops the first.
+{%- endcomment -%}
+{%- assign authors = '' -%}
+{%- for author in entry.author_array -%}
+  {%- assign last = author.last | regex_replace: '[*∗‡§¶‖&^]', '' -%}
+  {%- assign authors = authors | append: author.first | append: ' ' | append: last -%}
+  {%- unless forloop.last -%}{%- assign authors = authors | append: ', ' -%}{%- endunless -%}
+{%- endfor -%}
+{%- assign url = entry.html | default: entry.website | default: entry.pdf | default: '' -%}
+,{"key":{{ entry.key | jsonify }},"title":{{ entry.title | strip_html | strip_newlines | jsonify }},"authors":{{ authors | jsonify }},"venue":
+{{- entry.abbr | default: '' | jsonify -}}
+,"year":{{ entry.year | default: '' | jsonify }},"url":{{ url | jsonify }},"selected":
+{%- if entry.selected == 'true' or entry.selected == true %}true{% else %}false{% endif -%}
+}

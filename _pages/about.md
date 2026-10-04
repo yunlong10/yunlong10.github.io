@@ -29,12 +29,6 @@ jupyter: false
 
 <div class="about-bio about-prompt" markdown="1">
 
-<div class="about-prompt-corner" markdown="0">
-  <button type="button" class="about-prompt-top" aria-label="Back to top" title="Back to top">
-    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
-  </button>
-</div>
-
 Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://www.rochester.edu/) (UR), advised by [Prof. Chenliang Xu](https://www.cs.rochester.edu/~cxu22/index.html), working on <a href="https://github.com/yunlong10/Awesome-LLMs-for-Video-Understanding">LMMs/Agents &times; Video Understanding</a>. She earned her M.S. from UR in 2025 en route to her Ph.D. and received her B.Eng. from [SUSTech](https://www.sustech.edu.cn/en/) in 2023. She has interned at [Amazon](https://www.aboutamazon.com/), [ByteDance](https://www.bytedance.com/en/), and [Tencent](https://www.tencent.com/).
 {: .about-bio-academic}
 
@@ -44,17 +38,23 @@ Yolo is drawing for fun, self-teaching and not open to paid commissions or comme
 Yolo has been a cat for <span class="about-cat-days" data-cat-since="2025-08-28"></span> days. Please don't deadname or misgender Yolo. She prefers Yolo (in English) or 芸珑 (in Mandarin). She also prefers <ruby>夜<rt>よる</rt></ruby> ("night" in Japanese), since Sonta pronounces Yolo like /ˈjoʊ lu/, close to よる.
 {: .about-bio-meow}
 
-Swipe left or right to explore the full map. Click a station or topic to show related papers.
+Swipe left or right to explore the full map and click a node to show related papers.
 {: .about-bio-panel .about-bio-research}
 
-All illustrations were created in the gaps while Yolo's coding agents were working.
+Select a tag to filter: <span class="about-gallery-filters" role="group" aria-label="Filter by tag">{%- assign gallery_tags = '' | split: '' -%}{%- for painting in site.data.paintings -%}{%- if painting.tags -%}{%- assign gallery_tags = gallery_tags | concat: painting.tags -%}{%- endif -%}{%- endfor -%}{%- assign gallery_tags = gallery_tags | uniq | sort -%}<button type="button" class="ig-filter" data-ig-filter="*" aria-selected="false">#All</button>{%- for tag in gallery_tags -%}{%- assign tag_key = tag | downcase %} <button type="button" class="ig-filter{% if tag_key == 'illustration' %} is-active{% endif %}" data-ig-filter="{{ tag_key }}" aria-selected="{% if tag_key == 'illustration' %}true{% else %}false{% endif %}">#{{ tag }}</button>{%- endfor -%}</span>
 {: .about-bio-panel .about-bio-gallery}
 
 Blogs are coming soon!
 {: .about-bio-panel .about-bio-blog}
 
+<p class="about-bio-search" markdown="0"><input type="text" class="about-prompt-search-input" role="combobox" placeholder="Search papers, illustrations, posts and news" autocomplete="off" spellcheck="false" aria-label="Search the site" aria-autocomplete="list" aria-expanded="false" aria-controls="about-search-results"></p>
+
 <div class="about-prompt-actions" aria-label="Contact links">
   <div class="about-prompt-action-group">
+  <button type="button" class="about-prompt-action about-prompt-more" aria-label="More links" title="More links" aria-expanded="false" aria-controls="about-prompt-action-list">
+    <i class="fa-solid fa-plus" aria-hidden="true"></i>
+  </button>
+  <div class="about-prompt-action-list" id="about-prompt-action-list">
     <a
       href="https://scholar.google.com/citations?user={{ site.scholar_userid }}"
       class="about-prompt-action"
@@ -104,6 +104,32 @@ Blogs are coming soon!
     >
       <i class="fa-brands fa-x-twitter" aria-hidden="true"></i>
     </a>
+    <a
+      href="mailto:{{ site.email | encode_email }}"
+      class="about-prompt-action about-prompt-email"
+      aria-label="Email"
+      title="Email"
+      data-about-contact-action
+      data-email-href="mailto:{{ site.email | encode_email }}"
+      data-email-label="Email"
+      data-email-icon="fa-regular fa-envelope"
+      data-telegram-href="https://telegram.me/yoloytang"
+      data-telegram-label="Telegram"
+      data-telegram-icon="fa-brands fa-telegram"
+    >
+      <i class="fa-regular fa-envelope" aria-hidden="true"></i>
+    </a>
+    <a
+      href="https://discord.com/users/1152784980167106662"
+      class="about-prompt-action about-prompt-discord"
+      aria-label="Discord"
+      title="Discord"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <i class="fa-brands fa-discord" aria-hidden="true"></i>
+    </a>
+  </div>
   </div>
   <nav class="about-quick-links" aria-label="Quick links">
     <a href="#about-research-panel" title="Research" data-about-panel-trigger="research" aria-expanded="false" aria-controls="about-research-panel">
@@ -139,25 +165,12 @@ Blogs are coming soon!
       </button>
     </div>
   </details>
-  <a
-    href="mailto:{{ site.email | encode_email }}"
-    class="about-prompt-action about-prompt-email"
-    aria-label="Email"
-    title="Email"
-    data-about-contact-action
-    data-email-href="mailto:{{ site.email | encode_email }}"
-    data-email-label="Email"
-    data-email-icon="fa-regular fa-envelope"
-    data-discord-href="https://discord.com/users/1152784980167106662"
-    data-discord-label="Discord"
-    data-discord-icon="fa-brands fa-discord"
-    data-telegram-href="https://telegram.me/yoloytang"
-    data-telegram-label="Telegram"
-    data-telegram-icon="fa-brands fa-telegram"
-  >
-    <i class="fa-regular fa-envelope" aria-hidden="true"></i>
-  </a>
+  <button type="button" class="about-prompt-action about-prompt-search" aria-label="Search" title="Search" aria-pressed="false">
+    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+  </button>
 </div>
+
+<div id="about-search-results" class="about-search-results" role="listbox" aria-label="Search results" hidden></div>
 
 </div>
 
@@ -176,7 +189,6 @@ Blogs are coming soon!
           <span>Clear search</span>
         </button>
       </div>
-      <p class="selected-research-note-row">* Equal Contribution | † Corresponding Author</p>
       {% include selected_papers.liquid %}
     </div>
 

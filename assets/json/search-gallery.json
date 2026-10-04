@@ -1,0 +1,17 @@
+---
+permalink: /assets/json/search-gallery.json
+layout: null
+sitemap: false
+---
+[
+{%- for painting in site.data.paintings -%}
+  {%- include painting_id.liquid -%}
+  {%- assign painting_tags = '' -%}
+  {%- for tag in painting.tags -%}
+    {%- assign painting_tags = painting_tags | append: '#' | append: tag -%}
+    {%- unless forloop.last -%}{%- assign painting_tags = painting_tags | append: ' ' -%}{%- endunless -%}
+  {%- endfor -%}
+  {"id":{{ painting_id | jsonify }},"title":{{ painting_label | jsonify }},"tags":{{ painting_tags | jsonify }},"date":{{ painting.date | date: '%B %-d, %Y' | jsonify }}}
+  {%- unless forloop.last -%},{%- endunless -%}
+{%- endfor -%}
+]

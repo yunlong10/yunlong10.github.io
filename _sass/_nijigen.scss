@@ -223,6 +223,20 @@ html[data-theme="dark"] {
   transform: scale(1.04);
 }
 
+// ---- NEW E: 回到顶部按钮 Q弹 ----------------------------------------------------
+
+#back-to-top {
+  transition: transform 0.25s $niji-spring;
+
+  &:hover {
+    transform: translateY(-4px) scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.92);
+  }
+}
+
 // ---- G: 粉蓝列表符号（夜间互换：蓝点粉号，呼应"夜间蓝为主"） ----------------------
 
 .post article ul > li::marker {
@@ -473,7 +487,7 @@ html[data-theme="dark"] body {
 // ---- K2: 玻璃拟态（毛玻璃卡片） ----------------------------------------------------
 
 .about-jp .about-prompt {
-  background: color-mix(in srgb, var(--global-card-bg-color) 88%, transparent);
+  background: var(--global-card-bg-color);
   -webkit-backdrop-filter: blur(14px) saturate(150%);
   backdrop-filter: blur(14px) saturate(150%);
 }
@@ -687,6 +701,44 @@ html:not(.niji-theme-vt)::view-transition-new(root) {
 
 html[data-theme="dark"] .about-hello a:hover {
   background-image: linear-gradient(90deg, #f9a8d4, #8ec8f5), linear-gradient(90deg, #f9a8d4, #8ec8f5);
+}
+
+// 新闻气泡右上角的小叉：只在新闻气泡里出现，右侧留出位置不压字。
+.about-hello-close {
+  display: none;
+}
+
+.about-hello.is-news-bubble {
+  padding-right: 2.1rem;
+
+  .about-hello-close {
+    position: absolute;
+    top: 0.42rem;
+    right: 0.45rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.35rem;
+    height: 1.35rem;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: color-mix(in srgb, var(--global-text-color) 55%, transparent);
+    cursor: pointer;
+    font-size: 0.78rem;
+    line-height: 1;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+      background: color-mix(in srgb, var(--global-theme-color) 12%, transparent);
+      color: var(--global-theme-color);
+      outline: none;
+    }
+  }
 }
 
 .about-hello .about-news-archive {

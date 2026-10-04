@@ -1,0 +1,7 @@
+---
+permalink: /assets/json/search-papers.json
+layout: null
+sitemap: false
+---
+{%- capture items -%}{% bibliography --template search_paper --group_by none %}{%- endcapture -%}
+[{{ items | remove: '<ol class="bibliography">' | remove: '</ol>' | remove: '<li>' | remove: '</li>' | strip | remove_first: ',' }}]
