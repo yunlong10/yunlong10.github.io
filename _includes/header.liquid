@@ -230,6 +230,10 @@
           {% endif %}
         {% endif %}
       {% endfor %}
+      // jekyll-imagemagick's resized copies (photo-480.webp etc.) are the same photos.
+      avatarImages = avatarImages.filter(function (src) {
+        return !/-\d+\.webp$/i.test(src);
+      });
 
       function pickAvatar(excludedAvatar) {
         var selectedAvatar = avatarImages[Math.floor(Math.random() * avatarImages.length)];
@@ -237,6 +241,11 @@
           selectedAvatar = avatarImages[(avatarImages.indexOf(selectedAvatar) + 1) % avatarImages.length];
         }
         return selectedAvatar;
+      }
+
+      // A page load starts the ring at a random photo; clicks then step through it in order.
+      function nextAvatar(fromAvatar) {
+        return avatarImages[(avatarImages.indexOf(fromAvatar) + 1) % avatarImages.length];
       }
 
       function rememberAvatar(selectedAvatar) {
@@ -269,12 +278,12 @@
         avatarModal.setAttribute('aria-hidden', 'true');
       }
 
-      // Shows the current photo, then rotates the navbar avatar for next time.
+      // Shows the current photo, then moves the navbar avatar on to the next one in the ring.
       function showProfilePhoto() {
         if (currentAvatar && avatarModalImage) avatarModalImage.src = currentAvatar;
         avatarModal.classList.add('active');
         avatarModal.setAttribute('aria-hidden', 'false');
-        if (avatarImages.length && avatarImage) setAvatar(pickAvatar(currentAvatar));
+        if (avatarImages.length && avatarImage) setAvatar(nextAvatar(currentAvatar));
       }
       // The gallery's profile avatar opens the photo directly.
       window.showProfilePhoto = showProfilePhoto;
