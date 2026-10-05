@@ -184,4 +184,84 @@
 
     ensureStarMap().catch(function () {});
   })();
+
+  // Masonry, as in the gallery: each visible card goes into the shortest of as many
+  // ~340px columns as fit. research.js and bibsearch narrow and reorder the list (hidden,
+  // .unloaded, moved <li>s) and cards change height (teasers loading, Abs/Bib opening),
+  // so this follows the list rather than being called by them.
+  (function () {
+    var root = document.getElementById('selected-publications');
+    if (!root) return;
+    var gap = 24;
+    var target = 340;
+    var frame = 0;
+
+    function layout(list) {
+      var width = list.clientWidth;
+      if (!width) return;
+      var items = Array.prototype.filter.call(list.children, function (li) {
+        return li.tagName === 'LI' && !li.hidden && !li.classList.contains('unloaded');
+      });
+      var cols = Math.max(1, Math.floor((width + gap) / (target + gap)));
+      var colWidth = (width - (cols - 1) * gap) / cols;
+      var colHeights = [];
+      for (var c = 0; c < cols; c++) colHeights.push(0);
+      // The observer below watches class changes; adding a class that's already there still
+      // counts as one, so only add it once.
+      if (!list.classList.contains('is-masonry')) list.classList.add('is-masonry');
+      items.forEach(function (li) {
+        li.style.width = colWidth + 'px';
+      });
+      var heights = items.map(function (li) {
+        return li.offsetHeight;
+      });
+      items.forEach(function (li, i) {
+        var min = 0;
+        for (var c = 1; c < cols; c++) {
+          if (colHeights[c] < colHeights[min]) min = c;
+        }
+        li.style.transform = 'translate(' + min * (colWidth + gap) + 'px,' + colHeights[min] + 'px)';
+        colHeights[min] += heights[i] + gap;
+      });
+      list.style.height = Math.max(0, Math.max.apply(null, colHeights) - gap) + 'px';
+      if (items.length && !list.classList.contains('is-masonry-ready')) {
+        window.requestAnimationFrame(function () {
+          list.classList.add('is-masonry-ready');
+        });
+      }
+    }
+
+    function layoutAll() {
+      root.querySelectorAll('.publication-cards ol.bibliography').forEach(layout);
+    }
+
+    function requestLayout() {
+      if (frame) return;
+      frame = window.requestAnimationFrame(function () {
+        frame = 0;
+        layoutAll();
+      });
+    }
+
+    var resizeObserver = 'ResizeObserver' in window ? new ResizeObserver(requestLayout) : null;
+    root.querySelectorAll('.publication-cards ol.bibliography').forEach(function (list) {
+      // Synchronously, so the paper panel's open animation (research.js) measures the
+      // laid-out height.
+      new MutationObserver(layoutAll).observe(list, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ['hidden', 'class'],
+      });
+      if (resizeObserver) {
+        resizeObserver.observe(list);
+        Array.prototype.forEach.call(list.children, function (li) {
+          resizeObserver.observe(li);
+        });
+      }
+    });
+    if (!resizeObserver) window.addEventListener('resize', requestLayout);
+    window.addEventListener('load', requestLayout);
+    layoutAll();
+  })();
 </script>

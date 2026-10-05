@@ -1445,59 +1445,80 @@ ul.task-list input[type="checkbox"] {
       margin-top: 0.4rem;
     }
 
+    // Each paper is a card (teaser on top, details below), laid out as a masonry like the
+    // gallery's: selected_papers.liquid places the cards in the shortest column.
     ol.bibliography {
+      position: relative;
       width: 100%;
       max-width: 100%;
-      margin-bottom: 0;
-      margin-left: auto;
-      margin-right: auto;
+      margin: 0 auto;
       text-align: left;
 
+      > li {
+        box-sizing: border-box;
+        margin: 0 0 1.5rem;
+        padding: 0.9rem 1rem 1rem;
+        border: 1px solid color-mix(in srgb, var(--global-card-border-color) 80%, transparent);
+        border-radius: 12px;
+        background: var(--global-card-bg-color);
+        box-shadow: 0 4px 20px rgba(31, 45, 76, 0.06);
+      }
+
+      // The masonry positions cards with an inline `transform`, which would override the
+      // scroll-in reveal's translateY (nijigen_motion.js): here the reveal slides with
+      // `translate`, which adds to it instead.
+      &.is-masonry > li {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+        transition:
+          opacity 0.5s ease,
+          translate 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      &.is-masonry > li.niji-to-reveal {
+        translate: 0 16px;
+      }
+
+      &.is-masonry > li.niji-to-reveal.niji-revealed {
+        translate: none;
+      }
+
+      // Moves only animate once placed, so cards don't fly in from the corner on first show.
+      &.is-masonry-ready > li {
+        transition:
+          opacity 0.5s ease,
+          translate 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.3s ease;
+      }
+
       > li > .row {
+        display: block;
         width: 100%;
-        margin-left: 0;
-        margin-right: 0;
+        margin: 0;
       }
 
-      > li:not(:last-child) {
-        margin-bottom: 1.25rem;
+      > li > .row > .abbr,
+      > li > .row > div[id] {
+        flex: 0 0 100%;
+        max-width: 100%;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
       }
 
-      @media (min-width: 576px) {
-        > li > .row > div[id].col-sm-8 {
-          flex: 0 0 83.333333%;
-          max-width: 83.333333%;
-        }
+      > li > .row > .abbr {
+        margin-bottom: 0.85rem;
       }
 
-      @media (max-width: 575px) {
-        > li > .row {
-          display: block;
-          margin-left: 0;
-          margin-right: 0;
-        }
-
-        > li > .row > .abbr,
-        > li > .row > div[id] {
-          flex: 0 0 100%;
-          max-width: 100%;
-          padding-left: 0;
-          padding-right: 0;
-          width: 100%;
-        }
-
-        > li > .row > .abbr {
-          margin-bottom: 0.85rem;
-        }
-
-        > li > .row > .abbr .preview,
-        > li > .row > .abbr img {
-          display: block;
-          width: 100%;
-          max-width: 100%;
-          height: auto;
-          object-fit: contain;
-        }
+      > li > .row > .abbr .preview,
+      > li > .row > .abbr img {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        object-fit: contain;
       }
     }
 
@@ -1528,15 +1549,6 @@ ul.task-list input[type="checkbox"] {
 
       html[data-theme="dark"] & {
         background: color-mix(in srgb, #3389ec 80%, transparent);
-      }
-    }
-
-    // The badge pokes past the teaser, this panel clips overflow, and phone
-    // teasers would otherwise touch its left edge.
-    @media (max-width: 575px) {
-      ol.bibliography > li.is-pinned > .row > .abbr {
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
       }
     }
   }
