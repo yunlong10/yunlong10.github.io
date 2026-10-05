@@ -51,7 +51,7 @@
             {% assign venue_style = site.data.venues[entry.abbr].color | prepend: 'style="background-color:' | append: '"' %}
           {%- endif -%}
           <abbr
-            class="badge rounded w-100"
+            class="badge"
             {% if venue_style %}
               {{ venue_style }}
             {% endif -%}
@@ -63,13 +63,13 @@
             {% endif %}
           </abbr>
         {% else %}
-          <abbr class="badge rounded w-100">{{ entry.abbr }}</abbr>
+          <abbr class="badge">{{ entry.abbr }}</abbr>
         {% endif %}
       {% endif %}
       {% if entry.preview %}
         {% if entry.preview contains '://' %}
           <img
-            class="preview z-depth-1 rounded"
+            class="preview"
             src="{{ entry.preview }}"
             data-zoomable
             data-zoom-src="{{ entry.preview }}"
@@ -82,8 +82,8 @@
             include figure.liquid
             loading="lazy"
             path=entry_path
-            sizes = "200px"
-            class="preview z-depth-1 rounded"
+            sizes="(max-width: 740px) 100vw, 440px"
+            class="preview"
             zoomable=true
             alt=entry.preview
           %}
@@ -275,16 +275,14 @@
       {% endif %}
       {% if entry.bibtex_show %}
         <a class="bibtex btn btn-sm z-depth-0" role="button">
+          Cite
           {% if entry.google_scholar_id %}
-            Cite (&nbsp;<i
-              class="fas fa-quote-right"
-              style="font-size: 1.1em; margin-right: 0px; -webkit-text-stroke: 1px currentColor; -webkit-text-fill-color: transparent;"
-            ></i>
-            <span class="gs-cites" data-article-id="{{ entry.google_scholar_id }}" style="color: inherit;">
-              {%- if site.data.pub_citations %}{{ site.data.pub_citations[entry.google_scholar_id] | default: '…' }}{% else %}…{% endif -%}</span
-            >&nbsp;)
-          {% else %}
-            Cite
+            <span class="btn-count">
+              <i class="fa-solid fa-quote-right"></i>
+              <span class="gs-cites" data-article-id="{{ entry.google_scholar_id }}">
+                {%- if site.data.pub_citations %}{{ site.data.pub_citations[entry.google_scholar_id] | default: '…' }}{% else %}…{% endif -%}
+              </span>
+            </span>
           {% endif %}
         </a>
       {% endif %}
@@ -299,12 +297,15 @@
         {% endif %}
       {% endif %}
       {% if entry.code and entry.stars %}
-        <a href="{{ entry.code }}">
-          <img
-            src="https://img.shields.io/github/stars/{{ entry.stars }}?style=social"
-            alt="GitHub stars"
-            style="vertical-align: middle; margin-left: 5px;"
-          >
+        <a href="{{ entry.code }}" class="btn btn-sm z-depth-0" role="button">
+          <i class="fa-brands fa-github" aria-hidden="true"></i>
+          Code
+          <span class="btn-count" title="GitHub stars">
+            <i class="fa-solid fa-star"></i>
+            <span class="gh-stars" data-repo="{{ entry.stars }}">
+              {%- if site.data.pub_stars %}{{ site.data.pub_stars[entry.stars] | default: '…' }}{% else %}…{% endif -%}
+            </span>
+          </span>
         </a>
       {% endif %}
       {% if entry.award %}

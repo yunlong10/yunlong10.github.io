@@ -214,6 +214,7 @@ ul.task-list input[type="checkbox"] {
   margin-top: -0.75rem;
   --about-creative-font: "Hiragino Mincho ProN", "Yu Mincho", Georgia, serif;
   --about-meow-font: "Chalkboard SE", "Comic Sans MS", "Marker Felt", Palatino, serif;
+  --about-card-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --about-text-max-width: 960px;
   --about-kasumi-line: linear-gradient(
     90deg,
@@ -1445,8 +1446,9 @@ ul.task-list input[type="checkbox"] {
       margin-top: 0.4rem;
     }
 
-    // Each paper is a card (teaser on top, details below), laid out as a masonry like the
-    // gallery's: selected_papers.liquid places the cards in the shortest column.
+    // Each paper is a card in the gallery's style, laid out as a masonry like the gallery's
+    // (selected_papers.liquid places the cards in the shortest column): the teaser runs edge
+    // to edge, then the title and the details in the gallery's sans-serif.
     ol.bibliography {
       position: relative;
       width: 100%;
@@ -1457,7 +1459,8 @@ ul.task-list input[type="checkbox"] {
       > li {
         box-sizing: border-box;
         margin: 0 0 1.5rem;
-        padding: 0.9rem 1rem 1rem;
+        padding: 0;
+        overflow: hidden;
         border: 1px solid color-mix(in srgb, var(--global-card-border-color) 80%, transparent);
         border-radius: 12px;
         background: var(--global-card-bg-color);
@@ -1504,14 +1507,23 @@ ul.task-list input[type="checkbox"] {
         flex: 0 0 100%;
         max-width: 100%;
         width: 100%;
-        padding-left: 0;
-        padding-right: 0;
       }
 
       > li > .row > .abbr {
-        margin-bottom: 0.85rem;
+        padding: 0;
       }
 
+      // No venue badge: the venue is in the periodical line.
+      > li > .row > .abbr > abbr {
+        display: none;
+      }
+
+      > li > .row > .abbr figure {
+        margin: 0;
+      }
+
+      // Teasers are paper figures: white behind the transparent ones, and a hairline where a
+      // white figure meets the white card.
       > li > .row > .abbr .preview,
       > li > .row > .abbr img {
         display: block;
@@ -1519,11 +1531,155 @@ ul.task-list input[type="checkbox"] {
         max-width: 100%;
         height: auto;
         object-fit: contain;
+        border-bottom: 1px solid color-mix(in srgb, var(--global-card-border-color) 60%, transparent);
+        background: #fff;
+      }
+
+      > li > .row > div[id] {
+        padding: 0.8rem 0.95rem 0.95rem;
+
+        .title {
+          margin-bottom: 0.4rem;
+          font-size: 1rem;
+          font-weight: 600;
+          line-height: 1.42;
+        }
+
+        .author,
+        .periodical,
+        .links,
+        div.abstract {
+          font-family: var(--about-card-font);
+        }
+
+        .author {
+          color: color-mix(in srgb, var(--global-text-color) 74%, var(--global-card-bg-color));
+          font-size: 0.8rem;
+          font-weight: 400;
+          line-height: 1.5;
+
+          > em {
+            color: var(--global-text-color);
+            font-weight: 600;
+          }
+        }
+
+        .periodical {
+          color: color-mix(in srgb, var(--global-text-color) 56%, var(--global-card-bg-color));
+          font-size: 0.76rem;
+          font-weight: 400;
+          line-height: 1.45;
+
+          strong {
+            font-weight: 600;
+            -webkit-text-stroke: 0;
+          }
+        }
+
+        .author + .periodical {
+          margin-top: 0.3rem;
+        }
+
+        .links {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: 0.35rem;
+          margin-top: 0.8rem;
+
+          a.btn {
+            display: inline-flex;
+            align-items: center;
+            margin: 0;
+            padding: 0.24rem 0.62rem;
+            border: 1px solid color-mix(in srgb, var(--global-text-color) 13%, transparent);
+            border-radius: 999px;
+            background: color-mix(in srgb, var(--global-text-color) 3%, transparent);
+            color: color-mix(in srgb, var(--global-text-color) 76%, var(--global-card-bg-color));
+            font-size: 0.7rem;
+            font-weight: 500;
+            line-height: 1.3;
+            letter-spacing: 0.02em;
+            text-transform: none;
+            white-space: nowrap;
+            transition:
+              color 0.18s ease,
+              border-color 0.18s ease,
+              background-color 0.18s ease;
+
+            > i {
+              margin-right: 0.35em;
+              font-size: 1.1em;
+            }
+
+            &:hover,
+            &:focus-visible {
+              border-color: color-mix(in srgb, var(--global-theme-color) 45%, transparent);
+              background: color-mix(in srgb, var(--global-theme-color) 7%, transparent);
+              color: var(--global-theme-color);
+            }
+          }
+
+          .award-badge {
+            margin-left: 0;
+            padding: 0.24rem 0.62rem;
+            border: 0;
+            border-radius: 999px;
+            box-shadow: none;
+            font-size: 0.7rem;
+            font-weight: 600;
+            line-height: 1.3;
+          }
+        }
+
+        // The count after a button's label: Cite's citations, Code's GitHub stars.
+        .btn-count {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.28em;
+          margin-left: 0.45em;
+          padding-left: 0.45em;
+          border-left: 1px solid color-mix(in srgb, currentColor 28%, transparent);
+          font-variant-numeric: tabular-nums;
+
+          i {
+            font-size: 0.85em;
+            opacity: 0.7;
+          }
+        }
+
+        // Closed, the abstract keeps no border: the default dashed one is drawn in the page
+        // color, which shows as a line on the card.
+        div.abstract.hidden {
+          border: 0;
+          text-align: left;
+        }
+
+        div.abstract.hidden.open {
+          margin-top: 0.7rem;
+          border: 1px solid color-mix(in srgb, var(--global-card-border-color) 75%, transparent);
+          border-radius: 8px;
+          background: color-mix(in srgb, var(--global-text-color) 3%, transparent);
+        }
+
+        div.abstract p {
+          margin: 0.6rem 0.75rem;
+          font-size: 0.78rem;
+          line-height: 1.6;
+        }
+
+        div.bibtex.hidden.open {
+          margin-top: 0.7rem;
+        }
+
+        div.bibtex figure.highlight {
+          margin: 0;
+        }
       }
     }
 
-    // research.js marks pinned papers with .is-pinned. The badge covers the teaser's
-    // corner point only while its offset exceeds about 0.15 × its diameter.
+    // research.js marks pinned papers with .is-pinned; the pin sits in the teaser's top-right
+    // corner, where the gallery shows its slide count.
     li.is-pinned .abbr figure {
       position: relative;
     }
@@ -1531,8 +1687,8 @@ ul.task-list input[type="checkbox"] {
     li.is-pinned .abbr figure::after {
       content: "\f08d"; // Font Awesome thumbtack
       position: absolute;
-      top: -0.26rem;
-      left: -0.26rem;
+      top: 0.6rem;
+      right: 0.6rem;
       z-index: 1;
       display: flex;
       align-items: center;
@@ -1541,6 +1697,7 @@ ul.task-list input[type="checkbox"] {
       height: 1.4rem;
       border-radius: 50%;
       background: color-mix(in srgb, var(--global-theme-color) 80%, transparent);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.22);
       color: #fff;
       font: var(--fa-font-solid);
       font-size: 0.62rem;
@@ -1979,7 +2136,7 @@ ul.task-list input[type="checkbox"] {
     position: relative;
     width: min(100%, var(--about-text-max-width));
     margin: 0 auto;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: var(--about-card-font);
 
     &.is-masonry .ig-post,
     &.is-masonry .gallery-plain-embed {
