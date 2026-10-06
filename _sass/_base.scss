@@ -1000,7 +1000,16 @@ ul.task-list input[type="checkbox"] {
   }
 
   .about-prompt.is-search-ready .about-bio-search {
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  // The magnifier before the query, in the placeholder's grey.
+  .about-search-icon {
+    flex: none;
+    color: var(--global-text-color-light);
+    font-size: 1.05em;
   }
 
   .about-prompt.is-searching > p:not(.about-bio-search):not(.about-prompt-ghost) {
@@ -1009,7 +1018,9 @@ ul.task-list input[type="checkbox"] {
 
   .about-prompt-search-input {
     display: block;
+    flex: 1 1 auto;
     width: 100%;
+    min-width: 0;
     padding: 0;
     border: 0;
     background: transparent;
@@ -1024,37 +1035,51 @@ ul.task-list input[type="checkbox"] {
     }
   }
 
-  // The row's last button: a stop sign while searching.
+  // The row's last button: a white magnifier on a solid disc (about 28px), drawn as one SVG so
+  // the two scale as one on hover (a font glyph over a background snaps to pixels on its own
+  // and drifts); while searching, a stop sign the size of the disc.
   .about-prompt-search {
     flex-shrink: 0;
     margin-right: -0.18rem;
     font-size: 1.22rem;
     transform: translateY(0.15rem);
 
-    // A white magnifier on a solid disc, the same size as the stop sign (about 28px).
-    &:not([aria-pressed="true"]) i {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 1.69em;
-      height: 1.69em;
-      border-radius: 50%;
-      background: color-mix(in srgb, var(--global-text-color) 68%, var(--global-subtitle-color));
-      color: var(--global-card-bg-color);
-      font-size: 0.86em;
-      transition: background-color 0.18s ease;
+    // Without the other actions' tilt: on a disc only the glyph would visibly turn.
+    &:hover {
+      transform: translateY(-4px) scale(1.12);
     }
 
-    &:not([aria-pressed="true"]):hover i {
-      background: var(--global-theme-color);
+    &:active {
+      transform: translateY(0) scale(0.94);
     }
 
-    &[aria-pressed="true"] {
+    &:not([aria-pressed="true"]):hover .about-prompt-search-disc circle {
+      fill: var(--global-theme-color);
+    }
+
+    i {
+      font-size: 1.45em;
       color: var(--global-theme-color);
+    }
 
-      i {
-        font-size: 1.45em;
-      }
+    &[aria-pressed="true"] .about-prompt-search-disc,
+    &:not([aria-pressed="true"]) i {
+      display: none;
+    }
+  }
+
+  .about-prompt-search-disc {
+    display: block;
+    width: 1.45em;
+    height: 1.45em;
+
+    circle {
+      fill: color-mix(in srgb, var(--global-text-color) 68%, var(--global-subtitle-color));
+      transition: fill 0.18s ease;
+    }
+
+    path {
+      fill: var(--global-card-bg-color);
     }
   }
 

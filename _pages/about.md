@@ -50,7 +50,7 @@ Blogs are coming soon!
 Yolo's latest updates, newest first.
 {: .about-bio-panel .about-bio-news}
 
-<p class="about-bio-search" markdown="0"><input type="text" class="about-prompt-search-input" role="combobox" placeholder="Search papers, illustrations, posts and news" autocomplete="off" spellcheck="false" aria-label="Search the site" aria-autocomplete="list" aria-expanded="false" aria-controls="about-search-results"></p>
+<p class="about-bio-search" markdown="0"><i class="ti ti-search about-search-icon" aria-hidden="true"></i><input type="text" class="about-prompt-search-input" role="combobox" placeholder="Search papers, illustrations, posts and news" autocomplete="off" spellcheck="false" aria-label="Search the site" aria-autocomplete="list" aria-expanded="false" aria-controls="about-search-results"></p>
 
 <div class="about-prompt-actions" aria-label="Contact links">
   <div class="about-prompt-action-group">
@@ -169,7 +169,14 @@ Yolo's latest updates, newest first.
     </div>
   </details>
   <button type="button" class="about-prompt-action about-prompt-search" aria-label="Search" title="Search" aria-pressed="false">
-    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+    <svg class="about-prompt-search-disc" viewBox="0 0 28 28" aria-hidden="true">
+      <circle cx="14" cy="14" r="14" />
+      <path
+        transform="translate(5.72 5.72) scale(0.03232)"
+        d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
+      />
+    </svg>
+    <i class="fa-solid fa-circle-stop" aria-hidden="true"></i>
   </button>
 </div>
 

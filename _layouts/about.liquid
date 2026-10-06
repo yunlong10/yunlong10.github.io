@@ -707,8 +707,8 @@ layout: default
     typePromptText();
 
     // Search mode: the magnifier at the right of the card backspaces the text away and
-    // leaves a search field (results drop down under the card as you type). Meanwhile
-    // the magnifier is an ×, which backspaces the query and types the card's text back in.
+    // leaves a search field (results drop down under the card as you type). Meanwhile the
+    // magnifier is a stop sign, which backspaces the query and types the card's text back in.
     function isPromptSearching() {
       return promptBox.classList.contains('is-searching');
     }
@@ -730,7 +730,6 @@ layout: default
         searchToggle.setAttribute('aria-pressed', String(searching));
         searchToggle.setAttribute('aria-label', searching ? 'Close search' : 'Search');
         searchToggle.title = searching ? 'Close search' : 'Search';
-        searchToggle.querySelector('i').className = searching ? 'fa-solid fa-circle-stop' : 'fa-solid fa-magnifying-glass';
       };
 
       var enterSearch = function () {
