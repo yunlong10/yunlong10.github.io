@@ -3018,6 +3018,20 @@ body:not(.is-about-creative-mode):not(.is-about-meow-mode) {
   }
 }
 
+// The photos are clicked through in quick succession, which would otherwise select them and
+// tint them with the selection colour.
+.navbar-menu-avatar,
+.profile-drawer-photo,
+.navbar-avatar-modal,
+.ig-avatar-button {
+  -webkit-user-select: none;
+  user-select: none;
+
+  img {
+    -webkit-user-drag: none;
+  }
+}
+
 // Opened from the navbar avatar: every mode's links at once. Sits under the photo modal (1060).
 html.has-profile-drawer {
   overflow: hidden;
