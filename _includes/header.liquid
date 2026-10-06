@@ -153,7 +153,9 @@
       </section>
       <section>
         <h2>Academic</h2>
-        <a href="{{ '/news/' | relative_url }}"> <i class="fa-regular fa-newspaper" aria-hidden="true"></i><span>News</span> </a>
+        <a href="{{ '/?panel=news' | relative_url }}" data-drawer-panel="news">
+          <i class="fa-regular fa-newspaper" aria-hidden="true"></i><span>News</span>
+        </a>
         <a href="https://scholar.google.com/citations?user={{ site.scholar_userid }}" target="_blank" rel="noopener noreferrer">
           <i class="ai ai-google-scholar" aria-hidden="true"></i><span>Google Scholar</span>
         </a>
@@ -384,12 +386,20 @@
               return item.section !== 'Theme' && (item.handler || item.section === 'News');
             })
             .map(function (item) {
+              var title = plainText(item.title);
               return {
                 section: item.section,
-                title: plainText(item.title),
+                title: title,
                 meta: plainText(item.description),
-                run: item.handler,
-                href: item.handler ? null : home + 'news/',
+                // Inline news live in the homepage's News panel: there the panel opens at the news.
+                run:
+                  item.handler ||
+                  (window.showNewsItem
+                    ? function () {
+                        window.showNewsItem(title);
+                      }
+                    : null),
+                href: item.handler ? null : home + '?panel=news',
               };
             });
           var paperItems = (papers || []).map(function (paper) {
@@ -398,8 +408,15 @@
               section: 'Papers',
               title: paper.title,
               meta: [venue, paper.authors].filter(Boolean).join(' \u00b7 '),
-              // Selected papers are on the homepage: open its Research panel filtered to this one.
-              href: paper.selected ? home + '?panel=research#' + encodeURIComponent(paper.title) : paper.url,
+              // Selected papers are in the homepage's Research panel: there the list scrolls to the
+              // paper; elsewhere via /?panel=research&paper=<key>. The rest open their own page.
+              run:
+                paper.selected && window.showResearchPaper
+                  ? function () {
+                      window.showResearchPaper(paper.key);
+                    }
+                  : null,
+              href: paper.selected ? home + '?panel=research&paper=' + encodeURIComponent(paper.key) : paper.url,
               external: !paper.selected,
             };
           });
@@ -605,11 +622,10 @@
         // On the homepage these open the panel in place; elsewhere they follow ?panel=.
         drawer.querySelectorAll('[data-drawer-panel]').forEach(function (link) {
           link.addEventListener('click', function (e) {
-            var button = document.querySelector('.about-quick-links [data-about-panel-trigger="' + link.getAttribute('data-drawer-panel') + '"]');
-            if (!button) return;
+            if (!window.openAboutPanel) return;
             e.preventDefault();
             closeDrawer();
-            if (button.getAttribute('aria-expanded') !== 'true') button.click();
+            window.openAboutPanel(link.getAttribute('data-drawer-panel'));
           });
         });
         // Keep Tab inside the open drawer.

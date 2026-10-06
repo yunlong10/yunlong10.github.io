@@ -821,7 +821,7 @@
     applyFilter('illustration');
 
     // Site search (header.liquid) lands here: show the post (switching to #All if the current
-    // tag hides it), scroll it into view below the docked card and flash it.
+    // tag hides it), scroll it into view below the docked card and flash it once there.
     window.revealGalleryPainting = function (id) {
       var target = document.getElementById(id);
       if (!feed || !target || !feed.contains(target)) return;
@@ -845,21 +845,40 @@
       });
       Promise.race([Promise.all(pending), timeout]).then(function () {
         layoutMasonry();
-        target.classList.remove('is-search-hit');
-        void target.offsetWidth;
-        target.classList.add('is-search-hit');
         followRevealTarget(target);
       });
     };
 
+    // The flash class comes off once it has played (2.8s, card-hit-glow in _base.scss): a post
+    // hidden by a tag and shown again would otherwise replay it.
+    var revealFlash = null;
+    function flashPost(target) {
+      if (revealFlash) {
+        window.clearTimeout(revealFlash.timer);
+        revealFlash.target.classList.remove('is-search-hit');
+      }
+      target.classList.remove('is-search-hit');
+      void target.offsetWidth;
+      target.classList.add('is-search-hit');
+      revealFlash = {
+        target: target,
+        timer: window.setTimeout(function () {
+          target.classList.remove('is-search-hit');
+          revealFlash = null;
+        }, 2800),
+      };
+    }
+
     // Late image loads re-flow the masonry, and the browser can cancel a smooth scroll while
     // the page finishes loading. So for a few seconds, whenever scrolling has come to rest
-    // with the post out of place, glide to it again; any user input stops this.
+    // with the post out of place, glide to it again; any user input stops this. The post
+    // flashes once the scroll has brought it there, as papers do (research.js).
     var revealFollow = null;
+    var revealStopEvents = ['wheel', 'touchstart', 'keydown', 'pointerdown'];
     function stopRevealFollow() {
       if (!revealFollow) return;
       window.clearInterval(revealFollow.timer);
-      ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(function (type) {
+      revealStopEvents.forEach(function (type) {
         window.removeEventListener(type, stopRevealFollow);
       });
       revealFollow = null;
@@ -874,19 +893,41 @@
       function glide() {
         window.scrollTo({ top: window.scrollY + offset(), behavior: 'smooth' });
       }
+      // In place, or as near as the page scrolls (the last posts can't reach the top).
+      function arrived() {
+        var off = offset();
+        if (Math.abs(off) <= 2) return true;
+        var maxY = document.documentElement.scrollHeight - window.innerHeight;
+        return off > 0 ? window.scrollY >= maxY - 1 : window.scrollY <= 0;
+      }
+      var flashed = false;
+      function flashOnce() {
+        if (flashed) return;
+        flashed = true;
+        flashPost(target);
+      }
       var lastY = window.scrollY;
       var until = Date.now() + 4000;
-      revealFollow = {
+      var follow = (revealFollow = {
         timer: window.setInterval(function () {
-          if (Date.now() > until) return stopRevealFollow();
+          if (Date.now() > until) {
+            flashOnce();
+            return stopRevealFollow();
+          }
           var resting = window.scrollY === lastY;
           lastY = window.scrollY;
-          if (resting && Math.abs(offset()) > 2) glide();
-        }, 250),
-      };
-      ['wheel', 'touchstart', 'keydown', 'pointerdown'].forEach(function (type) {
-        window.addEventListener(type, stopRevealFollow, { passive: true });
+          if (!resting) return;
+          if (arrived()) flashOnce();
+          else glide();
+        }, 150),
       });
+      // After the keydown that may have chosen the result has finished reaching the window.
+      window.setTimeout(function () {
+        if (revealFollow !== follow) return;
+        revealStopEvents.forEach(function (type) {
+          window.addEventListener(type, stopRevealFollow, { passive: true });
+        });
+      }, 0);
       glide();
     }
 

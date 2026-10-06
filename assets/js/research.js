@@ -58,8 +58,8 @@
 
   function paperItemForKey(key) {
     if (!selectedPubs || !key) return null;
-    var entry = selectedPubs.querySelector("#" + key);
-    return entry ? entry.closest("li") : null;
+    var entry = document.getElementById(key);
+    return entry && selectedPubs.contains(entry) ? entry.closest("li") : null;
   }
 
   function parseKeys(raw) {
@@ -102,7 +102,7 @@
     });
   }
 
-  // What narrows the list right now: { label, singlePaper } for a map node, { query } for a search.
+  // What narrows the list right now: { label } for a topic node, { query } for a search.
   var paperFilter = null;
   var paperStatusKey = "";
 
@@ -127,7 +127,7 @@
     var label = !paperFilter ? "" : paperFilter.query ? "\u201c" + paperFilter.query + "\u201d" : paperFilter.label;
     var isEmpty = !!(paperFilter && paperFilter.query && !count);
     // Unchanged text is left alone so the role="status" region isn't re-announced.
-    var key = paperFilter ? label + "|" + count + "|" + !!paperFilter.singlePaper : "";
+    var key = paperFilter ? label + "|" + count : "";
     if (key === paperStatusKey) return;
     paperStatusKey = key;
 
@@ -135,7 +135,7 @@
     paperStatus.classList.toggle("is-empty", isEmpty);
     if (paperStatusClear) {
       paperStatusClear.hidden = !paperFilter;
-      paperStatusClear.setAttribute("aria-label", paperFilter && paperFilter.query ? "Clear search" : "Clear filter");
+      paperStatusClear.setAttribute("aria-label", "Clear filter");
     }
     paperStatusText.textContent = "";
     if (!paperFilter) return;
@@ -147,7 +147,6 @@
     labelEl.className = "research-paper-status-label";
     labelEl.textContent = label;
     paperStatusText.appendChild(labelEl);
-    if (paperFilter.singlePaper) return;
     var countEl = document.createElement("span");
     countEl.className = "research-paper-status-count";
     countEl.textContent = " \u00b7 " + (count === 1 ? "1 paper" : count + " papers");
@@ -417,16 +416,149 @@
     });
     node.classList.add("active");
     if (sortSelect && !isDefaultSort()) sortSelect.dispatchEvent(new Event("change"));
-    setPaperFilter({ label: nodeLabel(node), singlePaper: node.classList.contains("rm-station") });
+    setPaperFilter({ label: nodeLabel(node) });
     revealPaperPanel(true);
     return true;
+  }
+
+  // A paper's node on the map, or a paper chosen in site search (window.revealResearchPaper,
+  // via about.liquid), scrolls the list to that paper and flashes it, rather than narrowing
+  // the list to it. A paper the list isn't showing (another node's papers, a search) brings
+  // the whole list back first.
+  var paperRequestId = 0;
+
+  function showPaper(key) {
+    var li = paperItemForKey(key);
+    if (!li) return false;
+    if (!isPaperPanelVisible() || li.hidden || li.classList.contains("unloaded")) {
+      clearBibSearch();
+      setControlMode(null);
+      showDefaultPapers();
+    }
+    // Faded in already, not only once the scroll brings it into view.
+    li.classList.add("niji-revealed");
+    // Lazy teasers before it would re-flow the masonry after the scroll; load them first.
+    var items = allPaperItems();
+    var pending = [];
+    items.slice(0, items.indexOf(li) + 1).forEach(function (item) {
+      item.querySelectorAll("img").forEach(function (img) {
+        img.loading = "eager";
+        if (img.complete) return;
+        pending.push(
+          new Promise(function (resolve) {
+            img.addEventListener("load", resolve);
+            img.addEventListener("error", resolve);
+          })
+        );
+      });
+    });
+    var request = ++paperRequestId;
+    var timeout = new Promise(function (resolve) {
+      window.setTimeout(resolve, 800);
+    });
+    Promise.race([Promise.all(pending), timeout]).then(function () {
+      if (request !== paperRequestId) return;
+      followPaper(li);
+    });
+    return true;
+  }
+
+  // Late teaser loads re-flow the masonry, and the browser can drop a smooth scroll while the
+  // page is busy. So for a few seconds, whenever scrolling has come to rest with the card out
+  // of place, glide to it again; any user input stops this (as for gallery search hits). The
+  // card flashes once the scroll has brought it there, so the flash isn't spent on the way.
+  var paperFollow = null;
+  var paperFollowStopEvents = ["wheel", "touchstart", "keydown", "pointerdown"];
+
+  // The flash class comes off once it has played (2.8s, card-hit-glow in _base.scss):
+  // a card hidden and shown again, as a filter does, would otherwise replay it.
+  var paperFlash = null;
+
+  function flashPaper(li) {
+    if (paperFlash) {
+      window.clearTimeout(paperFlash.timer);
+      paperFlash.li.classList.remove("is-map-hit");
+    }
+    li.classList.remove("is-map-hit");
+    void li.offsetWidth;
+    li.classList.add("is-map-hit");
+    paperFlash = {
+      li: li,
+      timer: window.setTimeout(function () {
+        li.classList.remove("is-map-hit");
+        paperFlash = null;
+      }, 2800),
+    };
+  }
+
+  function stopPaperFollow() {
+    if (!paperFollow) return;
+    window.clearInterval(paperFollow.timer);
+    paperFollowStopEvents.forEach(function (type) {
+      window.removeEventListener(type, stopPaperFollow);
+    });
+    paperFollow = null;
+  }
+
+  function followPaper(li) {
+    stopPaperFollow();
+    // 16px below the docked prompt card, leaving out the slide of the card's scroll-in reveal
+    // (nijigen_motion.js), which may still be running.
+    function offset() {
+      var card = document.querySelector(".about-prompt");
+      var cardBottom = card ? (parseFloat(window.getComputedStyle(card).top) || 60) + card.offsetHeight : 60;
+      var slide = parseFloat((window.getComputedStyle(li).translate || "").split(" ")[1]) || 0;
+      return li.getBoundingClientRect().top - slide - cardBottom - 16;
+    }
+    function glide() {
+      window.scrollTo({ top: window.scrollY + offset(), behavior: "smooth" });
+    }
+    // In place, or as near as the page scrolls (the last cards can't reach the top).
+    function arrived() {
+      var off = offset();
+      if (Math.abs(off) <= 2) return true;
+      var maxY = document.documentElement.scrollHeight - window.innerHeight;
+      return off > 0 ? window.scrollY >= maxY - 1 : window.scrollY <= 0;
+    }
+    var flashed = false;
+    function flashOnce() {
+      if (flashed) return;
+      flashed = true;
+      flashPaper(li);
+    }
+    var lastY = window.scrollY;
+    var until = Date.now() + 4000;
+    var follow = (paperFollow = {
+      timer: window.setInterval(function () {
+        if (Date.now() > until) {
+          flashOnce();
+          return stopPaperFollow();
+        }
+        var resting = window.scrollY === lastY;
+        lastY = window.scrollY;
+        if (!resting) return;
+        if (arrived()) flashOnce();
+        else glide();
+      }, 150),
+    });
+    // After the keydown that may have chosen the node has finished reaching the window.
+    window.setTimeout(function () {
+      if (paperFollow !== follow) return;
+      paperFollowStopEvents.forEach(function (type) {
+        window.addEventListener(type, stopPaperFollow, { passive: true });
+      });
+    }, 0);
+    glide();
   }
 
   function activateMapNode(node, event) {
     if (!node) return;
     if (event) event.preventDefault();
-    showPapersForNode(node);
+    if (node.classList.contains("rm-station")) showPaper(node.getAttribute("data-paper-key"));
+    else showPapersForNode(node);
   }
+
+  window.revealResearchPaper = showPaper;
 
   var panState = null;
   var PAN_THRESHOLD = 6;

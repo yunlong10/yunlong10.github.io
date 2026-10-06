@@ -161,7 +161,7 @@ layout: default
     })();
 
     var currentSpeechMode = 'Academic';
-    var newsArchiveUrl = "{{ '/news/' | relative_url }}";
+    var newsArchiveUrl = "{{ '/?panel=news' | relative_url }}";
     var names = speechModes[currentSpeechMode].greetings;
     var interactionMessages = speechModes[currentSpeechMode].interactions;
     var index = 0;
@@ -268,13 +268,13 @@ layout: default
       }
       if (githubAction && githubIcon) {
         var usePixiv = mode === 'Creative';
-        var useYarn = mode === 'Meow';
-        githubAction.href = useYarn
+        var useGlobe = mode === 'Meow';
+        githubAction.href = useGlobe
           ? githubAction.dataset.visitorsHref
           : usePixiv
             ? githubAction.dataset.pixivHref
             : githubAction.dataset.githubHref;
-        var ghLabel = useYarn
+        var ghLabel = useGlobe
           ? githubAction.dataset.visitorsLabel
           : usePixiv
             ? githubAction.dataset.pixivLabel
@@ -282,7 +282,7 @@ layout: default
         githubAction.title = ghLabel;
         githubAction.setAttribute('aria-label', ghLabel);
         githubAction.classList.toggle('is-pixiv', usePixiv);
-        githubAction.classList.toggle('is-yarn', useYarn);
+        githubAction.classList.toggle('is-globe', useGlobe);
       }
       if (modelPicker) {
         modelPicker.classList.toggle('is-creative-mode', mode === 'Creative');
@@ -810,13 +810,30 @@ layout: default
       }
 
       // Any other link with data-about-panel-trigger can open a panel too, but the
-      // expanded/active state always belongs to the panel's quick-link button.
+      // expanded/active state always belongs to the panel's quick-link button. News has no
+      // button: the news bubble, drawer and search open it.
       function panelButton(panel) {
         return document.querySelector('.about-quick-links [data-about-panel-trigger="' + panel.getAttribute('data-about-panel') + '"]');
       }
 
+      // The header names the open panel, and goes back to the site name once they all close.
+      var headerBrand = document.querySelector('.navbar-brand-centered');
+      var headerBrandHtml = headerBrand ? headerBrand.innerHTML : '';
+
+      function setHeaderTitle(label) {
+        if (!headerBrand) return;
+        if (!label) {
+          headerBrand.innerHTML = headerBrandHtml;
+          return;
+        }
+        var title = document.createElement('span');
+        title.className = 'font-weight-bold';
+        title.textContent = label;
+        headerBrand.replaceChildren(title);
+      }
+
       // While a panel is open, the card types out that panel's hint instead of the bio.
-      var panelHintClasses = { research: 'shows-research-hint', gallery: 'shows-gallery-hint', blog: 'shows-blog-hint' };
+      var panelHintClasses = { research: 'shows-research-hint', gallery: 'shows-gallery-hint', blog: 'shows-blog-hint', news: 'shows-news-hint' };
       var promptPanel = null;
 
       function setPromptPanel(name) {
@@ -947,10 +964,12 @@ layout: default
       }
 
       function closeInlinePanel(panel, trigger) {
-        if (!panel || !trigger) return;
+        if (!panel) return;
         panel.classList.remove('is-visible');
-        trigger.setAttribute('aria-expanded', 'false');
-        trigger.classList.remove('is-active');
+        if (trigger) {
+          trigger.setAttribute('aria-expanded', 'false');
+          trigger.classList.remove('is-active');
+        }
         window.setTimeout(function () {
           if (!panel.classList.contains('is-visible')) panel.hidden = true;
           if (aboutRoot && panel.getAttribute('data-about-panel') === 'blog') {
@@ -1004,8 +1023,11 @@ layout: default
         });
 
         panel.hidden = false;
-        trigger.setAttribute('aria-expanded', 'true');
-        trigger.classList.add('is-active');
+        if (trigger) {
+          trigger.setAttribute('aria-expanded', 'true');
+          trigger.classList.add('is-active');
+        }
+        setHeaderTitle(panel.getAttribute('aria-label'));
         // The mascot ducks behind the card first; only then does the card leave for the dock.
         if (mascotShowing) {
           aboutRoot.style.setProperty('--mascot-duck-distance', mascotDuckDistance() + 'px');
@@ -1024,7 +1046,7 @@ layout: default
               onShown();
               return;
             }
-            if (['blog', 'gallery'].indexOf(panel.getAttribute('data-about-panel')) !== -1) {
+            if (['blog', 'gallery', 'news'].indexOf(panel.getAttribute('data-about-panel')) !== -1) {
               return;
             }
             panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -1041,6 +1063,7 @@ layout: default
         });
         // Restore the page layout first, so the card glides towards where it will settle.
         aboutRoot.classList.remove('is-blog-panel-open', 'is-research-panel-open', 'is-gallery-panel-open');
+        setHeaderTitle(null);
         scheduleInlinePanelRestore();
         setPromptPanel(null);
       }
@@ -1057,35 +1080,89 @@ layout: default
           closeAllInlinePanels();
           return;
         }
-        openInlinePanel(panel, panelButton(panel) || trigger);
+        openInlinePanel(panel, panelButton(panel));
       });
 
-      // Gallery results from site search: open the Gallery panel and go to the post.
-      var galleryPanel = document.querySelector('[data-about-panel="gallery"]');
-      window.showGalleryPainting = function (id) {
-        if (!galleryPanel) return;
-        function reveal() {
-          if (window.revealGalleryPainting) window.revealGalleryPainting(id);
-        }
-        if (galleryPanel.classList.contains('is-visible')) reveal();
+      // The profile drawer's links (header.liquid) open a panel by name, and leave it open.
+      window.openAboutPanel = function (name) {
+        var panel = document.querySelector('[data-about-panel="' + name + '"]');
+        if (panel && !panel.classList.contains('is-visible')) openInlinePanel(panel, panelButton(panel));
+      };
+
+      // Gallery and paper results from site search: open their panel, then go to the item.
+      function openPanelAndReveal(panel, reveal) {
+        if (!panel) return;
+        if (panel.classList.contains('is-visible')) reveal();
         else
-          openInlinePanel(galleryPanel, panelButton(galleryPanel), function () {
+          openInlinePanel(panel, panelButton(panel), function () {
             // The panel unfolds over 0.58s (grid-template-rows); positions settle after that.
             window.setTimeout(reveal, 620);
           });
+      }
+
+      var galleryPanel = document.querySelector('[data-about-panel="gallery"]');
+      window.showGalleryPainting = function (id) {
+        openPanelAndReveal(galleryPanel, function () {
+          if (window.revealGalleryPainting) window.revealGalleryPainting(id);
+        });
+      };
+
+      var researchPanel = document.querySelector('[data-about-panel="research"]');
+      window.showResearchPaper = function (key) {
+        openPanelAndReveal(researchPanel, function () {
+          if (window.revealResearchPaper) window.revealResearchPaper(key);
+        });
+      };
+
+      // News results carry the news' opening words (the search index keeps its first 13), which
+      // find its row; it scrolls under the docked card and flashes once the scroll stops.
+      var newsPanel = document.querySelector('[data-about-panel="news"]');
+      function squashText(text) {
+        return (text || '')
+          .replace(/(\.\.\.|\u2026)$/, '')
+          .replace(/\s+/g, '')
+          .toLowerCase();
+      }
+      window.showNewsItem = function (text) {
+        openPanelAndReveal(newsPanel, function () {
+          var needle = squashText(text).slice(0, 48);
+          var item = Array.prototype.find.call(newsPanel.querySelectorAll('.about-news-list > li'), function (li) {
+            return needle && squashText(li.textContent).indexOf(needle) !== -1;
+          });
+          if (!item) return;
+          var cardBottom = (parseFloat(getComputedStyle(promptBox).top) || 60) + promptBox.offsetHeight;
+          window.scrollTo({ top: window.scrollY + item.getBoundingClientRect().top - cardBottom - 16, behavior: 'smooth' });
+          var lastY = -1;
+          var restTimer = window.setInterval(function () {
+            if (window.scrollY !== lastY) {
+              lastY = window.scrollY;
+              return;
+            }
+            window.clearInterval(restTimer);
+            item.classList.remove('is-search-hit');
+            void item.offsetWidth;
+            item.classList.add('is-search-hit');
+            window.setTimeout(function () {
+              item.classList.remove('is-search-hit');
+            }, 2800);
+          }, 150);
+        });
       };
 
       // Links from other pages (the profile drawer, site search) arrive as /?panel=research
-      // etc.; a gallery search result adds &painting=<id>.
+      // etc.; a gallery search result adds &painting=<id>, a paper one &paper=<key>.
       var params = new URLSearchParams(window.location.search);
       var requestedPanel = document.querySelector('[data-about-panel="' + params.get('panel') + '"]');
       var requestedPainting = params.get('painting');
-      if (requestedPanel && panelButton(requestedPanel)) {
+      var requestedPaper = params.get('paper');
+      if (requestedPanel) {
         params.delete('panel');
         params.delete('painting');
+        params.delete('paper');
         var query = params.toString();
         history.replaceState(null, '', window.location.pathname + (query ? '?' + query : '') + window.location.hash);
         if (requestedPainting && requestedPanel === galleryPanel) window.showGalleryPainting(requestedPainting);
+        else if (requestedPaper && requestedPanel === researchPanel) window.showResearchPaper(requestedPaper);
         else openInlinePanel(requestedPanel, panelButton(requestedPanel));
       }
     }
@@ -1233,7 +1310,7 @@ layout: default
         message +
         ' <a class="about-news-archive" href="' +
         newsArchiveUrl +
-        '" aria-label="Open full news archive">All News</a>'
+        '" data-about-panel-trigger="news" aria-label="Open full news archive">All News</a>'
       );
     }
 

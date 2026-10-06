@@ -1,9 +1,11 @@
 <div class="research-controls">
   <div class="research-control-buttons" aria-label="Research controls">
     <div class="research-control-pill research-control-search" data-research-pill="search">
-      <button type="button" class="research-control-button" data-research-control="search" aria-pressed="false" title="Search publications">
-        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-        <span>Search</span>
+      <button type="button" class="research-control-button" data-research-control="search" aria-pressed="false" title="Filter publications">
+        <svg width="1em" height="1em" viewBox="0 0 16 16" aria-hidden="true">
+          <path d="M1.5 1.5h13M4 7.5h8M6.5 13.5h3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <span>Filter</span>
       </button>
       <div class="research-control-expansion">
         {% include bib_search.liquid %}

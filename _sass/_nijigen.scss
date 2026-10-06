@@ -628,7 +628,8 @@ html:not(.niji-theme-vt)::view-transition-new(root) {
   letter-spacing: 0 !important;
 }
 
-.about-hello .about-news-date {
+.about-hello .about-news-date,
+.about-news-list .about-news-date {
   display: inline-block;
   margin-right: 0.42em;
   padding: 0.08em 0.36em;

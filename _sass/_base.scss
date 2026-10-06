@@ -242,7 +242,8 @@ ul.task-list input[type="checkbox"] {
 
   .about-prompt.shows-research-hint .about-bio-research,
   .about-prompt.shows-gallery-hint .about-bio-gallery,
-  .about-prompt.shows-blog-hint .about-bio-blog {
+  .about-prompt.shows-blog-hint .about-bio-blog,
+  .about-prompt.shows-news-hint .about-bio-news {
     display: block;
   }
 
@@ -694,7 +695,7 @@ ul.task-list input[type="checkbox"] {
     display: inline-flex;
   }
 
-  // Meow mode keeps only the yarn ball (visitor map), Telegram and the mode picker.
+  // Meow mode keeps only the globe (visitor map), Telegram and the mode picker.
   &.is-meow-mode {
     .about-prompt-x,
     [data-about-scholar-action],
@@ -963,44 +964,31 @@ ul.task-list input[type="checkbox"] {
       display: block;
     }
 
-    .about-prompt-yarn-logo {
+    // The emoji glyph sits high in its line box; the top padding centres it in the box, so the
+    // globe spins about its own centre, which is also the button's.
+    .about-prompt-globe {
       display: none;
-      width: 1.2em;
-      height: 1.2em;
-      flex-shrink: 0;
-      overflow: visible;
-      color: var(--global-theme-color);
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.6;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-
-      circle {
-        fill: color-mix(in srgb, currentColor 14%, transparent);
-      }
-    }
-
-    .about-prompt-yarn-ball {
-      transform-box: view-box;
-      transform-origin: 12px 12px;
-      animation: about-yarn-spin 6s linear infinite;
+      padding-top: 0.067em;
+      font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+      font-size: 1.1em;
+      line-height: 1;
+      animation: about-globe-spin 6s linear infinite;
 
       @media (prefers-reduced-motion: reduce) {
         animation: none;
       }
     }
 
-    &.is-yarn .fa-github {
+    &.is-globe .fa-github {
       display: none !important;
     }
 
-    &.is-yarn .about-prompt-yarn-logo {
+    &.is-globe .about-prompt-globe {
       display: block;
     }
   }
 
-  @keyframes about-yarn-spin {
+  @keyframes about-globe-spin {
     to {
       transform: rotate(360deg);
     }
@@ -1094,21 +1082,46 @@ ul.task-list input[type="checkbox"] {
     }
   }
 
-  // A gallery post opened from search flashes once.
-  .ig-feed .is-search-hit {
-    animation: gallery-search-hit 1.8s ease-out;
+  // A paper reached from its map node or site search, and a gallery post or news item opened
+  // from search, flash once: a soft ring on the card's edge, glowing inward, holds, then
+  // spreads further in as it fades. It's an overlay above the card's content and stays inside
+  // the card, which the panels around would clip. Gallery posts are <article>s, so it undoes
+  // the article divider (which the homepage also hides).
+  .research-map-paper-panel ol.bibliography.is-masonry > li.is-map-hit::after,
+  .ig-feed.is-masonry .is-search-hit::after,
+  .about-news-list > li.is-search-hit::after {
+    content: "";
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    width: auto;
+    height: auto;
+    margin: 0;
+    border-radius: inherit;
+    background: none;
+    pointer-events: none;
+    animation: card-hit-glow 2.8s ease-out both;
   }
 
-  @keyframes gallery-search-hit {
-    0%,
-    45% {
-      outline: 2px solid var(--global-theme-color);
-      outline-offset: 4px;
+  @keyframes card-hit-glow {
+    0% {
+      box-shadow:
+        inset 0 0 0 3px transparent,
+        inset 0 0 0 0 transparent;
+    }
+
+    15%,
+    55% {
+      box-shadow:
+        inset 0 0 0 3px color-mix(in srgb, var(--global-theme-color) 55%, transparent),
+        inset 0 0 26px 6px color-mix(in srgb, var(--global-theme-color) 35%, transparent);
     }
 
     100% {
-      outline: 2px solid transparent;
-      outline-offset: 4px;
+      box-shadow:
+        inset 0 0 0 3px transparent,
+        inset 0 0 44px 14px transparent;
     }
   }
 
@@ -1120,14 +1133,15 @@ ul.task-list input[type="checkbox"] {
       transform: translateY(-0.0657em);
     }
 
-    // Telegram (Meow mode) sits level with the yarn ball and Discord, at the yarn ball's width.
+    // Telegram (Meow mode) sits centred in its button, level with the globe, at the globe's width.
+    // The Brands font's rounded metrics draw the glyph high on its line, hence the nudge down.
     &[data-contact-mode="telegram"] {
       transform: none;
     }
 
     .fa-telegram {
       font-size: 1.2em;
-      transform: none;
+      transform: translateY(0.035em);
     }
   }
 
@@ -1362,8 +1376,49 @@ ul.task-list input[type="checkbox"] {
   }
 
   .about-inline-simple,
-  .about-inline-blog {
+  .about-inline-blog,
+  .about-inline-news {
     padding-top: 0.4rem;
+  }
+
+  // Every news item, newest first: its date in the news bubble's pill, then the news, with a
+  // hairline between items (inset, so the rows can round for the search flash).
+  .about-news-list {
+    max-width: min(100%, 860px);
+    margin: 0 auto;
+    padding: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    list-style: none;
+    text-align: left;
+
+    > li {
+      position: relative;
+      display: flex;
+      align-items: baseline;
+      gap: 0.35rem;
+      padding: 0.7rem 0.6rem;
+      border-radius: 10px;
+    }
+
+    > li + li::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0.6rem;
+      left: 0.6rem;
+      height: 1px;
+      background: color-mix(in srgb, var(--global-divider-color) 70%, transparent);
+    }
+
+    .about-news-date {
+      flex: none;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .about-news-text {
+      min-width: 0;
+    }
   }
 
   .about-inline-blog {
@@ -1864,8 +1919,16 @@ ul.task-list input[type="checkbox"] {
       color 0.45s ease-in-out,
       transform 0.45s ease-in-out;
 
-    i {
+    i,
+    svg {
+      flex: none;
       color: var(--global-theme-color);
+    }
+
+    // Font Awesome glyphs sit a little above the middle of their box; the drawn filter icon
+    // is raised to line up with them.
+    svg {
+      transform: translateY(-0.07em);
     }
 
     &:hover,

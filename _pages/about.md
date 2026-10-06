@@ -29,7 +29,7 @@ jupyter: false
 
 <div class="about-bio about-prompt" markdown="1">
 
-Yolo is a final-year Ph.D. candidate at the [University of Rochester](https://www.rochester.edu/) (UR), advised by [Prof. Chenliang Xu](https://www.cs.rochester.edu/~cxu22/index.html), working on <a href="https://github.com/yunlong10/Awesome-LLMs-for-Video-Understanding">LMMs/Agents &times; Video Understanding</a>. She earned her M.S. from UR in 2025 en route to her Ph.D. and received her B.Eng. from [SUSTech](https://www.sustech.edu.cn/en/) in 2023. She has interned at [Amazon](https://www.aboutamazon.com/), [ByteDance](https://www.bytedance.com/en/), and [Tencent](https://www.tencent.com/).
+Yolo Y. Tang is a final-year Ph.D. candidate at the [University of Rochester](https://www.rochester.edu/) (UR), advised by [Prof. Chenliang Xu](https://www.cs.rochester.edu/~cxu22/index.html), working on <a href="https://github.com/yunlong10/Awesome-LLMs-for-Video-Understanding">LMMs/Agents &times; Video Understanding</a>. She earned her M.S. from UR in 2025 en route to her Ph.D. and received her B.Eng. from [SUSTech](https://www.sustech.edu.cn/en/) in 2023. Yolo has interned at [Amazon](https://www.aboutamazon.com/), [ByteDance](https://www.bytedance.com/en/), and [Tencent](https://www.tencent.com/).
 {: .about-bio-academic}
 
 Yolo is drawing for fun, self-teaching and not open to paid commissions or commercial collaborations. She is also really into J-pop and cosplay — maybe she’s just cosplaying as a researcher :)
@@ -46,6 +46,9 @@ Select a tag to filter: <span class="about-gallery-filters" role="group" aria-la
 
 Blogs are coming soon!
 {: .about-bio-panel .about-bio-blog}
+
+Yolo's latest updates, newest first.
+{: .about-bio-panel .about-bio-news}
 
 <p class="about-bio-search" markdown="0"><input type="text" class="about-prompt-search-input" role="combobox" placeholder="Search papers, illustrations, posts and news" autocomplete="off" spellcheck="false" aria-label="Search the site" aria-autocomplete="list" aria-expanded="false" aria-controls="about-search-results"></p>
 
@@ -88,7 +91,7 @@ Blogs are coming soon!
       data-visitors-label="Visitor map"
     >
       <i class="fa-brands fa-github" aria-hidden="true"></i>
-      <svg class="about-prompt-yarn-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><g class="about-prompt-yarn-ball"><circle cx="12" cy="12" r="10"/><path d="M2.6 8.58Q5.33 18.53 15.42 21.4M4.93 4.93Q10.27 13.87 19.07 19.07M8.58 2.6Q18.53 5.47 21.4 15.42M4.93 19.07Q8.13 8.93 19.07 4.93"/></g></svg>
+      <span class="about-prompt-globe" aria-hidden="true">🌎</span>
       <svg class="about-prompt-pixiv-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="#0096FA" d="M4.935 0A4.924 4.924 0 0 0 0 4.935v14.13A4.924 4.924 0 0 0 4.935 24h14.13A4.924 4.924 0 0 0 24 19.065V4.935A4.924 4.924 0 0 0 19.065 0zm7.81 4.547c2.181 0 4.058.676 5.399 1.847a6.118 6.118 0 0 1 2.116 4.66c.005 1.854-.88 3.476-2.257 4.563-1.375 1.092-3.225 1.697-5.258 1.697-2.314 0-4.46-.842-4.46-.842v2.718c.397.116 1.048.365.635.779H5.79c-.41-.41.19-.65.644-.779V7.666c-1.053.81-1.593 1.51-1.868 2.031.32 1.02-.284.969-.284.969l-1.09-1.73s3.868-4.39 9.553-4.39zm-.19.971c-1.423-.003-3.184.473-4.27 1.244v8.646c.988.487 2.484.832 4.26.832h.01c1.596 0 2.98-.593 3.93-1.533.952-.948 1.486-2.183 1.492-3.683-.005-1.54-.504-2.864-1.42-3.86-.918-.992-2.274-1.645-4.002-1.646Z"/></svg>
     </a>
     <a
@@ -186,7 +189,7 @@ Blogs are coming soon!
         <p class="research-paper-status-text" role="status"></p>
         <button type="button" class="research-paper-status-clear" hidden>
           <i class="fa-solid fa-xmark" aria-hidden="true"></i>
-          <span>Clear search</span>
+          <span>Clear filter</span>
         </button>
       </div>
       {% include selected_papers.liquid %}
@@ -225,6 +228,26 @@ Blogs are coming soon!
         </li>
       {% endfor %}
     </ul>
+  </div>
+</section>
+
+<section id="about-news-panel" class="about-inline-panel about-inline-news" data-about-panel="news" aria-label="News" hidden>
+  <div class="about-inline-panel-inner">
+    <ol class="about-news-list">
+      {% assign news_items = site.news | sort: 'date' | reverse %}
+      {% for item in news_items %}
+        <li>
+          <time class="about-news-date" datetime="{{ item.date | date: '%Y-%m-%d' }}">{{ item.date | date: '%m/%d/%y' }}</time>
+          <div class="about-news-text">
+            {% if item.inline %}
+              {{ item.content | remove: '<p>' | remove: '</p>' | emojify }}
+            {% else %}
+              <a href="{{ item.url | relative_url }}">{{ item.title }}</a>
+            {% endif %}
+          </div>
+        </li>
+      {% endfor %}
+    </ol>
   </div>
 </section>
 
