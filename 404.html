@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Page moved</title>
+  <noscript><meta http-equiv="refresh" content="0;url=https://yoloytang.me/"></noscript>
+</head>
+<body>
+  <p>This page has moved to <a id="destination" href="https://yoloytang.me/">https://yoloytang.me/</a>.</p>
+  <script>
+    const destination = new URL("https://yoloytang.me");
+    destination.pathname = window.location.pathname;
+    destination.search = window.location.search;
+    destination.hash = window.location.hash;
+    const link = document.getElementById("destination");
+    link.href = destination.href;
+    link.textContent = destination.href;
+    window.location.replace(destination.href);
+  </script>
+</body>
+</html>
+
